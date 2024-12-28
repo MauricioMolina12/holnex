@@ -1,0 +1,23 @@
+// Custom properties for light mode
+:root {
+  --primary: #2292a4;
+  --primary-hover: #1a7b8a;
+  --secondary: #062023;
+  --gray-dark: #545453;
+  --gray-light: #a5a5a5;
+  --bg-color-main: #EBEBEB;
+  --white: #FFFFFF;
+  --facebook: #1178F2;
+  
+  --50-p: 50%;
+  --100-p: 100%;
+}
+
+
+
+// Custom properties for dark mode
+.dark {
+  --primary: #062023;
+  --secondary: #010101;
+  --bg-color-main: linear-gradient(#062023, #010101);
+}

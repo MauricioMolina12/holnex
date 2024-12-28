@@ -33,13 +33,16 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/assets/img",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/variables.scss",
+              "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -97,6 +100,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/assets/img",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -110,5 +114,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "626e3656-59fe-4ed6-a7ff-fc3bf37c7d62"
   }
 }

@@ -1,0 +1,243 @@
+@import "../../../shared/styles/inputs.scss";
+@import "../../../../styles.scss";
+
+/* Phones */
+.main-content {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 1rem;
+  background-color: var(--bg-color-main);
+  background-color: var(--white);
+
+  .main-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .main-inputs {
+      width: 100%;
+      border-radius: 10px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-left: 2rem;
+      margin: 0 auto;
+
+      .logo-horizon {
+        max-width: 14%;
+        margin-bottom: 10px;
+      }
+
+      .subtitle,
+      .title {
+        margin: 0;
+        max-width: 90%;
+      }
+
+      .title {
+        font-size: 1.4rem;
+      }
+
+      .subtitle {
+        font-weight: 200;
+        font-size: 0.9rem;
+        color: var(--gray-light);
+      }
+
+      .link {
+        font-size: 0.8rem;
+        margin-bottom: 30px;
+        a {
+          text-decoration: none;
+          color: var(--primary);
+          font-weight: 700;
+        }
+      }
+
+      .user,
+      .password {
+        @include input-container;
+
+        label {
+          color: black;
+          position: absolute;
+          top: -14px;
+          left: -5px;
+          font-size: 0.8rem;
+          color: var(--gray-dark);
+          font-weight: 500;
+        }
+
+        input {
+          @include input-auth(var(--gray-light), var(--gray-dark), 100%);
+        }
+        i {
+          position: absolute;
+          right: 0.5rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--gray-dark);
+
+          &[class*="fa-lock"] {
+            right: 0.8rem;
+          }
+        }
+
+        .password-forget {
+          position: absolute;
+          bottom: -20px;
+          right: 0;
+          font-size: 0.8rem;
+          text-decoration: none;
+          color: var(--gray-light);
+        }
+      }
+
+      .button-login {
+        width: 95%;
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        align-items: end;
+        flex-direction: column;
+        gap: 10px;
+
+        button {
+          @include button-styles(
+            var(--primary),
+            var(--primary-hover),
+            60%,
+            50px
+          );
+        }
+      }
+
+      .networks {
+        width: 95%;
+        height: 80px;
+
+        .text-network {
+          width: 100%;
+          height: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+
+          p {
+            display: block;
+            width: auto;
+            color: var(--gray-dark);
+            font-size: 0.8rem;
+            background-color: var(--white);
+            z-index: 1000;
+            padding: 6px;
+          }
+
+          .line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--gray-light);
+          }
+        }
+
+        .networks-buttons {
+          height: 50%;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+
+          button {
+            display: inherit;
+            align-items: inherit;
+            justify-content: center;
+            border-radius: 8px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            height: 100%;
+            width: 40px;
+
+            &:first-of-type {
+              background-color: #ececec;
+              border: 1px solid var(--gray-light);
+            }
+
+            &:nth-of-type(2) {
+              background-color: var(--facebook);
+            }
+
+            img {
+              height: 20px;
+              width: auto;
+              object-fit: contain;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .main-form {
+      border-radius: 10px;
+      margin: 0 auto;
+      max-width: 75%;
+      height: auto;
+    }
+  }
+}
+
+/* Small laptops */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .main-form {
+      margin: 0 auto;
+      max-width: 60%;
+      height: auto;
+    }
+  }
+}
+
+/* Medium screens */
+@media (min-width: 1280px) and (max-width: 1919px) {
+  .main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .main-form {
+      margin: 0 auto;
+      max-width: 40%;
+      height: auto;
+    }
+  }
+}
+
+/* Big screens */
+@media (min-width: 1920px) {
+  .main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .main-form {
+      margin: 0 auto;
+      max-width: 30%;
+      height: auto;
+    }
+  }
+}
