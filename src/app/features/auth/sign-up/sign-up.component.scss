@@ -29,7 +29,7 @@
 
       .logo-horizon {
         max-width: 14%;
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
       }
 
       .subtitle,
@@ -50,7 +50,7 @@
 
       .link {
         font-size: 0.8rem;
-        margin-bottom: 10px;
+        // margin-bottom: 10px;
         a {
           text-decoration: none;
           color: var(--primary);
@@ -65,10 +65,13 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 10px;
+        position: relative;
 
         .step {
+          cursor: pointer;
           border-radius: 50%;
           border: 1px solid var(--primary);
+          background-color: var(--white);
           color: var(--primary);
           padding: 2px;
           height: 20px;
@@ -77,18 +80,157 @@
           align-items: center;
           justify-content: center;
           position: relative;
+          transition: background-color 0.3s, color 0.3s;
+          z-index: 10;
 
           &.active {
             background-color: var(--primary);
             color: var(--white);
           }
         }
+
+        .line-progress {
+          position: absolute;
+          left: 35px;
+          height: 1px;
+          background-color: var(--primary);
+          z-index: 9;
+          transition: width 0.5s ease-in-out;
+        }
       }
 
-      .info-step {
-        color: var(--gray-dark);
-        font-size: 0.8rem;
-        margin: 10px 0;
+      .step1 {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .step2 {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+
+        .email-container {
+          @include input-container;
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+
+          label {
+            position: absolute;
+            top: -4px;
+            left: 0;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            span {
+              color: var(--gray-dark);
+            }
+
+            span[title*="*"] {
+              color: red;
+            }
+          }
+
+          input {
+            position: absolute;
+            left: 0;
+            @include input-auth(var(--gray-light), var(--gray-dark), 80%);
+          }
+
+          i {
+            position: absolute;
+            right: 22%;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-dark);
+          }
+        }
+
+        .code-container {
+          @include input-container;
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: start;
+          padding-left: 0;
+
+          label {
+            position: absolute;
+            top: -4px;
+            left: 0;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            span {
+              color: var(--gray-dark);
+            }
+
+            span[title*="*"] {
+              color: red;
+            }
+          }
+
+          .code-inputs {
+            display: flex;
+            gap: 4px;
+
+            input {
+              width: calc(100% / 6);
+              height: 40px;
+              border-radius: 3px;
+              outline: none;
+              border: 1px solid var(--gray-light);
+            }
+          }
+        }
+      }
+
+      .step1,
+      .step2 {
+        animation: fadeIn 0.2s ease;
+
+        .info-step {
+          color: var(--gray-dark);
+          font-size: 0.8rem;
+          display: block;
+          margin-bottom: 20px;
+        }
+
+        .success {
+          opacity: 0;
+          visibility: hidden;
+          color: green;
+          font-size: 0.7rem;
+          margin: 0;
+          transition: opacity 3s ease, visibility 0s linear 3s;
+
+          &.show {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+
+        .error {
+          opacity: 0;
+          visibility: hidden;
+          color: red;
+          font-size: 0.7rem;
+          margin: 0;
+          transition: opacity 3s ease, visibility 0s linear 3s;
+
+          &.show {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
       }
 
       .username-container,
@@ -103,7 +245,8 @@
         .name,
         .lastname,
         .email,
-        .password {
+        .password,
+        .confirmPassword {
           @include input-container;
           padding: 10px;
           display: flex;
@@ -115,6 +258,17 @@
             top: -4px;
             left: 0;
             font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            span {
+              color: var(--gray-dark);
+            }
+
+            span[title*="*"] {
+              color: red;
+            }
           }
 
           input {
@@ -151,8 +305,24 @@
         flex-direction: column;
       }
 
+      .buttons-steps {
+        width: max-content;
+        display: flex;
+        gap: 10px;
+        border: 1px solid;
+
+        button:first-of-type {
+          @include button-styles(
+            var(--gray-light),
+            var(--primary-hover),
+            90px,
+            40px
+          );
+        }
+      }
+
       .button-container {
-        width: 100%;
+        width: 101%;
         display: flex;
         justify-content: center;
         margin-top: 2px;
@@ -164,7 +334,7 @@
           @include button-styles(
             var(--primary),
             var(--primary-hover),
-            60%,
+            40%,
             50px
           );
         }
@@ -196,7 +366,7 @@
             position: absolute;
             left: 0;
             width: 100%;
-            height: 1px;
+            height: 0.5px;
             background-color: var(--gray-light);
           }
         }
@@ -254,6 +424,16 @@
         .username-container {
           flex-direction: row;
         }
+
+        .step2 {
+          .code-container {
+            .code-inputs {
+              input {
+                width: calc(100% / 10);
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -272,6 +452,16 @@
       .main-inputs {
         .username-container {
           flex-direction: row;
+        }
+
+        .step2 {
+          .code-container {
+            .code-inputs {
+              input {
+                width: calc(100% / 10);
+              }
+            }
+          }
         }
       }
     }
@@ -292,6 +482,15 @@
         .username-container {
           flex-direction: row;
         }
+        .step2 {
+          .code-container {
+            .code-inputs {
+              input {
+                width: calc(100% / 10);
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -311,7 +510,28 @@
         .username-container {
           flex-direction: row;
         }
+        .step2 {
+          .code-container {
+            .code-inputs {
+              input {
+                width: calc(100% / 10);
+              }
+            }
+          }
+        }
       }
     }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }

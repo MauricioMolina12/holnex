@@ -6,4 +6,9 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   constructor() { }
+
+  isEmailValid(email: string): boolean {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
 }
