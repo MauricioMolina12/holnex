@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  currentStep: number = 3;
+  currentStep: number = 1;
   code: string[] = new Array(6).fill('');
   private typingTimeout: any;
   signUpForm!: FormGroup;

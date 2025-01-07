@@ -34,12 +34,12 @@
       }
 
       .title {
-        margin: 0;
-        font-size: 1.4rem;
-        max-width: 90%;
         user-select: none;
-
+        margin: 0;
+        max-width: 90%;
+        font-size: 1.1rem;
       }
+
 
       .link {
         font-size: 0.8rem;
@@ -51,45 +51,73 @@
         }
       }
 
-      .user,
-      .password {
-        @include input-container;
+      .username-container,
+      .password-container {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        position: relative;
+        gap: 15px;
 
-        label {
-          color: black;
-          position: absolute;
-          top: -14px;
-          left: -5px;
-          font-size: 0.8rem;
-          color: var(--gray-dark);
-          font-weight: 500;
-        }
+        .user,
+        .password {
+          @include input-container;
+          padding: 10px 0;
 
-        input {
-          @include input-auth(var(--gray-light), var(--gray-dark), 100%);
-        }
-        i {
-          position: absolute;
-          right: 0.5rem;
-          top: 50%;
-          transform: translateY(-50%);
-          color: var(--gray-dark);
+          label {
+            position: absolute;
+            top: -4px;
+            left: 0;
+            font-size: 0.8rem;
+            display: flex;
+            gap: 5px;
 
-          &[class*="fa-lock"] {
-            right: 0.8rem;
+            span {
+              color: var(--gray-dark);
+            }
+
+            span[title*="*"] {
+              display: block;
+              color: red;
+              font-size: 20px;
+            }
+          }
+
+          input {
+            position: absolute;
+            left: 0;
+            @include input-auth(var(--gray-light), var(--gray-dark), 100%);
+          }
+
+          i {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-dark);
+          }
+
+          .password-forget {
+            position: absolute;
+            bottom: -20px;
+            right: 0;
+            font-size: 0.8rem;
+            text-decoration: none;
+            color: var(--gray-light);
           }
         }
 
-        .password-forget {
-          position: absolute;
-          bottom: -20px;
-          right: 0;
-          font-size: 0.8rem;
-          text-decoration: none;
-          color: var(--gray-light);
+        .email input,
+        .password input {
+          @include input-auth(var(--gray-light), var(--gray-dark), 100%);
         }
       }
 
+      .username-container,
+      .password-container {
+        height: auto;
+        flex-direction: column;
+      }
 
       .button-login {
         width: 100%;
