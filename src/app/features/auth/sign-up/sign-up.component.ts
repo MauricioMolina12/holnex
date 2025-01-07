@@ -8,14 +8,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  currentStep: number = 2;
+  currentStep: number = 3;
   code: string[] = new Array(6).fill('');
   private typingTimeout: any;
   signUpForm!: FormGroup;
 
+  // Messages alerts
   successMessage: string = '';
   errorMessage: string = '';
 
+  // Forms
   formData = {
     name: '',
     lastname: '',
@@ -26,10 +28,13 @@ export class SignUpComponent {
     phone: '',
   };
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {
+  viewPassword: boolean = false;
+
+  constructor(public authService: AuthService, private fb: FormBuilder) {
     this.initializeForms();
   }
 
+  // This function is used to initialize the drivers
   initializeForms() {
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
@@ -47,25 +52,26 @@ export class SignUpComponent {
   }
 
   findStep(step: any) {
-    if (step <= this.currentStep || this.canProceed()) {
-      this.currentStep = step;
-      this.successMessage = '';
-    }
+    // if (step <= this.currentStep || this.canProceed()) {
+    this.currentStep = step;
+    this.successMessage = '';
+    // }
   }
 
+  // This function is used to validate access to each of the steps
   canProceed(): boolean {
     switch (this.currentStep) {
       case 1:
-        return this.signUpForm.get('name')?.valid ?? false;
-      case 2:
         return (
           (this.signUpForm.get('email')?.valid ?? false) &&
           this.authService.isEmailValid(this.signUpForm.get('email')?.value) &&
-          [0, 1, 2, 3, 4, 5].every(i => {
+          [0, 1, 2, 3, 4, 5].every((i) => {
             const codeValue = this.signUpForm.get(`code${i}`)?.value;
             return codeValue !== null && codeValue.toString().trim() !== '';
           })
         );
+      case 2:
+        return this.signUpForm.get('name')?.valid ?? false;
       case 3:
         return (
           (this.signUpForm.get('password')?.valid ?? false) &&
@@ -77,85 +83,117 @@ export class SignUpComponent {
         return true;
     }
   }
-  
 
-  // Function to validate fields and handle success message
-  validateField() {
-    clearTimeout(this.typingTimeout);
-  
-    this.typingTimeout = setTimeout(() => {
+  validateStep(step: number) {
+    switch (step) {
+      case 1:
+        const emailControl = this.signUpForm.get('email');
+        const isEmailValid =
+          emailControl?.valid &&
+          this.authService.isEmailValid(emailControl.value);
 
-      // Step 1 validations
-      if (this.currentStep === 1 && this.signUpForm.get('name')?.value.trim() !== '') {
-        
-        this.successMessage = 'Excelente! Ahora puedes seguir al segundo paso.';
-        setTimeout(() => {
-          this.currentStep = 2;
-        }, 3000);
-  
-        // Step 2 validations
- 
-      } else if (this.currentStep === 2) {
-        this.successMessage = '¡Excelente! Ya estás en el paso 2.';
-        
-        // Email valid and regex email valid validation
-        if (this.signUpForm.get('email')?.valid && this.authService.isEmailValid(this.signUpForm.get('email')?.value)) {
-          
-          // Join code controllers
-          const code = [
-            this.signUpForm.get('code0')?.value,
-            this.signUpForm.get('code1')?.value,
-            this.signUpForm.get('code2')?.value,
-            this.signUpForm.get('code3')?.value,
-            this.signUpForm.get('code4')?.value,
-            this.signUpForm.get('code5')?.value,
-          ].join('');
-  
-          // Check if all code fields are filled
-          const allCodeFilled = [0, 1, 2, 3, 4, 5].every(i => {
-            const codeValue = this.signUpForm.get(`code${i}`)?.value;
-            return codeValue !== null && codeValue.toString().trim() !== '';
-          });
-  
-          
-          // Validation of the code that arrives in the email
+        if (isEmailValid) {
+          let allCodeFilled = true;
+
+          for (let i = 0; i < this.code.length; i++) {
+            const codeField = this.signUpForm.get(`code${i}`);
+            const value = codeField?.value?.trim();
+
+            if (!value) {
+              allCodeFilled = false;
+              break;
+            }
+
+            // If the current field has a value, move focus to the next
+            if (value.length === 1 && i < 5) {
+              const nextInput = document.getElementById(
+                `code${i + 1}`
+              ) as HTMLInputElement;
+              nextInput?.focus();
+            }
+          }
+
+          // Combine all the values ​​of the entered code
+          const code = Array.from(
+            { length: 6 },
+            (_, i) => this.signUpForm.get(`code${i}`)?.value || ''
+          ).join('');
+
           if (allCodeFilled && code !== '123456') {
             this.errorMessage = 'El código de verificación es incorrecto';
-          
+            this.successMessage = '';
           } else if (allCodeFilled && code === '123456') {
-            this.successMessage = '¡Excelente! El código es correcto. Vamos al paso 3.';
-            setTimeout(() => {
-              this.currentStep = 3;
-            }, 3000);
-          
+            this.successMessage =
+              '¡Excelente! El código es correcto. Vamos al paso 2.';
+            this.errorMessage = '';
+            setTimeout(() => (this.currentStep = 2), 3000);
           } else {
             this.errorMessage = '';
           }
         }
-      } else if (
-        this.currentStep == 3 &&
-        this.signUpForm.get('password')?.valid &&
-        this.signUpForm.get('confirmPassword')?.valid &&
-        this.signUpForm.get('password')?.value ===
-          this.signUpForm.get('confirmPassword')?.value
-      ) {
-        this.successMessage = 'Excelente! Ahora vamos al cuarto paso.';
-        setTimeout(() => {
-          this.currentStep = 4;
-        }, 5000);
-      } else {
-        this.successMessage = '';
-      }
-    }, 1400); // 1400 ms = 1.4 seconds
+        break;
+      case 2:
+        if (this.signUpForm.get('name')?.value.trim() !== '') {
+          this.successMessage = '¡Excelente! Ya estás en el paso 2.';
+          setTimeout(() => {
+            this.currentStep = 3;
+          }, 3000);
+        }
+        break;
+      case 3:
+        if (
+          (this.signUpForm.get('password')?.valid && this.signUpForm.get('password')?.value?.trim()) &&
+          (this.signUpForm.get('confirmPassword')?.valid && this.signUpForm.get('confirmPassword')?.value?.trim()) &&
+          this.signUpForm.get('password')?.value?.trim() == this.signUpForm.get('confirmPassword')?.value?.trim()
+        ) {
+          this.successMessage =
+            'Excelente! Has finalizado el formulario de registro.';
+        }else{
+          this.successMessage = ''
+        }
+    }
   }
-  
 
+
+  // We use this function to calculate the progress of the registration steps.
   calculateLineWidth(): number {
-    const totalSteps = 4;
-    const stepWidth = document.querySelector('.steps')?.clientWidth || 0;
-    const lineWidth = (stepWidth / totalSteps) * (this.currentStep - 1);
+    const totalSteps = 3;
+    const stepWidth =
+      document.querySelector('.steps-indicator')?.clientWidth || 0;
+    const lineHTML$ = document.querySelector('.line-progress') as HTMLElement;
+    let lineWidth = (stepWidth / totalSteps) * (this.currentStep - 1);
+  
+    switch (this.currentStep) {
+      case 1:
+        lineWidth = 0;
+        if (lineHTML$) {
+          lineHTML$.style.left = '0'; 
+        }
+        break;
+      case 2:
+        lineWidth = stepWidth / 2; 
+        break;
+      case 3:
+        lineWidth = stepWidth; 
+        if (lineHTML$) {
+          lineHTML$.style.left = '0'; 
+        }
+        break;
+      default:
+        if (lineHTML$) {
+          lineHTML$.style.left = ''; 
+        }
+        break;
+    }
+  
     return lineWidth;
   }
+
+  togglePassword(e: any){
+    e.stopPropagation();
+    this.viewPassword = !this.viewPassword;
+  }
+  
 
   onSubmit() {
     console.log('signUpForm data:', this.formData);

@@ -12,7 +12,7 @@
 
   .main-form {
     width: 100%;
-    height: 100%;
+    height: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,29 +24,20 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding-left: 2rem;
       margin: 0 auto;
 
       .logo-horizon {
         max-width: 14%;
-        // margin-bottom: 20px;
+        user-select: none;
       }
-
-      .subtitle,
+      
       .title {
+        user-select: none;
         margin: 0;
         max-width: 90%;
+        font-size: 1rem;
       }
 
-      .title {
-        font-size: 1.4rem;
-      }
-
-      .subtitle {
-        font-weight: 200;
-        font-size: 0.9rem;
-        color: var(--gray-light);
-      }
 
       .link {
         font-size: 0.8rem;
@@ -58,13 +49,12 @@
         }
       }
 
-      .steps {
+      .steps-indicator {
         width: 100%;
         height: 40px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 10px;
         position: relative;
 
         .step {
@@ -82,6 +72,7 @@
           position: relative;
           transition: background-color 0.3s, color 0.3s;
           z-index: 10;
+          user-select: none;
 
           &.active {
             background-color: var(--primary);
@@ -91,7 +82,7 @@
 
         .line-progress {
           position: absolute;
-          left: 35px;
+          left: 26px;
           height: 1px;
           background-color: var(--primary);
           z-index: 9;
@@ -104,16 +95,10 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-      }
-
-      .step2 {
-        padding: 10px 0;
-        display: flex;
-        flex-direction: column;
 
         .email-container {
           @include input-container;
-          padding: 10px;
+          padding: 10px 0;
           display: flex;
           justify-content: center;
           flex-direction: column;
@@ -124,7 +109,6 @@
             left: 0;
             font-size: 0.8rem;
             display: flex;
-            align-items: center;
             gap: 5px;
 
             span {
@@ -132,19 +116,21 @@
             }
 
             span[title*="*"] {
+              display: block;
               color: red;
+              font-size: 20px;
             }
           }
 
           input {
             position: absolute;
             left: 0;
-            @include input-auth(var(--gray-light), var(--gray-dark), 80%);
+            @include input-auth(var(--gray-light), var(--gray-dark), 100%);
           }
 
           i {
             position: absolute;
-            right: 22%;
+            right: 3%;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gray-dark);
@@ -153,7 +139,7 @@
 
         .code-container {
           @include input-container;
-          padding: 10px;
+          padding: 10px 0;
           display: flex;
           justify-content: center;
           flex-direction: column;
@@ -174,7 +160,9 @@
             }
 
             span[title*="*"] {
+              display: block;
               color: red;
+              font-size: 20px;
             }
           }
 
@@ -183,18 +171,44 @@
             gap: 4px;
 
             input {
-              width: calc(100% / 6);
+              text-align: center;
+              width: calc(100% / 8);
               height: 40px;
               border-radius: 3px;
               outline: none;
               border: 1px solid var(--gray-light);
+
+              &::placeholder{
+                color: var(--gray-light);
+                font-size: 16px;
+              }
             }
+          }
+        }
+
+        .error-message {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          @include error;
+
+          svg{
+            color: white;
+            width: 10px;
+            height: 10px;
           }
         }
       }
 
-      .step1,
       .step2 {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .step1,
+      .step2,
+      .step3 {
         animation: fadeIn 0.2s ease;
 
         .info-step {
@@ -231,6 +245,89 @@
             visibility: visible;
           }
         }
+
+        .termsAndConditions{
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          input{
+            height: 30px;
+            width: 15px;
+            margin: 0;
+            padding: 0;
+          }
+
+          span{
+            color: var(--gray-dark);
+            font-size: 12px;
+          }
+        }
+      }
+
+      .step3 {
+        .info-step {
+          width: 80%;
+        }
+
+        .password-validations {
+          width: 100%;
+          height: auto;
+          min-height: 100px;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          justify-content: space-around;
+          gap: 8px;
+          margin: 14px 0;
+
+          [class*="validation"] {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            
+
+            i{
+              background-color: green;
+              border-radius: 50%;
+              color: white;
+              padding: 3px;
+              font-size: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            span {
+              color: var(--gray-dark);
+              font-size: 11px;
+            }
+
+            .check{
+              color: green;
+            }
+          }
+        }
+
+        .toggle-password-button{
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          gap: 10px;
+          
+          label{
+            cursor: pointer;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-size: 12px;
+            user-select: none;
+          }
+
+          input{
+            margin: 0;
+          }
+        }
+
       }
 
       .username-container,
@@ -248,10 +345,7 @@
         .password,
         .confirmPassword {
           @include input-container;
-          padding: 10px;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
+          padding: 10px 0;
 
           label {
             position: absolute;
@@ -259,7 +353,6 @@
             left: 0;
             font-size: 0.8rem;
             display: flex;
-            align-items: center;
             gap: 5px;
 
             span {
@@ -267,7 +360,9 @@
             }
 
             span[title*="*"] {
+              display: block;
               color: red;
+              font-size: 20px;
             }
           }
 
@@ -279,7 +374,7 @@
 
           i {
             position: absolute;
-            right: 0;
+            right: 5px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gray-dark);
@@ -301,8 +396,12 @@
         }
       }
 
-      .username-container {
+      .username-container,
+      .password-container {
+        height: auto;
         flex-direction: column;
+
+
       }
 
       .buttons-steps {
@@ -322,7 +421,7 @@
       }
 
       .button-container {
-        width: 101%;
+        width: 100%;
         display: flex;
         justify-content: center;
         margin-top: 2px;
@@ -351,6 +450,7 @@
           align-items: center;
           justify-content: center;
           position: relative;
+          margin: 10px 0;
 
           p {
             display: block;
@@ -364,7 +464,6 @@
 
           .line {
             position: absolute;
-            left: 0;
             width: 100%;
             height: 0.5px;
             background-color: var(--gray-light);
@@ -421,10 +520,14 @@
       max-width: 75%;
       height: auto;
       .main-inputs {
-        .username-container {
+        .username-container,
+        .password-container {
           flex-direction: row;
-        }
 
+          .password {
+            margin-bottom: 0;
+          }
+        }
         .step2 {
           .code-container {
             .code-inputs {
@@ -450,8 +553,12 @@
       max-width: 60%;
       height: auto;
       .main-inputs {
-        .username-container {
+        .username-container,
+        .password-container {
           flex-direction: row;
+          .password {
+            margin-bottom: 0;
+          }
         }
 
         .step2 {
@@ -479,8 +586,12 @@
       max-width: 40%;
       height: auto;
       .main-inputs {
-        .username-container {
+        .username-container,
+        .password-container {
           flex-direction: row;
+          .password {
+            margin-bottom: 0;
+          }
         }
         .step2 {
           .code-container {
@@ -507,8 +618,12 @@
       max-width: 30%;
       height: auto;
       .main-inputs {
-        .username-container {
+        .username-container,
+        .password-container {
           flex-direction: row;
+          .password {
+            margin-bottom: 0;
+          }
         }
         .step2 {
           .code-container {
@@ -526,8 +641,8 @@
 
 @keyframes fadeIn {
   0% {
-    opacity: 0;
-    transform: scale(1.2);
+    opacity: 0.5;
+    transform: scale(1.1);
   }
 
   100% {

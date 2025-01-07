@@ -1,11 +1,15 @@
 <main class="main-content">
   <form class="main-form" [formGroup]="signUpForm">
     <div class="main-inputs">
+      <img
+        class="logo-horizon"
+        src="assets/img/horizon-blue.png"
+        alt="horizon"
+      />
+      <h1 class="title">
+        Completa la información de cada paso para crear tu cuenta
+      </h1>
 
-      <img class="logo-horizon" src="../../../../assets/img/horizon-black.png" alt="horizon"/>
-      <h4 class="subtitle">Empecemos</h4>
-      <h1 class="title">Completa la información para crear tu cuenta</h1>
-      
       <div class="networks">
         <div class="networks-buttons">
           <button>
@@ -20,33 +24,166 @@
           <div class="line"></div>
         </div>
       </div>
-      
 
       <!--Steps to complete the form-->
-      <div class="steps">
-        <div class="step first-step" [class.active]="currentStep >= 1" (click)="findStep(1)">
+      <div class="steps-indicator">
+        <div
+          class="step first-step"
+          [class.active]="currentStep >= 1"
+          (click)="findStep(1)"
+        >
           <p>1</p>
         </div>
-        <div class="step second-step" [class.active]="currentStep >= 2" (click)="findStep(2)">
+        <div
+          class="step second-step"
+          [class.active]="currentStep >= 2"
+          (click)="findStep(2)"
+        >
           <p>2</p>
         </div>
-        <div class="step third-step" [class.active]="currentStep >= 3" (click)="findStep(3)">
+        <div
+          class="step third-step"
+          [class.active]="currentStep >= 3"
+          (click)="findStep(3)"
+        >
           <p>3</p>
         </div>
-        <div class="step fourth-step" [class.active]="currentStep >= 4" (click)="findStep(4)">
-          <p>4</p>
-        </div>
-        <div class="line-progress" [ngStyle]="{'width': calculateLineWidth() + 'px'}"></div>
+        <div
+          class="line-progress"
+          [ngStyle]="{ width: calculateLineWidth() + 'px' }"
+        ></div>
       </div>
-      
-      
-
 
       <!--Step number one-->
       <div class="step1" *ngIf="currentStep === 1">
-        <span class="info-step" >El primer paso será ingresar tu nombre y apellido</span>
+        <!-- Email input -->
+        <div class="email-container">
+          <label for="email">Correo <span title="*">*</span></label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            required
+            (input)="validateStep(1)"
+          />
+          <i class="fa fa-envelope"></i>
+        </div>
+
+        <!-- 6 verification code inputs -->
+        <div
+          class="code-container"
+          *ngIf="authService.isEmailValid(this.signUpForm.get('email')?.value)"
+        >
+          <label for="code"
+            >Código de verificación <span title="*">*</span></label
+          >
+          <div class="code-inputs">
+            <input
+              id="code0"
+              type="text"
+              maxlength="1"
+              formControlName="code0"
+              name="code0"
+              required
+              placeholder="1"
+              (input)="validateStep(1)"
+            />
+            <input
+              id="code1"
+              type="text"
+              maxlength="1"
+              formControlName="code1"
+              name="code1"
+              required
+              placeholder="2"
+              (input)="validateStep(1)"
+            />
+            <input
+              id="code2"
+              type="text"
+              maxlength="1"
+              formControlName="code2"
+              name="code2"
+              required
+              placeholder="3"
+              (input)="validateStep(1)"
+            />
+            <input
+              id="code3"
+              type="text"
+              maxlength="1"
+              formControlName="code3"
+              name="code3"
+              required
+              placeholder="4"
+              (input)="validateStep(1)"
+            />
+            <input
+              id="code4"
+              type="text"
+              maxlength="1"
+              formControlName="code4"
+              name="code4"
+              required
+              placeholder="5"
+              (input)="validateStep(1)"
+            />
+            <input
+              id="code5"
+              type="text"
+              maxlength="1"
+              formControlName="code5"
+              name="code5"
+              required
+              placeholder="6"
+              (input)="validateStep(1)"
+            />
+          </div>
+        </div>
+
+        <!-- Possible email errors -->
+        <div
+          class="error-message"
+          *ngIf="
+            signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid
+          "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
+            />
+          </svg>
+          <p
+            *ngIf="signUpForm.get('email')?.hasError('required')"
+            class="error"
+            [ngClass]="{ show: signUpForm.get('email')?.hasError('required') }"
+          >
+            El correo es obligatorio.
+          </p>
+
+          <p
+            *ngIf="signUpForm.get('email')?.hasError('email')"
+            class="error"
+            [ngClass]="{ show: signUpForm.get('email')?.hasError('email') }"
+          >
+            El correo no es válido.
+          </p>
+
+          <p *ngIf="errorMessage">{{ errorMessage }}</p>
+        </div>
+
+        <!--Success message-->
+        <p
+          *ngIf="successMessage"
+          class="success"
+          [ngClass]="{ show: successMessage }"
+        >
+          {{ successMessage }}
+        </p>
+      </div>
+      <!--Step number two-->
+      <div class="step2" *ngIf="currentStep === 2">
         <div class="username-container">
-          
           <div class="name">
             <label for="name">Nombre <span title="*">*</span></label>
             <input
@@ -54,109 +191,31 @@
               type="text"
               formControlName="name"
               required
-              (input)="validateField()"
+              (input)="validateStep(2)"
             />
-            <div *ngIf=" signUpForm.get('name')?.touched && signUpForm.get('name')?.invalid">
-              <p *ngIf="signUpForm.get('name')?.hasError('required')"> El nombre es obligatorio.</p>
+            <div
+              *ngIf="
+                signUpForm.get('name')?.touched &&
+                signUpForm.get('name')?.invalid
+              "
+            >
+              <p *ngIf="signUpForm.get('name')?.hasError('required')">
+                El nombre es obligatorio.
+              </p>
             </div>
+            <i class="fa fa-user"></i>
           </div>
 
           <div class="lastname">
             <label for="lastname">Apellido <span>(opcional)</span></label>
             <input id="lastname" type="text" formControlName="lastname" />
+            <i class="fa fa-user"></i>
           </div>
         </div>
-
-
-        <!--Success message-->
-        <p *ngIf="successMessage" class="success" [ngClass]="{ show: successMessage }"> {{ successMessage }}</p>
       </div>
 
-
-      <!--Step number two-->
-      <div class="step2" *ngIf="currentStep === 2">
-        <span class="info-step">Ingrese su correo y código de verificación</span>
-        
-        <!-- Email input -->
-        <div class="email-container">
-          <label for="email">Correo <span title="*">*</span></label>
-          <input id="email" type="email" formControlName="email" required (input)="validateField()"/>
-          <i class="fa fa-envelope"></i>
-        </div>
-
-        <!-- 6 verification code inputs -->
-        <div class="code-container">
-          <label for="code">Código de verificación <span title="*">*</span></label>
-          <div class="code-inputs">
-            <input
-              type="text"
-              maxlength="1"
-              formControlName="code0"
-              name="code0"
-              required
-              (input)="validateField()"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              formControlName="code1"
-              name="code1"
-              required
-              (input)="validateField()"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              formControlName="code2"
-              name="code2"
-              required
-              (input)="validateField()"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              formControlName="code3"
-              name="code3"
-              required
-              (input)="validateField()"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              formControlName="code4"
-              name="code4"
-              required
-              (input)="validateField()"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              formControlName="code5"
-              name="code5"
-              required
-              (input)="validateField()"
-            />
-          </div>
-        </div>
-        
-        
-        
-        
-        <!-- Possible email errors -->
-        <div *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid">
-          <p *ngIf="signUpForm.get('email')?.hasError('required')" class="error" [ngClass]="{ show: signUpForm.get('email')?.hasError('required') }">El correo es obligatorio.</p>
-          <p *ngIf="signUpForm.get('email')?.hasError('email')" class="error" [ngClass]="{ show: signUpForm.get('email')?.hasError('email') }">El correo no es válido.</p>
-          <p *ngIf="errorMessage">{{errorMessage}}</p>
-        </div>
-
-        <!-- Success message -->
-        <p *ngIf="successMessage" class="success" [ngClass]="{ show: successMessage }"> {{ successMessage }}</p>
-      </div>
-
-      <div class="step1" *ngIf="currentStep === 3">
-        <span class="info-step" >El tercer paso será ingresar tu contraseña</span>
+      <div class="step3" *ngIf="currentStep === 3">
         <div class="password-container">
-          
           <div class="password">
             <label for="password">Contraseña <span title="*">*</span></label>
             <input
@@ -164,31 +223,146 @@
               type="password"
               formControlName="password"
               required
-              (input)="validateField()"
+              (input)="validateStep(3)"
+              [type]="viewPassword ? 'text' : 'password'"
             />
-            <div *ngIf=" signUpForm.get('password')?.touched && signUpForm.get('name')?.invalid">
-              <p *ngIf="signUpForm.get('password')?.hasError('required')">La contraseña es obligatoria.</p>
+
+            <div
+              *ngIf="
+                signUpForm.get('password')?.touched &&
+                signUpForm.get('name')?.invalid
+              "
+            >
+              <p *ngIf="signUpForm.get('password')?.hasError('required')">
+                La contraseña es obligatoria.
+              </p>
             </div>
           </div>
 
           <div class="confirmPassword">
-            <label for="confirmPassword">Confirmar contraseña <span title="*">*</span></label>
+            <label for="confirmPassword"
+              >Confirmar contraseña <span title="*">*</span></label
+            >
             <input
               id="confirmPassword"
               type="password"
               formControlName="confirmPassword"
               required
-              (input)="validateField()"
+              (input)="validateStep(3)"
+              [type]="viewPassword ? 'text' : 'password'"
             />
-            <div *ngIf=" signUpForm.get('confirmPassword')?.touched && signUpForm.get('name')?.invalid">
-              <p *ngIf="signUpForm.get('confirmPassword')?.hasError('required')">La contraseña de confirmación es obligatoria.</p>
+            <div *ngIf="signUpForm.get('confirmPassword')?.touched && signUpForm.get('name')?.invalid">
+              <p *ngIf="signUpForm.get('confirmPassword')?.hasError('required')"> La contraseña de confirmación es obligatoria.</p>
             </div>
           </div>
         </div>
 
+        <div class="toggle-password-button" (click)="togglePassword($event)">
+          <input
+            type="checkbox"
+          />
+          <label>Mostrar contraseña</label>
+        </div>
+
+        <div class="password-validations">
+          <div class="validation-1">
+            <i
+              class="fa fa-check"
+              *ngIf="
+                authService.hasLowerCase(
+                  signUpForm.get('password')?.value.trim()
+                )
+              "
+            ></i>
+            <span
+              [ngClass]="{
+                check: authService.hasLowerCase(
+                  signUpForm.get('password')?.value.trim()
+                )
+              }"
+              >Por lo menos un caracter en minúscula</span
+            >
+          </div>
+          <div class="validation-2">
+            <i
+              class="fa fa-check"
+              *ngIf="
+                authService.hasUpperCase(
+                  signUpForm.get('password')?.value.trim()
+                )
+              "
+            ></i>
+            <span
+              [ngClass]="{
+                check: authService.hasUpperCase(
+                  signUpForm.get('password')?.value.trim()
+                )
+              }"
+              >Por lo menos un caracter en mayuscula</span
+            >
+          </div>
+          <div class="validation-3">
+            <i
+              class="fa fa-check"
+              *ngIf="
+                authService.hasNumber(signUpForm.get('password')?.value.trim())
+              "
+            ></i>
+            <span
+              [ngClass]="{
+                check: authService.hasNumber(
+                  signUpForm.get('password')?.value.trim()
+                )
+              }"
+              >Por lo menos un número</span
+            >
+          </div>
+          <div class="validation-4">
+            <i
+              class="fa fa-check"
+              *ngIf="
+                authService.hasSpecialChar(
+                  signUpForm.get('password')?.value.trim()
+                )
+              "
+            ></i>
+            <span
+              [ngClass]="{
+                check: authService.hasSpecialChar(
+                  signUpForm.get('password')?.value.trim()
+                )
+              }"
+              >Por lo menos un caracter especial</span
+            >
+          </div>
+          <div class="validation-5">
+            <i
+              class="fa fa-check"
+              *ngIf="
+                authService.isMinLength(
+                  signUpForm.get('password')?.value.trim()
+                )
+              "
+            ></i>
+            <span
+              [ngClass]="{
+                check: authService.isMinLength(
+                  signUpForm.get('password')?.value.trim()
+                )
+              }"
+              >Por lo menos 8 caracteres</span
+            >
+          </div>
+        </div>
 
         <!--Success message-->
-        <p *ngIf="successMessage" class="success" [ngClass]="{ show: successMessage }"> {{ successMessage }}</p>
+        <p
+          *ngIf="successMessage"
+          class="success"
+          [ngClass]="{ show: successMessage }"
+        >
+          {{ successMessage }}
+        </p>
       </div>
 
       <!-- <div class="email-container">
@@ -213,7 +387,7 @@
         </div> -->
 
       <div class="button-container">
-        <button>Crear cuenta</button>
+        <button type="submit" [disabled]="true">Crear cuenta</button>
         <span class="link"
           >Ya tienes cuenta? <a routerLink="/user/login">Inicia sesión</a></span
         >

@@ -14,15 +14,13 @@ h2 {
 }
 
 @mixin input-container {
-  width: 95%;
+  width: 100%;
   height: auto;
   border-radius: 6px;
   position: relative;
   min-height: 60px;
   display: flex;
   align-items: center;
-  
-
 }
 
 @mixin button-styles($bg-color, $hover-color, $width, $height) {
@@ -40,4 +38,19 @@ h2 {
   &:hover {
     background-color: $hover-color;
   }
+}
+
+@mixin error(){
+  width: max-content;
+  background-color: var(--danger-light);
+  border: 1px solid var(--danger);
+  padding: 5px;
+  border-radius: 4px;
+
+  p, svg{
+    color: var(--white);
+    fill: var(--white);
+  }
+
+  
 }

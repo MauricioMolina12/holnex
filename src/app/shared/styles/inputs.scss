@@ -7,11 +7,9 @@
     height: 50px;
     width: $width;
     margin: 0;
-    padding: 0;
     right: 0;
-    // background-color: $bg-color;
+    background-color: var(--gray-f5);
     color: $text-color;
-    border: 1px solid $bg-color;
 
   }
   
