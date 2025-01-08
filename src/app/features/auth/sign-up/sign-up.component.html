@@ -194,6 +194,7 @@
               (input)="validateStep(2)"
             />
             <div
+              class="error-message"
               *ngIf="
                 signUpForm.get('name')?.touched &&
                 signUpForm.get('name')?.invalid

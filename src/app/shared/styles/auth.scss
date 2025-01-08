@@ -1,6 +1,5 @@
 @mixin layoutAuth(){
 
-    .main-content {
         width: 100%;
         height: 100vh;
         box-sizing: border-box;
@@ -46,287 +45,6 @@
               }
             }
       
-            .steps-indicator {
-              width: 100%;
-              height: 40px;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              position: relative;
-      
-              .step {
-                cursor: pointer;
-                border-radius: 50%;
-                border: 1px solid var(--primary);
-                background-color: var(--white);
-                color: var(--primary);
-                padding: 2px;
-                height: 20px;
-                width: 20px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                transition: background-color 0.3s, color 0.3s;
-                z-index: 10;
-                user-select: none;
-      
-                &.active {
-                  background-color: var(--primary);
-                  color: var(--white);
-                }
-              }
-      
-              .line-progress {
-                position: absolute;
-                left: 26px;
-                height: 1px;
-                background-color: var(--primary);
-                z-index: 9;
-                transition: width 0.5s ease-in-out;
-              }
-            }
-      
-            .step1 {
-              padding: 10px 0;
-              display: flex;
-              flex-direction: column;
-              gap: 10px;
-      
-              .email-container {
-                @include input-container;
-                padding: 10px 0;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-      
-                label {
-                  position: absolute;
-                  top: -4px;
-                  left: 0;
-                  font-size: 0.8rem;
-                  display: flex;
-                  gap: 5px;
-      
-                  span {
-                    color: var(--gray-dark);
-                  }
-      
-                  span[title*="*"] {
-                    display: block;
-                    color: red;
-                    font-size: 20px;
-                  }
-                }
-      
-                input {
-                  position: absolute;
-                  left: 0;
-                  @include input-auth(var(--gray-light), var(--gray-dark), 100%);
-                }
-      
-                i {
-                  position: absolute;
-                  right: 3%;
-                  top: 50%;
-                  transform: translateY(-50%);
-                  color: var(--gray-dark);
-                }
-              }
-      
-              .code-container {
-                @include input-container;
-                padding: 10px 0;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                align-items: start;
-                padding-left: 0;
-      
-                label {
-                  position: absolute;
-                  top: -4px;
-                  left: 0;
-                  font-size: 0.8rem;
-                  display: flex;
-                  align-items: center;
-                  gap: 5px;
-      
-                  span {
-                    color: var(--gray-dark);
-                  }
-      
-                  span[title*="*"] {
-                    display: block;
-                    color: red;
-                    font-size: 20px;
-                  }
-                }
-      
-                .code-inputs {
-                  display: flex;
-                  gap: 4px;
-      
-                  input {
-                    text-align: center;
-                    width: calc(100% / 8);
-                    height: 40px;
-                    border-radius: 3px;
-                    outline: none;
-                    border: 1px solid var(--gray-light);
-      
-                    &::placeholder{
-                      color: var(--gray-light);
-                      font-size: 16px;
-                    }
-                  }
-                }
-              }
-      
-              .error-message {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                @include error;
-      
-                svg{
-                  color: white;
-                  width: 10px;
-                  height: 10px;
-                }
-              }
-            }
-      
-            .step2 {
-              padding: 10px 0;
-              display: flex;
-              flex-direction: column;
-            }
-      
-            .step1,
-            .step2,
-            .step3 {
-              animation: fadeIn 0.2s ease;
-      
-              .info-step {
-                color: var(--gray-dark);
-                font-size: 0.8rem;
-                display: block;
-                margin-bottom: 20px;
-              }
-      
-              .success {
-                opacity: 0;
-                visibility: hidden;
-                color: green;
-                font-size: 0.7rem;
-                margin: 0;
-                transition: opacity 3s ease, visibility 0s linear 3s;
-      
-                &.show {
-                  opacity: 1;
-                  visibility: visible;
-                }
-              }
-      
-              .error {
-                opacity: 0;
-                visibility: hidden;
-                color: red;
-                font-size: 0.7rem;
-                margin: 0;
-                transition: opacity 3s ease, visibility 0s linear 3s;
-      
-                &.show {
-                  opacity: 1;
-                  visibility: visible;
-                }
-              }
-      
-              .termsAndConditions{
-                display: flex;
-                align-items: center;
-                gap: 10px;
-      
-                input{
-                  height: 30px;
-                  width: 15px;
-                  margin: 0;
-                  padding: 0;
-                }
-      
-                span{
-                  color: var(--gray-dark);
-                  font-size: 12px;
-                }
-              }
-            }
-      
-            .step3 {
-              .info-step {
-                width: 80%;
-              }
-      
-              .password-validations {
-                width: 100%;
-                height: auto;
-                min-height: 100px;
-                display: flex;
-                flex-wrap: wrap;
-                flex-direction: column;
-                justify-content: space-around;
-                gap: 8px;
-                margin: 14px 0;
-      
-                [class*="validation"] {
-                  display: flex;
-                  align-items: center;
-                  gap: 5px;
-                  
-      
-                  i{
-                    background-color: green;
-                    border-radius: 50%;
-                    color: white;
-                    padding: 3px;
-                    font-size: 10px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                  }
-      
-                  span {
-                    color: var(--gray-dark);
-                    font-size: 11px;
-                  }
-      
-                  .check{
-                    color: green;
-                  }
-                }
-              }
-      
-              .toggle-password-button{
-                display: flex;
-                align-items: center;
-                justify-content: end;
-                gap: 10px;
-                
-                label{
-                  cursor: pointer;
-                  color: var(--gray-dark);
-                  font-weight: 500;
-                  font-size: 12px;
-                  user-select: none;
-                }
-      
-                input{
-                  margin: 0;
-                }
-              }
-      
-            }
-      
             .username-container,
             .email-container,
             .password-container {
@@ -338,6 +56,7 @@
       
               .name,
               .lastname,
+              .user,
               .email,
               .password,
               .confirmPassword {
@@ -364,14 +83,12 @@
                 }
       
                 input {
-                  position: absolute;
-                  left: 0;
                   @include input-auth(var(--gray-light), var(--gray-dark), 100%);
                 }
       
                 i {
                   position: absolute;
-                  right: 5px;
+                  right: 12px;
                   top: 50%;
                   transform: translateY(-50%);
                   color: var(--gray-dark);
@@ -386,42 +103,22 @@
                   color: var(--gray-light);
                 }
               }
-      
-              .email input,
-              .password input {
-                @include input-auth(var(--gray-light), var(--gray-dark), 100%);
-              }
             }
       
             .username-container,
             .password-container {
               height: auto;
-              flex-direction: column;
-      
-      
+              flex-direction: column;      
+            }
+
+            .button-login {
+              margin-top: 40px;
             }
       
-            .buttons-steps {
-              width: max-content;
-              display: flex;
-              gap: 10px;
-              border: 1px solid;
-      
-              button:first-of-type {
-                @include button-styles(
-                  var(--gray-light),
-                  var(--primary-hover),
-                  90px,
-                  40px
-                );
-              }
-            }
-      
-            .button-container {
+            .button-container, .button-login {
               width: 100%;
               display: flex;
               justify-content: center;
-              margin-top: 2px;
               align-items: end;
               flex-direction: column;
               gap: 10px;
@@ -461,6 +158,7 @@
       
                 .line {
                   position: absolute;
+                  left: 0;
                   width: 100%;
                   height: 0.5px;
                   background-color: var(--gray-light);
@@ -503,5 +201,5 @@
             }
           }
         }
-      }
+
 }

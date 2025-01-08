@@ -1,17 +1,14 @@
 
 @mixin input-auth($bg-color, $text-color, $width) {
-    position: absolute;
     border-radius: inherit;
     outline: none;
     border: none;
     height: 50px;
     width: $width;
     margin: 0;
-    right: 0;
-    left: 0;
     background-color: var(--gray-f5);
     color: $text-color;
-    padding-left: 12px;
+    padding-inline: 12px;
 
   }
   
