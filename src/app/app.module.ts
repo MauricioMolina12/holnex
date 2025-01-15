@@ -8,7 +8,7 @@ import { DropdownCountriesComponent } from './shared/components/dropdown-countri
 @NgModule({
   declarations: [
     AppComponent,
-    DropdownCountriesComponent
+    DropdownCountriesComponent,
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,7 @@ h2 {
   border-radius: 4px;
   border: none;
   outline: none;
-  color: var(--white);
+  color: var(--color-white);
   cursor: pointer;
   height: $height;
   width: $width;
@@ -42,14 +42,14 @@ h2 {
 
 @mixin error(){
   width: max-content;
-  background-color: var(--danger-light);
-  border: 1px solid var(--danger);
-  padding: 5px;
-  border-radius: 4px;
+  height: auto;
+  padding: 2px;
 
-  p, svg{
-    color: var(--white);
-    fill: var(--white);
+  p{
+    color: var(--color-danger);
+  }
+  svg{
+    fill: var(--color-danger);
   }
 
   

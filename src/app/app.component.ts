@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Horizon';
 
-  constructor(private router: Router){
-    this.router.navigate(['/user/login'])
+  constructor(){
   }
 }

@@ -41,7 +41,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/variables.scss",
+              "src/app/shared/styles/variables.scss",
+              "src/app/shared/styles/icons.scss",
               "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [],

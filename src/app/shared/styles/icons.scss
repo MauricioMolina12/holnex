@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'icomoon';
+  src: url('/src/assets/fonts/icomoon.eot?t1moy'); /* Ruta absoluta */
+  src: url('/src/assets/fonts/icomoon.eot?t1moy#iefix') format('embedded-opentype'),
+       url('/src/assets/fonts/icomoon.ttf?t1moy') format('truetype'),
+       url('/src/assets/fonts/icomoon.woff?t1moy') format('woff'),
+       url('/src/assets/fonts/icomoon.svg?t1moy#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.horizon-icon-location:before {
+  content: "\e900";
+}

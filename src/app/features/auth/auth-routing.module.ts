@@ -8,7 +8,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 
 const routes: Routes = [
   {
-    path: '', 
+    path: '',
     component: AuthComponent,
     children: [
       {
@@ -17,29 +17,21 @@ const routes: Routes = [
       },
       {
         path: 'register',
-        component: SignUpComponent
+        component: SignUpComponent,
       },
       {
         path: 'forget',
-        component: ForgetPasswordComponent
+        component: ForgetPasswordComponent,
       },
       {
         path: 'accounts',
-        component: AccountsComponent
+        component: AccountsComponent,
       },
-      {
-        path: '',  
-        redirectTo: 'login',
-        pathMatch: 'full',
-      }
     ],
   },
-  {
-    path: '**',  
-    redirectTo: 'user/login',
-    pathMatch: 'full',
-  },
+
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

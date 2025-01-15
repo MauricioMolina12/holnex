@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443 443">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #838e9e;
+        stroke-miterlimit: 10;
+        stroke-width: 25px;
+      }
+
+      .cls-2 {
+        fill: #838e9e;
+        font-family: ArialRoundedMTBold, 'Arial Rounded MT Bold';
+        font-size: 320px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="221.5" cy="221.5" r="209"/>
+  <text class="cls-2" transform="translate(126.045 345.933)"><tspan x="0" y="0">?</tspan></text>
+</svg>

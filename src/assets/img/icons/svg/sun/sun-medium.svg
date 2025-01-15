@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 239.814 240.432">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #838f9e;
+      }
+    </style>
+  </defs>
+  <ellipse class="cls-1" cx="120.163" cy="119.19" rx="60.438" ry="61.17"/>
+  <rect class="cls-1" x="108.186" y="0" width="23.735" height="36.482" rx="9.844" ry="9.844"/>
+  <rect class="cls-1" x="36.466" y="29.743" width="23.735" height="36.482" rx="9.844" ry="9.844" transform="translate(-19.749 46.178) rotate(-43.272)"/>
+  <rect class="cls-1" x="6.431" y="101.901" width="23.735" height="36.482" rx="9.844" ry="9.844" transform="translate(-102.341 134.81) rotate(-88.272)"/>
+  <rect class="cls-1" x="209.648" y="100.949" width="23.735" height="36.482" rx="9.844" ry="9.844" transform="translate(95.699 337.011) rotate(-88.272)"/>
+  <rect class="cls-1" x="180.198" y="29.743" width="23.735" height="36.482" rx="6.894" ry="6.894" transform="translate(299.019 214.575) rotate(-136.728)"/>
+  <rect class="cls-1" x="108.186" y="203.949" width="23.735" height="36.482" rx="9.844" ry="9.844"/>
+  <rect class="cls-1" x="180.198" y="173.328" width="23.735" height="36.482" rx="9.844" ry="9.844" transform="translate(-79.092 183.74) rotate(-43.272)"/>
+  <rect class="cls-1" x="36.466" y="174.06" width="23.735" height="36.482" rx="9.844" ry="9.844" transform="translate(-48.289 365.449) rotate(-136.728)"/>
+</svg>

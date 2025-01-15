@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidationTypeError } from '../../../core/enum/validations.enum';
 
 @Component({
   selector: 'app-sign-up',
@@ -28,6 +29,7 @@ export class SignUpComponent {
     phone: '',
   };
 
+  ValidationType = ValidationTypeError;
   viewPassword: boolean = false;
 
   constructor(public authService: AuthService, private fb: FormBuilder) {
@@ -142,18 +144,40 @@ export class SignUpComponent {
         break;
       case 3:
         if (
-          (this.signUpForm.get('password')?.valid && this.signUpForm.get('password')?.value?.trim()) &&
-          (this.signUpForm.get('confirmPassword')?.valid && this.signUpForm.get('confirmPassword')?.value?.trim()) &&
-          this.signUpForm.get('password')?.value?.trim() == this.signUpForm.get('confirmPassword')?.value?.trim()
+          this.signUpForm.get('password')?.valid &&
+          this.signUpForm.get('password')?.value?.trim() &&
+          this.signUpForm.get('confirmPassword')?.valid &&
+          this.signUpForm.get('confirmPassword')?.value?.trim() &&
+          this.signUpForm.get('password')?.value?.trim() ==
+            this.signUpForm.get('confirmPassword')?.value?.trim()
         ) {
           this.successMessage =
             'Excelente! Has finalizado el formulario de registro.';
-        }else{
-          this.successMessage = ''
+        } else {
+          this.successMessage = '';
         }
     }
   }
 
+  isTouchedAndInvalidInput(
+    controlName: string,
+    validationType: ValidationTypeError
+  ): boolean {
+    const control = this.signUpForm.get(controlName);
+
+    if (!control) return false;
+
+    switch (validationType) {
+      case ValidationTypeError.Required:
+        return control.hasError('required');
+      case ValidationTypeError.TouchedAndInvalid:
+        return control.touched && control.invalid;
+      case ValidationTypeError.InvalidEmail: 
+        return control.hasError('email');
+      default:
+        return false;
+    }
+  }
 
   // We use this function to calculate the progress of the registration steps.
   calculateLineWidth(): number {
@@ -162,38 +186,37 @@ export class SignUpComponent {
       document.querySelector('.steps-indicator')?.clientWidth || 0;
     const lineHTML$ = document.querySelector('.line-progress') as HTMLElement;
     let lineWidth = (stepWidth / totalSteps) * (this.currentStep - 1);
-  
+
     switch (this.currentStep) {
       case 1:
         lineWidth = 0;
         if (lineHTML$) {
-          lineHTML$.style.left = '0'; 
+          lineHTML$.style.left = '0';
         }
         break;
       case 2:
-        lineWidth = stepWidth / 2; 
+        lineWidth = stepWidth / 2;
         break;
       case 3:
-        lineWidth = stepWidth; 
+        lineWidth = stepWidth;
         if (lineHTML$) {
-          lineHTML$.style.left = '0'; 
+          lineHTML$.style.left = '0';
         }
         break;
       default:
         if (lineHTML$) {
-          lineHTML$.style.left = ''; 
+          lineHTML$.style.left = '';
         }
         break;
     }
-  
+
     return lineWidth;
   }
 
-  togglePassword(e: any){
+  togglePassword(e: any) {
     e.stopPropagation();
     this.viewPassword = !this.viewPassword;
   }
-  
 
   onSubmit() {
     console.log('signUpForm data:', this.formData);
