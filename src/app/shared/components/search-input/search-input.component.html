@@ -1,0 +1,13 @@
+<div class="input-container">
+    <input class="input-search" type="text" placeholder="¿Que deseas comprar hoy?" (focus)="recentSearches.style.display = 'flex'" (input)="recentSearches.style.display = 'none'">
+    <img   class="icon-search" src="/assets/img/icons/svg/search/search-outline-medium.svg" alt="">
+    <div class="recent-searches" #recentSearches>
+        <h2 class="recent-searches__title">Busquedas recientes</h2>
+        <ul class="recent-searches__list">
+            <li class="recent-searches__list__item" *ngFor="let search of [1,2,3,4,5,6,7,8]">
+                <img class="item__icon" src="/assets/img/icons/svg/history/history-outline-medium.svg" alt="">
+                <span class="item__text-search">Computador HP 32GB RAM 1TB SSD</span>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,9 +1,30 @@
-<div class="home">
-    <div class="home-container">
-      <div class="home-content">
-        <app-nav-bar></app-nav-bar>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-      </div>
-    </div>
+<app-ads-slider></app-ads-slider>
+<main class="main">
+  <header class="main__header">
+    <h2 class="header__title">Cosas que necesitas</h2>
+  </header>
+  <div class="main__products">
+    <app-categories></app-categories>
+    <app-products
+      [products]="productsService.products"
+      [totalPages]="productsService.pagination.totalPages"
+      [productPerPage]="productsService.pagination.productPerPage"
+      [hasPagination]="productsService.pagination.hasPagination"
+      [currentPage]="productsService.pagination.currentPage"
+    ></app-products>
   </div>
-  
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</main>
+<!-- app-ads-slider
+        [ads]="ads"
+        [autoSlide]="true"
+        [slideInterval]="5000"
+        [loop]="true"
+        [pauseOnHover]="true"
+        [showIndicators]="true"
+        [showControls]="true"
+        [indicatorPosition]="'bottom'"
+        [height]="'300px'"
+        [width]="'100%'"
+        (adClick)="onAdClick($event)">
+      </app-ads-slider> -->

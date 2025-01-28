@@ -1,23 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { User } from '../../models/user';
+import { SearchInputComponent } from '../search-input/search-input.component';
+import { Renderer2, ElementRef } from '@angular/core';
+import { AuthService } from '../../../features/auth/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SearchInputComponent],
 })
-export class NavBarComponent implements OnInit{
+export class NavBarComponent implements OnInit {
   viewSideBar = false;
   isMoodDark = false;
+  viewSearchInput = false;
 
+  // Props
   @Input() user!: User;
   @Input() isLoggedIn: boolean = false;
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+    private elRef: ElementRef,
+    public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.user = {
@@ -26,42 +36,121 @@ export class NavBarComponent implements OnInit{
       country_id: '48',
       created_at: '2025-01-15',
       email: 'ruizsheila0384@gmail.com',
-      image: 'https://media-bog2-1.cdn.whatsapp.net/v/t61.24694-24/465958398_543191191966881_7644225017540583979_n.jpg?ccb=11-4&oh=01_Q5AaIEDQXmRr1CaiVrtHRT8yU67gagUKoo-V5Jn0aX5L0OpM&oe=6795308C&_nc_sid=5e03e0&_nc_cat=106',
+      image:
+        'https://media.istockphoto.com/id/1368424494/es/foto/retrato-de-estudio-de-una-mujer-alegre.jpg?s=612x612&w=0&k=20&c=V6sLE6kK9t4_QJtnTJ5kp8c8poiWuqdgWdJh59zV14A=',
       language_id: '1',
       name: 'Sheila Ruiz',
       password: '***********',
       role: 'premium',
       source: '',
-      address: 'Calle 25 #28 A18.Sabanalarga, Atlántico.',
+      address: this.authService.isLoggued
+        ? 'Calle 25 #28 A18.Sabanalarga, Atlántico.'
+        : '',
+    };
+  }
+
+  redirect(item: string) {
+    switch (item) {
+      case 'location':
+        // this.router.navigate(['/location-edit'])
+        break;
+      case 'shopcart':
+        // this.router.navigate(['/shopcart'])
+        break;
     }
   }
 
-  togglesidebar() {
-    const sidebar = document.querySelector('.nav-bar__sidebar');
-    if (sidebar) {
-      sidebar.classList.toggle('visibility');
-      if (sidebar.classList.contains('visibility')) {
-        this.viewSideBar = true;
-      } else {
-        this.viewSideBar = false;
-      }
-    } else {
-      console.error('No se encontró el elemento .nav-bar__sidebar');
+  toggleElement(e: Event, classElement: string, type: string = 'close') {
+    switch (classElement) {
+      case 'nav-bar__sidebar':
+        // Manipular la barra lateral en pantallas móviles
+        const sidebar = this.elRef.nativeElement.querySelector(
+          `.${classElement}`
+        );
+        if (sidebar) {
+          if (sidebar.classList.contains('visibility')) {
+            this.renderer.removeClass(sidebar, 'visibility');
+            this.viewSideBar = false;
+          } else {
+            this.renderer.addClass(sidebar, 'visibility');
+            this.viewSideBar = true;
+          }
+        } else {
+          console.error('No se encontró el elemento .nav-bar__sidebar');
+        }
+        break;
+
+      case 'nav-bar__modal-profile':
+        // Activar o desactivar el modal del perfil en pantallas grandes
+        e.stopPropagation();
+        const modalProfile = this.elRef.nativeElement.querySelector(
+          `.${classElement}`
+        );
+        if (modalProfile) {
+          const isActive = modalProfile.classList.contains('active');
+          if (isActive) {
+            this.renderer.removeClass(modalProfile, 'active');
+            document.removeEventListener('click', (event) =>
+              this.closeModalOnOutsideClick(event, classElement)
+            );
+          } else {
+            this.renderer.addClass(modalProfile, 'active');
+            document.addEventListener('click', (event) =>
+              this.closeModalOnOutsideClick(event, classElement)
+            );
+          }
+        }
+        break;
+
+      case 'nav-bar__center':
+        // Activar o desactivar el campo de búsqueda en pantallas grandes
+        e.stopPropagation();
+        this.viewSearchInput = !this.viewSearchInput;
+        const searchContainer = this.elRef.nativeElement.querySelector(
+          `.${classElement}`
+        );
+        if (searchContainer) {
+          const isActive = searchContainer.classList.contains('active');
+          if (isActive) {
+            this.renderer.removeClass(searchContainer, 'active');
+            document.removeEventListener('click', (event) =>
+              this.closeModalOnOutsideClick(event, classElement)
+            );
+          } else {
+            this.renderer.addClass(searchContainer, 'active');
+            document.addEventListener('click', (event) =>
+              this.closeModalOnOutsideClick(event, classElement)
+            );
+          }
+        }
+        break;
     }
   }
 
-  toggleModalProfile() {
-    const modalProfile = document.querySelector('.nav-bar__modal-profile');
-    if (modalProfile) {
-      modalProfile.classList.toggle('active');
+  //Function to know when a click is made outside the element
+  closeModalOnOutsideClick = (event: Event, modalClass: string) => {
+    const modalElement = this.elRef.nativeElement.querySelector(
+      `.${modalClass}`
+    );
+    if (modalElement && !modalElement.contains(event.target as Node)) {
+      this.renderer.removeClass(modalElement, 'active');
+      document.removeEventListener('click', (e) =>
+        this.closeModalOnOutsideClick(e, modalClass)
+      );
     }
-  }
+  };
 
+  //
   toggleMoodDark(e: Event) {
     this.isMoodDark = !this.isMoodDark;
     e.stopPropagation();
   }
 
+  logOut() {
+    this.router.navigate(['/login']);
+  }
+
+  // Items for nav bar
   items: any[] = [
     {
       icon: '/assets/img/icons/svg/location/location-outline-medium.svg',
@@ -104,7 +193,7 @@ export class NavBarComponent implements OnInit{
     },
     {
       icon: '/assets/img/icons/svg/box/box-outline-medium.svg',
-      title: 'Mi negocio',
+      title: 'Mis productos para vender',
     },
     {
       icon: '/assets/img/icons/svg/settings/settings-outline-medium.svg',

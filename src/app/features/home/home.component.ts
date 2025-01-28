@@ -1,10 +1,31 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Ad } from '../../shared/models/ads';
+import { ProductsService } from '../../shared/components/products/products.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
+
+  constructor(public productsService: ProductsService) {}
+
+  ngOnInit(): void {
+    this.getAllProducts();
+  }
+
+  getAllProducts(): void {
+    this.productsService.getProducts().subscribe((products) => {
+      this.productsService.pagination.currentProducts = products;
+      this.productsService.pagination.totalPages = Math.ceil(products.length / this.productsService.pagination.productPerPage);      
+      this.productsService.pagination.hasPagination = this.productsService.pagination.totalPages > 1;
+      this.productsService.paginatedProducts(this.productsService.pagination.currentPage, this.productsService.pagination.productPerPage, this.productsService.pagination.currentProducts)
+    });
+  }
+
+  
 }

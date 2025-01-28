@@ -2,12 +2,13 @@
 
 html,
 body {
-  height: 100vh;
+  height: 100%;
   margin: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
   overflow: hidden;
 }
+
 
 h2 {
   margin: 0;
@@ -50,7 +51,9 @@ h2 {
   }
   svg{
     fill: var(--color-danger);
-  }
+  } 
+}
 
-  
+.no-visibility {
+  display: none;
 }

@@ -1,0 +1,45 @@
+@import "../../styles/variables.scss";
+@import "../../../../styles.scss";
+
+
+.details{
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    
+    .product{
+        width: 100%;
+        height: 72vh;
+        box-sizing: inherit;
+
+        .product__name{
+            color: var(--color-border-gray-shade);
+        }
+
+
+        .product__image{
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+
+            img{
+                object-fit: cover;
+                max-width: 100%;
+                height: auto;
+            }
+
+        }
+
+        .product__description{
+            .product__description-title{
+                font-size: 1.1rem;
+                color: var(--color-border-gray-shade);
+            }
+            
+        }
+    }
+}

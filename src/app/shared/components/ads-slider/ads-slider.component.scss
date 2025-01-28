@@ -1,0 +1,75 @@
+@import "../../styles/variables.scss";
+@import "../../../../styles.scss";
+
+.slider-container {
+  width: 100%;
+  height: 45vh;
+  background-image: url("https://image.api.playstation.com/vulcan/ap/rnd/202407/1814/ad53de47262b4bd4bf41f1f62f7feb40095b7716e26a3d1c.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  background-blend-mode: multiply;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  padding-bottom: 30px;
+  padding-left: 10px;
+
+  .slider-title {
+    margin-bottom: 3px;
+    h1 {
+      margin: 0;
+      font-size: 2.3rem;
+      font-weight: bold;
+      color: var(--color-white);
+    }
+  }
+
+  .slider-subtitle {
+    span {
+      font-size: 0.8rem;
+      color: var(--color-medium);
+    }
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Small laptops */
+@media (min-width: 1024px) and (max-width: 1279px) {
+}
+
+/* Medium screens */
+@media (min-width: 1280px) and (max-width: 1919px) {
+  .slider-container {
+    width: 99%;
+    height: 60vh;
+    background-position: start center;
+    border-radius: 15px;
+    margin: 10px;
+
+    .slider-title {
+      h1 {
+        margin: 0;
+        font-size: 3rem;
+        color: var(--color-white);
+      }
+    }
+
+    .slider-subtitle {
+      span {
+        color: var(--color-medium);
+      }
+    }
+  }
+}
+
+/* Big screens */
+
+@media (min-width: 1920px) {
+}

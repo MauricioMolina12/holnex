@@ -2,7 +2,7 @@
   <div class="measures nav-bar__left">
     <img
       class="nav-bar__logo"
-      src="assets/img/horizon-blue.png"
+      src="assets/img/horizon-blue-dark.png"
       alt="horizon"
     />
     <div class="nav-var__address">
@@ -11,8 +11,18 @@
     </div>
   </div>
 
-  <div class="measures nav-bar__right">
-    <button class="nav-bar_items-button-bars" (click)="togglesidebar()">
+  <div class="measures nav-bar__center">
+    <app-search-input></app-search-input>
+  </div>
+
+  <div class="measures nav-bar__right" [class.no-visibility]="viewSearchInput">
+    <button class="nav-bar_items-search-input" [class.no-visibility]="viewSideBar" (click)="toggleElement($event, 'nav-bar__center')">
+      <img src="/assets/img/icons/svg/search/search-outline-blue.svg" alt="searcj">
+    </button>
+    <button  class="nav-bar_items-shop-cart" [class.no-visibility]="viewSideBar">
+      <img src="/assets/img/icons/svg/shopcart/shopcart-outline-blue-light.svg" alt="shopcart">
+    </button>
+    <button class="nav-bar_items-button-bars" (click)="toggleElement($event, 'nav-bar__sidebar','')">
       <div class="icon-bars" [class.active]="viewSideBar">
         <span class="bars-line"></span>
         <span class="bars-line"></span>
@@ -21,8 +31,8 @@
   </div>
 
   <div class="nav-bar__sidebar">
-    <div class="profile">
-      <div class="profile-avatar" (click)="toggleModalProfile()">
+    <div class="profile" *ngIf="authService.isLoggued">
+      <div class="profile-avatar" (click)="toggleElement($event,'nav-bar__modal-profile')">
         <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
       </div>
       <div class="profile-information">
@@ -34,6 +44,7 @@
       <div
         class="nav-bar__sidebar-items"
         *ngFor="let item of items.slice(0, 7)"
+        [routerLink]="['/login']"
       >
         <!--
           Address
@@ -48,7 +59,7 @@
         <div class="item-value">
           <h5 class="item-value__title">{{ item.title }}</h5>
           <span class="item-value__subtitle" *ngIf="item.subtitle">{{
-            item.subtitle
+            user.address
           }}</span>
           <span *ngIf="item.pending == true" class="number-pending">5</span>
           <!-- <div
@@ -71,7 +82,7 @@
         <div class="pending-point" *ngIf="item.pending == true"></div>
       </div>
     </div>
-    <div class="seller">
+    <div class="configurations">
       <div
         class="nav-bar__sidebar-items"
         *ngFor="let item of items.slice(7, 11)"
@@ -108,7 +119,7 @@
         </div>
       </div>
     </div>
-    <div class="buttons">
+    <div class="buttons" *ngIf="!authService.isLoggued">
       <button [routerLink]="'/user/login'">Iniciar sesión</button>
       <button [routerLink]="'/user/register'">Registrarte</button>
     </div>
@@ -116,7 +127,7 @@
 
   <div class="nav-bar__modal-profile">
     <div class="profile">
-      <div class="profile-avatar" (click)="toggleModalProfile()">
+      <div class="profile-avatar">
         <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
       </div>
       <div class="profile-information">

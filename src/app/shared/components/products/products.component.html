@@ -1,0 +1,87 @@
+<div class="container-products">
+  <div class="pagination-products" *ngIf="hasPagination">
+    <!--Button left pagination-->
+    <button
+      class="button-arrow-left"
+      (click)="movePage('prevpage')"
+      [ngClass]="{ disabled: currentPage == 1 }"
+    >
+      <img
+        class="icon"
+        src="/assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg"
+        alt=""
+      />
+      <span class="left-text text-arrow">Anterior</span>
+    </button>
+
+    <!--Pages pagination-->
+    <div class="pages">
+      <button
+        *ngFor="
+          let page of [].constructor(totalPages).length > 3
+            ? [].constructor(totalPages).slice(0, 3)
+            : [].constructor(totalPages);
+          let i = index
+        "
+        [class.active]="currentPage === i + 1"
+        (click)="movePage('indexpage', i + 1)"
+      >
+        {{ i + 1 }}
+      </button>
+      <button *ngIf="[].constructor(totalPages).length > 3">...</button>
+
+      <button
+        *ngIf="[].constructor(totalPages).length > 3"
+        [class.active]="currentPage === totalPages"
+        (click)="movePage('indexpage', totalPages)"
+      >
+        {{ totalPages }}
+      </button>
+    </div>
+
+    <!--Button right pagination-->
+    <button
+      class="button-arrow-right"
+      (click)="movePage('nextpage')"
+      [disabled]="currentPage === totalPages"
+    >
+      <span class="right-text text-arrow">Siguiente</span>
+      <img
+        class="icon"
+        src="/assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg"
+        alt=""
+      />
+    </button>
+  </div>
+
+  <div class="product-wrapper">
+    <!--Card product-->
+    <div
+      class="product"
+      *ngFor="let product of products; let i = index"
+      (click)="detailProduct(product)"
+    >
+      <div class="product-image">
+        <div class="product-category">
+          <span>{{ product.category }}</span>
+        </div>
+        <img [src]="product.image" [alt]="'Imagen de:' + product.title" />
+      </div>
+      <div class="product-titles">
+        <h3 class="product-title">{{ product.title }}</h3>
+        <span class="product-price">${{ product.price }}</span>
+      </div>
+      <div class="product-actions">
+        <button class="product-add-cart-shop" (click)="addShoppingCart($event)">
+          <span>Agregar al carrito</span>
+          <img
+            class="product-add-cart-shop-icon"
+            src="/assets/img/icons/svg/shopcart/shopcart-outline-medium.svg"
+            alt=""
+          />
+        </button>
+        <button class="product-buy-now"><span>Comprar ahora</span></button>
+      </div>
+    </div>
+  </div>
+</div>
