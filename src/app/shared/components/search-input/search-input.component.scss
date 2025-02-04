@@ -21,7 +21,7 @@
     border-radius: 10px;
     margin: 0 10px;
     padding-left: 55px;
-    background-color: var(--color-light);
+    background-color: var(--color-white);
     font-size: 1.1rem;
     color: var(--color-dark-gray);
     font-family: "Montserrat";
@@ -33,32 +33,35 @@
   }
 
   .icon-search {
-    max-width: 15%;
-    height: 15%;
+    max-width: 20%;
+    height: 20%;
     z-index: 1000;
     margin-left: 25px;
   }
 
   .icon-xmark {
-    width: 50px;
-    height: 15%;
-    position: absolute;
-    right: 10px;
-    top: 40%;
-    border: none;
-    outline: none;
+    width: 10%;
+    height: 20px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    gap: 4px;
+    align-items: center;
+    position: relative;
+    right: 15px;
 
-    .line {
-      width: 20px;
-      height: 30%;
-      background-color: var(--color-dark-gray);
+    .line-xmark {
+      width: 2px;
+      border-radius: 10px;
+      height: 20px;
+      background-color: var(--color-primary);
+      position: absolute;
+      transition: transform 0.2s ease;
 
-      &:last-of-type {
-        transform: rotateX(90deg);
+      &:nth-of-type(1) {
+        transform: rotate(45deg);
+      }
+
+      &:nth-of-type(2) {
+        transform: rotate(-45deg);
       }
     }
   }
@@ -147,6 +150,10 @@
     .icon-search {
       max-width: 20%;
       height: 20%;
+    }
+
+    .icon-xmark{
+      display: none;
     }
 
     .recent-searches {

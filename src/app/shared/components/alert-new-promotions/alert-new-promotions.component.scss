@@ -5,43 +5,49 @@
   width: 100%;
   margin-bottom: 0;
   height: 6vh;
-  box-sizing: border-box;
   background-color: var(--color-primary-secondary);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
   padding: 10px;
 
-  img {
-    max-width: 100%;
-    height: auto;
-    width: 7%;
-  }
-
   span {
     font-size: 0.7rem;
     color: var(--color-white);
+    text-align: center;
   }
 }
 
-
 /* Tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
+  .alert-container {
+    justify-content: center;
 
+    span {
+      font-size: 1rem;
+    }
+  }
 }
 
 /* Small laptops */
 @media (min-width: 1024px) and (max-width: 1279px) {
-
+  .alert-container {
+    justify-content: center;
+    span {
+      font-size: 1.3rem;
+    }
+  }
 }
 
 /* Medium screens */
 @media (min-width: 1280px) and (max-width: 1919px) {
-  .alert-container{
+  .alert-container {
     width: 99%;
     margin: 10px;
     justify-content: center;
+    border-radius: 10px;
 
     img {
       max-width: 100%;
@@ -53,5 +59,4 @@
 
 /* Big screens */
 @media (min-width: 1920px) {
-
 }

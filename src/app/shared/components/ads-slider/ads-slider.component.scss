@@ -4,25 +4,25 @@
 .slider-container {
   width: 100%;
   height: 45vh;
-  background-image: url("https://image.api.playstation.com/vulcan/ap/rnd/202407/1814/ad53de47262b4bd4bf41f1f62f7feb40095b7716e26a3d1c.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-color: rgba(0, 0, 0, 0.6);
   background-blend-mode: multiply;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   justify-content: end;
   align-items: start;
   padding-bottom: 30px;
   padding-left: 10px;
+  cursor: pointer;
 
   .slider-title {
     margin-bottom: 3px;
     h1 {
       margin: 0;
-      font-size: 2.3rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: var(--color-white);
     }
@@ -38,10 +38,40 @@
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
+  .slider-container {
+    .slider-title {
+      h1 {
+        font-size: 2.3rem;
+      }
+    }
+
+    .slider-subtitle {
+      span {
+        display: block;
+        width: 80%;
+        font-size: 1.1rem;
+      }
+    }
+  }
 }
 
 /* Small laptops */
 @media (min-width: 1024px) and (max-width: 1279px) {
+  .slider-container {
+    .slider-title {
+      h1 {
+        font-size: 3rem;
+      }
+    }
+
+    .slider-subtitle {
+      span {
+        display: block;
+        width: 80%;
+        font-size: 1.3rem;
+      }
+    }
+  }
 }
 
 /* Medium screens */
@@ -49,7 +79,8 @@
   .slider-container {
     width: 99%;
     height: 60vh;
-    background-position: start center;
+    background-position: center;
+    background-size: contain;
     border-radius: 15px;
     margin: 10px;
 

@@ -4,7 +4,6 @@ html,
 body {
   height: 100%;
   margin: 0;
-  box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
   overflow: hidden;
 }
@@ -34,26 +33,37 @@ h2 {
   height: $height;
   width: $width;
   transition: 0.5s ease;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 
   &:hover {
     background-color: $hover-color;
   }
 }
 
-@mixin error(){
+@mixin error() {
   width: max-content;
   height: auto;
   padding: 2px;
 
-  p{
+  p {
     color: var(--color-danger);
   }
-  svg{
+  svg {
     fill: var(--color-danger);
-  } 
+  }
 }
 
 .no-visibility {
   display: none;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

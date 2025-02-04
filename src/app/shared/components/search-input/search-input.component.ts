@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -11,4 +11,9 @@ import { RouterModule } from '@angular/router';
 })
 export class SearchInputComponent {
   
+  @Output() closeWrapper = new EventEmitter<boolean>(); 
+
+  closeWrapperFunction(){
+    this.closeWrapper.emit(false);
+  }
 }

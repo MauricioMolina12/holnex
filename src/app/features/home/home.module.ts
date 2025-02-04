@@ -7,6 +7,9 @@ import { AdsSliderComponent } from '../../shared/components/ads-slider/ads-slide
 import { ProductsComponent } from '../../shared/components/products/products.component';
 import { SearchInputComponent } from '../../shared/components/search-input/search-input.component';
 import { CategoriesComponent } from '../../shared/components/categories/categories.component';
+import { FiltersComponent } from '../../shared/components/filters/filters.component';
+import { SliderProductsComponent } from '../../shared/components/slider-products/slider-products.component';
+import { StarProductComponent } from '../../shared/components/star-product/star-product.component';
 
 @NgModule({
   declarations: [HomeComponent], 
@@ -16,7 +19,10 @@ import { CategoriesComponent } from '../../shared/components/categories/categori
     AdsSliderComponent, 
     ProductsComponent,
     SearchInputComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    FiltersComponent,
+    SliderProductsComponent,
+    StarProductComponent
   ],
 })
 export class HomeModule {}

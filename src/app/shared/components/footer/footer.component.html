@@ -1,0 +1,37 @@
+<footer class="footer-wrapper">
+  <div class="footer-header">
+    <div class="footer-branding">
+      <img
+        class="logo"
+        src="/assets/img/horizon-white.png"
+        alt="horizon-logo"
+      />
+      <h3 class="title">Todo lo que tú necesitas</h3>
+      <span class="subtitle">Horizon, {{ year }}.</span>
+    </div>
+    <div class="footer-columns">
+      <div class="column" *ngFor="let column of Columns">
+        <h4 class="column__title">{{ column?.title }}</h4>
+        <span class="column__link" *ngFor="let item of column?.items">
+          <a [routerLink]="item.redirect">{{ item?.text }}</a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-terms_conditions">
+    <div class="item">
+      <a href="">Términos y condiciones</a>
+      <span>.</span>
+      <a href="">Política de privacidad</a>
+    </div>
+    <div class="item">
+      <span
+        >Horizon es una corporación de comercio y servicios en línea,
+        constituido en Barranquilla, Colombia.</span
+      >
+    </div>
+    <div class="item">
+      <span> © 2025 - 2026 Horizon Inc. Todos los derechos reservados. </span>
+    </div>
+  </div>
+</footer>

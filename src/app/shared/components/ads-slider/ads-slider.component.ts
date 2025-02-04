@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EventEmitter } from 'stream';
 import { Ad } from '../../models/ads';
@@ -14,13 +14,23 @@ import { Ad } from '../../models/ads';
 export class AdsSliderComponent implements OnInit {
   // Props
 
+  constructor(private elRef: ElementRef, private renderer: Renderer2){}
 
   ngOnInit(): void {
-    
+    this.setBackgroundImage('slider-container', this.ads?.image)
   }
 
+  setBackgroundImage = (containerClass: string, image: string) => {
+    const slider = this.elRef.nativeElement.querySelector(`.${containerClass}`);
+    if (slider) {
+      this.renderer.setStyle(slider, 'backgroundImage', `url('${image}')`);
+    }
+  };
+  
+
+
   /*------------------- DATA -------------------*/
-  // @Input() ads: Ad[] = []; // Contains the list of ads that will be displayed in the slider.
+  @Input() ads: any = {}; // Contains the list of ads that will be displayed in the slider.
 
   // /*------------------- Behavior -------------------*/
   // @Input() autoSlide: boolean = true; /* 

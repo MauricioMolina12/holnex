@@ -1,0 +1,24 @@
+<div class="filters-wrapper">
+  <button class="filters__button" (click)="toggleModal('filters')">
+    <img
+      src="/assets/img/icons/svg/funnel/funnel-outline-medium.svg"
+      alt=""
+    />
+    <span class="filters__text">Filtrar</span>
+  </button>
+  <button class="filters__button">
+    <img
+      src="/assets/img/icons/svg/filter/filter-outline-medium.svg"
+      alt=""
+    />
+    <span class="filters__text">Ordenar</span>
+  </button>
+  <div class="modal" *ngIf="openFilters" [ngClass]="{'open' : openFilters}">
+    <header class="header-modal">
+      <h3>Filtrar por</h3>
+      <button (click)="openFilters = false" class="close-modal-button">
+        X
+      </button>
+    </header>
+  </div>
+</div>

@@ -2,7 +2,7 @@
 
 :root {
   --font-family: "Montserrat", sans-serif;
-  --background-color: linear-gradient(var(--color-white), var(--color-white-tint));
+  --background-color: var(--color-primary-contrast);
 
   /** primary **/
   --color-primary: #2292a4;

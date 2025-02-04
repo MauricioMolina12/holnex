@@ -2,11 +2,12 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/products';
 import { ProductsService } from '../products/products.service';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [],
+  imports: [NgFor],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })

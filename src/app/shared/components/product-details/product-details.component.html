@@ -1,15 +1,43 @@
-<main class="details">
-  <div class="product">
-    <!-- <h1 class="product__name">{{ product.title }}</h1> -->
-    <div class="product__image">
-      <img
-        [src]="product.image"
-        [alt]="'Producto: ' + product.title"
-      />
-    </div>
-    <div class="product__description">
-      <h5 class="product__description-title">Descripción</h5>
-      <p class="product__description-content">{{ product.description }}</p>
+<div class="product-detail">
+  <div class="product-information">
+    <div class="product-name">
+      <h1>{{ product?.title }}</h1>
     </div>
   </div>
-</main>
+  <div class="product-images">
+    <div class="main-image">
+      <img
+        [src]="product?.image"
+        [alt]="product?.name || 'Producto sin nombre'"
+      />
+      <div class="product-favorites">
+        <button>
+          <img
+            src="/assets/img/icons/svg/heart/heart-outline-medium.svg"
+            alt="button-favorites"
+          />
+        </button>
+      </div>
+    </div>
+    <aside class="thumbnail-images">
+      <figure class="thumbnail-item" *ngFor="let image of [1, 2, 3]">
+        <img
+          [src]="product?.image"
+          [alt]="product?.name + ' - vista adicional'"
+        />
+      </figure>
+    </aside>
+  </div>
+  <div class="product-description"></div>
+  <div class="product-call-actions">
+    <button class="product-buy-now"><span>Comprar ahora</span></button>
+    <button class="product-add-cart-shop">
+      <span>Agregar al carrito</span>
+      <img
+        class="product-add-cart-shop-icon"
+        src="/assets/img/icons/svg/shopcart/shopcart-outline-medium.svg"
+        alt=""
+      />
+    </button>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   <div class="measures nav-bar__left">
     <img
       class="nav-bar__logo"
-      src="assets/img/horizon-blue-dark.png"
+      src="assets/img/horizon-blue.png"
       alt="horizon"
     />
     <div class="nav-var__address">
@@ -11,8 +11,8 @@
     </div>
   </div>
 
-  <div class="measures nav-bar__center">
-    <app-search-input></app-search-input>
+  <div class="measures nav-bar__center" #wrapper_search_input>
+    <app-search-input (closeWrapper)="wrapper_search_input.classList.remove('active')"></app-search-input>
   </div>
 
   <div class="measures nav-bar__right" [class.no-visibility]="viewSearchInput">
@@ -36,8 +36,8 @@
         <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
       </div>
       <div class="profile-information">
-        <h1>{{ user.name }}</h1>
-        <span>{{ user.email }}</span>
+        <h1 class="profile-name">{{ user.name }}</h1>
+        <span class="profile-email">{{ user.email }}</span>
       </div>
     </div>
     <div class="information">

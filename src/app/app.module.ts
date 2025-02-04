@@ -9,6 +9,9 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { LayoutComponent } from './features/layout/layout.component';
 import { NavBarComponent } from "./shared/components/nav-bar/nav-bar.component";
 import { AlertNewPromotionsComponent } from "./shared/components/alert-new-promotions/alert-new-promotions.component";
+import { FiltersComponent } from './shared/components/filters/filters.component';
+import { CategoryDetailsComponent } from './shared/components/category-details/category-details.component';
+import { FooterComponent } from "./shared/components/footer/footer.component";
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { AlertNewPromotionsComponent } from "./shared/components/alert-new-promo
     AppRoutingModule,
     HttpClientModule,
     NavBarComponent,
-    AlertNewPromotionsComponent
+    AlertNewPromotionsComponent,
+    FiltersComponent,
+    CategoryDetailsComponent,
+    FooterComponent
 ],
   providers: [
     provideClientHydration(),

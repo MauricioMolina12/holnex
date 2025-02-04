@@ -17,6 +17,10 @@ const routes: Routes = [
         path: 'product/:id',
         loadComponent: () => import('../../shared/components/product-details/product-details.component').then(m => m.ProductDetailsComponent)
       },
+      {
+        path: 'category/:name',
+        loadComponent: () => import('../../shared/components/category-details/category-details.component').then(m => m.CategoryDetailsComponent)
+      },
     ],
   },
 ];

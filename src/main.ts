@@ -1,4 +1,6 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import 'intersection-observer';
+
 
 import { AppModule } from './app/app.module';
 

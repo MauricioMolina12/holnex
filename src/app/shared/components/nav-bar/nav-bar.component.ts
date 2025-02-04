@@ -193,7 +193,7 @@ export class NavBarComponent implements OnInit {
     },
     {
       icon: '/assets/img/icons/svg/box/box-outline-medium.svg',
-      title: 'Mis productos para vender',
+      title: 'Convertirme en vendedor',
     },
     {
       icon: '/assets/img/icons/svg/settings/settings-outline-medium.svg',

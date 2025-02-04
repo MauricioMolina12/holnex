@@ -5,13 +5,14 @@
   min-height: 12vh;
   height: auto;
   display: flex;
-  box-sizing: border-box;
   align-items: center;
+  box-sizing: border-box;
   justify-content: center;
   position: sticky;
   top: 0;
-  background-color: var(--color-white);
-  z-index: 1000;
+  background-color: var(--color-primary-contrast);
+  z-index: 1000000;
+  transition: all 1s ease;
 
   .measures {
     height: 100%;
@@ -27,7 +28,7 @@
       height: auto;
       object-fit: contain;
       transform: scale(0.4);
-      filter: drop-shadow(5px 5px 10px var(--color-light-shade));
+      // filter: drop-shadow(5px 5px 10px var(--color-light-shade));
     }
 
     .nav-var__address {
@@ -67,7 +68,7 @@
       width: 40px;
       padding: 0;
       margin-right: 10px;
-      transform: scale(0.7);
+      transform: scale(0.6);
       transition: position 1s ease;
     }
 
@@ -120,8 +121,8 @@
       }
     }
 
-    .nav-bar_items-search-input{
-      img{
+    .nav-bar_items-search-input {
+      img {
         max-width: 90%;
       }
     }
@@ -140,7 +141,7 @@
     right: 0;
     top: 0;
 
-    background-color: var(--color-medium);
+    background-color: var(--color-primary-contrast);
     animation: sideBarAnimation 1s ease;
     transition: transform 1s ease;
 
@@ -159,7 +160,7 @@
       align-items: start;
       justify-content: space-around;
       width: 100%;
-      border-bottom: 2px solid var(--color-border-gray);
+      border-bottom: 2px solid var(--color-white);
     }
 
     .profile {
@@ -196,14 +197,21 @@
         width: 92%;
         align-items: start;
         flex-direction: column;
-        h1 {
+
+        .profile-name,
+        .profile-email {
+          display: flex;
+          justify-content: start;
+        }
+
+        .profile-name {
           margin: 0;
           font-size: 1.1rem;
           font-weight: 800;
-          color: var(--color-primary-secondary);
+          color: var(--color-primary);
         }
 
-        span {
+        .profile-email {
           font-size: 0.75rem;
           color: var(--color-dark-gray);
         }
@@ -217,6 +225,7 @@
     .configurations {
       height: 25%;
       padding-bottom: 15px;
+      border-bottom: none;
 
       .nav-bar__sidebar-items:last-of-type {
         .item-value {
@@ -239,9 +248,12 @@
 
       button {
         @include button-styles(
-          var(--color-primary), // Bg-color
-          var(--color-primary-shade), // Hover-color
-          100%, // Width
+          var(--color-primary),
+          // Bg-color
+          var(--color-primary-shade),
+          // Hover-color
+          100%,
+          // Width
           60px // Height
         );
         border-radius: 10px;
@@ -252,8 +264,6 @@
         color: var(--color-primary-secondary);
       }
     }
-
-    
 
     .nav-bar__sidebar-items {
       width: 100%;
@@ -278,7 +288,7 @@
         font-size: 1.5rem;
         fill: var(--color-medium);
         color: var(--color-medium);
-        background-color: var(--color-border-gray);
+        background-color: var(--color-white);
         padding: 8px;
         border-radius: 10px;
         user-select: none;
@@ -415,20 +425,27 @@
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .nav-bar {    
+  .nav-bar {
     .nav-bar__sidebar {
       .profile {
         .profile-avatar {
           width: 10%;
-          min-width: 140px;
+          min-width: 12%;
         }
 
         .profile-information {
-          width: 92%;
-          h1 {
-            font-size: 1.4rem;
+          width: 85%;
+          .profile-name,
+          .profile-email {
+            display: flex;
+            justify-content: start;
           }
-          span {
+
+          .profile-name {
+            font-size: 1.5rem;
+          }
+
+          .profile-email {
             font-size: 1rem;
           }
         }
@@ -436,9 +453,17 @@
       .nav-bar__sidebar-items {
         .item-value {
           .item-value__title {
-            font-size: 0.9rem;
+            font-size: 1.05rem;
           }
         }
+      }
+    }
+
+    .nav-bar__right {
+      .nav-bar_items-button-bars,
+      .nav-bar_items-search-input,
+      .nav-bar_items-shop-cart {
+        width: 50px;
       }
     }
 
@@ -471,10 +496,13 @@
           min-width: 140px;
         }
         .profile-information {
-          h1 {
-            font-size: 1.6rem;
+          width: 85%;
+
+          .profile-name {
+            font-size: 1.8rem;
           }
-          span {
+
+          .profile-email {
             font-size: 1.2rem;
           }
         }
@@ -482,11 +510,11 @@
       .nav-bar__sidebar-items {
         .item-value {
           .item-value__title {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
           }
 
           .item-value__subtitle {
-            font-size: 1rem;
+            font-size: 1.2rem;
           }
         }
       }
@@ -494,6 +522,14 @@
         button {
           font-size: 1.1rem;
         }
+      }
+    }
+
+    .nav-bar__right {
+      .nav-bar_items-button-bars,
+      .nav-bar_items-search-input,
+      .nav-bar_items-shop-cart {
+        width: 60px;
       }
     }
 
@@ -513,8 +549,11 @@
 /* Medium screens */
 @media (min-width: 1280px) and (max-width: 1919px) {
   .nav-bar {
-    justify-content: space-between;
+    width: 100%;
+    // margin: 0 auto;
+    justify-content: center;
     height: 10vh;
+    // border-radius: 20px;
 
     .nav-bar__left {
       width: 25%;
@@ -536,19 +575,17 @@
         }
 
         .nav-var__address-value {
-          font-size: 0.7rem;
+          font-size: 0.6rem;
           color: var(--color-dark-gray);
         }
       }
     }
 
-    
-  .nav-bar__center {
-    width: 49%;
-    display: block;
-    transition: all 0.5s ease;
-
-  }
+    .nav-bar__center {
+      width: 49%;
+      display: block;
+      transition: all 0.5s ease;
+    }
 
     .nav-bar__right {
       display: none;
@@ -557,7 +594,7 @@
     .nav-bar__sidebar {
       transform: translateX(0);
       position: static;
-      width: 18%;
+      width: 20%;
       height: 100%;
       background-color: transparent;
       display: flex;
@@ -582,10 +619,6 @@
         .nav-bar__sidebar-items {
           height: 40px;
           justify-content: center;
-
-          .item-value {
-            display: none;
-          }
 
           .pending-point {
             position: absolute;
@@ -681,7 +714,7 @@
       position: absolute;
       right: 20px;
       top: 100%;
-      width: 25%;
+      width: 30%;
       min-height: auto;
       height: max-content;
       border-radius: 10px;
@@ -690,7 +723,7 @@
       animation: fadeIn 0.2s ease;
       flex-direction: column;
       align-items: start;
-      border: 1px solid var(--color-border-gray);
+
 
       .profile {
         width: 100%;
@@ -730,8 +763,8 @@
 
           .profile-information-name {
             margin: 0;
-            font-size: 1.2rem;
-            color: var(--color-primary-secondary);
+            font-size: 1rem;
+            color: var(--color-primary);
           }
 
           .profile-information-email {
@@ -777,8 +810,9 @@
 
           .item-value__title {
             margin: 0;
+            font-size: .7rem;
             color: var(--color-dark-gray);
-            font-weight: bold;
+            font-weight: 300;
           }
 
           .item-value__subtitle {

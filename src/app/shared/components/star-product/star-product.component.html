@@ -1,0 +1,36 @@
+<div class="star-product-wrapper">
+  <div class="star-product-titles">
+    <h1 class="title">Producto estrella del mes</h1>
+  </div>
+  <div class="star-product">
+    <div class="star-product-image">
+      <img [src]="product.image" alt="" />
+    </div>
+    <div class="star-product-information">
+      <h3 class="product-name">
+        {{ product.name }}
+      </h3>
+      <span class="product-price">${{ product.price }}</span>
+      <div class="product-characteristics">
+        <div
+          class="characteristic"
+          *ngFor="let characteristics of product.characteristics; let i = index"
+        >
+          <span class="characteristic-index-wrapper">
+            <span class="characteristic-index">
+              {{ i + 1 }}
+            </span>
+          </span>
+          <span class="characteristic-text">
+            {{ characteristics }}
+          </span>
+        </div>
+      </div>
+      <!-- <div class="product-actions">
+        <button class="star-product-buy-now">
+            <span>Ver en detalle</span>
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

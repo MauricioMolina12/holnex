@@ -1,30 +1,61 @@
-<app-ads-slider></app-ads-slider>
+
+<!-- Component to display the slider with ads -->
+<app-ads-slider
+  [ads]="{
+    image: 'https://www.elcontainer.cl/28358-big_default/computador-pc-gamer-intel-core-i5-9400f-29ghz-32gb-ram-nvidia-geforce-rtx-3050.jpg',
+    title: 'OFERTA EN PCS GAMERS',
+    description: 'Contamos con los mejores precios para computadores gamer de escritorio'
+  }">
+</app-ads-slider>
 <main class="main">
-  <header class="main__header">
-    <h2 class="header__title">Cosas que necesitas</h2>
-  </header>
-  <div class="main__products">
-    <app-categories></app-categories>
-    <app-products
-      [products]="productsService.products"
-      [totalPages]="productsService.pagination.totalPages"
-      [productPerPage]="productsService.pagination.productPerPage"
-      [hasPagination]="productsService.pagination.hasPagination"
-      [currentPage]="productsService.pagination.currentPage"
-    ></app-products>
-  </div>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <!--Main container -->
+  <!-- <div class="main__products">
+    <aside class="filters-products">
+      <app-categories></app-categories>
+    </aside>
+  </div> -->
+  
+  <!-- Component to display categories -->
+  <app-categories></app-categories>
+
+
+  <!--Component to display products on sale-->
+  <app-products
+    [title]="'Productos en oferta🛍️'"
+    [subtitle]="'Solo por este mes aprovecha el 30% en todos los productos que más te gustan'"
+    (productClick)="detailProduct($event)"
+    [products]="productsService.products"
+    [totalPages]="productsService.pagination.totalPages"
+    [productPerPage]="productsService.pagination.productPerPage"
+    [hasPagination]="productsService.pagination.hasPagination"
+    [currentPage]="productsService.pagination.currentPage"
+    [width]="'100vw'"
+    [padding]="'10px'"
+    [margin]="'0 auto'">
+  </app-products>
+  
+
+  <!-- Component to display products based on the user's last wish -->
+  <app-products
+    [title]="'Inspirado en tus ultimos deseos 📦'"
+    [subtitle]="'En esta sección encontrarás productos que van con tus gustos y tus ultimas vistas'"
+    (productClick)="detailProduct($event)"
+    [products]="productsService.products"
+    [totalPages]="productsService.pagination.totalPages"
+    [productPerPage]="productsService.pagination.productPerPage"
+    [hasPagination]="productsService.pagination.hasPagination"
+    [currentPage]="productsService.pagination.currentPage"
+    [width]="'100vw'"
+    [padding]="'10px'"
+    [margin]="'0 auto'">
+  </app-products>
+  
+
+  <app-star-product></app-star-product>
+  
+
+
+  <!-- <app-slider-products [products]="productsService.products" [margintop]="'40px'" [title]="'Relacionado con lo ultimo que compraste 🛒'" [subtitle]="'Aquí encontrarás productos relacionados con el ultimo producto que compraste'"></app-slider-products> -->
 </main>
-<!-- app-ads-slider
-        [ads]="ads"
-        [autoSlide]="true"
-        [slideInterval]="5000"
-        [loop]="true"
-        [pauseOnHover]="true"
-        [showIndicators]="true"
-        [showControls]="true"
-        [indicatorPosition]="'bottom'"
-        [height]="'300px'"
-        [width]="'100%'"
-        (adClick)="onAdClick($event)">
-      </app-ads-slider> -->
+

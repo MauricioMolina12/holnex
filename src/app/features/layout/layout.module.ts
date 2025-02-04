@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.component';
 import { AlertNewPromotionsComponent } from '../../shared/components/alert-new-promotions/alert-new-promotions.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { AlertNewPromotionsComponent } from '../../shared/components/alert-new-p
     CommonModule,
     LayoutRoutingModule,
     NavBarComponent,
-    AlertNewPromotionsComponent
+    AlertNewPromotionsComponent,
+    FooterComponent
   ]
 })
 export class LayoutModule { }
