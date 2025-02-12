@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationTypeError } from '../../../core/enum/validations.enum';
@@ -14,9 +14,11 @@ export class SignUpComponent {
   private typingTimeout: any;
   signUpForm!: FormGroup;
 
+
   // Messages alerts
   successMessage: string = '';
   errorMessage: string = '';
+
 
   // Forms
   formData = {
@@ -29,10 +31,14 @@ export class SignUpComponent {
     phone: '',
   };
 
+  // Variables
+  @ViewChild('stepsIndicator', { static: false }) stepsIndicator!: ElementRef;
+  @ViewChild('lineProgress') lineProgress!: ElementRef<HTMLElement>;
+
   ValidationType = ValidationTypeError;
   viewPassword: boolean = false;
 
-  constructor(public authService: AuthService, private fb: FormBuilder) {
+  constructor(public authService: AuthService, private fb: FormBuilder, private el: ElementRef, private renderer: Renderer2) {
     this.initializeForms();
   }
 
@@ -90,9 +96,7 @@ export class SignUpComponent {
     switch (step) {
       case 1:
         const emailControl = this.signUpForm.get('email');
-        const isEmailValid =
-          emailControl?.valid &&
-          this.authService.isEmailValid(emailControl.value);
+        const isEmailValid = emailControl?.valid && this.authService.isEmailValid(emailControl.value);
 
         if (isEmailValid) {
           let allCodeFilled = true;
@@ -182,10 +186,9 @@ export class SignUpComponent {
   // We use this function to calculate the progress of the registration steps.
   calculateLineWidth(): number {
     const totalSteps = 3;
-    const stepWidth =
-      document.querySelector('.steps-indicator')?.clientWidth || 0;
-    const lineHTML$ = document.querySelector('.line-progress') as HTMLElement;
-    let lineWidth = (stepWidth / totalSteps) * (this.currentStep - 1);
+    const stepIndicator = this.stepsIndicator?.nativeElement;
+    const lineHTML$ = this.lineProgress?.nativeElement;
+    let lineWidth = (stepIndicator?.clientWidth / totalSteps) * (this.currentStep - 1);
 
     switch (this.currentStep) {
       case 1:
@@ -195,10 +198,10 @@ export class SignUpComponent {
         }
         break;
       case 2:
-        lineWidth = stepWidth / 2;
+        lineWidth = stepIndicator?.clientWidth / 2;
         break;
       case 3:
-        lineWidth = stepWidth;
+        lineWidth = stepIndicator?.clientWidth;
         if (lineHTML$) {
           lineHTML$.style.left = '0';
         }

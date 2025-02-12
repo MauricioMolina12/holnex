@@ -10,23 +10,8 @@
         Completa la información de cada paso para crear tu cuenta
       </h1>
 
-      <div class="networks">
-        <div class="networks-buttons">
-          <button>
-            <img src="../../../../assets/img/logo/Google.png" />
-          </button>
-          <button>
-            <img src="../../../../assets/img/logo/Facebook.png" />
-          </button>
-        </div>
-        <div class="text-network">
-          <p>Registrate también con</p>
-          <div class="line"></div>
-        </div>
-      </div>
-
       <!--Steps to complete the form-->
-      <div class="steps-indicator">
+      <div class="steps-indicator" #stepsIndicator>
         <div
           class="step first-step"
           [class.active]="currentStep >= 1"
@@ -49,6 +34,7 @@
           <p>3</p>
         </div>
         <div
+        #lineProgress
           class="line-progress"
           [ngStyle]="{ width: calculateLineWidth() + 'px' }"
         ></div>
