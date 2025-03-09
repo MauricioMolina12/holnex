@@ -1,5 +1,5 @@
-import { NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { NgClass, NgFor } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { ProductsService } from '../products/products.service';
 import { map } from 'rxjs';
@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NgFor, RouterLink],
+  imports: [NgFor, RouterLink, NgClass],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
@@ -17,6 +17,7 @@ export class CategoriesComponent implements OnInit {
   constructor(private categoriesService: CategoriesService) {}
 
   categories: any[] = [];
+  @Input() isAbsolute: boolean = false;
 
   ngOnInit() {
     this.categoriesService.categories$.subscribe((categories) => {

@@ -17,7 +17,7 @@
   </div> -->
   
   <!-- Component to display categories -->
-  <app-categories></app-categories>
+  <app-categories [isAbsolute]="true"></app-categories>
 
 
   <!--Component to display products on sale-->
@@ -26,10 +26,6 @@
     [subtitle]="'Solo por este mes aprovecha el 30% en todos los productos que más te gustan'"
     (productClick)="detailProduct($event)"
     [products]="productsService.products"
-    [totalPages]="productsService.pagination.totalPages"
-    [productPerPage]="productsService.pagination.productPerPage"
-    [hasPagination]="productsService.pagination.hasPagination"
-    [currentPage]="productsService.pagination.currentPage"
     [width]="'100vw'"
     [padding]="'10px'"
     [margin]="'0 auto'">
@@ -42,10 +38,6 @@
     [subtitle]="'En esta sección encontrarás productos que van con tus gustos y tus ultimas vistas'"
     (productClick)="detailProduct($event)"
     [products]="productsService.products"
-    [totalPages]="productsService.pagination.totalPages"
-    [productPerPage]="productsService.pagination.productPerPage"
-    [hasPagination]="productsService.pagination.hasPagination"
-    [currentPage]="productsService.pagination.currentPage"
     [width]="'100vw'"
     [padding]="'10px'"
     [margin]="'0 auto'">

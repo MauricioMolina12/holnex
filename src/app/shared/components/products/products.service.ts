@@ -8,16 +8,21 @@ import { environment } from '../../../../environments/environment';
 })
 export class ProductsService {
   products: any[] = [];
-  product_detail: any;
-  pagination = {
-    currentProducts: [],
-    totalPages: 1,
-    hasPagination: false,
-    productPerPage: 20,
-    currentPage: 1,
-  };
+  productDetail: any;
+
+  // Se debe organizar bien la paginación
+
+  // pagination = {
+  //   currentProducts: [],
+  //   totalPages: 1,
+  //   hasPagination: false,
+  //   productPerPage: 6,
+  //   currentPage: 1,
+  // };
 
   constructor(private http: HttpClient) {}
+
+
 
   /**
    * Get the general products
@@ -27,8 +32,8 @@ export class ProductsService {
 
   getProducts(): Observable<any> {
     return this.http.get(environment.apiUrl).pipe(
-      map((response: any) => {
-        return response.map((product: any) => ({
+      map((products: any) => {
+        return products.map((product: any) => ({
           id: product.id,
           title: product.title,
           price: product.price,
@@ -102,13 +107,15 @@ export class ProductsService {
   //   );
   // }
 
-  paginatedProducts(
-    currentPage: number,
-    productPerPage: number,
-    products: any[]
-  ) {
-    const startIndex = (currentPage - 1) * productPerPage;
-    const endIndex = startIndex + productPerPage;
-    this.products = products.slice(startIndex, endIndex);
-  }
+  // Se debe organizar bien la paginación
+
+  // paginatedProducts(
+  //   currentPage: number,
+  //   productPerPage: number,
+  //   products: any[]
+  // ) {
+  //   const startIndex = (currentPage - 1) * productPerPage;
+  //   const endIndex = startIndex + productPerPage;
+  //   this.products = products.slice(startIndex, endIndex);    
+  // }
 }

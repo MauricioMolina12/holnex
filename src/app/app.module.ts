@@ -14,6 +14,7 @@ import { CategoryDetailsComponent } from './shared/components/category-details/c
 import { FooterComponent } from "./shared/components/footer/footer.component";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,7 @@ import { FooterComponent } from "./shared/components/footer/footer.component";
     FiltersComponent,
     CategoryDetailsComponent,
     FooterComponent
-],
+  ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),

@@ -11,6 +11,7 @@ import {
   ViewChildren,
   QueryList,
   OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Product } from '../../models/products';
@@ -34,7 +35,7 @@ import { UtilsService } from '../../services/utils.service';
     CardProductComponent,
   ],
 })
-export class ProductsComponent implements OnDestroy {
+export class ProductsComponent implements OnDestroy, OnInit {
   @Input() products: any[] = []; // => Array products
   @Input() hasPagination: boolean = true; // => Determines if the component should have pagination
   @Input() productPerPage: number = 8; // => Products per page
@@ -54,11 +55,10 @@ export class ProductsComponent implements OnDestroy {
   @Input() title: string = ''; // Title for current section
   @Input() subtitle: string = ''; // Subtitle for current section
 
-
-  
-  
   product: any;
   currentProducts: any[] = []; // => auxiliary array
+  pages: number[] = [];
+
   private observer!: any;
 
   constructor(
@@ -69,49 +69,60 @@ export class ProductsComponent implements OnDestroy {
     private utilsService: UtilsService
   ) {}
 
-
   @ViewChildren('productCard') productCards!: QueryList<ElementRef>;
 
+  async ngOnInit(){
+    await this.setPages();
+  }
 
   ngAfterViewInit() {
-    this.observer = this.utilsService.parallaxEffect(this.productCards, 0.05)
+    this.observer = this.utilsService.parallaxEffect(this.productCards, 0.05);
+  }
+
+  setPages() {
+    this.pages =
+      this.totalPages > 3
+        ? Array.from({ length: 3 }, (_, i) => i + 1)
+        : Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
   ngOnDestroy(): void {
-    if(this.observer){
+    if (this.observer) {
       this.observer.disconnect();
     }
   }
 
-  movePage(type: string, page?: number): void {
-    if (page === undefined) page = 1;
-    switch (type) {
-      case 'indexpage':
-        if (page >= 1 && page <= this.productsService.pagination.totalPages) {
-          this.productsService.pagination.currentPage = page;
-        }
-        break;
-      case 'prevpage':
-        if (this.productsService.pagination.currentPage > 1) {
-          this.productsService.pagination.currentPage--;
-        }
-        break;
-      case 'nextpage':
-        if (
-          this.productsService.pagination.currentPage <
-          this.productsService.pagination.totalPages
-        ) {
-          this.productsService.pagination.currentPage++;
-        }
-        break;
-    }
+  // Se debe organizar bien la paginación, este método debe ejecutar un evento para la paginación
 
-    this.productsService.paginatedProducts(
-      this.productsService.pagination.currentPage,
-      this.productsService.pagination.productPerPage,
-      this.productsService.pagination.currentProducts
-    );
-  }
+  // movePage(type: string, page?: number): void {
+  //   if (page === undefined) page = 1;
+  //   switch (type) {
+  //     case 'indexpage':
+  //       if (page >= 1 && page <= this.productsService.pagination.totalPages) {
+  //         this.productsService.pagination.currentPage = page;
+  //       }
+  //       break;
+  //     case 'prevpage':
+  //       if (this.productsService.pagination.currentPage > 1) {
+  //         this.productsService.pagination.currentPage--;
+  //       }
+  //       break;
+  //     case 'nextpage':
+  //       if (
+  //         this.productsService.pagination.currentPage <
+  //         this.productsService.pagination.totalPages
+  //       ) {
+  //         this.productsService.pagination.currentPage++;
+  //       }
+  //       break;
+  //   }
+
+  //   this.productsService.paginatedProducts(
+  //     this.productsService.pagination.currentPage,
+  //     this.productsService.pagination.productPerPage,
+  //     this.productsService.pagination.currentProducts
+  //   );
+  // }
 
   addShoppingCart(e: Event) {
     e.stopPropagation();
@@ -139,6 +150,6 @@ export class ProductsComponent implements OnDestroy {
 
   detailProduct(product: any) {
     this.router.navigate([`/product/${product.id}`]);
-    this.productsService.product_detail = product;
+    this.productsService.productDetail = product;
   }
 }

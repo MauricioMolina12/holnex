@@ -134,8 +134,7 @@
 }
 
 /* Small laptops */
-@media (min-width: 1024px) and (max-width: 1279px) {
-}
+@media (min-width: 1024px) and (max-width: 1279px) {}
 
 /* Medium screens */
 @media (min-width: 1280px) and (max-width: 1919px) {
@@ -152,12 +151,14 @@
       height: 20%;
     }
 
-    .icon-xmark{
+    .icon-xmark {
       display: none;
+      right: 40px;
     }
 
     .recent-searches {
       width: calc(100% - 54px);
+
       .recent-searches__list {
         .recent-searches__list__item {
           .item__icon {
@@ -171,5 +172,4 @@
 }
 
 /* Big screens */
-@media (min-width: 1920px) {
-}
+@media (min-width: 1920px) {}

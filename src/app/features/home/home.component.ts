@@ -19,26 +19,26 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProducts();
   }
-  
 
   getAllProducts(): void {
     this.productsService.getProducts().subscribe((products) => {
-      this.productsService.pagination.currentProducts = products;
-      this.productsService.pagination.totalPages = Math.ceil(
-        products.length / this.productsService.pagination.productPerPage
-      );
-      this.productsService.pagination.hasPagination =
-        this.productsService.pagination.totalPages > 1;
-      this.productsService.paginatedProducts(
-        this.productsService.pagination.currentPage,
-        this.productsService.pagination.productPerPage,
-        this.productsService.pagination.currentProducts
-      );
+      if (products.length) {
+        this.productsService.products = products;
+      }
+
+      // Se debe organizar bien la paginación
+      // this.productsService.pagination.currentProducts = products;
+
+      // this.productsService.pagination.totalPages = Math.ceil(products.length / this.productsService.pagination.productPerPage);
+
+      // this.productsService.pagination.hasPagination = this.productsService.pagination.totalPages > 1;
+
+      // this.productsService.paginatedProducts(1,this.productsService.pagination.productPerPage,this.productsService.pagination.currentProducts);
     });
   }
 
   detailProduct(product: any) {
     this.router.navigate([`/product/${product.id}`]);
-    this.productsService.product_detail = product;
+    this.productsService.productDetail = product;
   }
 }

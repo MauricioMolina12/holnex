@@ -1,8 +1,5 @@
-<section
-  class="container-products"
-  [ngClass]="{ 'full-width': isfullWidth == true }"
-  [ngStyle]="{ width: width, padding: padding, margin: margin }"
->
+<section class="container-products" [ngClass]="{ 'full-width': isfullWidth == true }"
+  [ngStyle]="{ width: width, padding: padding, margin: margin }">
   <header class="products__header">
     <div class="section-titles">
       <h2 class="title">{{ title }}</h2>
@@ -10,60 +7,35 @@
       <a href="" class="subtitle-view-all">Ver todos</a>
     </div>
     <div class="tools-products">
-      <div class="pagination-products" *ngIf="hasPagination">
-        <!--Button left pagination-->
-        <button
-          class="button-arrow-left"
-          (click)="movePage('prevpage')"
-          [ngClass]="{ disabled: currentPage == 1 }"
-        >
-          <img
-            class="icon"
-            src="/assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg"
-            alt=""
-          />
+      <!-- <div class="pagination-products" *ngIf="hasPagination">
+
+        <button class="button-arrow-left" (click)="movePage('prevpage', currentPage)"
+          [ngClass]="{ disabled: currentPage == 1 }">
+          <img class="icon" src="/assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg" alt="" />
           <span class="left-text text-arrow">Anterior</span>
         </button>
 
-        <!--Pages pagination-->
         <div class="pages">
-          <button
-            *ngFor="
-              let page of [].constructor(totalPages).length > 3
-                ? [].constructor(totalPages).slice(0, 3)
-                : [].constructor(totalPages);
-              let i = index
-            "
-            [class.active]="currentPage === i + 1"
-            (click)="movePage('indexpage', i + 1)"
-          >
+          <button *ngFor="let page of pages; let i = index" 
+                  [class.active]="currentPage === i + 1" 
+                  (click)="movePage('indexpage', i + 1)">
             {{ i + 1 }}
           </button>
-          <button *ngIf="[].constructor(totalPages).length > 3">...</button>
+          
+          <button *ngIf="totalPages > 3">...</button>
 
-          <button
-            *ngIf="[].constructor(totalPages).length > 3"
-            [class.active]="currentPage === totalPages"
-            (click)="movePage('indexpage', totalPages)"
-          >
+          <button *ngIf="totalPages > 3" [class.active]="currentPage === totalPages"
+            (click)="movePage('indexpage', totalPages)">
             {{ totalPages }}
           </button>
         </div>
 
-        <!--Button right pagination-->
-        <button
-          class="button-arrow-right"
-          (click)="movePage('nextpage')"
-          [disabled]="currentPage === totalPages"
-        >
+        <button class="button-arrow-right" (click)="movePage('nextpage',currentPage)"
+          [disabled]="currentPage === totalPages">
           <span class="right-text text-arrow">Siguiente</span>
-          <img
-            class="icon"
-            src="/assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg"
-            alt=""
-          />
+          <img class="icon" src="/assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg" alt="" />
         </button>
-      </div>
+      </div> -->
       <!-- <app-filters></app-filters> -->
     </div>
   </header>

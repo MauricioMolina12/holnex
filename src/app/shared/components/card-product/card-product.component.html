@@ -1,4 +1,4 @@
-<div class="product" [ngClass]="{ horizontal: horizontal }" (click)="onProductClick($event)">
+<article class="product" [ngClass]="{ horizontal: horizontal }" (click)="onProductClick($event)">
   <header class="product__header">
     <div class="product-image">
       <!-- <div class="product-category">
@@ -12,16 +12,17 @@
           />
         </button>
       </div> -->
-      <img [src]="product?.image" [alt]="'Imagen de:' + product.title" />
+      <img [src]="product?.image" [alt]="'Imagen de: ' + product.title" loading="lazy" />
     </div>
     <div class="product-titles">
       <h3 class="product-title">{{ product.title }}</h3>
       <span class="product-price">${{ product.price }}</span>
     </div>
   </header>
+
   <div class="product-buy-button-wrapper">
-    <button>
-      <img src="/assets/img/icons/svg/shopcart/shopcart-outline-medium.svg" alt="" />
+    <button aria-label="Agregar al carrito">
+      <img src="/assets/img/icons/svg/shopcart/shopcart-outline-medium.svg" alt="Carrito de compras" />
     </button>
   </div>
   <!-- <div class="product-actions">
@@ -35,4 +36,4 @@
     </button>
     <button class="product-buy-now"><span>Comprar ahora</span></button>
   </div> -->
-</div>
+</article>
