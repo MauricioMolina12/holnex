@@ -42,7 +42,7 @@
 
   <div class="product-wrapper">
     <!--Card product-->
-    <div *ngFor="let product of products" class="fade-in product-card" #productCard>
+    <div *ngFor="let product of products" class="product-card" #productCard>
       <app-card-product [product]="product" (productClick)="detailProduct(product)"></app-card-product>
     </div>
   </div>

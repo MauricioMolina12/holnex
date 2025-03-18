@@ -4,12 +4,15 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: "Montserrat", sans-serif;
   overflow: hidden;
 }
 
+*{
+  font-family: "Montserrat", sans-serif;
+}
 
-h2 {
+
+h1,h2,h3,h4,h5,h6 {
   margin: 0;
 }
 
@@ -33,7 +36,6 @@ h2 {
   height: $height;
   width: $width;
   transition: 0.5s ease;
-  font-family: "Montserrat";
 
   &:hover {
     background-color: $hover-color;

@@ -1,10 +1,6 @@
 @import "../../styles/variables.scss";
 @import "../../../../styles.scss";
 
-* {
-  font-family: "Montserrat";
-}
-
 .product {
   width: 100%;
   min-width: 80%;
@@ -295,6 +291,13 @@
 @media (min-width: 1024px) and (max-width: 1279px) {
   .product {
     .product__header {
+      .product-image {
+        img {
+          max-width: 60%;
+          height: 60%;
+        }
+      }
+
       .product-titles {
         .product-title {
           font-size: 1.3rem;
@@ -338,8 +341,7 @@
           img {
             aspect-ratio: 1/1;
             border-radius: inherit;
-            width: 70%;
-            max-width: 55%;
+            max-width: 50%;
             height: 40%;
             object-fit: contain;
             object-position: center;

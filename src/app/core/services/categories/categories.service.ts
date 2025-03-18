@@ -14,7 +14,7 @@ export class CategoriesService {
 
   getCategories(): void {
     this.http
-      .get<any[]>('https://fakestoreapi.com/products/categories')
+      .get<any[]>(environment.api + '/products/categories')
       .pipe(
         map((response) =>
           response.map((category, index) => ({

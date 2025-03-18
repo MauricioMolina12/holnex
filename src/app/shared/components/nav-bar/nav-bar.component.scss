@@ -972,17 +972,20 @@
       display: none;
     }
 
+    .nav-bar__center{
+      border: 1px solid red;
+    }
+
     .nav-bar__sidebar {
-      position: static;
+      position: initial;
       width: 25%;
       height: 100%;
-      background-color: transparent;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: end;
       gap: 15px;
-      animation: none;
+      animation: sideBarAnimation .1s ease forwards;
       transition: none;
 
       .bottom,
@@ -1089,6 +1092,7 @@
         }
       }
     }
+
   }
 }
 

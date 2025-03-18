@@ -44,7 +44,7 @@ export class NavBarComponent implements OnInit {
       role: 'premium',
       source: '',
       address: this.authService.isLoggued
-        ? 'Calle 25 #28 A18.Sabanalarga, Atlántico.'
+        ? 'Calle 25 #28 A18. San Sebastián, Magdalena.'
         : '',
     };
   }

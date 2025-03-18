@@ -1,0 +1,16 @@
+<div class="services-wrapper">
+    <h2 class="title">Todo lo que necesitas en un solo lugar</h2>
+    <span class="subtitle">Te ofrecemos servicios clave para potenciar tu empresa y hacer crecer tus ideas.</span>
+    <div class="services-grid">
+        <div class="service" *ngFor="let service of servicesHorizon">
+            <div class="service__icon" [ngStyle]="{'backgroundImage': 'url(\'' + service.icon + '\')'}">
+            </div>
+
+            <h2 class="service__name">{{service.name}}</h2>
+            <p class="service__description">{{service.description}}</p>
+            <button class="service__button-detail">
+                <img src="../../../../assets/img/icons/svg/arrow-chevron-right/arrow-chevron-light.svg" alt="">
+            </button>
+        </div>
+    </div>
+</div>

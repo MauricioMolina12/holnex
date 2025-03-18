@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Ad } from '../../shared/models/ads';
 import { ProductsService } from '../../shared/components/products/products.service';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +11,20 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     public productsService: ProductsService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.getAllProducts();
+  async ngOnInit() {
+    await this.getAllProducts();
   }
 
+  private suscriptionProducts!: Subscription;
   getAllProducts(): void {
-    this.productsService.getProducts().subscribe((products) => {
-      if (products.length) {
+     this.suscriptionProducts = this.productsService.getProducts().subscribe((products) => {
+      if (products) {
         this.productsService.products = products;
       }
 
@@ -35,6 +37,13 @@ export class HomeComponent implements OnInit {
 
       // this.productsService.paginatedProducts(1,this.productsService.pagination.productPerPage,this.productsService.pagination.currentProducts);
     });
+  }
+
+  
+  ngOnDestroy(): void {
+    if(this.suscriptionProducts){
+      this.suscriptionProducts.unsubscribe()
+    }
   }
 
   detailProduct(product: any) {

@@ -10,6 +10,8 @@ import { CategoriesComponent } from '../../shared/components/categories/categori
 import { FiltersComponent } from '../../shared/components/filters/filters.component';
 import { SliderProductsComponent } from '../../shared/components/slider-products/slider-products.component';
 import { StarProductComponent } from '../../shared/components/star-product/star-product.component';
+import { NewsletterSubscriptionComponent } from '../../shared/components/newsletter-subscription/newsletter-subscription.component';
+import { ServicesComponent } from '../../shared/components/services/services.component';
 
 @NgModule({
   declarations: [HomeComponent], 
@@ -22,7 +24,9 @@ import { StarProductComponent } from '../../shared/components/star-product/star-
     CategoriesComponent,
     FiltersComponent,
     SliderProductsComponent,
-    StarProductComponent
+    StarProductComponent,
+    NewsletterSubscriptionComponent,
+    ServicesComponent
   ],
 })
 export class HomeModule {}

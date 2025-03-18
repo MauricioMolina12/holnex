@@ -29,9 +29,8 @@ export class ProductsService {
    *
    * @returns {Observable<any>} - Returns an observable with an array of all products
    */
-
   getProducts(): Observable<any> {
-    return this.http.get(environment.apiUrl).pipe(
+    return this.http.get(environment.api + '/products').pipe(
       map((products: any) => {
         return products.map((product: any) => ({
           id: product.id,
@@ -56,7 +55,7 @@ export class ProductsService {
    */
 
   getProductBYId(id: string): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/${id}`).pipe(
+    return this.http.get<any>(`${environment.api}/products/${id}`).pipe(
       map((product: any) => ({
         id: product.id,
         title: product.title,

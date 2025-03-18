@@ -2,7 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/products';
 import { ProductsService } from '../products/products.service';
-import { NgClass, NgFor, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle, NgSwitch, NgSwitchCase } from '@angular/common';
 import { TruncatePipe } from '../../pipes/shared.pipe';
 import { CategoriesComponent } from '../categories/categories.component';
 
@@ -11,7 +11,9 @@ import { CategoriesComponent } from '../categories/categories.component';
   standalone: true,
   imports: [
     NgFor,
+    NgIf,
     NgClass,
+    NgStyle,
     NgSwitch,
     NgSwitchCase,
     TruncatePipe,
@@ -24,11 +26,39 @@ export class ProductDetailsComponent implements OnInit {
   // Inputs
   @Input() product!: any;
 
+
+
   // Variables
-  segmentIndicator: number = 2;
+  segmentIndicator: number = 1;
   description: string =
     'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit impedit, nostrum consequuntur et distinctio nobis natus esse quia sunt? Similique exercitationem totam tenetur ipsam quisquam doloribus reprehenderit voluptates obcaecati deleniti. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit impedit, nostrum consequuntur et distinctio nobis natus esse quia sunt? Similique exercitationem totam tenetur ipsam quisquam doloribus reprehenderit voluptates obcaecati deleniti Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit impedit, nostrum consequuntur et distinctio nobis natus esse quia sunt? Similique exercitationem totam tenetur ipsam quisquam doloribus reprehenderit voluptates obcaecati deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti delenitidelenitideleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti deleniti';
   showFullText: boolean = false;
+  visibleComments: string[] = [];
+  currentIndex: number = 0;
+  id!: string;
+  quantityProduct: number = 1;
+
+
+  // List
+  buttons = [
+    {
+      title: 'Comprar ahora',
+      cssClass: 'product-buy-now-button',
+    },
+    {
+      title: 'Agregar al carrito',
+      iconUrl: 'assets/img/icons/svg/shopcart/shopcart-outline-blue-light.svg',
+      cssClass: 'product-add-shop-cart-button',
+    },
+    {
+      title: 'Compartir',
+    },
+  ];
+  colors = [
+    { title: 'blue', colorHex: '#2292A4' },
+    { title: 'gray', colorHex: '#545453' },
+    { title: 'white', colorHex: '#D9D9D9' },
+  ];
   comments: string[] = [
     'Excelente producto, muy recomendado!',
     'La calidad es buena, pero tardó en llegar.',
@@ -38,13 +68,8 @@ export class ProductDetailsComponent implements OnInit {
     'Volvería a comprar sin dudarlo.',
     'Buena relación calidad-precio.',
   ];
-  visibleComments: string[] = [];
-  currentIndex: number = 0;
 
   private route = inject(ActivatedRoute);
-  id!: string;
-  quantityProduct: number = 1;
-
   constructor(private productService: ProductsService) {}
 
   ngOnInit(): void {
@@ -96,9 +121,9 @@ export class ProductDetailsComponent implements OnInit {
         this.quantityProduct++;
         break;
       case 'down':
-        if(this.quantityProduct > 0){
+        if (this.quantityProduct > 0) {
           this.quantityProduct--;
-        }  
+        }
         break;
     }
   }

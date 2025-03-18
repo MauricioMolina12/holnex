@@ -35,7 +35,7 @@ import { UtilsService } from '../../services/utils.service';
     CardProductComponent,
   ],
 })
-export class ProductsComponent implements OnDestroy, OnInit {
+export class ProductsComponent implements OnInit {
   @Input() products: any[] = []; // => Array products
   @Input() hasPagination: boolean = true; // => Determines if the component should have pagination
   @Input() productPerPage: number = 8; // => Products per page
@@ -71,13 +71,13 @@ export class ProductsComponent implements OnDestroy, OnInit {
 
   @ViewChildren('productCard') productCards!: QueryList<ElementRef>;
 
-  async ngOnInit(){
-    await this.setPages();
+  async ngOnInit() {
+    // await this.setPages();
   }
 
-  ngAfterViewInit() {
-    this.observer = this.utilsService.parallaxEffect(this.productCards, 0.05);
-  }
+   ngAfterViewInit() {
+  //  this.observer = this.utilsService.parallaxEffect(this.productCards, 0.05);
+   }
 
   setPages() {
     this.pages =
@@ -87,9 +87,9 @@ export class ProductsComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
+    // if (this.observer) {
+      // this.observer.disconnect();
+    // }
   }
 
   // Se debe organizar bien la paginación, este método debe ejecutar un evento para la paginación

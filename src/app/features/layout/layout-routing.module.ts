@@ -10,8 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () =>
-          import('../home/home.module').then((m) => m.HomeModule),
+        loadChildren: () => import('../home/home.module').then(m=> m.HomeModule),
       },
       {
         path: 'product/:id',
@@ -20,6 +19,10 @@ const routes: Routes = [
       {
         path: 'category/:name',
         loadComponent: () => import('../../shared/components/category-details/category-details.component').then(m => m.CategoryDetailsComponent)
+      },
+      {
+        path: 'shopcart',
+        loadChildren: () => import('../shopcart/shopcart.module').then((shopcart)=> shopcart.ShopcartModule)
       },
     ],
   },

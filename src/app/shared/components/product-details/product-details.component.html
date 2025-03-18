@@ -1,11 +1,11 @@
 <article class="wrapper-product-detail">
   <!-- <header class="product-categories-wrapper"> -->
-    <app-categories></app-categories>
+  <app-categories></app-categories>
   <!-- </header> -->
 
   <section class="product-images">
     <figure class="main-image">
-      <img class="image" [src]="product?.image" [alt]="product?.name || 'Producto sin nombre'" />
+      <img class="image" [src]="product?.image" [alt]="product?.title || 'Producto sin nombre'" />
       <div class="wrapper-product-button-favorites">
         <button>
           <img src="/assets/img/icons/svg/heart/heart-outline-medium.svg" alt="button-favorites" />
@@ -15,7 +15,7 @@
 
     <aside class="thumbnail-images">
       <figure class="thumbnail-item" *ngFor="let image of [1, 2, 3, 4]">
-        <img [src]="product?.image" [alt]="product?.name + ' - vista adicional'" />
+        <img [src]="product?.image" [alt]="product?.title + ' - vista adicional'" />
       </figure>
     </aside>
   </section>
@@ -37,11 +37,20 @@
     </div>
 
     <section class="product-options-choose">
-      <h2>Choose size</h2>
-      <div class="options">
-        <button class="option" *ngFor="let option of [1,2,3,4,5]">
-          <span>XL</span>
-        </button>
+      <div class="size-options-wrapper">
+        <h2 class="title">Escoge tu talla</h2>
+        <div class="options-size">
+          <button class="option" *ngFor="let option of [1,2,3,4,5]">
+            <span>XL</span>
+          </button>
+        </div>
+      </div>
+      <div class="colors-options-wrapper">
+        <h2 class="title">Escoge el color</h2>
+        <div class="options-colors">
+          <button class="option" *ngFor="let color of colors" [ngStyle]="{'backgroundColor' : color.colorHex}">
+          </button>
+        </div>
       </div>
     </section>
 
@@ -178,9 +187,14 @@
       </div>
     </div>
     <div class="product-order-details">
+
       <h5 class="title">Detalle de orden</h5>
+
+      <p class="product-name">{{ product?.title }}</p>
+      
+
       <div class="product-quantity">
-        <span class="product-quantity__text">Cantidad</span>
+        <span class="product-quantity__text">Cantidad <br> (50 disponibles)</span>
         <div class="product-quantity__input-wrapper">
           <button class="product-quantity__button-lower-quantity" (click)="uploadQuantity('down')">-</button>
           <span class="product-quantity__number">{{quantityProduct}}</span>
@@ -188,12 +202,9 @@
         </div>
       </div>
       <div class="product-button-actions">
-        <button class="product-buy-now-button">
-          <span>Comprar ahora</span>
-        </button>
-        <button class="product-add-shop-cart-button">
-          <img class="icon-shop-cart" src="assets/img/icons/svg/shopcart/shopcart-outline-blue-light.svg" alt="icon-shop-cart">
-          <span class="text-add-shop-cart">Agregar al carrito</span>
+        <button *ngFor="let button of buttons" [ngClass]="button.cssClass">
+          <img *ngIf="button.iconUrl" [src]="button.iconUrl" [alt]="button.title">
+          <span>{{button.title}}</span>
         </button>
       </div>
     </div>

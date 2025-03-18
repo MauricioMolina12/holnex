@@ -1,0 +1,269 @@
+// Phones
+.newsletter-wrapper {
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: var(--color-primary);
+  margin-block: 30px;
+
+  .form-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 40px;
+    text-align: center;
+
+    .newsletter-title {
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--color-white);
+    }
+
+    .newsletter-description {
+      font-size: 0.9rem;
+      font-weight: 100;
+      color: var(--color-white);
+      max-width: 90%;
+    }
+
+    .logo-horizon-figure {
+      width: max-content;
+      height: 20%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+
+      img {
+        width: auto;
+        height: 60%;
+        object-fit: contain;
+      }
+    }
+
+    .newsletter-form {
+      width: 90%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      margin-top: 40px;
+      box-sizing: border-box;
+      border-radius: 50px;
+      border: 1px solid var(--color-medium);
+      background-color: var(--color-medium);
+
+      .icon-email {
+        height: 25px;
+        width: 25px;
+        z-index: 1000;
+        position: absolute;
+        left: 10px;
+      }
+
+      input {
+        position: absolute;
+        left: 0;
+        width: 90%;
+        height: 100%;
+        background-color: var(--color-medium);
+        border: none;
+        outline: none;
+        border-radius: inherit;
+        padding-left: 45px;
+      }
+
+      .send-button {
+        position: absolute;
+        right: 5px;
+        z-index: 1000;
+        padding: 10px;
+        border-radius: 10px;
+        color: var(--color-white);
+        outline: none;
+        border: none;
+        background-color: var(--color-primary);
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .newsletter-wrapper {
+    .form-wrapper {
+      // .newsletter-title {
+      // }
+
+      .newsletter-description {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .newsletter-wrapper {
+    .form-wrapper {
+      .newsletter-title {
+        font-size: 1.6rem;
+      }
+
+      .newsletter-description {
+        font-size: 1.2rem;
+        max-width: 80%;
+      }
+
+      .logo-horizon-figure {
+        img {
+          width: auto;
+          height: 70%;
+          object-fit: contain;
+        }
+      }
+
+      .newsletter-form {
+        height: 80px;
+        .icon-email {
+          height: 30px;
+          width: 30px;
+        }
+
+        input {
+          padding-left: 50px;
+          font-size: 1rem;
+        }
+
+        .send-button {
+          right: 15px;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+/* Small laptops */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .newsletter-wrapper {
+    .form-wrapper {
+      width: 50%;
+      .newsletter-title {
+        font-size: 1.6rem;
+      }
+
+      .newsletter-description {
+        font-size: 1.2rem;
+        max-width: 80%;
+      }
+
+      .logo-horizon-figure {
+        img {
+          width: auto;
+          height: 70%;
+          object-fit: contain;
+        }
+      }
+
+      .newsletter-form {
+        height: 80px;
+        .icon-email {
+          height: 30px;
+          width: 30px;
+        }
+
+        input {
+          padding-left: 50px;
+          font-size: 1rem;
+        }
+
+        .send-button {
+          right: 15px;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+/* Medium screens */
+@media (min-width: 1280px) and (max-width: 1919px) {
+  .newsletter-wrapper {
+    flex-direction: row;
+    width: 100%;
+    margin: 0 auto;
+    padding-block: 0;
+    gap: 0;
+
+    // height: 80vh;
+    // justify-self: end;
+
+    .form-wrapper {
+      width: 50%;
+      padding: 0;
+      .newsletter-title {
+        font-size: 1.3rem;
+      }
+
+      .newsletter-description {
+        font-size: 1rem;
+        max-width: 60%;
+      }
+
+      .logo-horizon-figure {
+        img {
+          width: auto;
+          height: 70%;
+          object-fit: contain;
+        }
+      }
+
+      .newsletter-form {
+        width: 60%;
+        height: 60px;
+        .icon-email {
+          height: 20px;
+          width: 20px;
+        }
+
+        input {
+          padding-left: 50px;
+          font-size: 0.8rem;
+        }
+
+        .send-button {
+          right: 15px;
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .image-wrapper {
+      width: 50%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url('https://tecolotito.elsiglodetorreon.com.mx/i/2021/05/1431408.jpeg');
+    }
+  }
+}
+
+/* Big screens */
+@media (min-width: 1920px) {
+  .newsletter-wrapper {
+    .form-wrapper {
+      width: 40%;
+    }
+  }
+}
