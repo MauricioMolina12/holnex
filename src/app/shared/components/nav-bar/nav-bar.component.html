@@ -1,25 +1,23 @@
 <nav class="nav-bar">
   <div class="measures nav-bar__left">
-    <img
-      class="nav-bar__logo"
-      src="assets/img/horizon-blue.png"
-      alt="horizon"
-    />
+    <img [routerLink]="''" class="nav-bar__logo"
+      [src]="isMoodDark ? 'assets/img/horizon-white.png' : 'assets/img/horizon-blue.png'" alt="horizon" />
     <div class="nav-var__address">
       <h5 class="nav-var__address-title">Dirección</h5>
       <span class="nav-var__address-value">{{ user.address }}</span>
     </div>
   </div>
 
-  <div class="measures nav-bar__center" #wrapper_search_input>
-    <app-search-input (closeWrapper)="wrapper_search_input.classList.remove('active')"></app-search-input>
+  <div class="measures nav-bar__center" [ngClass]="{'active' : viewSearchInput}">
+    <app-search-input (closeWrapper)="viewSearchInput = false"></app-search-input>
   </div>
 
   <div class="measures nav-bar__right" [class.no-visibility]="viewSearchInput">
-    <button class="nav-bar_items-search-input" [class.no-visibility]="viewSideBar" (click)="toggleElement($event, 'nav-bar__center')">
+    <button class="nav-bar_items-search-input" [class.no-visibility]="viewSideBar"
+      (click)="toggleElement($event, 'nav-bar__center')">
       <img src="/assets/img/icons/svg/search/search-outline-blue.svg" alt="searcj">
     </button>
-    <button  class="nav-bar_items-shop-cart" [class.no-visibility]="viewSideBar">
+    <button class="nav-bar_items-shop-cart" [class.no-visibility]="viewSideBar">
       <img src="/assets/img/icons/svg/shopcart/shopcart-outline-blue-light.svg" alt="shopcart">
     </button>
     <button class="nav-bar_items-button-bars" (click)="toggleElement($event, 'nav-bar__sidebar','')">
@@ -31,7 +29,7 @@
   </div>
 
   <div class="nav-bar__sidebar">
-    <div class="profile" *ngIf="authService.isLoggued">
+    <div class="profile" *ngIf="isLoggued()">
       <div class="profile-avatar" (click)="toggleElement($event,'nav-bar__modal-profile')">
         <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
       </div>
@@ -41,11 +39,7 @@
       </div>
     </div>
     <div class="information">
-      <div
-        class="nav-bar__sidebar-items"
-        *ngFor="let item of items.slice(0, 7)"
-        [routerLink]="['/login']"
-      >
+      <div class="nav-bar__sidebar-items" *ngFor="let item of navItems" [routerLink]="[item.path]">
         <!--
           Address
           Shop cart
@@ -60,7 +54,7 @@
           <h5 class="item-value__title">{{ item.title }}</h5>
           <span class="item-value__subtitle" *ngIf="item.subtitle">{{
             user.address
-          }}</span>
+            }}</span>
           <span *ngIf="item.pending == true" class="number-pending">5</span>
           <!-- <div
             *ngIf="item.toggle"
@@ -83,10 +77,7 @@
       </div>
     </div>
     <div class="configurations">
-      <div
-        class="nav-bar__sidebar-items"
-        *ngFor="let item of items.slice(7, 11)"
-      >
+      <div class="nav-bar__sidebar-items" *ngFor="let item of configItems">
         <!--
           My businness
           Settings
@@ -98,7 +89,7 @@
           <h5 class="item-value__title">{{ item.title }}</h5>
           <span class="item-value__subtitle" *ngIf="item.subtitle">{{
             item.subtitle
-          }}</span>
+            }}</span>
           <span *ngIf="item.pending == true" class="number-pending">5</span>
           <!-- <div
             *ngIf="item.toggle"
@@ -119,7 +110,7 @@
         </div>
       </div>
     </div>
-    <div class="buttons" *ngIf="!authService.isLoggued">
+    <div class="buttons" *ngIf="!isLoggued()">
       <button [routerLink]="'/user/login'">Iniciar sesión</button>
       <button [routerLink]="'/user/register'">Registrarte</button>
     </div>
@@ -135,7 +126,7 @@
         <span class="profile-information-email">{{user.email}}</span>
       </div>
     </div>
-    <div class="nav-bar__sidebar-items" *ngFor="let item of items.slice(5, 11)">
+    <div class="nav-bar__sidebar-items" *ngFor="let item of profileItems" [routerLink]="[item.path]">
       <!--
         Record
         Favorites products
@@ -149,7 +140,7 @@
         <h5 class="item-value__title">{{ item.title }}</h5>
         <span class="item-value__subtitle" *ngIf="item.subtitle">{{
           item.subtitle
-        }}</span>
+          }}</span>
         <span *ngIf="item.pending == true" class="number-pending">5</span>
       </div>
       <div class="pending-point" *ngIf="item.pending == true"></div>

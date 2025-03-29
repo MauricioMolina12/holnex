@@ -3,30 +3,26 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { AdsSliderComponent } from '../../shared/components/ads-slider/ads-slider.component';
-import { ProductsComponent } from '../../shared/components/products/products.component';
+import { HeroImageComponent } from '../../shared/components/hero-image/hero-image.component';
 import { SearchInputComponent } from '../../shared/components/search-input/search-input.component';
-import { CategoriesComponent } from '../../shared/components/categories/categories.component';
 import { FiltersComponent } from '../../shared/components/filters/filters.component';
-import { SliderProductsComponent } from '../../shared/components/slider-products/slider-products.component';
-import { StarProductComponent } from '../../shared/components/star-product/star-product.component';
 import { NewsletterSubscriptionComponent } from '../../shared/components/newsletter-subscription/newsletter-subscription.component';
 import { ServicesComponent } from '../../shared/components/services/services.component';
+import { ProductsModule } from '../products/products.module';
+import { CategoriesModule } from '../categories/categories.module';
 
 @NgModule({
-  declarations: [HomeComponent], 
+  declarations: [HomeComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule, 
-    AdsSliderComponent, 
-    ProductsComponent,
+    HomeRoutingModule,
+    HeroImageComponent,
     SearchInputComponent,
-    CategoriesComponent,
     FiltersComponent,
-    SliderProductsComponent,
-    StarProductComponent,
     NewsletterSubscriptionComponent,
-    ServicesComponent
+    ServicesComponent,
+    ProductsModule,
+    CategoriesModule
   ],
 })
 export class HomeModule {}

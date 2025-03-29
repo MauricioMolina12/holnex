@@ -5,7 +5,7 @@ import { ShopcartComponent } from './shopcart.component';
 const routes: Routes = [
   {
     path: '',
-    component: ShopcartComponent,
+    component: ShopcartComponent
   }
 ];
 

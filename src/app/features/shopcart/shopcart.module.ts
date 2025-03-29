@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ShopcartRoutingModule } from './shopcart-routing.module';
-import { ShopcartComponent } from './shopcart.component';
-import { NavBarComponent } from "../../shared/components/nav-bar/nav-bar.component";
+import { ShopcartComponent } from '../shopcart/shopcart.component';
 
 
 @NgModule({
@@ -12,8 +11,7 @@ import { NavBarComponent } from "../../shared/components/nav-bar/nav-bar.compone
   ],
   imports: [
     CommonModule,
-    ShopcartRoutingModule,
-    NavBarComponent
-]
+    ShopcartRoutingModule
+  ]
 })
 export class ShopcartModule { }

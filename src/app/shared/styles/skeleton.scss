@@ -1,0 +1,11 @@
+// skeleton.scss
+
+// Mixin principal para estilos de skeleton
+@mixin skeleton-style($width, $height, $radius: inherit) {
+  display: block;
+  background-color: #e0e0e0;
+  width: $width;
+  height: $height;
+  border-radius: $radius;
+  margin: 0;
+}

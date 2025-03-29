@@ -1,0 +1,66 @@
+<section class="container-products" [ngClass]="{ 'full-width': isfullWidth == true }"
+  [ngStyle]="{ width: width, padding: padding, margin: margin }">
+  <header class="products__header" [ngStyle]="{'backgroundColor' : isDark ? 'transparent' : 'initial'}">
+    <div class="section-titles">
+      <h2 class="title">{{ title }}</h2>
+      <span class="subtitle">{{ subtitle }}</span>
+      <a href="" class="subtitle-view-all">Ver todos</a>
+    </div>
+    <div class="tools-products">
+      <!-- <div class="pagination-products" *ngIf="hasPagination">
+
+        <button class="button-arrow-left" (click)="movePage('prevpage', currentPage)"
+          [ngClass]="{ disabled: currentPage == 1 }">
+          <img class="icon" src="/assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg" alt="" />
+          <span class="left-text text-arrow">Anterior</span>
+        </button>
+
+        <div class="pages">
+          <button *ngFor="let page of pages; let i = index" 
+                  [class.active]="currentPage === i + 1" 
+                  (click)="movePage('indexpage', i + 1)">
+            {{ i + 1 }}
+          </button>
+          
+          <button *ngIf="totalPages > 3">...</button>
+
+          <button *ngIf="totalPages > 3" [class.active]="currentPage === totalPages"
+            (click)="movePage('indexpage', totalPages)">
+            {{ totalPages }}
+          </button>
+        </div>
+
+        <button class="button-arrow-right" (click)="movePage('nextpage',currentPage)"
+          [disabled]="currentPage === totalPages">
+          <span class="right-text text-arrow">Siguiente</span>
+          <img class="icon" src="/assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg" alt="" />
+        </button>
+      </div> -->
+      <!-- <app-filters></app-filters> -->
+    </div>
+  </header>
+
+  <div class="product-wrapper">
+    <!--Card product-->
+    <ng-container *ngIf="!loading; else skeleton">
+      <div *ngFor="let product of products" class="product-card" #productCard>
+        <app-card-product [product]="product" (productClick)="productsService.detailProduct(product)"></app-card-product>
+      </div>
+    </ng-container>
+    <ng-template #skeleton>
+      <div class="product" *ngFor="let _ of [].constructor(20)">
+        <ngx-skeleton-loader class="product-image" count="1" appearance="circle">
+        </ngx-skeleton-loader>
+
+        <div class="product-titles">
+          <ngx-skeleton-loader class="product-title" count="1">
+          </ngx-skeleton-loader>
+
+          <ngx-skeleton-loader class="product-price" count="1" width="40%">
+          </ngx-skeleton-loader>
+        </div>
+      </div>
+
+    </ng-template>
+  </div>
+</section>

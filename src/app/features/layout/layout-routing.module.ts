@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
-import { ProductDetailsComponent } from '../../shared/components/product-details/product-details.component';
+import { ProductDetailsComponent } from '../products/components/product-details/product-details.component';
 
 const routes: Routes = [
   {
@@ -12,18 +12,24 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('../home/home.module').then(m=> m.HomeModule),
       },
+
+      // Ruta ubicada temporalmente
       {
         path: 'product/:id',
-        loadComponent: () => import('../../shared/components/product-details/product-details.component').then(m => m.ProductDetailsComponent)
+        component: ProductDetailsComponent
       },
       {
-        path: 'category/:name',
-        loadComponent: () => import('../../shared/components/category-details/category-details.component').then(m => m.CategoryDetailsComponent)
+        path: 'product',
+        loadChildren: () => import('../products/products.module').then(m => m.ProductsModule)
+      },
+      {
+        path: 'category/:slug',
+        loadComponent: () => import('../categories/components/category-details/category-details.component').then(m => m.CategoryDetailsComponent)
       },
       {
         path: 'shopcart',
-        loadChildren: () => import('../shopcart/shopcart.module').then((shopcart)=> shopcart.ShopcartModule)
-      },
+        loadChildren: () => import('../shopcart/shopcart.module').then(m => m.ShopcartModule)
+      }
     ],
   },
 ];

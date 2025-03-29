@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  api: 'https://fakestoreapi.com', // Temporal
+  api: 'https://api.escuelajs.co/api/v1', // Temporal
   serverUrl: 'https://horizon.com',
   serverLambdaUrl: 'https://api.horizon.com/b/p',
   domain: 'https://develop.horizon.com',

@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Ad } from '../../shared/models/ads';
-import { ProductsService } from '../../shared/components/products/products.service';
+import { ProductsService } from '../products/services/products.service';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,42 +18,31 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit, OnDestroy {
+
+
+  products = computed(() => this.productsService.products());
+  loadingProducts = computed(() => !this.products() || this.products().length === 0);
+  
+  private suscriptionProducts!: Subscription;
+
   constructor(
     public productsService: ProductsService,
     private router: Router
   ) {}
 
   async ngOnInit() {
-    await this.getAllProducts();
+    await this.productsService.getAllProducts();
   }
 
-  private suscriptionProducts!: Subscription;
-  getAllProducts(): void {
-     this.suscriptionProducts = this.productsService.getProducts().subscribe((products) => {
-      if (products) {
-        this.productsService.products = products;
-      }
-
-      // Se debe organizar bien la paginación
-      // this.productsService.pagination.currentProducts = products;
-
-      // this.productsService.pagination.totalPages = Math.ceil(products.length / this.productsService.pagination.productPerPage);
-
-      // this.productsService.pagination.hasPagination = this.productsService.pagination.totalPages > 1;
-
-      // this.productsService.paginatedProducts(1,this.productsService.pagination.productPerPage,this.productsService.pagination.currentProducts);
-    });
-  }
-
-  
   ngOnDestroy(): void {
-    if(this.suscriptionProducts){
-      this.suscriptionProducts.unsubscribe()
+    if (this.suscriptionProducts) {
+      this.suscriptionProducts.unsubscribe();
     }
   }
 
   detailProduct(product: any) {
-    this.router.navigate([`/product/${product.id}`]);
-    this.productsService.productDetail = product;
+    console.log(product);
+    // this.router.navigate([`/product/${product?.slug}`]);
+    // this.productsService.prosductDetail.set(product);
   }
 }

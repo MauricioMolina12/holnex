@@ -1,0 +1,8 @@
+<div class="nav-bar__sidebar-items" *ngFor="let item of items" [routerLink]="[item.path]">
+    <img class="icon-vector" [src]="item.icon" [alt]="item.title" />
+    <div class="item-value">
+        <h5 class="item-value__title">{{ item.title }}</h5>
+        <span class="item-value__subtitle" *ngIf="item.subtitle">{{ item.subtitle }}</span>
+        <span *ngIf="item.pending" class="number-pending">5</span>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+@import "../../../../shared/styles/variables.scss";
+@import "../../../../../styles.scss";
+
+/*Phones*/
+.slider-products-wrapper {
+  width: 100%;
+  height: auto;
+  min-height: 30vh;
+  box-sizing: border-box;
+  padding: 20px;
+
+  .slider-products-title {
+    font-size: 1rem;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+  }
+
+  .slider-products {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 10px;
+    padding-bottom: 10px;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product {
+      flex: 0 0 auto;
+      width: 70%;
+      scroll-snap-align: start;
+    }
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Small laptops */
+@media (min-width: 1024px) and (max-width: 1279px) {
+}
+
+@media (min-width: 1280px) {
+  .slider-products-wrapper {
+    min-height: 10vh;
+
+    .slider-products-title {
+      font-size: 1.2rem;
+    }
+
+    .slider-products {
+      width: 80%;
+      gap: 0;
+      .product {
+        flex: 0 0 auto;
+        width: 30%;
+        scroll-snap-align: start;
+      }
+    }
+  }
+}
+
+/* Big screens */
+@media (min-width: 1920px) {
+}

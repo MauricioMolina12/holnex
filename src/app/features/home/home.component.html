@@ -1,12 +1,10 @@
-
 <!-- Component to display the slider with ads -->
-<app-ads-slider
-  [ads]="{
-    image: 'https://www.elcontainer.cl/28358-big_default/computador-pc-gamer-intel-core-i5-9400f-29ghz-32gb-ram-nvidia-geforce-rtx-3050.jpg',
+<app-hero-image [values]="{
+    image: 'https://images.unsplash.com/photo-1495954222046-2c427ecb546d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGdhbWluZyUyMHNldHVwfGVufDB8fDB8fHww',
     title: 'OFERTA EN PCS GAMERS',
     description: 'Contamos con los mejores precios para computadores gamer de escritorio'
   }">
-</app-ads-slider>
+</app-hero-image>
 <main class="main">
 
   <!--Main container -->
@@ -15,41 +13,30 @@
       <app-categories></app-categories>
     </aside>
   </div> -->
-  
+
   <!-- Component to display categories -->
-  <app-categories [isAbsolute]="true"></app-categories>
+  <app-categories-list [isAbsolute]="true"></app-categories-list>
 
   <!--Component to display products on sale-->
-  <app-products
-    [title]="'Productos en oferta🛍️'"
+  <app-products [title]="'Productos en oferta🛍️'"
     [subtitle]="'Solo por este mes aprovecha el 30% en todos los productos que más te gustan'"
-    (productClick)="detailProduct($event)"
-    [products]="productsService.products"
-    [width]="'100vw'"
-    [padding]="'10px'"
-    [margin]="'0 auto'">
+    [loading]="loadingProducts()" [products]="products()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
   </app-products>
-  
+
 
   <!-- Component to display products based on the user's last wish -->
-  <app-products
-    [title]="'Inspirado en tus ultimos deseos 📦'"
+  <app-products [title]="'Inspirado en tus ultimos deseos 📦'"
     [subtitle]="'En esta sección encontrarás productos que van con tus gustos y tus ultimas vistas'"
-    (productClick)="detailProduct($event)"
-    [products]="productsService.products"
-    [width]="'100vw'"
-    [padding]="'10px'"
-    [margin]="'0 auto'">
+    [loading]="loadingProducts()" [products]="products()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
   </app-products>
-  
+
 
   <app-star-product></app-star-product>
 
   <app-newsletter-subscription></app-newsletter-subscription>
-  
+
   <app-services></app-services>
 
 
   <!-- <app-slider-products [products]="productsService.products" [margintop]="'40px'" [title]="'Relacionado con lo ultimo que compraste 🛒'" [subtitle]="'Aquí encontrarás productos relacionados con el ultimo producto que compraste'"></app-slider-products> -->
 </main>
-
