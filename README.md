@@ -30,7 +30,7 @@ Horizon no es solo una tienda en línea. Somos una marca que combina la venta de
     Gestión de estado reactiva: NgRx
 	  Programación reactiva: RxJS
     Estilos: SASS
-    Typescript	Tipado estricto para escalabilidad
+    Tipado estricto para escalabilidad: Typescript	
 
 ⚙️ Instalación
 
