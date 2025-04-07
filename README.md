@@ -6,6 +6,9 @@ Bienvenido a Horizon, una aplicación moderna de comercio electrónico desarroll
 
 Horizon no es solo una tienda en línea. Somos una marca que combina la venta de productos con la prestación de servicios personalizados, adaptados a las compras y necesidades de cada usuario. Nuestro objetivo es crear una experiencia de usuario excepcional, accesible para todo tipo de público. Queremos que cada cliente se sienta cómodo, bien atendido y como en casa.
 
+![Uploading HORIZON.png…]()
+
+
 🚀 Características
 
     🧭 Navegación rápida con Angular Router
@@ -30,7 +33,7 @@ Horizon no es solo una tienda en línea. Somos una marca que combina la venta de
     Gestión de estado reactiva: NgRx
 	  Programación reactiva: RxJS
     Estilos: SASS
-    Tipado estricto para escalabilidad: Typescript	
+    Typescript	
 
 ⚙️ Instalación
 
