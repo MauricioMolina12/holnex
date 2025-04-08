@@ -2,61 +2,54 @@
 
 Este proyecto se generó con [Angular CLI] versión 18.0.7.
 
-Horizon es una plataforma de comercio electrónico desarrollada en **Angular**, diseñada para ofrecer una experiencia de compra rápida y segura, además de ofrecer diferentes servicios.
+Bienvenido a Horizon, una aplicación moderna de comercio electrónico desarrollada con Angular. Esta solución está diseñada para ser escalable, rápida y visualmente atractiva, ideal para tiendas online que buscan ofrecer una experiencia superior.
 
-Nuestra misión es poder ofrecer una experiencia de usuario muy buena y diferente al momento de poder adquirir un producto o cualquier otro servicio tales como consultoría, desarrollo de software, diseño y marketing digitial, entre otros. Nuestro principal objetivo es ofrecer una herramienta muy fácil de usar y por ende poder brindarle al usuario una experiencia excepcional, con el fin de que pueda obtener todo a un "clic".
+Horizon no es solo una tienda en línea. Somos una marca que combina la venta de productos con la prestación de servicios personalizados, adaptados a las compras y necesidades de cada usuario. Nuestro objetivo es crear una experiencia de usuario excepcional, accesible para todo tipo de público. Queremos que cada cliente se sienta cómodo, bien atendido y como en casa.
 
-Arquitectura:
-  .angular
-  .vscode
-  node_modules
-  public
-  src
-  |- app
-     |- core
-       |- enum
-       |- guards
-       |- interceptors
-       |- services
-       core.module.ts
-     |- features
-       |- auth
-       |- home
-       |- layout
-     |- shared
-       |- components
-       |- directives
-       |- models
-       |- pipes
-       |- services
-       |- styles
-     app-routing.module.ts
-     app.component.html
-     app.component.scss
-     app.component.spec.ts
-     app.component.ts
-     app.module.server.ts
-     app.module.ts
-  |- assets
-     |- fonts
-     |- img
-     |- svg
-  |- environments
-     index.html
-     main.server.ts
-     main.ts
-     styles.scss
-    .editorconfig
-    .gitignore
-    angular.json
-    package-lock.json
-    package.json
-    README.md
-    server.ts
-    tsconfig.app.json
-    tsconfig.json
-    tsconfig.spec.json
-  
+![Uploading HORIZON.png…]()
+
+
+🚀 Características
+
+    🧭 Navegación rápida con Angular Router
+
+    🛒 Gestión de carrito de compras
+
+    📦 Integración de productos con NgRx
+
+    🧠 Estado global con NgRx Signals Store
+
+    🔐 Autenticación JWT
+
+    💳 Checkout simulado (mock)
+
+    📱 Responsive y Mobile-first
+
+    🎨 UI limpia con SASS 
+
+🧑‍💻 Tecnologías utilizadas
+
+    Framework principal: Angular 18
+    Gestión de estado reactiva: NgRx
+	  Programación reactiva: RxJS
+    Estilos: SASS
+    Typescript	
+
+⚙️ Instalación
+
+    # Clonar repositorio
+    git clone https://github.com/MauricioMolina12/Horizon-INC
+
+    # Ir al directorio
+    cd horizon-inc
+
+    # Instalar dependencias
+    npm install
+
+    # Levantar servidor de desarrollo
+    ng serve -o
+
+
 
 
 
