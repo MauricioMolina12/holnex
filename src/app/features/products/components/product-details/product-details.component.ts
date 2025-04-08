@@ -88,28 +88,23 @@ export class ProductDetailsComponent implements OnInit {
       // Route ID
       this.id = params.get('id') || '';
 
-      this.loading = true;
-
       // Save product from signal
       if (!this.productService.productDetail()?.id) {
         await this.getProductById(this.id);
+        this.loading = true;
       }
-
 
       this.product = computed(() => this.productService.productDetail());
 
-      
       this.productService.getAllProducts();
       this.relatedProducts = await this.productService.products();
-
 
       // Save first image (main image)
       if (this.product()?.images.length) {
         this.mainImage = this.product().images[0];
       }
-    
+
       this.loading = false;
-    
     });
   }
 

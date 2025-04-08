@@ -1,8 +1,15 @@
 <div class="slider-products-wrapper">
     <h1 class="slider-products-title">Productos relacionados</h1>
-    <div class="slider-products">
+    <div class="slider-products" #slider>
         <div class="product" *ngFor="let product of products">
-            <app-card-product [product]="product" (productClick)="productsService.detailProduct(product)"></app-card-product>
+            <app-card-product [product]="product"
+                (productClick)="productsService.detailProduct(product)"></app-card-product>
         </div>
     </div>
+    <button class="slider-button-arrow-left arrow" (click)="scrollSlider('left', slider)">
+        <img src="assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg" alt="">
+    </button>
+    <button class="slider-button-arrow-right arrow" (click)="scrollSlider('right', slider)">
+        <img src="assets/img/icons/svg/arrow-chevron-right/arrow-chevron-right-blue.svg" alt="">
+    </button>
 </div>

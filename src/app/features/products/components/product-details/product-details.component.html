@@ -11,7 +11,7 @@
     <!-- Container of uploaded images -->
     <ng-container *ngIf="!loading; else skeletonImages">
       <figure class="main-image">
-        <img class="image" [src]="mainImage" [alt]="product()?.title || 'Producto sin nombre'"
+        <img class="image" [src]="mainImage" appZoomImage [zoomFactor]="3" [alt]="product()?.title || 'Producto sin nombre'"
           [attr.loading]="'lazy'" />
 
         <div class="wrapper-product-button-favorites">

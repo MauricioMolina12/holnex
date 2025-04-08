@@ -12,11 +12,11 @@
           />
         </button>
       </div> -->
-      <img [src]="product?.images[0] || product?.image" [attr.loading]="'lazy'" [alt]="'Imagen de: ' + product?.title" />
+      <img [src]="product.images[0]" [attr.loading]="'lazy'" [alt]="'Imagen de: ' + product.title" />
     </div>
     <div class="product-titles">
-      <h3 class="product-title">{{ product?.title }}</h3>
-      <span class="product-price">${{ product?.price }}</span>
+      <h3 class="product-title">{{ product.title }}</h3>
+      <span class="product-price">${{ product.price }}</span>
     </div>
   </header>
 

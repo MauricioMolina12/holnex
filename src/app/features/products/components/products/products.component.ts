@@ -1,4 +1,3 @@
-import { CommonModule, NgFor, NgStyle } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -14,14 +13,15 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { Product } from '../../../../shared/models/products';
+import { Router} from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { environment } from '../../../../../environments/environment';
-import { FiltersComponent } from '../../../../shared/components/filters/filters.component';
-import { CardProductComponent } from '../card-product/card-product.component';
-import { UtilsService } from '../../../../shared/services/utils.service';
 import { ThemeService } from '../../../../shared/services/theme.service';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { selectAllProducts, selectError, selectLoading } from '../../store/selectors/product.selectors';
+import { loadProducts } from '../../store/actions/product.actions';
+
 
 @Component({
   selector: 'app-products',
@@ -60,7 +60,6 @@ export class ProductsComponent implements OnInit {
   @Input() loading: boolean = true;
 
   product: any;
-  currentProducts: any[] = []; // => auxiliary array
   pages: number[] = [];
   isDark: boolean = false;
 
@@ -71,27 +70,20 @@ export class ProductsComponent implements OnInit {
     private renderer: Renderer2,
     private elRef: ElementRef,
     private router: Router,
-    private themeService: ThemeService
+    private themeService: ThemeService,
   ) {}
 
   @ViewChildren('productCard') productCards!: QueryList<ElementRef>;
-
   async ngOnInit() {
     this.themeService.darkMode$.subscribe((isDark) => {
       this.isDark = isDark;
-    });    
+    });        
   }
 
   ngAfterViewInit() {
     //  this.observer = this.utilsService.parallaxEffect(this.productCards, 0.05);
   }
 
-  setPages() {
-    this.pages =
-      this.totalPages > 3
-        ? Array.from({ length: 3 }, (_, i) => i + 1)
-        : Array.from({ length: this.totalPages }, (_, i) => i + 1);
-  }
 
   ngOnDestroy(): void {
     // if (this.observer) {
@@ -99,64 +91,24 @@ export class ProductsComponent implements OnInit {
     // }
   }
 
-  // Se debe organizar bien la paginación, este método debe ejecutar un evento para la paginación
-
-  // movePage(type: string, page?: number): void {
-  //   if (page === undefined) page = 1;
-  //   switch (type) {
-  //     case 'indexpage':
-  //       if (page >= 1 && page <= this.productsService.pagination.totalPages) {
-  //         this.productsService.pagination.currentPage = page;
-  //       }
-  //       break;
-  //     case 'prevpage':
-  //       if (this.productsService.pagination.currentPage > 1) {
-  //         this.productsService.pagination.currentPage--;
-  //       }
-  //       break;
-  //     case 'nextpage':
-  //       if (
-  //         this.productsService.pagination.currentPage <
-  //         this.productsService.pagination.totalPages
-  //       ) {
-  //         this.productsService.pagination.currentPage++;
-  //       }
-  //       break;
-  //   }
-
-  //   this.productsService.paginatedProducts(
-  //     this.productsService.pagination.currentPage,
-  //     this.productsService.pagination.productPerPage,
-  //     this.productsService.pagination.currentProducts
+  // addShoppingCart(e: Event) {
+  //   e.stopPropagation();
+  //   const shopCartIcon = this.elRef.nativeElement.querySelector(
+  //     '.product-add-cart-shop-icon'
   //   );
-  // }
-
-  addShoppingCart(e: Event) {
-    e.stopPropagation();
-    const shopCartIcon = this.elRef.nativeElement.querySelector(
-      '.product-add-cart-shop-icon'
-    );
-    if (shopCartIcon) {
-      this.renderer.addClass(shopCartIcon, 'add');
-      shopCartIcon.addEventListener(
-        'animationend',
-        () => {
-          this.renderer.removeClass(shopCartIcon, 'add');
-        },
-        { once: true }
-      );
-    }
-  }
-
-  // scrollToContainer(id: string) {
-  //   const element = document.getElementById(id);
-  //   if (element) {
-  //     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //   if (shopCartIcon) {
+  //     this.renderer.addClass(shopCartIcon, 'add');
+  //     shopCartIcon.addEventListener(
+  //       'animationend',
+  //       () => {
+  //         this.renderer.removeClass(shopCartIcon, 'add');
+  //       },
+  //       { once: true }
+  //     );
   //   }
   // }
 
   detailProduct(product: any) {
     this.router.navigate([`/product/${product.slug}`]);
-    this.productsService.productDetail.set(product);
   }
 }

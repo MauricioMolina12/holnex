@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class LayoutComponent {
 
+  isClose: boolean = true;
+
+  closeAlertNewPromotions(){
+    this.isClose = false;
+  }
+
 }

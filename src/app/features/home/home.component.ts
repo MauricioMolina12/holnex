@@ -10,6 +10,10 @@ import { ProductsService } from '../products/services/products.service';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { loadProducts } from '../products/store/actions/product.actions';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { selectAllProducts, selectError, selectLoading } from '../products/store/selectors/product.selectors';
 
 @Component({
   selector: 'app-home',
@@ -20,18 +24,20 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
 
 
-  products = computed(() => this.productsService.products());
-  loadingProducts = computed(() => !this.products() || this.products().length === 0);
+  productsSignal = toSignal(this.store.select(selectAllProducts), { initialValue: [] });
+  loadingSignal = toSignal(this.store.select(selectLoading), { initialValue: false});
+  errorSignal = toSignal(this.store.select(selectError), { initialValue: null });
   
   private suscriptionProducts!: Subscription;
 
   constructor(
     public productsService: ProductsService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
 
   async ngOnInit() {
-    await this.productsService.getAllProducts();
+    this.store.dispatch(loadProducts());
   }
 
   ngOnDestroy(): void {

@@ -22,24 +22,15 @@ export class SliderProductsComponent implements OnInit {
     public productsService: ProductsService
   ) {}
 
-  async ngOnInit() {
-  }
+  async ngOnInit() {}
 
-  goToPrevious() {
-    this.currentIndex = this.utilsService.goToPrevious(
-      this.currentIndex,
-      this.products
-    );
-  }
+  scrollSlider(direction: 'left' | 'right', slider: HTMLElement): void {
+    const scrollAmount = 300;
+    const directionObject: ScrollToOptions = {
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    };
 
-  goToNext() {
-    this.currentIndex = this.utilsService.goToNext(
-      this.currentIndex,
-      this.products
-    );
-  }
-
-  goToPage(index: number) {
-    this.currentIndex = this.utilsService.goToPage(index);
+    slider.scrollBy(directionObject);
   }
 }

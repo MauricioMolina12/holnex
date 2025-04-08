@@ -20,14 +20,14 @@
   <!--Component to display products on sale-->
   <app-products [title]="'Productos en oferta🛍️'"
     [subtitle]="'Solo por este mes aprovecha el 30% en todos los productos que más te gustan'"
-    [loading]="loadingProducts()" [products]="products()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
+    [loading]="loadingSignal()" [products]="productsSignal()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
   </app-products>
 
 
   <!-- Component to display products based on the user's last wish -->
   <app-products [title]="'Inspirado en tus ultimos deseos 📦'"
     [subtitle]="'En esta sección encontrarás productos que van con tus gustos y tus ultimas vistas'"
-    [loading]="loadingProducts()" [products]="products()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
+    [loading]="loadingSignal()" [products]="productsSignal()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
   </app-products>
 
 
