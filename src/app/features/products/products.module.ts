@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardProductComponent } from './components/card-product/card-product.component';
-import { ProductsComponent } from './components/products/products.component';
+import { ProductsGridComponent } from './components/products/products-grid.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { SliderProductsComponent } from './components/slider-products/slider-products.component';
 import { StarProductComponent } from './components/star-product/star-product.component';
@@ -14,10 +14,11 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { productReducer } from './store/reducers/product.reducer';
 import { ProductEffects } from './store/effects/product.effects';
+import { CardProductSkeletonComponent } from '../../shared/components/card-product-skeleton/card-product-skeleton.component';
 
 @NgModule({
   declarations: [
-    ProductsComponent,
+    ProductsGridComponent,
     ProductDetailsComponent,
     StarProductComponent,
     CardProductComponent,
@@ -29,8 +30,9 @@ import { ProductEffects } from './store/effects/product.effects';
     TruncatePipe,
     CategoriesModule,
     NgxSkeletonLoaderModule,
-    ZoomImageDirective
+    ZoomImageDirective,
+    CardProductSkeletonComponent
 ],
-  exports: [ProductsComponent, StarProductComponent, CardProductComponent, SliderProductsComponent],
+  exports: [ProductsGridComponent, StarProductComponent, CardProductComponent, SliderProductsComponent],
 })
 export class ProductsModule {}

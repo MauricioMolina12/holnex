@@ -1,5 +1,6 @@
 @import "../../../../shared/styles/variables.scss";
 @import "../../../../../styles.scss";
+@import "../../../../shared/styles/skeleton.scss";
 
 /* Cellphone */
 .container-products {
@@ -27,39 +28,7 @@
     }
     
     .product {
-      width: 100%;
-      min-width: 80%;
-      max-width: 100%;
-      height: min-content;
-      min-height: 250px;
-      border-radius: 9px;
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      gap: 10px;
-      
-      &-image {
-        background-color: var(--color-medium);
-        height: 20vh;
-        width: 100%;
-        border-radius: 10px;
-      }
-
-      &-titles {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      &-title {
-        height: 15px;
-        width: 80%;
-      }
-
-      &-price {
-        height: 10px;
-        width: 40%;
-      }
+      @include skeleton-product(100%, min-content, 80%, 100%, 250px)
     }
   }
 
@@ -169,7 +138,7 @@
 
       .title {
         color: var(--color-font-gray);
-        font-weight: 800;
+        font-weight: 500;
         font-size: 1.2rem;
         max-width: 80%;
       }

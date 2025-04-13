@@ -1,0 +1,20 @@
+@import "../../shared/styles/variables.scss";
+@import "../../shared/styles/skeleton.scss";
+@import "../../../styles.scss";
+
+.shopcart-wrapper {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  .shopcart__title {
+    color: var(--color-primary);
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+    padding-left: 10px;
+  }
+}

@@ -18,14 +18,6 @@
       color: var(--color-primary);
     }
   }
-
-  .main__products {
-    width: 100%;
-    height: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-  }
 }
 
 /* Tablets */
@@ -38,12 +30,7 @@
 
 /* Medium screens */
 @media (min-width: 1280px) {
-  .main {
-    .main__products {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  }
+
 }
 
 /* Big screens */

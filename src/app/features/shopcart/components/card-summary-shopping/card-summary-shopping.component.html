@@ -1,0 +1,13 @@
+<div class="summary-card">
+    <header class="summary-card__header">
+        <span class="summary-card__products-count">
+            {{ summary.numberOfProducts === 1 ? 'Producto' : 'Productos(' + summary.numberOfProducts + ')' }}
+        </span>
+        <span class="summary-card__products-price">${{ summary.totalPrice }}</span>
+    </header>
+    <div class="summary-card__total">
+        <h3>Total</h3>
+        <span>${{ summary.totalPrice }}</span>
+    </div>
+    <button class="summary-card__buy-button">Continuar compra</button>
+</div>

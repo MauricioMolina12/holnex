@@ -21,7 +21,7 @@ export class FooterComponent {
           redirect: '',
         },
         {
-          text: 'Horizon',
+          text: 'Credora Business',
           redirect: '',
         },
         {

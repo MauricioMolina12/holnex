@@ -18,8 +18,8 @@ interface Product {
   providedIn: 'root',
 })
 export class ProductsService {
-  products = signal<Product[]>([]);
-  productDetail = signal<Product | null>(null);
+  products$ = signal<Product[]>([]);
+  productDetail$ = signal<Product | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -43,7 +43,7 @@ export class ProductsService {
           return of([]);
         })
       )
-      .subscribe((products) => this.products.set(products));
+      .subscribe((products) => this.products$.set(products));
   }
 
   /**
@@ -56,7 +56,7 @@ export class ProductsService {
       .pipe(
         map((product: any) => ({
           id: product.id,
-          title: product.title,
+          name: product.title,
           price: product.price,
           slug: product.slug,
           description: product.description,
@@ -68,7 +68,7 @@ export class ProductsService {
           return of(null);
         })
       )
-      .subscribe((product: any) => this.productDetail.set(product));
+      .subscribe((product: any) => this.productDetail$.set(product));
   }
 
 
@@ -77,7 +77,7 @@ export class ProductsService {
    * @param product Product Object
    */
   async detailProduct(product: any) {
-    await this.productDetail.set(product);
+    await this.productDetail$.set(product);
     this.router.navigate([`/product/${product.slug}`]);
   }
 

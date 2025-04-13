@@ -10,6 +10,7 @@ import { NewsletterSubscriptionComponent } from '../../shared/components/newslet
 import { ServicesComponent } from '../../shared/components/services/services.component';
 import { ProductsModule } from '../products/products.module';
 import { CategoriesModule } from '../categories/categories.module';
+import { GridComponent } from '../../shared/components/grid/grid.component';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -22,7 +23,8 @@ import { CategoriesModule } from '../categories/categories.module';
     NewsletterSubscriptionComponent,
     ServicesComponent,
     ProductsModule,
-    CategoriesModule
+    CategoriesModule,
+    GridComponent
   ],
 })
 export class HomeModule {}

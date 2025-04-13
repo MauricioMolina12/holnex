@@ -32,7 +32,7 @@
   .product__header {
     .product-image {
       border-radius: 10px;
-      height: 30%;
+      height: 35%;
       background-color: var(--color-primary-contrast);
       position: relative;
       padding: 10px;
@@ -100,11 +100,12 @@
       gap: 10px;
       padding: 10px;
       height: auto;
-      min-height: 65px;
+      min-height: 70px;
 
       .product-title {
+        height: 50%;
         font-size: 0.75rem;
-        font-weight: 100;
+        font-weight: 300;
         color: var(--color-font-gray);
         margin: 0;
         max-width: 340px;
@@ -308,6 +309,7 @@
       }
 
       .product-titles {
+        height: 180px;
         .product-title {
           font-size: 1.3rem;
         }
@@ -451,7 +453,6 @@
 
         .product-title {
           font-size: 0.85rem;
-          font-weight: 100;
           color: var(--color-font-gray);
           margin: 0;
           max-width: 340px;

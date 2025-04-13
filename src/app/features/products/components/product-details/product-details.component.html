@@ -1,9 +1,9 @@
 <article class="wrapper-product-detail">
 
   <!-- Categories wrapper -->
-  <header class="product-categories-wrapper">
+  <!-- <header class="product-categories-wrapper">
     <app-categories-list></app-categories-list>
-  </header>
+  </header> -->
 
   <!-- Section images product -->
   <section class="product-images">
@@ -368,4 +368,4 @@
   </section>
 </article>
 
-<app-slider-products [products]="relatedProducts"></app-slider-products>
+<app-slider-products [products]="productsSignal()" [loading]="loadingSignal()"></app-slider-products>

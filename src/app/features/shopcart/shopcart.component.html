@@ -1,1 +1,7 @@
-<p>shopcart works!</p>
+<section class="shopcart-wrapper">
+    <h2 class="shopcart__title">Carrito de compras</h2>
+    <ng-container *ngFor="let product of productsSignal().slice(2, 14)">
+        <app-card-product-shopcart [product]="product"></app-card-product-shopcart>
+    </ng-container>
+    <app-card-summary-shopping *ngIf="summaryShopping" [summary]="summaryShopping"></app-card-summary-shopping>
+</section>

@@ -13,7 +13,12 @@ import { MenuItemsComponent } from '../menu-items/menu-items.component';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
   standalone: true,
-  imports: [CommonModule, RouterModule, SearchInputComponent, MenuItemsComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SearchInputComponent,
+    MenuItemsComponent,
+  ],
 })
 export class NavBarComponent implements OnInit {
   viewSideBar = false;
@@ -121,14 +126,12 @@ export class NavBarComponent implements OnInit {
     };
   }
 
-  redirect(item: string) {
-    switch (item) {
-      case 'location':
-        // this.router.navigate(['/location-edit'])
-        break;
-      case 'shopcart':
-        // this.router.navigate(['/shopcart'])
-        break;
+  redirectItemNavBar(item: string) {
+    this.router.navigate([`${item}`]);
+    const sidebar = this.elRef.nativeElement.querySelector('.nav-bar__sidebar');
+    if (sidebar) {
+      this.renderer.removeClass(sidebar, 'visibility');
+      this.viewSideBar = false;
     }
   }
 
@@ -215,8 +218,6 @@ export class NavBarComponent implements OnInit {
   isLoggued(): boolean {
     return this.authService.isLoggued;
   }
-
-
 
   //
   toggleMoodDark(e: Event) {

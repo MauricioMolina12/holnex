@@ -10,7 +10,7 @@ import { Product } from '../../models/products.model';
 export class ProductEffects {
   constructor(private actions$: Actions, private http: HttpClient) {}
 
-  // Cargar todos los productos
+  // Load all the products
   loadProducts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductActions.loadProducts),
@@ -23,7 +23,7 @@ export class ProductEffects {
     )
   );
 
-  // Cargar producto por ID
+  // Load product by Id
   loadProductById$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductActions.loadProductById),

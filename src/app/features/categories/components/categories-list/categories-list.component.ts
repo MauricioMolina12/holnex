@@ -21,6 +21,8 @@ export class CategoriesListComponent implements OnInit {
   categories = computed(() => this.categoriesService.categories$());
   loading = computed(()=> !this.categories() || this.categories().length === 0);
   
-  ngOnInit() {        
+  ngOnInit() {  
+    console.log(this.categories());
+          
   }
 }

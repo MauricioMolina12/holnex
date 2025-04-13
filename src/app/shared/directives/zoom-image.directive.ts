@@ -1,10 +1,11 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   Directive,
   ElementRef,
   HostListener,
   Inject,
   Input,
+  PLATFORM_ID,
   Renderer2,
 } from '@angular/core';
 
@@ -16,26 +17,32 @@ export class ZoomImageDirective {
   @Input() zoomFactor: number = 1;
   private imgElement!: HTMLImageElement;
   private zoomContainer!: HTMLDivElement;
+  private isBrowser!: boolean;
 
   // Example => <img [src]="mainImage" appZoomImage [zoomFactor]="2" [alt]="product()?.title"
 
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit() {
-    this.imgElement = this.el.nativeElement as HTMLImageElement;
-    this.createZoomElements();
+    if (this.isBrowser) {
+      this.imgElement = this.el.nativeElement as HTMLImageElement;
+      this.createZoomElements();
+    }
   }
 
   private createZoomElements() {
     this.zoomContainer = this.renderer.createElement('div');
     this.renderer.setStyle(this.zoomContainer, 'position', 'absolute');
-    this.renderer.setStyle(this.zoomContainer, 'width', '200px');
+    this.renderer.setStyle(this.zoomContainer, 'width', '400px');
     this.renderer.setStyle(this.zoomContainer, 'min-width', '400px');
-    this.renderer.setStyle(this.zoomContainer, 'height', '200px');
+    this.renderer.setStyle(this.zoomContainer, 'height', '400px');
     this.renderer.setStyle(this.zoomContainer, 'min-height', '400px');
     this.renderer.setStyle(this.zoomContainer, 'overflow', 'hidden');
     this.renderer.setStyle(this.zoomContainer, 'display', 'none');

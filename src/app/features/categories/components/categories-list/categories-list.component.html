@@ -1,34 +1,32 @@
-<div class="categories" [ngClass]="{'isAbsolute' : isAbsolute}">
+<div class="categories">
   <div class="header__categories">
     <h4 class="categories__title">Categoría de productos</h4>
     <a class="categories__subtitle">Ver todas</a>
   </div>
   <ng-container *ngIf="!loading(); else skeleton">
     <ul class="categories__list">
-      <li *ngFor="let category of categories(); let i = index">
-        <a class="categories__item" [routerLink]="['/category', category?.name?.slug]">
-          {{ category?.name?.name }}
-        </a>
-        <!-- <button class="button-detail-arrow"> -->
-          <!-- <img src="assets/img/icons/svg/arrow-chevron-right/arrow-chevron-light.svg" alt=""> -->
-        <!-- </button> -->
+      <li *ngFor="let category of categories().slice(0,5); let i = index">
+        <div class="categories__icon">
+          <figure class="icon-wrapper">
+            <img [src]="category?.image" [alt]="category?.name">
+          </figure>
+        </div>
+        <div class="categories__description">
+          <a class="categories__name" [routerLink]="['/category', category?.slug]">
+            {{ category?.name }}
+          </a>
+        </div>
       </li>
     </ul>
   </ng-container>
 
   <ng-template #skeleton>
     <ul class="categories__list">
-      <li *ngFor="let _ of [].constructor(20)">
+      <li *ngFor="let _ of [].constructor(10)">
         <ngx-skeleton-loader class="categories__item skeleton_item" count="1" appearance="line">
         </ngx-skeleton-loader>
       </li>
     </ul>
   </ng-template>
 
-
-  <div class="view-more-categories">
-    <a href="" class="view-more-categories__redirect">
-      Ver todas las categorías
-    </a>
-  </div>
 </div>

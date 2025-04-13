@@ -11,6 +11,10 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import { selectAllProducts, selectError, selectLoading } from '../../store/selectors/product.selectors';
+import { loadProducts } from '../../store/actions/product.actions';
 @Component({
   selector: 'app-product-details',
   standalone: false,
@@ -76,10 +80,16 @@ export class ProductDetailsComponent implements OnInit {
     'Buena relación calidad-precio.',
   ];
 
+  
+  productsSignal = toSignal(this.store.select(selectAllProducts), { initialValue: [] });
+  loadingSignal = toSignal(this.store.select(selectLoading), { initialValue: false});
+  errorSignal = toSignal(this.store.select(selectError), { initialValue: null });
+
   private route = inject(ActivatedRoute);
   constructor(
     public productService: ProductsService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private store: Store
   ) {}
 
   ngOnInit() {
@@ -89,15 +99,16 @@ export class ProductDetailsComponent implements OnInit {
       this.id = params.get('id') || '';
 
       // Save product from signal
-      if (!this.productService.productDetail()?.id) {
+      if (!this.productService.productDetail$()?.id) {
         await this.getProductById(this.id);
         this.loading = true;
       }
 
-      this.product = computed(() => this.productService.productDetail());
+      this.product = computed(() => this.productService.productDetail$());
 
-      this.productService.getAllProducts();
-      this.relatedProducts = await this.productService.products();
+      this.store.dispatch(loadProducts());
+      // this.productService.getAllProducts();
+      // this.relatedProducts = await this.productService.products();
 
       // Save first image (main image)
       if (this.product()?.images.length) {

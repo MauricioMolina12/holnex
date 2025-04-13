@@ -1,0 +1,57 @@
+@import "../../../../shared/styles/variables.scss";
+@import "../../../../shared/styles/skeleton.scss";
+@import "../../../../../styles.scss";
+
+.summary-card {
+  width: 100%;
+  height: auto;
+  min-height: 18vh;
+  background-color: var(--color-primary-contrast);
+  border: 1px solid var(--color-medium);
+  border-radius: 10px;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  &__header {
+    width: 100%;
+    min-height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+  }
+
+  &__products-count, &__products-price {
+    font-weight: 200;
+  }
+
+  &__total {
+    width: 100%;
+    min-height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--color-primary);
+  }
+
+  &__buy-button {
+    height: 50px;
+    background-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+}

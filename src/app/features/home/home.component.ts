@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { loadProducts } from '../products/store/actions/product.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectAllProducts, selectError, selectLoading } from '../products/store/selectors/product.selectors';
+import { NetworkService } from '../../shared/services/network.service';
 
 @Component({
   selector: 'app-home',
@@ -28,11 +29,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   loadingSignal = toSignal(this.store.select(selectLoading), { initialValue: false});
   errorSignal = toSignal(this.store.select(selectError), { initialValue: null });
   
+
   private suscriptionProducts!: Subscription;
 
   constructor(
     public productsService: ProductsService,
-    private router: Router,
     private store: Store
   ) {}
 
@@ -46,9 +47,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  detailProduct(product: any) {
-    console.log(product);
-    // this.router.navigate([`/product/${product?.slug}`]);
-    // this.productsService.prosductDetail.set(product);
-  }
 }

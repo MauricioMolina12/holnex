@@ -1,4 +1,4 @@
-<section class="container-products" [ngClass]="{ 'full-width': isfullWidth == true }"
+<section class="container-products" [ngClass]="{ 'full-width': isfullWidth }"
   [ngStyle]="{ width: width, padding: padding, margin: margin }">
   <header class="products__header" [ngStyle]="{'backgroundColor' : isDark ? 'transparent' : 'initial'}">
     <div class="section-titles">
@@ -42,25 +42,14 @@
 
   <div class="product-wrapper">
     <!--Card product-->
-    <ng-container *ngIf="!loading; else skeleton">
-      <div *ngFor="let product of products" class="product-card" #productCard>
-        <app-card-product [product]="product" (productClick)="productsService.detailProduct(product)"></app-card-product>
+    <ng-container *ngIf="!loading">
+      <div *ngFor="let product of products.slice(0, 14)" class="product-card" #productCard>
+        <app-card-product [product]="product"
+          (productClick)="productsService.detailProduct(product)"></app-card-product>
       </div>
     </ng-container>
-    <ng-template #skeleton>
-      <div class="product" *ngFor="let _ of [].constructor(20)">
-        <ngx-skeleton-loader class="product-image" count="1" appearance="circle">
-        </ngx-skeleton-loader>
-
-        <div class="product-titles">
-          <ngx-skeleton-loader class="product-title" count="1">
-          </ngx-skeleton-loader>
-
-          <ngx-skeleton-loader class="product-price" count="1" width="40%">
-          </ngx-skeleton-loader>
-        </div>
-      </div>
-
-    </ng-template>
+    <ng-container *ngIf="loading && !isOnline() == false">
+      <app-card-product-skeleton *ngFor="let _ of [].constructor(20)" [customClass]="'product'"></app-card-product-skeleton>
+    </ng-container>
   </div>
 </section>

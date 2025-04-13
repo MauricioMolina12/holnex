@@ -6,37 +6,17 @@
   }">
 </app-hero-image>
 <main class="main">
-
-  <!--Main container -->
-  <!-- <div class="main__products">
-    <aside class="filters-products">
-      <app-categories></app-categories>
-    </aside>
-  </div> -->
-
-  <!-- Component to display categories -->
-  <app-categories-list [isAbsolute]="true"></app-categories-list>
-
-  <!--Component to display products on sale-->
-  <app-products [title]="'Productos en oferta🛍️'"
-    [subtitle]="'Solo por este mes aprovecha el 30% en todos los productos que más te gustan'"
-    [loading]="loadingSignal()" [products]="productsSignal()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
-  </app-products>
-
-
-  <!-- Component to display products based on the user's last wish -->
-  <app-products [title]="'Inspirado en tus ultimos deseos 📦'"
+  <app-products-grid 
+    [title]="'Inspirado en tus ultimos deseos 📦'"
     [subtitle]="'En esta sección encontrarás productos que van con tus gustos y tus ultimas vistas'"
-    [loading]="loadingSignal()" [products]="productsSignal()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
-  </app-products>
-
-
+    [products]="productsSignal()"  
+    [loading]="loadingSignal()" 
+    [width]="'100vw'" 
+    [padding]="'10px'" 
+    [margin]="'0 auto'">
+  </app-products-grid>
+  <app-categories-list></app-categories-list>
   <app-star-product></app-star-product>
-
   <app-newsletter-subscription></app-newsletter-subscription>
-
   <app-services></app-services>
-
-
-  <!-- <app-slider-products [products]="productsService.products" [margintop]="'40px'" [title]="'Relacionado con lo ultimo que compraste 🛒'" [subtitle]="'Aquí encontrarás productos relacionados con el ultimo producto que compraste'"></app-slider-products> -->
 </main>

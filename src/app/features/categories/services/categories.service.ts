@@ -21,7 +21,11 @@ export class CategoriesService {
         map((response) =>
           response.map((category, index) => ({
             id: index,
-            name: category,
+            name: category?.name,
+            slug: category?.slug,
+            image: category?.image,
+            creationAt: category?.creationAt,
+            updateAt: category?.updateAt
           }))
         ),
         catchError((error) => {

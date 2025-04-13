@@ -1,25 +1,36 @@
 <nav class="nav-bar">
+
+  <!-- Logo and user's adress -->
   <div class="measures nav-bar__left">
-    <img [routerLink]="''" class="nav-bar__logo"
-      [src]="isMoodDark ? 'assets/img/horizon-white.png' : 'assets/img/horizon-blue.png'" alt="horizon" />
-    <div class="nav-var__address">
-      <h5 class="nav-var__address-title">Dirección</h5>
+
+    <img routerLink="''" src="assets/img/credora-blue.png" class="nav-bar__logo " alt="logo">
+    <!-- <div class="nav-var__address">
+      <h5 class="nav-var__address-title">Dirección: </h5>
       <span class="nav-var__address-value">{{ user.address }}</span>
-    </div>
+    </div> -->
   </div>
 
+  <!-- Input search component -->
   <div class="measures nav-bar__center" [ngClass]="{'active' : viewSearchInput}">
     <app-search-input (closeWrapper)="viewSearchInput = false"></app-search-input>
   </div>
 
+
+  <!-- Elements only visibility in mobile screen -->
   <div class="measures nav-bar__right" [class.no-visibility]="viewSearchInput">
+
+    <!-- Button search -->
     <button class="nav-bar_items-search-input" [class.no-visibility]="viewSideBar"
       (click)="toggleElement($event, 'nav-bar__center')">
-      <img src="/assets/img/icons/svg/search/search-outline-blue.svg" alt="searcj">
+      <img src="/assets/img/icons/svg/search/search-outline-blue.svg" alt="search">
     </button>
-    <button class="nav-bar_items-shop-cart" [class.no-visibility]="viewSideBar">
+
+    <!-- Button shopcart -->
+    <button class="nav-bar_items-shop-cart" [class.no-visibility]="viewSideBar" [routerLink]="['/shopcart']">
       <img src="/assets/img/icons/svg/shopcart/shopcart-outline-blue-light.svg" alt="shopcart">
     </button>
+
+    <!-- Button burguer -->
     <button class="nav-bar_items-button-bars" (click)="toggleElement($event, 'nav-bar__sidebar','')">
       <div class="icon-bars" [class.active]="viewSideBar">
         <span class="bars-line"></span>
@@ -28,7 +39,11 @@
     </button>
   </div>
 
+
+  <!-- Side bar -->
   <div class="nav-bar__sidebar">
+
+    <!-- Profile user -->
     <div class="profile" *ngIf="isLoggued()">
       <div class="profile-avatar" (click)="toggleElement($event,'nav-bar__modal-profile')">
         <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
@@ -38,8 +53,10 @@
         <span class="profile-email">{{ user.email }}</span>
       </div>
     </div>
+
+    <!-- Information user -->
     <div class="information">
-      <div class="nav-bar__sidebar-items" *ngFor="let item of navItems" [routerLink]="[item.path]">
+      <div class="nav-bar__sidebar-items" *ngFor="let item of navItems" (click)="redirectItemNavBar(item.path)">
         <!--
           Address
           Shop cart
@@ -52,9 +69,7 @@
         <img class="icon-vector" [src]="item.icon" alt="" />
         <div class="item-value">
           <h5 class="item-value__title">{{ item.title }}</h5>
-          <span class="item-value__subtitle" *ngIf="item.subtitle">{{
-            user.address
-            }}</span>
+          <span class="item-value__subtitle" *ngIf="item.subtitle">{{user.address}}</span>
           <span *ngIf="item.pending == true" class="number-pending">5</span>
           <!-- <div
             *ngIf="item.toggle"
@@ -76,8 +91,10 @@
         <div class="pending-point" *ngIf="item.pending == true"></div>
       </div>
     </div>
+
+    <!--Configuration user -->
     <div class="configurations">
-      <div class="nav-bar__sidebar-items" *ngFor="let item of configItems">
+      <div class="nav-bar__sidebar-items" *ngFor="let item of configItems" (click)="redirectItemNavBar(item.path)">
         <!--
           My businness
           Settings
@@ -110,12 +127,14 @@
         </div>
       </div>
     </div>
+
     <div class="buttons" *ngIf="!isLoggued()">
       <button [routerLink]="'/user/login'">Iniciar sesión</button>
       <button [routerLink]="'/user/register'">Registrarte</button>
     </div>
   </div>
 
+  <!-- Modal only in desktop screen -->
   <div class="nav-bar__modal-profile">
     <div class="profile">
       <div class="profile-avatar">
@@ -146,4 +165,6 @@
       <div class="pending-point" *ngIf="item.pending == true"></div>
     </div>
   </div>
+
+
 </nav>

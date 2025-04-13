@@ -15,7 +15,7 @@
 
   .title {
     color: var(--color-primary-secondary);
-    font-weight: 800;
+    font-weight: 600;
     font-size: 1.4rem;
   }
 
@@ -51,9 +51,11 @@
       .service__name {
         margin: 0;
         font-size: 1.2rem;
+        font-weight: 500;
       }
 
       .service__description {
+        font-weight: 300;
         font-size: 0.85rem;
         color: var(--color-font-gray);
         margin: 0;
@@ -68,7 +70,7 @@
         justify-content: center;
         color: white;
         font-weight: 800;
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
       }
 

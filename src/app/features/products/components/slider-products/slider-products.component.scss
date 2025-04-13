@@ -1,4 +1,5 @@
 @import "../../../../shared/styles/variables.scss";
+@import "../../../../shared/styles/skeleton.scss";
 @import "../../../../../styles.scss";
 
 /*Phones*/
@@ -14,11 +15,13 @@
     font-size: 1rem;
     color: var(--color-primary);
     margin-bottom: 20px;
+    font-weight: 500;
   }
 
   .slider-products {
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     gap: 10px;
     padding-bottom: 10px;
@@ -28,10 +31,17 @@
       display: none;
     }
 
+    &.isLoading {
+      overflow: hidden;
+    }
+
+    ngx-skeleton-loader {
+      display: block;
+      border-radius: 5px;
+    }
+
     .product {
-      flex: 0 0 auto;
-      width: 100%;
-      scroll-snap-align: start;
+      @include skeleton-product(80%, min-content, 80%, 80%, 250px);
     }
   }
 
@@ -76,7 +86,9 @@
 
     .slider-products {
       .product {
-        width: 40%;
+        .product {
+          @include skeleton-product(40%, min-content, 40%, 40%, 250px);
+        }
       }
     }
   }
@@ -85,8 +97,7 @@
 /* Small laptops */
 @media (min-width: 1024px) {
   .slider-products-wrapper {
-
-    .slider-products-title{
+    .slider-products-title {
       font-size: 1.4rem;
     }
 
@@ -125,18 +136,16 @@
       }
 
       .product {
-        flex: 0 0 auto;
-        width: 34%;
-        scroll-snap-align: start;
+        @include skeleton-product(25%, min-content, 25%, 25%, 250px);
       }
     }
 
-    .arrow{
+    .arrow {
       width: 45px;
       height: 45px;
     }
 
-    .slider-button-arrow-right{
+    .slider-button-arrow-right {
       right: calc(100% - 80%);
     }
   }

@@ -21,13 +21,13 @@ import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectAllProducts, selectError, selectLoading } from '../../store/selectors/product.selectors';
 import { loadProducts } from '../../store/actions/product.actions';
+import { NetworkService } from '../../../../shared/services/network.service';
 
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-products-grid',
+  templateUrl: './products-grid.component.html',
+  styleUrl: './products-grid.component.scss',
   standalone: false,
   // imports: [
   //   RouterModule,
@@ -38,7 +38,7 @@ import { loadProducts } from '../../store/actions/product.actions';
   //   CardProductComponent,
   // ],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsGridComponent implements OnInit {
   @Input() products: any[] = []; // => Array products
   @Input() hasPagination: boolean = true; // => Determines if the component should have pagination
   @Input() productPerPage: number = 8; // => Products per page
@@ -62,15 +62,15 @@ export class ProductsComponent implements OnInit {
   product: any;
   pages: number[] = [];
   isDark: boolean = false;
+  isOnline = this.networkService.isOnline;
 
   private observer!: any;
 
   constructor(
     public productsService: ProductsService,
-    private renderer: Renderer2,
-    private elRef: ElementRef,
     private router: Router,
     private themeService: ThemeService,
+    private networkService: NetworkService,
   ) {}
 
   @ViewChildren('productCard') productCards!: QueryList<ElementRef>;
@@ -78,6 +78,9 @@ export class ProductsComponent implements OnInit {
     this.themeService.darkMode$.subscribe((isDark) => {
       this.isDark = isDark;
     });        
+
+    console.log("Conexión a internet: ", this.isOnline());
+    
   }
 
   ngAfterViewInit() {
