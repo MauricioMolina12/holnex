@@ -3,16 +3,8 @@ import { Injectable, signal } from '@angular/core';
 import { catchError, map, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { Product } from '../models/products.model';
 
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  slug: string;
-  images: string;
-  category: string;
-  description: string;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +22,7 @@ export class ProductsService {
         map((products: any) =>
           products.map((product: Product) => ({
             id: product.id,
-            title: product.title,
+            name: product.title,
             price: product.price,
             slug: product.slug,
             description: product.description,
@@ -48,13 +40,13 @@ export class ProductsService {
 
   /**
    * Fetches a product by ID and updates the signal
-   * @param id Product ID
+   * @param slug Product slug
    */
-  getProductById(id: string): void {
+  getProductById(slug: string): void {
     this.http
-      .get(`${environment.api + '/products/slug/'}${id}`)
+      .get<Product>(`${environment.api + '/products/slug/'}${slug}`)
       .pipe(
-        map((product: any) => ({
+        map((product: Product) => ({
           id: product.id,
           name: product.title,
           price: product.price,
@@ -65,6 +57,7 @@ export class ProductsService {
         })),
         catchError((error) => {
           console.error('Error getProductById():', error);
+          this.productDetail$.set(null);
           return of(null);
         })
       )
@@ -76,7 +69,7 @@ export class ProductsService {
    * Allows you to navigate to the product detail path
    * @param product Product Object
    */
-  async detailProduct(product: any) {
+  async detailProduct(product: Product) {
     await this.productDetail$.set(product);
     this.router.navigate([`/product/${product.slug}`]);
   }

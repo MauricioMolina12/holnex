@@ -11,7 +11,7 @@
     <!-- Container of uploaded images -->
     <ng-container *ngIf="!loading; else skeletonImages">
       <figure class="main-image">
-        <img class="image" [src]="mainImage" appZoomImage [zoomFactor]="3" [alt]="product()?.title || 'Producto sin nombre'"
+        <img class="image" [src]="mainImage" appZoomImage [zoomFactor]="3" [alt]="product()?.name || 'Producto sin nombre'"
           [attr.loading]="'lazy'" />
 
         <div class="wrapper-product-button-favorites">
@@ -62,7 +62,7 @@
     <!-- Product information container loaded -->
     <ng-container *ngIf="!loading; else skeletonInformation">
       <header class="product-name">
-        <h1>{{ product()?.title }}</h1>
+        <h1>{{ product()?.name }}</h1>
       </header>
 
       <div class="product-rating">
@@ -330,7 +330,7 @@
 
         <h5 class="title">Detalle de orden</h5>
 
-        <p class="product-name">{{ product()?.title }}</p>
+        <p class="product-name">{{ product()?.name }}</p>
 
 
         <div class="product-quantity">
@@ -368,4 +368,4 @@
   </section>
 </article>
 
-<app-slider-products [products]="productsSignal()" [loading]="loadingSignal()"></app-slider-products>
+<app-slider-products [products]="productsSignal().slice(2, 20)" [loading]="loadingSignal()"></app-slider-products>

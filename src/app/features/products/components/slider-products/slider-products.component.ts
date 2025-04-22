@@ -20,7 +20,6 @@ export class SliderProductsComponent implements OnInit {
   currentIndex: number = 0;
 
   constructor(
-    private utilsService: UtilsService,
     public productsService: ProductsService
   ) {}
 

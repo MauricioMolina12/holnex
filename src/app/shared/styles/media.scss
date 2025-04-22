@@ -1,0 +1,49 @@
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1200px;
+
+
+@mixin respond-to($device) {
+  @if $device == "phone" {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $device == "tablet-small" {
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $device == "tablet-large" {
+    @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $device == "laptop" {
+    @media (min-width: $breakpoint-lg) and (max-width: $breakpoint-xl) {
+      @content;
+    }
+  } @else if $device == "desktop" {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}
+
+.container {
+  width: 100%;
+
+  @include respond-to("sm") {
+    background-color: lightblue;
+  }
+
+  @include respond-to("md") {
+    background-color: lightgreen;
+  }
+
+  @include respond-to("lg") {
+    background-color: lightcoral;
+  }
+
+  @include respond-to("xl") {
+    background-color: lightyellow;
+  }
+}

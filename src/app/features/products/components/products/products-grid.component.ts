@@ -78,8 +78,6 @@ export class ProductsGridComponent implements OnInit {
     this.themeService.darkMode$.subscribe((isDark) => {
       this.isDark = isDark;
     });        
-
-    console.log("Conexión a internet: ", this.isOnline());
     
   }
 

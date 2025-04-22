@@ -1,39 +1,24 @@
 <article class="product" [ngClass]="{ horizontal: horizontal, 'class-dark' : isDark }" (click)="onProductClick($event)">
   <header class="product__header">
     <div class="product-image">
-      <!-- <div class="product-category">
-        <span>{{ product.category }}</span>
-      </div> -->
-      <!-- <div class="product-favorites">
-        <button>
-          <img
-            src="../../../../assets/img/icons/svg/heart/heart-outline-medium.svg"
-            alt=""
-          />
-        </button>
-      </div> -->
       <img [src]="product.images[0]" [attr.loading]="'lazy'" [alt]="'Imagen de: ' + product.title" />
     </div>
     <div class="product-titles">
       <h3 class="product-title">{{ product.title }}</h3>
-      <span class="product-price">${{ product.price }}</span>
     </div>
-  </header>
 
-  <div class="product-buy-button-wrapper">
-    <button aria-label="Agregar al carrito">
-      <img src="/assets/img/icons/svg/shopcart/shopcart-outline-medium.svg" alt="Carrito de compras" />
-    </button>
+  </header>
+  <div class="product-actions">
+    <span class="product-price">${{ product.price }}</span>
+    <div class="product-buttons">
+
+      <button class="product-favorites-button">
+        <img class="product-favorites-icon" src="/assets/img/icons/svg/heart/heart-outline-medium.svg"
+          alt="heart-icon" />
+      </button>
+      <button class="product-buy-now">
+        <img class="product-buynow-icon" src="/assets/img/icons/svg/bag/bag-outline-medium.svg" alt="bag-icon" />
+      </button>
+    </div>
   </div>
-  <!-- <div class="product-actions">
-    <button class="product-add-cart-shop">
-      <span>Agregar al carrito</span>
-      <img
-        class="product-add-cart-shop-icon"
-        src="/assets/img/icons/svg/shopcart/shopcart-outline-medium.svg"
-        alt=""
-      />
-    </button>
-    <button class="product-buy-now"><span>Comprar ahora</span></button>
-  </div> -->
 </article>

@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('../app/features/layout/layout.module').then((home) => home.LayoutModule),
+      import('../app/layout/layout.module').then((home) => home.LayoutModule),
   },
   {
     path: 'user',

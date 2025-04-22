@@ -84,14 +84,6 @@ export class ZoomImageDirective {
       `${-(x * this.zoomFactor - 350)}px ${-(y * this.zoomFactor - 350)}px`
     );
 
-    console.log('event.clientX: ', event.clientX);
-    console.log('event.clientY: ', event.clientY);
-    console.log('rect.left: ', rect.left);
-    console.log('rect.right: ', rect.right);
-    console.log('x: ', x);
-    console.log('y: ', y);
-    console.log('-x * 4 - 350: ', x * this.zoomFactor - 350);
-    console.log('-y * 4 - 350: ', y * this.zoomFactor - 350);
   }
 
   @HostListener('mouseleave')

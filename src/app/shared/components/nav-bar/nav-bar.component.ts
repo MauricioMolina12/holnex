@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { User } from '../../models/user';
 import { SearchInputComponent } from '../search-input/search-input.component';
@@ -99,7 +99,8 @@ export class NavBarComponent implements OnInit {
     private renderer: Renderer2,
     private elRef: ElementRef,
     public authService: AuthService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit(): void {
@@ -143,12 +144,17 @@ export class NavBarComponent implements OnInit {
           `.${classElement}`
         );
         if (sidebar) {
+          const body = this.document.querySelector('body');
           if (sidebar.classList.contains('visibility')) {
             this.renderer.removeClass(sidebar, 'visibility');
             this.viewSideBar = false;
+            this.renderer.removeClass(body, 'disabled');
           } else {
             this.renderer.addClass(sidebar, 'visibility');
+            this.renderer.addClass(sidebar, 'blur-10px');
+            this.renderer.addClass(sidebar, 'bg-blur');
             this.viewSideBar = true;
+            this.renderer.addClass(body, 'disabled');
           }
         } else {
           console.error('No se encontró el elemento .nav-bar__sidebar');
@@ -209,7 +215,7 @@ export class NavBarComponent implements OnInit {
     );
     if (modalElement && !modalElement.contains(event.target as Node)) {
       this.renderer.removeClass(modalElement, 'active');
-      document.removeEventListener('click', (e) =>
+      this.document.removeEventListener('click', (e) =>
         this.closeModalOnOutsideClick(e, modalClass)
       );
     }

@@ -6,7 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './card-product-shopcart.component.scss',
 })
 export class CardProductShopcartComponent {
-
   @Input() product!: any;
 
   buttons_options_product = [
@@ -15,11 +14,8 @@ export class CardProductShopcartComponent {
       cssClass: 'product-buy-now-button',
     },
     {
-      title: 'Eliminar',
       cssClass: 'product-delete-button',
-    },
-    {
-      title: 'Guardar',
+      icon: '/assets/img/icons/svg/delete/delete-outline-medium.svg',
     },
   ];
 }

@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  effect,
   ElementRef,
   inject,
   Input,
@@ -13,8 +14,13 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { selectAllProducts, selectError, selectLoading } from '../../store/selectors/product.selectors';
+import {
+  selectAllProducts,
+  selectError,
+  selectLoading,
+} from '../../store/selectors/product.selectors';
 import { loadProducts } from '../../store/actions/product.actions';
+import { Product } from '../../models/products.model';
 @Component({
   selector: 'app-product-details',
   standalone: false,
@@ -23,14 +29,14 @@ import { loadProducts } from '../../store/actions/product.actions';
 })
 export class ProductDetailsComponent implements OnInit {
   // Inputs
-  @Input() product!: any;
+  product!: any;
   @ViewChildren('imagesProducts') imagesProducts!: QueryList<ElementRef>;
 
   // Variables
   segmentIndicator: number = 1;
   showFullText: boolean = false;
   visibleComments: string[] = [];
-  id!: string;
+  slug!: string;
   quantityProduct: number = 1;
   relatedProducts: any;
   mainImage: string = '';
@@ -80,10 +86,15 @@ export class ProductDetailsComponent implements OnInit {
     'Buena relación calidad-precio.',
   ];
 
-  
-  productsSignal = toSignal(this.store.select(selectAllProducts), { initialValue: [] });
-  loadingSignal = toSignal(this.store.select(selectLoading), { initialValue: false});
-  errorSignal = toSignal(this.store.select(selectError), { initialValue: null });
+  productsSignal = toSignal(this.store.select(selectAllProducts), {
+    initialValue: [],
+  });
+  loadingSignal = toSignal(this.store.select(selectLoading), {
+    initialValue: false,
+  });
+  errorSignal = toSignal(this.store.select(selectError), {
+    initialValue: null,
+  });
 
   private route = inject(ActivatedRoute);
   constructor(
@@ -93,34 +104,26 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Get the route id
-    this.route.paramMap.subscribe(async (params) => {
-      // Route ID
-      this.id = params.get('id') || '';
+    this.route.paramMap.subscribe((params) => {
+      this.loading = true;
+      this.slug = params.get('slug') || '';
 
-      // Save product from signal
-      if (!this.productService.productDetail$()?.id) {
-        await this.getProductById(this.id);
-        this.loading = true;
-      }
-
+      this.getProductById(this.slug);
       this.product = computed(() => this.productService.productDetail$());
-
       this.store.dispatch(loadProducts());
-      // this.productService.getAllProducts();
-      // this.relatedProducts = await this.productService.products();
-
-      // Save first image (main image)
-      if (this.product()?.images.length) {
-        this.mainImage = this.product().images[0];
-      }
-
-      this.loading = false;
     });
   }
 
-  getProductById(id: string) {
-    this.productService.getProductById(id);
+  readonly setProduct = effect(() => {
+    const product = this.product();
+    if (product && product.images?.length) {
+      this.mainImage = product.images[0];
+      this.loading = false;
+    }
+  });
+
+  getProductById(slug: string) {
+    this.productService.getProductById(slug);
   }
 
   segment(type: number) {

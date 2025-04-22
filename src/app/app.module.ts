@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { DropdownCountriesComponent } from './shared/components/dropdown-countries/dropdown-countries.component';
 import { HttpClientModule, withInterceptors } from '@angular/common/http';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { LayoutComponent } from './features/layout/layout.component';
+import { LayoutComponent } from './layout/layout.component';
 import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
 import { AlertNewPromotionsComponent } from './shared/components/alert-new-promotions/alert-new-promotions.component';
 import { FiltersComponent } from './shared/components/filters/filters.component';

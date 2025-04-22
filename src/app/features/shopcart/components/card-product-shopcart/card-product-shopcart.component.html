@@ -6,20 +6,31 @@
             </figure>
 
             <div class="product__information">
-                <h3 class="product-name">{{product?.title}}</h3>
-                <h4 class="product-price">{{product?.price}}0000</h4>
+                <span class="product-category">{{product?.category?.name | uppercase}}</span>
+                <h3 class="product-name">{{product?.title | uppercase}}</h3>
+                <!-- <h4 class="product-price">{{product?.price}}0000</h4> -->
+                <div class="product-shipment">
+                    <span class="product-shipmentFree">Envío gratis</span>
+                    <span class="product-discount">Descuento 5%</span>
+                </div>
+
                 <div class="product-quantity">
                     <div class="product-quantity__input-wrapper">
                         <button class="product-quantity__button-lower-quantity">-</button>
                         <span class="product-quantity__number">20</span>
                         <button class="product-quantity__button-upload-quantity">+</button>
                     </div>
+                    <div class="product-price-wrapper">
+                        <span class="product-previous-price">100.00</span>
+                        <h4 class="product-price">${{product?.price}}.00</h4>
+                    </div>
                 </div>
             </div>
         </header>
         <div class="product__actions">
             <button *ngFor="let button of buttons_options_product" [ngClass]="button.cssClass">
-                <span>{{button.title}}</span>
+                <span *ngIf="button.title">{{button.title}}</span>
+                <img *ngIf="button.icon" [src]="button.icon" alt="icon">
             </button>
         </div>
     </div>

@@ -48,7 +48,7 @@
           (productClick)="productsService.detailProduct(product)"></app-card-product>
       </div>
     </ng-container>
-    <ng-container *ngIf="loading && !isOnline() == false">
+    <ng-container class="product-card" *ngIf="loading && !isOnline() == false">
       <app-card-product-skeleton *ngFor="let _ of [].constructor(20)" [customClass]="'product'"></app-card-product-skeleton>
     </ng-container>
   </div>

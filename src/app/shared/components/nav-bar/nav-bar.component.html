@@ -1,9 +1,9 @@
 <nav class="nav-bar">
 
   <!-- Logo and user's adress -->
-  <div class="measures nav-bar__left">
-
-    <img routerLink="''" src="assets/img/credora-blue.png" class="nav-bar__logo " alt="logo">
+  <div class=" nav-bar__left">
+    <h1><span>H</span>olu</h1>
+    <!-- <img routerLink="''" src="assets/img/credora-blue.png" class="nav-bar__logo " alt="logo"> -->
     <!-- <div class="nav-var__address">
       <h5 class="nav-var__address-title">Dirección: </h5>
       <span class="nav-var__address-value">{{ user.address }}</span>
@@ -11,13 +11,13 @@
   </div>
 
   <!-- Input search component -->
-  <div class="measures nav-bar__center" [ngClass]="{'active' : viewSearchInput}">
+  <div class=" nav-bar__center" [ngClass]="{'active' : viewSearchInput}">
     <app-search-input (closeWrapper)="viewSearchInput = false"></app-search-input>
   </div>
 
 
   <!-- Elements only visibility in mobile screen -->
-  <div class="measures nav-bar__right" [class.no-visibility]="viewSearchInput">
+  <div class=" nav-bar__right" [class.no-visibility]="viewSearchInput">
 
     <!-- Button search -->
     <button class="nav-bar_items-search-input" [class.no-visibility]="viewSideBar"
@@ -66,27 +66,12 @@
           My record
           Favorites products
         -->
-        <img class="icon-vector" [src]="item.icon" alt="" />
+        <img class="item-icon" [src]="item.icon" alt="" />
         <div class="item-value">
           <h5 class="item-value__title">{{ item.title }}</h5>
           <span class="item-value__subtitle" *ngIf="item.subtitle">{{user.address}}</span>
           <span *ngIf="item.pending == true" class="number-pending">5</span>
-          <!-- <div
-            *ngIf="item.toggle"
-            class="toggle-mode"
-            (click)="toggleMoodDark($event)"
-          >
-            <div class="toggle-container">
-              <label class="switch">
-                <input
-                  type="checkbox"
-                  id="themeToggle"
-                  [checked]="isMoodDark"
-                />
-                <span class="slider"></span>
-              </label>
-            </div>
-          </div> -->
+
         </div>
         <div class="pending-point" *ngIf="item.pending == true"></div>
       </div>
@@ -101,7 +86,7 @@
           Help
           Log out
         -->
-        <img class="icon-vector" [src]="item.icon" [alt]="item.title" />
+        <img class="item-icon" [src]="item.icon" [alt]="item.title" />
         <div class="item-value">
           <h5 class="item-value__title">{{ item.title }}</h5>
           <span class="item-value__subtitle" *ngIf="item.subtitle">{{
@@ -154,7 +139,7 @@
         Help
         Log out
       -->
-      <img class="icon-vector" [src]="item.icon" [alt]="item.title" />
+      <img class="item-icon" [src]="item.icon" [alt]="item.title" />
       <div class="item-value">
         <h5 class="item-value__title">{{ item.title }}</h5>
         <span class="item-value__subtitle" *ngIf="item.subtitle">{{

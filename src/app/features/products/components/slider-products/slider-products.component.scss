@@ -23,7 +23,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    gap: 10px;
+    gap: 2px;
     padding-bottom: 10px;
     white-space: nowrap;
 
@@ -41,7 +41,7 @@
     }
 
     .product {
-      @include skeleton-product(80%, min-content, 80%, 80%, 250px);
+      @include skeleton-product(60%, min-content, 60%, 60%, 250px);
     }
   }
 
