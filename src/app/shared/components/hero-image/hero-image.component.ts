@@ -17,7 +17,7 @@ export class HeroImageComponent implements OnInit {
   constructor(private elRef: ElementRef, private renderer: Renderer2){}
 
   ngOnInit(): void {
-    this.setBackgroundImage('hero-container', this.values?.image)
+    this.setBackgroundImage('hero', this.values?.image)
   }
 
   setBackgroundImage = (containerClass: string, image: string) => {

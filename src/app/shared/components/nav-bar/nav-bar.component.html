@@ -1,14 +1,10 @@
 <nav class="nav-bar">
 
-  <!-- Logo and user's adress -->
+  <!-- Logo-->
   <div class=" nav-bar__left">
-    <h1><span>H</span>olu</h1>
-    <!-- <img routerLink="''" src="assets/img/credora-blue.png" class="nav-bar__logo " alt="logo"> -->
-    <!-- <div class="nav-var__address">
-      <h5 class="nav-var__address-title">Dirección: </h5>
-      <span class="nav-var__address-value">{{ user.address }}</span>
-    </div> -->
+    <img routerLink="''" src="assets/img/credora-blue.png" class="nav-bar__logo " alt="logo">
   </div>
+
 
   <!-- Input search component -->
   <div class=" nav-bar__center" [ngClass]="{'active' : viewSearchInput}">
@@ -20,18 +16,18 @@
   <div class=" nav-bar__right" [class.no-visibility]="viewSearchInput">
 
     <!-- Button search -->
-    <button class="nav-bar_items-search-input" [class.no-visibility]="viewSideBar"
+    <button class="nav-bar__items-search-input" [class.no-visibility]="viewSideBar"
       (click)="toggleElement($event, 'nav-bar__center')">
-      <img src="/assets/img/icons/svg/search/search-outline-blue.svg" alt="search">
+      <i class="icon-search"></i>
     </button>
 
     <!-- Button shopcart -->
-    <button class="nav-bar_items-shop-cart" [class.no-visibility]="viewSideBar" [routerLink]="['/shopcart']">
-      <img src="/assets/img/icons/svg/shopcart/shopcart-outline-blue-light.svg" alt="shopcart">
+    <button class="nav-bar__items-shop-cart" [class.no-visibility]="viewSideBar" [routerLink]="['/shopcart']">
+      <i class="icon-shop-cart"></i>
     </button>
 
     <!-- Button burguer -->
-    <button class="nav-bar_items-button-bars" (click)="toggleElement($event, 'nav-bar__sidebar','')">
+    <button class="nav-bar__items-button-bars" (click)="toggleElement($event, 'nav-bar__sidebar','')">
       <div class="icon-bars" [class.active]="viewSideBar">
         <span class="bars-line"></span>
         <span class="bars-line"></span>
@@ -44,19 +40,19 @@
   <div class="nav-bar__sidebar">
 
     <!-- Profile user -->
-    <div class="profile" *ngIf="isLoggued()">
-      <div class="profile-avatar" (click)="toggleElement($event,'nav-bar__modal-profile')">
+    <div class="nav-bar__profile" *ngIf="isLoggued()">
+      <div class="nav-bar__profile-avatar" (click)="toggleElement($event,'nav-bar__modal-profile')">
         <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
       </div>
-      <div class="profile-information">
-        <h1 class="profile-name">{{ user.name }}</h1>
-        <span class="profile-email">{{ user.email }}</span>
+      <div class="nav-bar__profile-information">
+        <h1 class="nav-bar__profile-name">{{ user.name }}</h1>
+        <span class="nav-bar__profile-email">{{ user.email }}</span>
       </div>
     </div>
 
     <!-- Information user -->
-    <div class="information">
-      <div class="nav-bar__sidebar-items" *ngFor="let item of navItems" (click)="redirectItemNavBar(item.path)">
+    <div class="nav-bar__information">
+      <div class="nav-bar__item" *ngFor="let item of navItems" (click)="redirectItemNavBar(item.path)">
         <!--
           Address
           Shop cart
@@ -66,33 +62,29 @@
           My record
           Favorites products
         -->
-        <img class="item-icon" [src]="item.icon" alt="" />
-        <div class="item-value">
-          <h5 class="item-value__title">{{ item.title }}</h5>
-          <span class="item-value__subtitle" *ngIf="item.subtitle">{{user.address}}</span>
-          <span *ngIf="item.pending == true" class="number-pending">5</span>
+        <i class="nav-bar__item-icon" [ngClass]="item.icon"></i>
+        <div class="nav-bar__item-value">
+          <h5 class="nav-bar__item-title">{{ item.title }}</h5>
+          <span class="nav-bar__item-subtitle" *ngIf="item.subtitle">{{user.address}}</span>
+          <span *ngIf="item.pending == true" class="nav-bar__item-number-pending">5</span>
 
         </div>
-        <div class="pending-point" *ngIf="item.pending == true"></div>
       </div>
     </div>
 
     <!--Configuration user -->
-    <div class="configurations">
-      <div class="nav-bar__sidebar-items" *ngFor="let item of configItems" (click)="redirectItemNavBar(item.path)">
+    <div class="nav-bar__configurations">
+      <div class="nav-bar__item" *ngFor="let item of configItems" (click)="redirectItemNavBar(item.path)">
         <!--
           My businness
           Settings
           Help
           Log out
         -->
-        <img class="item-icon" [src]="item.icon" [alt]="item.title" />
-        <div class="item-value">
-          <h5 class="item-value__title">{{ item.title }}</h5>
-          <span class="item-value__subtitle" *ngIf="item.subtitle">{{
-            item.subtitle
-            }}</span>
-          <span *ngIf="item.pending == true" class="number-pending">5</span>
+        <i class="nav-bar__item-icon" [ngClass]="item.icon"></i>
+        <div class="nav-bar__item-value">
+          <h5 class="nav-bar__item-title">{{ item.title }}</h5>
+          <span class="nav-bar__item-subtitle" *ngIf="item.subtitle">{{item.subtitle}}</span>
           <!-- <div
             *ngIf="item.toggle"
             class="toggle-mode"
@@ -113,7 +105,7 @@
       </div>
     </div>
 
-    <div class="buttons" *ngIf="!isLoggued()">
+    <div class="nav-bar__buttons" *ngIf="!isLoggued()">
       <button [routerLink]="'/user/login'">Iniciar sesión</button>
       <button [routerLink]="'/user/register'">Registrarte</button>
     </div>
@@ -121,35 +113,29 @@
 
   <!-- Modal only in desktop screen -->
   <div class="nav-bar__modal-profile">
-    <div class="profile">
-      <div class="profile-avatar">
+    <div class="nav-bar__modal-profile-user">
+      <div class="nav-bar__modal-profile-avatar">
         <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
       </div>
-      <div class="profile-information">
-        <h1 class="profile-information-name">{{user.name}}</h1>
-        <span class="profile-information-email">{{user.email}}</span>
+      <div class="nav-bar__modal-profile-info">
+        <h1 class="nav-bar__modal-profile-name">{{ user.name }}</h1>
+        <span class="nav-bar__modal-profile-email">{{ user.email }}</span>
       </div>
     </div>
-    <div class="nav-bar__sidebar-items" *ngFor="let item of profileItems" [routerLink]="[item.path]">
-      <!--
-        Record
-        Favorites products
-        My businness
-        Settings
-        Help
-        Log out
-      -->
-      <img class="item-icon" [src]="item.icon" [alt]="item.title" />
-      <div class="item-value">
-        <h5 class="item-value__title">{{ item.title }}</h5>
-        <span class="item-value__subtitle" *ngIf="item.subtitle">{{
-          item.subtitle
-          }}</span>
-        <span *ngIf="item.pending == true" class="number-pending">5</span>
+
+    <div class="nav-bar__modal-profile-item" *ngFor="let item of profileItems" [routerLink]="[item.path]">
+      <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>
+      <div class="nav-bar__modal-profile-item-value">
+        <h5 class="nav-bar__modal-profile-item-title">{{ item.title }}</h5>
+        <span class="nav-bar__modal-profile-item-subtitle" *ngIf="item.subtitle">
+          {{ item.subtitle }}
+        </span>
+        <span *ngIf="item.pending == true" class="nav-bar__modal-profile-item-pending-number">5</span>
       </div>
-      <div class="pending-point" *ngIf="item.pending == true"></div>
+      <div class="nav-bar__modal-profile-item-pending-dot" *ngIf="item.pending == true"></div>
     </div>
   </div>
+
 
 
 </nav>

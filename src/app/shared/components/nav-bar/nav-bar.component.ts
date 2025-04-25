@@ -1,5 +1,12 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { User } from '../../models/user';
 import { SearchInputComponent } from '../search-input/search-input.component';
@@ -28,7 +35,7 @@ export class NavBarComponent implements OnInit {
   // Items for nav bar
   items: any[] = [
     {
-      icon: '/assets/img/icons/svg/location/location-outline-medium.svg',
+      icon: 'icon-location',
       title: 'Dirección',
       subtitle: 'Calle 27 #7B-05, Barranquilla, Atlantico.',
     },
@@ -41,52 +48,48 @@ export class NavBarComponent implements OnInit {
     //   action: 'toggleMoodDark',
     // },
     {
-      icon: '/assets/img/icons/svg/shopcart/shopcart-outline-medium.svg',
+      icon: 'icon-shop-cart',
       title: 'Carrito de compras',
       path: '/shopcart',
     },
     {
-      icon: '/assets/img/icons/svg/bag/bag-outline-medium.svg',
+      icon: 'icon-bag',
       title: 'Mis compras',
     },
     {
-      icon: '/assets/img/icons/svg/notifications/notifications-outline-medium.svg',
+      icon: 'icon-notifications',
       title: 'Notificaciones',
       pending: true,
     },
     {
-      icon: '/assets/img/icons/svg/email/email-outline-medium.svg',
-      title: 'Mensajes',
-      pending: true,
-    },
-    {
-      icon: '/assets/img/icons/svg/history/history-outline-medium.svg',
-      title: 'Mi historial',
-    },
-    {
-      icon: '/assets/img/icons/svg/heart/heart-outline-medium.svg',
+      icon: 'icon-heart',
       title: 'Productos favoritos',
     },
     {
-      icon: '/assets/img/icons/svg/box/box-outline-medium.svg',
+      icon: 'icon-history',
+      title: 'Mi historial',
+    },
+
+    {
+      icon: 'icon-store',
       title: 'Convertirme en vendedor',
     },
     {
-      icon: '/assets/img/icons/svg/settings/settings-outline-medium.svg',
+      icon: 'icon-settings',
       title: 'Configuraciones',
     },
     {
-      icon: '/assets/img/icons/svg/help/help-outline-medium.svg',
+      icon: 'icon-help',
       title: 'Ayuda',
     },
     {
-      icon: '/assets/img/icons/svg/door/door-outline-danger.svg',
+      icon: 'icon-door',
       title: 'Cerrar sesión',
       path: '/user/login',
     },
   ];
 
-  navItems = this.items.slice(0, 7);
+  navItems = this.items.slice(0, 6);
   configItems = this.items.slice(7, 11);
   profileItems = this.items.slice(5, 11);
 
@@ -100,8 +103,21 @@ export class NavBarComponent implements OnInit {
     private elRef: ElementRef,
     public authService: AuthService,
     private themeService: ThemeService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    const scrollTop = (event.target as Document).documentElement.scrollTop;
+    const navBar = document.querySelector('nav') as HTMLElement;
+
+    if (scrollTop > 0) {
+      navBar.classList.add('scrolled');
+    } else {
+      navBar.classList.remove('scrolled');
+    }
+  }
 
   ngOnInit(): void {
     this.themeService.darkMode$.subscribe((isDark) => {

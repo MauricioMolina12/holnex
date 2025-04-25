@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?crjfaq');
+  src:  url('fonts/icomoon.eot?crjfaq#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?crjfaq') format('truetype'),
+    url('fonts/icomoon.woff?crjfaq') format('woff'),
+    url('fonts/icomoon.svg?crjfaq#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-store:before {
+  content: "\e919";
+}
+.icon-arrow-left:before {
+  content: "\e917";
+}
+.icon-arrow-right:before {
+  content: "\e918";
+}
+.icon-arrow-chevron-left:before {
+  content: "\e913";
+}
+.icon-arrow-chevron-right:before {
+  content: "\e90e";
+}
+.icon-history:before {
+  content: "\e90d";
+}
+.icon-notifications-active .path1:before {
+  content: "\e906";
+  color: rgb(29, 29, 27);
+}
+.icon-notifications-active .path2:before {
+  content: "\e911";
+  margin-left: -0.8955078125em;
+  color: rgb(29, 29, 27);
+}
+.icon-notifications-active .path3:before {
+  content: "\e914";
+  margin-left: -0.8955078125em;
+  color: rgb(29, 29, 27);
+}
+.icon-notifications-active .path4:before {
+  content: "\e915";
+  margin-left: -0.8955078125em;
+  color: rgb(229, 36, 47);
+}
+.icon-box:before {
+  content: "\e916";
+}
+.icon-location:before {
+  content: "\e903";
+}
+.icon-star:before {
+  content: "\e908";
+}
+.icon-settings:before {
+  content: "\e904";
+}
+.icon-search:before {
+  content: "\e905";
+}
+.icon-star-yellow:before {
+  content: "\e901";
+  color: #eec10c;
+}
+.icon-sun:before {
+  content: "\e902";
+}
+.icon-notifications:before {
+  content: "\e907";
+}
+.icon-help .path1:before {
+  content: "\e909";
+  color: rgb(0, 0, 0);
+}
+.icon-help .path2:before {
+  content: "\e90a";
+  margin-left: -1em;
+  color: rgb(29, 29, 27);
+}
+.icon-heart:before {
+  content: "\e90b";
+}
+.icon-funnel:before {
+  content: "\e90c";
+}
+.icon-door:before {
+  content: "\e90f";
+}
+.icon-bag:before {
+  content: "\e910";
+}
+.icon-delete:before {
+  content: "\e912";
+}
+.icon-shop-cart:before {
+  content: "\e900";
+}

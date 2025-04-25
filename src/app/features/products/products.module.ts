@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardProductComponent } from './components/card-product/card-product.component';
-import { ProductsGridComponent } from './components/products/products-grid.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductsGridComponent } from './components/products-grid/products-grid.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { SliderProductsComponent } from './components/slider-products/slider-products.component';
-import { StarProductComponent } from './components/star-product/star-product.component';
+import { ProductsSliderComponent } from './components/products-slider/products-slider.component';
+import { ProductStarComponent } from './components/product-star/product-star.component';
 import { TruncatePipe } from '../../shared/pipes/shared.pipe';
 import { CategoriesModule } from '../categories/categories.module';
 import { ProductsRoutingModule } from './products-routing.module';
@@ -20,9 +20,9 @@ import { CardProductSkeletonComponent } from '../../shared/components/card-produ
   declarations: [
     ProductsGridComponent,
     ProductDetailsComponent,
-    StarProductComponent,
-    CardProductComponent,
-    SliderProductsComponent
+    ProductStarComponent,
+    ProductCardComponent,
+    ProductsSliderComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +33,6 @@ import { CardProductSkeletonComponent } from '../../shared/components/card-produ
     ZoomImageDirective,
     CardProductSkeletonComponent
 ],
-  exports: [ProductsGridComponent, StarProductComponent, CardProductComponent, SliderProductsComponent],
+  exports: [ProductsGridComponent, ProductStarComponent, ProductCardComponent, ProductsSliderComponent],
 })
 export class ProductsModule {}

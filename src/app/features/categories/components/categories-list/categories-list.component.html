@@ -5,7 +5,7 @@
   </div>
   <ng-container *ngIf="!loading(); else skeleton">
     <ul class="categories__list">
-      <li *ngFor="let category of categories().slice(1,5); let i = index">
+      <li *ngFor="let category of categories().slice(0,5); let i = index">
         <div class="categories__icon">
           <figure class="icon-wrapper">
             <img [src]="category?.image" [alt]="category?.name">

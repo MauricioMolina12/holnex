@@ -2,7 +2,7 @@
 
 :root {
   --font-family: "Montserrat", sans-serif;
-  --background-color: #fbfbfb;
+  --background-color: #f7f7f7;
 
   /** primary **/
   --color-primary: #2292a4;
@@ -251,6 +251,7 @@
 .dark {
   --font-family: "Montserrat", sans-serif;
   --background-color: linear-gradient(var(--color-primary), #010101);
+
 
   /** primary **/
   --color-primary: #062023;

@@ -1,8 +1,21 @@
-<div class="hero-container">
-    <div class="hero-title">
-        <h1>{{values?.title}}</h1>
+<section class="hero">
+    <div class="hero-buttons">
+        <button class="hero-button disabled">
+            <i class="icon-arrow-chevron-left"></i>
+        </button>
+        <button class="hero-button">
+            <i class="icon-arrow-chevron-right"></i>
+        </button>
     </div>
-    <div class="hero-subtitle">
-        <span>{{values?.description}}</span>
+    <div class="hero-titles">
+        <h1 class="hero__title">{{values.title}}</h1>
+        <span class="hero__description">{{values.description}}</span>
     </div>
-</div>
+    <div class="hero-call-action">
+        <button class="hero-call-action-button">
+            <span class="hero-call-action-text">Comenzar a comprar</span>
+            <i class="icon-arrow-right icon"></i>
+
+        </button>
+    </div>
+</section>

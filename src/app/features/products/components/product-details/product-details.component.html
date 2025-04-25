@@ -16,7 +16,7 @@
 
         <div class="wrapper-product-button-favorites">
           <button>
-            <img src="/assets/img/icons/svg/heart/heart-outline-medium.svg" alt="button-favorites" />
+            <i class="icon-heart"></i>
           </button>
         </div>
       </figure>
@@ -67,7 +67,7 @@
 
       <div class="product-rating">
         <div class="rating-star">
-          <img src="assets/img/icons/svg/star/start.svg" alt="">
+          <i class="icon-star-yellow"></i>
           <span>{{product()?.rate}} rating</span>
         </div>
         <span>·</span>
@@ -169,7 +169,7 @@
             </div>
             <div class="rating-star-wrapper">
               <figure>
-                <img src="assets/img/icons/svg/star/start.svg" alt="star" *ngFor="let star of [].constructor(5)">
+                <img src="assets/icons/svg/star/start.svg" alt="star" *ngFor="let star of [].constructor(5)">
               </figure>
               <span>Basado en 153 opiniones</span>
             </div>
@@ -343,7 +343,7 @@
         </div>
         <div class="product-button-actions">
           <button *ngFor="let button of buttons_options_product" [ngClass]="button.cssClass">
-            <img *ngIf="button.iconUrl" [src]="button.iconUrl" [alt]="button.title">
+            <i [ngClass]="button.icon" *ngIf="button.icon"></i>
             <span>{{button.title}}</span>
           </button>
         </div>

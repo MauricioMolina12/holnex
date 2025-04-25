@@ -1,0 +1,35 @@
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ProductsService } from '../../services/products.service';
+
+@Component({
+  selector: 'app-slider-products',
+  templateUrl: './products-slider.component.html',
+  styleUrl: './products-slider.component.scss',
+  standalone: false,
+})
+export class ProductsSliderComponent implements OnInit {
+  @Input() title: string = '';
+  @Input() subtitle: string = '';
+  @Input() margintop: string = '';
+  @Input() loading: boolean = true;
+  @Input() products: any[] = [];
+  @ViewChild('slider') slider!: ElementRef<HTMLElement>;
+  currentIndex: number = 0;
+
+  constructor(
+    public productsService: ProductsService
+  ) {}
+
+  async ngOnInit() {}
+
+  scrollSlider(direction: 'left' | 'right'): void {
+    const scrollAmount = 300;
+    console.log(scrollAmount);
+    const directionObject: ScrollToOptions = {
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    };
+
+    this.slider.nativeElement.scrollBy(directionObject);
+  }
+}

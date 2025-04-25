@@ -1,7 +1,8 @@
-@import "../../styles/variables.scss";
+@import "breakpoints";
+@import "variables";
 @import "../../../../styles.scss";
 
-.input-container {
+.input-wrapper {
   width: 100%;
   height: 100%;
   position: relative;
@@ -31,14 +32,16 @@
     }
   }
 
-  .icon-search {
+  .input-icon {
     max-width: 20%;
     height: 20%;
     z-index: 1000;
     margin-left: 25px;
+    font-size: 1.2rem;
+    color: var(--color-gray);
   }
 
-  .icon-xmark {
+  .input-icon-xmark {
     width: 10%;
     height: 20px;
     display: flex;
@@ -65,7 +68,7 @@
     }
   }
 
-  .recent-searches {
+  .input-recent-searches {
     display: none;
     position: absolute;
     left: 10px;
@@ -74,18 +77,18 @@
     width: calc(100% - 54px);
     min-height: 30vh;
     height: auto;
-    background-color: var(--color-light);
+    background-color: var(--color-white);
     padding: 15px;
     flex-direction: column;
     align-items: start;
 
-    .recent-searches__title {
+    .input-recent-searches-title {
       font-size: 0.9rem;
       color: var(--color-dark-gray);
       font-weight: 400;
     }
 
-    .recent-searches__list {
+    .input-recent-searches-list {
       list-style: none;
       width: 100%;
       height: auto;
@@ -99,7 +102,8 @@
       align-items: start;
       justify-content: space-around;
 
-      .recent-searches__list__item {
+      .input-recent-searches-list-item {
+        cursor: pointer;
         width: 100%;
         height: auto;
         padding: 20px;
@@ -109,9 +113,8 @@
         gap: 10px;
         padding-left: 0;
 
-        .item__icon {
-          max-width: 6%;
-          height: 6%;
+        i {
+          font-size: 1.2rem;
         }
 
         .item__text-search {
@@ -133,7 +136,8 @@
 }
 
 /* Small laptops */
-@media (min-width: 1024px) and (max-width: 1279px) {}
+@media (min-width: 1024px) and (max-width: 1279px) {
+}
 
 /* Medium screens */
 @media (min-width: 1280px) and (max-width: 1919px) {
@@ -170,4 +174,5 @@
 }
 
 /* Big screens */
-@media (min-width: 1920px) {}
+@media (min-width: 1920px) {
+}

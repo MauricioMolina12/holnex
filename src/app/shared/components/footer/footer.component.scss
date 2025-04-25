@@ -1,32 +1,33 @@
-@import "../../styles/variables.scss";
-@import "../../../../styles.scss";
+@import "variables";
+@import "breakpoints";
 
-.footer-wrapper {
+.footer {
   width: 100%;
   height: max-content;
-  max-height: max-content;
   min-height: 50vh;
-
   background-color: var(--color-primary-secondary);
   display: flex;
+  gap: 15px;
   flex-direction: column;
   align-items: start;
   justify-content: space-around;
-  gap: 15px;
 
-  .footer-branding,
-  .footer-columns,
-  .footer-terms_conditions {
-    width: 50%;
-    height: calc(100% / 3);
-    min-height: 50%;
-    max-height: max-content;
-    padding: 30px 10px;
-  }
-
-  .footer-header {
+  .footer__header {
     width: 100%;
-    .footer-branding {
+    box-sizing: border-box;
+    padding-block: 20px;
+
+    .footer__branding,
+    .footer-columns,
+    .footer-terms_conditions {
+      width: 50%;
+      height: calc(100% / 3);
+      min-height: 50%;
+      max-height: max-content;
+      padding: 10px;
+    }
+
+    .footer__branding {
       display: flex;
       flex-direction: column;
       align-items: start;
@@ -34,33 +35,33 @@
       gap: 10px;
       padding-bottom: 0;
 
-      .logo {
+      .footer__logo {
         max-width: 100%;
         height: 30px;
       }
 
-      .title {
+      .footer__title {
         font-weight: 400;
         margin: 0;
         color: var(--color-white);
       }
 
-      .subtitle {
+      .footer__subtitle {
         font-weight: 200;
         font-size: 0.8rem;
         color: var(--color-white);
       }
     }
 
-    .footer-columns {
+    .footer__columns {
       display: flex;
       align-items: start;
       flex-direction: column;
       justify-content: space-around;
-      padding-bottom: 0;
       gap: 20px;
+      padding-left: 10px;
 
-      .column {
+      .footer__column {
         width: 100%;
         height: auto;
         min-height: 100;
@@ -70,12 +71,12 @@
         justify-content: space-around;
         gap: 5px;
 
-        .column__title {
+        .footer__column-title {
           color: var(--color-primary);
           font-size: 0.9rem;
         }
 
-        .column__link {
+        .footer__column-link {
           font-size: 0.7rem;
 
           a {
@@ -87,7 +88,7 @@
     }
   }
 
-  .footer-terms_conditions {
+  .footer__terms-conditions {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -97,7 +98,7 @@
     background-color: var(--color-white);
     padding: 0;
 
-    .item {
+    .footer__item {
       width: 100%;
 
       display: flex;
@@ -114,81 +115,102 @@
       }
     }
   }
-}
 
-/* Tablets */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .footer-wrapper {
+  @include respond-to("small-screen") {
+    .footer__terms-conditions {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      min-height: 20vh;
+      background-color: var(--color-white);
+      padding: 0;
+
+      .footer__item {
+        width: 90%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        text-align: center;
+
+        & > * {
+          font-size: 0.7rem;
+          text-decoration: none;
+          color: var(--color-primary-secondary);
+        }
+      }
+    }
+  }
+
+  @include respond-to("tablet") {
     max-height: min-content;
     min-height: 0;
-    .footer-header {
+    .footer__header {
       display: flex;
       padding: 10px;
       padding-bottom: 20px;
-      .footer-columns {
+      .footer__columns {
+        width: 75%;
+        padding-top: 10px;
+        flex-direction: row;
+      }
+    }
+
+    .footer__terms-conditions {
+      min-height: 12vh;
+    }
+  }
+
+  @include respond-to("laptop") {
+    max-height: min-content;
+    min-height: 0;
+    .footer__header {
+      display: flex;
+      padding: 10px;
+      padding-bottom: 20px;
+      .footer__columns {
         width: 75%;
         flex-direction: row;
       }
     }
 
-    .footer-terms_conditions {
+    .footer__terms-conditions {
       min-height: 12vh;
     }
   }
-}
 
-/* Small laptops */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .footer-wrapper {
+  @include respond-to("desktop") {
     max-height: min-content;
     min-height: 0;
-    .footer-header {
-      display: flex;
-      padding: 10px;
-      padding-bottom: 20px;
-      .footer-columns {
-        width: 75%;
-        flex-direction: row;
-      }
-    }
-
-    .footer-terms_conditions {
-      min-height: 12vh;
-    }
-  }
-}
-
-/* Medium screens */
-@media (min-width: 1280px) {
-  .footer-wrapper {
-    max-height: min-content;
-    min-height: 0;
-    .footer-header {
-      display: flex;
-      align-items: end;
+    .footer__header {
+      align-items: center;
+      justify-content: center;
 
       padding: 0;
       min-height: 20vh;
       // padding-bottom: 20px;
-      .footer-columns {
+      .footer__columns {
         padding: 20px;
         width: 75%;
         flex-direction: row;
       }
-      
+
       .footer-branding {
         padding: 20px;
       }
     }
 
-    .footer-terms_conditions {
+    .footer__terms-conditions {
       min-height: 20vh;
       justify-content: center;
       gap: 10px;
     }
   }
-}
 
-/* Big screens */
-@media (min-width: 1920px) {
+  @include respond-to("big-screen") {
+  }
 }

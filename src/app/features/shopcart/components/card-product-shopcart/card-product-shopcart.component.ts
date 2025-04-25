@@ -15,7 +15,7 @@ export class CardProductShopcartComponent {
     },
     {
       cssClass: 'product-delete-button',
-      icon: '/assets/img/icons/svg/delete/delete-outline-medium.svg',
+      icon: 'icon-delete',
     },
   ];
 }

@@ -53,7 +53,7 @@ export class ProductDetailsComponent implements OnInit {
     },
     {
       title: 'Agregar al carrito',
-      iconUrl: 'assets/img/icons/svg/shopcart/shopcart-outline-blue-light.svg',
+      icon: 'icon-shop-cart',
       cssClass: 'product-add-shop-cart-button',
     },
     {

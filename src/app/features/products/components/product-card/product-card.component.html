@@ -1,0 +1,23 @@
+<article class="product" [ngClass]="{ horizontal: horizontal, 'class-dark' : isDark }" (click)="onProductClick($event)">
+  <header class="product-header">
+    <div class="product-image">
+      <img [src]="product.images[0]" [attr.loading]="'lazy'" [alt]="'Imagen de: ' + product.title" />
+    </div>
+    <div class="product-titles">
+      <h3 class="product-title">{{ product.title }}</h3>
+    </div>
+
+  </header>
+  <div class="product-actions">
+    <span class="product-price">${{ product.price }}</span>
+    <div class="product-buttons">
+
+      <button class="product-favorites-button">
+        <i class="icon-heart"></i>
+      </button>
+      <button class="product-buy-now">
+        <i class="icon-bag"></i>
+      </button>
+    </div>
+  </div>
+</article>

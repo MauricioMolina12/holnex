@@ -1,0 +1,25 @@
+$breakpoints: (
+  "small-screen": 320px,
+  "mobile": 480px,
+  "tablet": 768px,
+  "laptop": 1024px,
+  "desktop": 1280px,
+  "big-screen": 1920px,
+);
+
+@mixin respond-to($device) {
+  $size: map-get($breakpoints, $device);
+
+  @if not $size {
+    @warn "El breakpoint '#{$device}' no existe.";
+  } @else if $device == "small-screen" {
+    @media (max-width: $size) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $size) {
+      @content;
+    }
+  }
+}
+
