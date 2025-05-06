@@ -7,7 +7,7 @@ import { HeroImageComponent } from '../../shared/components/hero-image/hero-imag
 import { SearchInputComponent } from '../../shared/components/search-input/search-input.component';
 import { FiltersComponent } from '../../shared/components/filters/filters.component';
 import { NewsletterSubscriptionComponent } from '../../shared/components/newsletter-subscription/newsletter-subscription.component';
-import { ServicesComponent } from '../../shared/components/services/services.component';
+import { ServicesGridComponent } from '../../shared/components/services-grid/services-grid.component';
 import { ProductsModule } from '../products/products.module';
 import { CategoriesModule } from '../categories/categories.module';
 import { GridComponent } from '../../shared/components/grid/grid.component';
@@ -21,7 +21,7 @@ import { GridComponent } from '../../shared/components/grid/grid.component';
     SearchInputComponent,
     FiltersComponent,
     NewsletterSubscriptionComponent,
-    ServicesComponent,
+    ServicesGridComponent,
     ProductsModule,
     CategoriesModule,
     GridComponent

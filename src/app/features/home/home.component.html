@@ -1,13 +1,9 @@
 <!-- Component to display the slider with ads -->
-<app-hero-image [values]="{
-    image: 'https://magazine.tagheuer.com/wp-content/uploads/2024/03/alexandra-daddario-1-1920x1080-c-default.png',
-    title: 'OFERTA EN ROPA FEMENINA',
-    description: 'Contamos con la mejor ropa para las feminas. Ven y ponte bella.'
-  }">
+<app-hero-image [sliderAds]="ads">
 </app-hero-image>
 <main class="main">
   <app-products-grid 
-    [title]="'Inspirado en tus ultimos deseos 📦'"
+  [title]="'Inspirado en tus ultimos deseos 📦'"
     [subtitle]="'En esta sección encontrarás productos que van con tus gustos y tus ultimas vistas'"
     [products]="productsSignal()"  
     [loading]="loadingSignal()" 
@@ -18,5 +14,5 @@
   <app-categories-list></app-categories-list>
   <app-star-product></app-star-product>
   <app-newsletter-subscription></app-newsletter-subscription>
-  <app-services></app-services>
+  <app-services-grid></app-services-grid>
 </main>

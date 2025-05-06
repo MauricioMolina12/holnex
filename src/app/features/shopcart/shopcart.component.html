@@ -1,5 +1,13 @@
-<section class="shopcart-wrapper">
-    <h2 class="shopcart__title">Carrito de compras</h2>
+<section class="shopcart">
+    <h2 class="shopcart-title">Carrito de compras</h2>
+    <div class="shopcart-tabs">
+        <div class="shopcart-tab active">
+            <span>Todos</span>
+        </div>
+        <div class="shopcart-tab">
+            <span>Guardados</span>
+        </div>
+    </div>
     <ng-container *ngFor="let product of productsSignal().slice(2, 14)">
         <app-card-product-shopcart [product]="product"></app-card-product-shopcart>
     </ng-container>

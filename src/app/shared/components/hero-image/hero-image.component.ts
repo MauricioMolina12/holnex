@@ -1,7 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Output,
+  Renderer2,
+  signal,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EventEmitter } from 'stream';
 import { Ad } from '../../models/ads';
 
 @Component({
@@ -9,126 +17,120 @@ import { Ad } from '../../models/ads';
   templateUrl: './hero-image.component.html',
   styleUrls: ['./hero-image.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, RouterModule],
 })
 export class HeroImageComponent implements OnInit {
-  // Props
+  @Input() sliderAds: Ad[] = []; // Contains the list of ads that will be displayed in the slider.
+  @Input() staticAdContent: Ad | null = null;
+  @Input() isStatic: boolean = false;
+  visibleAds: Ad[] = [];
 
-  constructor(private elRef: ElementRef, private renderer: Renderer2){}
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
-  ngOnInit(): void {
-    this.setBackgroundImage('hero', this.values?.image)
+  async ngOnInit() {
+    if (this.sliderAds.length > 0 && !this.staticAdContent) {
+      this.handleSlideChange();
+      this.setClassToFirstElement();
+      this.handleSlideAutomatic();
+    } else if (
+      this.sliderAds.length === 0 &&
+      this.isStatic &&
+      this.staticAdContent
+    ) {
+      this.setBackgroundImage(
+        'hero-slider__option-static',
+        this.staticAdContent.imageUrl
+      );
+    }
   }
 
   setBackgroundImage = (containerClass: string, image: string) => {
-    const slider = this.elRef.nativeElement.querySelector(`.${containerClass}`);
-    if (slider) {
-      this.renderer.setStyle(slider, 'backgroundImage', `url('${image}')`);
+    const hero = this.elRef.nativeElement.querySelector(`.${containerClass}`);
+    if (hero) {
+      this.renderer.setStyle(hero, 'backgroundImage', `url('${image}')`);
     }
   };
-  
 
+  currentSlide: number = 0;
+  nextSlide() {
+    if (this.currentSlide < this.sliderAds.length - 1) {
+      this.currentSlide++;
+    } else {
+      this.currentSlide = 0;
+    }
+    this.handleSlideChange();
+  }
 
-  /*------------------- DATA -------------------*/
-  @Input() values: any = {}; // Contains the list of ads that will be displayed in the slider.
+  prevSlide() {
+    if (this.currentSlide > 0) {
+      this.currentSlide--;
+    } else if (this.currentSlide === 0) {
+      this.currentSlide = this.sliderAds.length - 1;
+    }
+    this.handleSlideChange();
+  }
 
-  // /*------------------- Behavior -------------------*/
-  // @Input() autoSlide: boolean = true; /* 
-  // Defines whether the slider should advance automatically between ads.
-  // Example:
-  //   true => The slider moves by itself.
-  //   false => The user must advance manually. */
+  async setClassToFirstElement() {
+    const sliderOptions = this.elRef.nativeElement.querySelectorAll(
+      '.hero-slider__option'
+    );
+    const sliderOptionActive = (await sliderOptions[0]) as HTMLElement;
+    this.renderer.addClass(sliderOptionActive, 'active');
+  }
 
-  // @Input() slideInterval: number = 5000; /* 
-  // Sets the time interval (in milliseconds) between each automatic ad change.
-  // Example:
-  //   5000 => Changes every 5 seconds.
-  //   Only takes effect if autoSlide is true. 
-  // */
+  handleSlideAutomatic() {
+    let timeChangeSlider = 10000;
+    setInterval(() => {
+      if (this.currentSlide < this.sliderAds.length - 1) {
+        this.currentSlide++;
+      } else {
+        this.currentSlide = 0;
+      }
+      this.handleSlideChange();
+    }, timeChangeSlider);
+  }
 
-  // @Input() loop: boolean = true; /*
-  // Indicates whether the slider should restart when it reaches the last ad.
-  // Example:
-  //   true => After the last ad, it returns to the first one.
-  //   false => It stops at the last ad.
-  // */
-  // @Input() pauseOnHover: boolean = true; /*
-  // Allows you to pause the auto-sliding when the user hovers over the slider.
-  // Example:
-  //   true => Pauses the slider on hover.
-  //   false => The slider does not stop.
-  // */
+  updateSlide() {
+    this.handleSlideChange();
+  }
 
-  // /*------------------- Design -------------------*/
+  updateSlideWithId(id: number) {
+    this.currentSlide = id;
+    this.handleSlideChange();
+  }
 
-  // @Input() showIndicators: boolean = true; /* 
-  // Determines whether indicators (dots or lines) are displayed to navigate between ads.
-  // Example:
-  //   true => Display indicators.
-  //   false => Do not display indicators.
-  // */
-  // @Input() showControls: boolean = true; /*
-  // Defines whether control buttons (arrows) are displayed to manually advance or rewind.
-  // Example:
-  //   true => Show controls.
-  //   false => Do not show controls.
-  // */
-  // @Input() indicatorPosition: 'top' | 'bottom' | 'inside' = 'bottom'; /* 
-  // Sets the position of the indicators on the slider.
-  // Options:
-  //   'top' => Indicators above the slider.
-  //   'bottom' => Indicators below the slider.
-  //   'inside' => Indicators above the images, in a corner.
-  // */
-  // @Input() height: string = '300px'; /*
-  // Controls the height of the slider.
-  // Example:
-  //   '300px' => The slider will be 300px tall.
-  //   '50%' => The height will be 50% of the parent container.
-  // */
-  // @Input() width: string = '100%'; /*
-  // Controls the width of the slider.
-  // Example:
-  //   '100%' => The slider takes up 100% of the width of the container.
-  //   '800px' => The slider has a fixed width of 800px.
-  // */
+  handleSlideChange() {
+    const sliderOptions = this.elRef.nativeElement.querySelectorAll(
+      '.hero-slider__option'
+    );
+    const sliderOptionActive = sliderOptions[this.currentSlide] as HTMLElement;
+    sliderOptions.forEach((el: HTMLElement) => {
+      this.renderer.removeClass(el, 'active');
+    });
+    this.renderer.addClass(sliderOptionActive, 'active');
+    this.setNextItem();
+  }
 
+  // moveSlide(imageToActivate: HTMLElement, slider: HTMLElement) {
+  //   const imageOffsetLeft = imageToActivate.offsetLeft;
+  //   const imageWidth = imageToActivate.offsetWidth;
+  //   const sliderWidth = slider.offsetWidth;
 
+  //   const scrollLeft = imageOffsetLeft - sliderWidth / 2 + imageWidth / 2;
 
-
-  // /*------------------- Events -------------------*/
-  // @Output() adClick = new EventEmitter<any>(); /*
-  // Emits an event when the user clicks on an ad.
-  // Usage:
-  //   Used to capture the selected ad and redirect ===> the user or perform some action.
-  
-  // */
-  // @Output() slideChange = new EventEmitter<any>(); /*
-  // Emits an event when the slider changes ads.
-  // Usage:
-  //   Can be useful for tracking which ad is currently visible.
-  // */
-
-  // currentSlide: number = 0;
-
-  // ngOnInit(): void {}
-
-  // onAdClick(ad: Ad) {
-  //   this.adClick.emit(ad);
+  //   slider.scrollTo({
+  //     left: scrollLeft,
+  //     behavior: 'smooth',
+  //   });
   // }
 
-  // nextSlide() {
-  //   if (this.currentSlide < this.ads.length - 1 || this.loop) {
-  //     this.currentSlide = (this.currentSlide + 1) % this.ads.length;
-  //     this.slideChange.emit(this.currentSlide);
-  //   }
-  // }
-
-  // previousSlide() {
-  //   if (this.currentSlide > 0 || this.loop) {
-  //     this.currentSlide =
-  //       (this.currentSlide - 1 + this.ads.length) % this.ads.length;
-  //     this.slideChange.emit(this.currentSlide);
-  //   }
-  // }
+  currentTitle = signal<string>('');
+  currentDescription = signal<string>('');
+  setNextItem() {
+    const currentItem = this.sliderAds[this.currentSlide];
+    this.setBackgroundImage('hero', currentItem.imageUrl);
+    this.currentTitle.set(currentItem.title);
+    this.currentDescription.set(currentItem.description);
+  }
 }

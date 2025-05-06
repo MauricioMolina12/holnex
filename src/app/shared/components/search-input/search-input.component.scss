@@ -113,7 +113,8 @@
         gap: 10px;
         padding-left: 0;
 
-        i {
+        .icon-history {
+          color: var(--color-dark-gray);
           font-size: 1.2rem;
         }
 
@@ -124,55 +125,44 @@
       }
     }
   }
-}
 
-/* Tablets */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .input-container {
-    .recent-searches {
+  @include respond-to("small-screen") {
+    .input-search {
+      right: 4px;
+      box-sizing: border-box;
+
+      &::placeholder {
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  @include respond-to("tablet") {
+    .input-recent-searches {
       width: calc(100% - 52px);
     }
   }
-}
 
-/* Small laptops */
-@media (min-width: 1024px) and (max-width: 1279px) {
-}
-
-/* Medium screens */
-@media (min-width: 1280px) and (max-width: 1919px) {
-  .input-container {
+  @include respond-to("desktop") {
     .input-search {
       &::placeholder {
         font-size: 0.8rem;
+        font-weight: 500;
       }
     }
-
-    .icon-search {
-      max-width: 20%;
-      height: 20%;
-    }
-
-    .icon-xmark {
+    .input-icon-xmark {
       display: none;
-      right: 40px;
     }
 
-    .recent-searches {
+    .input-recent-searches {
       width: calc(100% - 54px);
-
-      .recent-searches__list {
-        .recent-searches__list__item {
-          .item__icon {
-            max-width: 2%;
-            height: 2%;
+      .input-recent-searches-list {
+        .input-recent-searches-list-item {
+          .icon-history {
+            font-size: 1.2rem;
           }
         }
       }
     }
   }
-}
-
-/* Big screens */
-@media (min-width: 1920px) {
 }

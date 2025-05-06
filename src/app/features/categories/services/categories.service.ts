@@ -1,7 +1,8 @@
 import { Injectable, signal } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { category, productsPerCategory } from '../models/categories';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,8 @@ import { environment } from '../../../../environments/environment';
 export class CategoriesService {
   categories$ = signal<any[]>([]);
   categoryDetail$ = signal<any | null>([]);
+  categoryDetailId$ = signal<number>(0);
+  categoryProducts$ = signal<any[]>([]);
 
   constructor(private http: HttpClient) {
     this.getAllCategories();
@@ -20,12 +23,12 @@ export class CategoriesService {
       .pipe(
         map((response) =>
           response.map((category, index) => ({
-            id: index,
+            id: category?.id,
             name: category?.name,
             slug: category?.slug,
             image: category?.image,
             creationAt: category?.creationAt,
-            updateAt: category?.updateAt
+            updateAt: category?.updateAt,
           }))
         ),
         catchError((error) => {
@@ -36,9 +39,9 @@ export class CategoriesService {
       .subscribe((categories) => this.categories$.set(categories));
   }
 
-  getCategoryById(slug: string): void {
+  getCategoryBySlug(slug: string): void {
     const foundCategory = this.categories$().find(
-      (category) => category?.name?.slug === slug
+      (category) => category?.slug === slug
     );
     if (foundCategory) {
       this.categoryDetail$.set(foundCategory);
@@ -48,26 +51,29 @@ export class CategoriesService {
     this.http
       .get<any>(environment.api + `/categories/slug/${slug}`)
       .pipe(
-        map((category) => ({
-          id: category?.id,
-          name: category?.name,
-          slug: category?.slug,
-          image: category?.image,
+        map((category: category) => ({
+          id: category.id,
+          name: category.name,
+          slug: category.slug,
+          image: category.image,
         })),
         catchError((error) => {
           console.error('Error getCategoryById(): ', error);
           return of(null);
         })
       )
-      .subscribe((category: any) => this.categoryDetail$.set(category));
+      .subscribe((category: any) => {
+        this.categoryDetail$.set(category);
+        this.categoryDetailId$.set(category.id);
+      });
   }
 
-  getProductsPerCategory(id: string): Observable<any[]> {
-    return this.http
-      .get<any[]>(`${environment.api}/categories/${id}/products`)
+  getProductsPerCategory(id: number) {
+    this.http
+      .get<productsPerCategory[]>(`${environment.api}/categories/${id}/products`)
       .pipe(
         map((response) =>
-          response.map((product: any) => ({
+          response.map((product: productsPerCategory) => ({
             id: product?.id,
             title: product?.title,
             slug: product?.slug,
@@ -79,8 +85,11 @@ export class CategoriesService {
         ),
         catchError((error) => {
           console.error('Error getProductsPerCategory():', error);
-          return of([]); 
+          return of([]);
         })
-      );
+      )
+      .subscribe((products: any) => {
+        this.categoryProducts$.set(products);
+      });
   }
 }

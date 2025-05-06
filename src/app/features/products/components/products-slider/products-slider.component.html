@@ -1,5 +1,5 @@
-<div class="slider-products-wrapper">
-    <h1 class="slider-products-title">Productos relacionados</h1>
+<div class="slider-products-wrapper" [ngStyle]="customStyles">
+    <h1 class="slider-products-title">{{title}}</h1>
     <div class="slider-products" #slider [ngClass]="loading ? 'isLoading' : ''">
         <ng-container *ngIf="!loading; else skeleton">
             <div class="product" *ngFor="let product of products">

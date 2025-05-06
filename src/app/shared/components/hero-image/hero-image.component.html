@@ -1,21 +1,33 @@
 <section class="hero">
-    <div class="hero-buttons">
-        <button class="hero-button disabled">
+    <div class="hero-buttons" *ngIf="!isStatic">
+        <button class="hero-button" (click)="prevSlide()">
             <i class="icon-arrow-chevron-left"></i>
         </button>
-        <button class="hero-button">
+        <button class="hero-button" (click)="nextSlide()">
             <i class="icon-arrow-chevron-right"></i>
         </button>
     </div>
     <div class="hero-titles">
-        <h1 class="hero__title">{{values.title}}</h1>
-        <span class="hero__description">{{values.description}}</span>
+        <h1 class="hero__title">{{ currentTitle() }}</h1>
+        <span class="hero__description">{{currentDescription() }}</span>
+        <div class="hero-call-action"  *ngIf="!isStatic">
+            <button class="hero-call-action-button">
+                <span class="hero-call-action-text">Comenzar a comprar</span>
+                <i class="icon-arrow-right icon"></i>
+            </button>
+        </div>
     </div>
-    <div class="hero-call-action">
-        <button class="hero-call-action-button">
-            <span class="hero-call-action-text">Comenzar a comprar</span>
-            <i class="icon-arrow-right icon"></i>
 
-        </button>
-    </div>
+    <ng-container *ngIf="!isStatic; else heroStatic">
+        <div class="hero-slider">
+            <div class="hero-slider__option" *ngFor="let ad of sliderAds; let i = index">
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #heroStatic>
+        <div class="hero-slider">
+            <div class="hero-slider__option-static">
+            </div>
+        </div>
+    </ng-template>
 </section>

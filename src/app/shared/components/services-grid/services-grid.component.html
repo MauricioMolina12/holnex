@@ -1,0 +1,14 @@
+<div class="services">
+    <h2 class="services-title">Todo lo que necesitas en un solo lugar</h2>
+    <span class="services-subtitle">Te ofrecemos servicios clave para potenciar tu empresa y hacer crecer tus ideas.</span>
+    <div class="services-grid">
+        <div class="service-grid__item" *ngFor="let service of servicesHorizon">
+            <i class="service-grid__item-icon" [ngClass]="service.icon" [ngStyle]="{'background-color': service.color}"></i>
+            <h2 class="service-grid__item-name">{{service.name}}</h2>
+            <p class="service-grid__item-description">{{service.description}}</p>
+            <button class="service-grid__item-button-detail">
+                <i class="icon-arrow-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

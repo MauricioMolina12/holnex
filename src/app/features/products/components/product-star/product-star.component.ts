@@ -15,9 +15,9 @@ export class ProductStarComponent implements OnInit {
 
   ngOnInit(): void {
     this.product = {
-      image: 'https://www.mipcparquecentral.com/cdn/shop/files/ComputadorInteCorei511400.jpg?v=1711985417',
-      name: 'MORRAL BOSS',
-      price: '300.000 COP',
+      image: 'https://www.professionalwireless.com.co/wp-content/uploads/2022/09/Portatail-DELL-g15-gaming-500x450.png',
+      name: 'PORTATIL DELL GAMER',
+      price: '4.000.000 COP',
       characteristics: [
         {
           title: 'DISEÑO ESPACIOSO',

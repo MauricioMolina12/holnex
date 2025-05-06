@@ -10,7 +10,8 @@ import { ProductsService } from '../../services/products.service';
 export class ProductsSliderComponent implements OnInit {
   @Input() title: string = '';
   @Input() subtitle: string = '';
-  @Input() margintop: string = '';
+  @Input() customStyles: { [key: string]: string } = {};
+  
   @Input() loading: boolean = true;
   @Input() products: any[] = [];
   @ViewChild('slider') slider!: ElementRef<HTMLElement>;

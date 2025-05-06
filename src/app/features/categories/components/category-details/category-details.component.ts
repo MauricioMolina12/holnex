@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeroImageComponent } from '../../../../shared/components/hero-image/hero-image.component';
 import { CategoriesService } from '../../services/categories.service';
@@ -11,31 +11,34 @@ import { ProductsModule } from '../../../products/products.module';
   standalone: true,
   imports: [HeroImageComponent, ProductsModule],
 })
-export class CategoryDetailsComponent {
+export class CategoryDetailsComponent implements OnInit {
   category = computed(() => this.categoriesService.categoryDetail$());
   productsPerCategory: any[] = [];
   slug: string = '';
   valuesHeroImage: any;
 
-  constructor(private categoriesService: CategoriesService, private router: ActivatedRoute) {}
+  constructor(
+    private categoriesService: CategoriesService,
+    private router: ActivatedRoute
+  ) {
+    effect(() => {
+      const category = this.categoriesService.categoryDetail$();
+      if (category) {
+        this.valuesHeroImage = {
+          title: category.name,
+          description: 'Descripción de la categoría',
+          imageUrl: category.image,
+        };
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.router.paramMap.subscribe((params) => {
+    this.router.paramMap.subscribe(async (params) => {
       this.slug = params.get('slug') || '';
       if (this.slug) {
-        this.categoriesService.getCategoryById(this.slug);
-        this.categoriesService.getProductsPerCategory('1').subscribe((products)=>{
-          this.productsPerCategory = products;
-          console.log("Productos de la categoría: ", this.productsPerCategory);
-          
-        })
-      
-        this.valuesHeroImage = {
-          image: this.category()?.name?.image || null,
-          title: this.category()?.name?.name  || '',
-          description: 'Explora nuestra colección de ropa con las últimas tendencias, estilos únicos y opciones para cada ocasión'
-        }
-      
+        await this.categoriesService.getCategoryBySlug(this.slug);
+        console.log(this.categoriesService.categoryDetail$());
       }
     });
   }
