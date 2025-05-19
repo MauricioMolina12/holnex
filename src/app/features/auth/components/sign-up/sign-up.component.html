@@ -1,43 +1,23 @@
 <main class="main-content">
-  <form class="main-form" [formGroup]="signUpForm">
-    <div class="main-inputs">
-      <img
-        class="logo-horizon"
-        src="assets/img/horizon-blue.png"
-        alt="horizon"
-      />
-      <h1 class="title">
+  <form class="main-content__form" [formGroup]="signUpForm">
+    <div class="main-content__form-inputs">
+      <i class="main-content__form-inputs-logo icon-hx-logo"></i>
+      <h1 class="main-content__form-inputs-title">
         Completa la información de cada paso para crear tu cuenta
       </h1>
 
       <!--Steps to complete the form-->
       <div class="steps-indicator" #stepsIndicator>
-        <div
-          class="step first-step"
-          [class.active]="currentStep >= 1"
-          (click)="findStep(1)"
-        >
+        <div class="step first-step" [class.active]="currentStep >= 1" (click)="findStep(1)">
           <p>1</p>
         </div>
-        <div
-          class="step second-step"
-          [class.active]="currentStep >= 2"
-          (click)="findStep(2)"
-        >
+        <div class="step second-step" [class.active]="currentStep >= 2" (click)="findStep(2)">
           <p>2</p>
         </div>
-        <div
-          class="step third-step"
-          [class.active]="currentStep >= 3"
-          (click)="findStep(3)"
-        >
+        <div class="step third-step" [class.active]="currentStep >= 3" (click)="findStep(3)">
           <p>3</p>
         </div>
-        <div
-        #lineProgress
-          class="line-progress"
-          [ngStyle]="{ width: calculateLineWidth() + 'px' }"
-        ></div>
+        <div #lineProgress class="line-progress" [ngStyle]="{ width: calculateLineWidth() + 'px' }"></div>
       </div>
 
       <!--Step number one-->
@@ -45,86 +25,27 @@
         <!-- Email input -->
         <div class="email-container">
           <label for="email">Correo <span title="*">*</span></label>
-          <input
-            id="email"
-            type="email"
-            formControlName="email"
-            required
-            (input)="validateStep(1)"
-          />
-          <i class="fa fa-envelope"></i>
+          <input id="email" type="email" formControlName="email" required (input)="validateStep(1)" />
+          <i class="icon-email"></i>
         </div>
 
         <!-- 6 verification code inputs -->
-        <div
-          class="code-container"
-          *ngIf="authService.isEmailValid(this.signUpForm.get('email')?.value)"
-        >
-          <label for="code"
-            >Código de verificación <span title="*">*</span></label
-          >
+        <div class="code-container" *ngIf="authService.isEmailValid(this.signUpForm.get('email')?.value)">
+          <label for="code">Código de verificación <span title="*">*</span></label>
 
           <div class="code-inputs">
-            <input
-              id="code0"
-              type="text"
-              maxlength="1"
-              formControlName="code0"
-              name="code0"
-              required
-              placeholder="1"
-              (input)="validateStep(1)"
-            />
-            <input
-              id="code1"
-              type="text"
-              maxlength="1"
-              formControlName="code1"
-              name="code1"
-              required
-              placeholder="2"
-              (input)="validateStep(1)"
-            />
-            <input
-              id="code2"
-              type="text"
-              maxlength="1"
-              formControlName="code2"
-              name="code2"
-              required
-              placeholder="3"
-              (input)="validateStep(1)"
-            />
-            <input
-              id="code3"
-              type="text"
-              maxlength="1"
-              formControlName="code3"
-              name="code3"
-              required
-              placeholder="4"
-              (input)="validateStep(1)"
-            />
-            <input
-              id="code4"
-              type="text"
-              maxlength="1"
-              formControlName="code4"
-              name="code4"
-              required
-              placeholder="5"
-              (input)="validateStep(1)"
-            />
-            <input
-              id="code5"
-              type="text"
-              maxlength="1"
-              formControlName="code5"
-              name="code5"
-              required
-              placeholder="6"
-              (input)="validateStep(1)"
-            />
+            <input id="code0" type="text" maxlength="1" formControlName="code0" name="code0" required placeholder="1"
+              (input)="validateStep(1)" />
+            <input id="code1" type="text" maxlength="1" formControlName="code1" name="code1" required placeholder="2"
+              (input)="validateStep(1)" />
+            <input id="code2" type="text" maxlength="1" formControlName="code2" name="code2" required placeholder="3"
+              (input)="validateStep(1)" />
+            <input id="code3" type="text" maxlength="1" formControlName="code3" name="code3" required placeholder="4"
+              (input)="validateStep(1)" />
+            <input id="code4" type="text" maxlength="1" formControlName="code4" name="code4" required placeholder="5"
+              (input)="validateStep(1)" />
+            <input id="code5" type="text" maxlength="1" formControlName="code5" name="code5" required placeholder="6"
+              (input)="validateStep(1)" />
           </div>
         </div>
 
@@ -132,20 +53,21 @@
         <div class="error-message" *ngIf="   isTouchedAndInvalidInput('email', ValidationType.TouchedAndInvalid) ">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
-              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
-            />
+              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
           </svg>
 
-          <p *ngIf="isTouchedAndInvalidInput('email', ValidationType.Required)" class="error" [ngClass]="{ show: signUpForm.get('email')?.hasError('required') }">
+          <p *ngIf="isTouchedAndInvalidInput('email', ValidationType.Required)" class="error"
+            [ngClass]="{ show: signUpForm.get('email')?.hasError('required') }">
             El correo es obligatorio.
           </p>
 
-          <p *ngIf="   isTouchedAndInvalidInput('email', ValidationType.InvalidEmail) " class="error" [ngClass]="{show: isTouchedAndInvalidInput('email',ValidationType.InvalidEmail)}">
+          <p *ngIf="   isTouchedAndInvalidInput('email', ValidationType.InvalidEmail) " class="error"
+            [ngClass]="{show: isTouchedAndInvalidInput('email',ValidationType.InvalidEmail)}">
             El correo no es válido.
           </p>
 
           <p *ngIf="errorMessage">{{ errorMessage }}</p>
-        
+
         </div>
 
         <!--Success message-->
@@ -158,10 +80,10 @@
       <!--Step number two-->
       <div class="step2" *ngIf="currentStep === 2">
         <div class="username-container">
-          
+
           <div class="name">
             <label for="name">Nombre <span title="*">*</span></label>
-            <input id="name" type="text" formControlName="name" required (input)="validateStep(2)"/>
+            <input id="name" type="text" formControlName="name" required (input)="validateStep(2)" />
             <i class="fa fa-user"></i>
           </div>
 
@@ -172,17 +94,16 @@
           </div>
         </div>
 
-        <div
-          class="error-message" *ngIf="   isTouchedAndInvalidInput('name', ValidationType.TouchedAndInvalid) ">
-          
+        <div class="error-message" *ngIf="   isTouchedAndInvalidInput('name', ValidationType.TouchedAndInvalid) ">
+
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
-              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
-            />
+              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
           </svg>
 
-          
-          <p *ngIf="isTouchedAndInvalidInput('name', ValidationType.Required)" class="error" [ngClass]="{   show: isTouchedAndInvalidInput('name', ValidationType.Required) }">
+
+          <p *ngIf="isTouchedAndInvalidInput('name', ValidationType.Required)" class="error"
+            [ngClass]="{   show: isTouchedAndInvalidInput('name', ValidationType.Required) }">
             El nombre es obligatorio.
           </p>
 
@@ -193,12 +114,14 @@
         <div class="password-container">
           <div class="password">
             <label for="password">Contraseña <span title="*">*</span></label>
-            <input id="password" type="password" formControlName="password" required (input)="validateStep(3)" [type]="viewPassword ? 'text' : 'password'"/>
+            <input id="password" type="password" formControlName="password" required (input)="validateStep(3)"
+              [type]="viewPassword ? 'text' : 'password'" />
           </div>
 
           <div class="confirmPassword">
             <label for="confirmPassword">Confirmar contraseña <span title="*">*</span></label>
-            <input id="confirmPassword" type="password" formControlName="confirmPassword" required (input)="validateStep(3)" [type]="viewPassword ? 'text' : 'password'"/>
+            <input id="confirmPassword" type="password" formControlName="confirmPassword" required
+              (input)="validateStep(3)" [type]="viewPassword ? 'text' : 'password'" />
           </div>
         </div>
 
@@ -207,22 +130,23 @@
         <div class="error-message" *ngIf="isTouchedAndInvalidInput('password',ValidationType.TouchedAndInvalid)">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
-              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
-            />
+              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
           </svg>
-          <p *ngIf="isTouchedAndInvalidInput('password', ValidationType.Required)" class="error" [ngClass]="{show: isTouchedAndInvalidInput('password', ValidationType.Required) }">
+          <p *ngIf="isTouchedAndInvalidInput('password', ValidationType.Required)" class="error"
+            [ngClass]="{show: isTouchedAndInvalidInput('password', ValidationType.Required) }">
             La contraseña es obligatoria.
           </p>
         </div>
 
-        <div class="error-message" *ngIf="isTouchedAndInvalidInput('confirmPassword', ValidationType.TouchedAndInvalid)">
+        <div class="error-message"
+          *ngIf="isTouchedAndInvalidInput('confirmPassword', ValidationType.TouchedAndInvalid)">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
-              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
-            />
+              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
           </svg>
 
-          <p *ngIf="isTouchedAndInvalidInput('confirmPassword', ValidationType.Required)" class="error" [ngClass]="{show: isTouchedAndInvalidInput('confirmPassword', ValidationType.Required) }">
+          <p *ngIf="isTouchedAndInvalidInput('confirmPassword', ValidationType.Required)" class="error"
+            [ngClass]="{show: isTouchedAndInvalidInput('confirmPassword', ValidationType.Required) }">
             La contraseña de confirmación es obligatoria.
           </p>
         </div>
@@ -241,101 +165,67 @@
         <!--Requirements for a good password-->
         <div class="password-validations">
           <div class="validation-1">
-            <i
-              class="fa fa-check"
-              *ngIf="
+            <i class="fa fa-check" *ngIf="
                 authService.hasLowerCase(
                   signUpForm.get('password')?.value.trim()
                 )
-              "
-            ></i>
-            <span
-              [ngClass]="{
+              "></i>
+            <span [ngClass]="{
                 check: authService.hasLowerCase(
                   signUpForm.get('password')?.value.trim()
                 )
-              }"
-              >* Por lo menos un caracter en minúscula</span
-            >
+              }">* Por lo menos un caracter en minúscula</span>
           </div>
           <div class="validation-2">
-            <i
-              class="fa fa-check"
-              *ngIf="
+            <i class="fa fa-check" *ngIf="
                 authService.hasUpperCase(
                   signUpForm.get('password')?.value.trim()
                 )
-              "
-            ></i>
-            <span
-              [ngClass]="{
+              "></i>
+            <span [ngClass]="{
                 check: authService.hasUpperCase(
                   signUpForm.get('password')?.value.trim()
                 )
-              }"
-              >* Por lo menos un caracter en mayuscula</span
-            >
+              }">* Por lo menos un caracter en mayuscula</span>
           </div>
           <div class="validation-3">
-            <i
-              class="fa fa-check"
-              *ngIf="
+            <i class="fa fa-check" *ngIf="
                 authService.hasNumber(signUpForm.get('password')?.value.trim())
-              "
-            ></i>
-            <span
-              [ngClass]="{
+              "></i>
+            <span [ngClass]="{
                 check: authService.hasNumber(
                   signUpForm.get('password')?.value.trim()
                 )
-              }"
-              >* Por lo menos un número</span
-            >
+              }">* Por lo menos un número</span>
           </div>
           <div class="validation-4">
-            <i
-              class="fa fa-check"
-              *ngIf="
+            <i class="fa fa-check" *ngIf="
                 authService.hasSpecialChar(
                   signUpForm.get('password')?.value.trim()
                 )
-              "
-            ></i>
-            <span
-              [ngClass]="{
+              "></i>
+            <span [ngClass]="{
                 check: authService.hasSpecialChar(
                   signUpForm.get('password')?.value.trim()
                 )
-              }"
-              >* Por lo menos un caracter especial</span
-            >
+              }">* Por lo menos un caracter especial</span>
           </div>
           <div class="validation-5">
-            <i
-              class="fa fa-check"
-              *ngIf="
+            <i class="fa fa-check" *ngIf="
                 authService.isMinLength(
                   signUpForm.get('password')?.value.trim()
                 )
-              "
-            ></i>
-            <span
-              [ngClass]="{
+              "></i>
+            <span [ngClass]="{
                 check: authService.isMinLength(
                   signUpForm.get('password')?.value.trim()
                 )
-              }"
-              >* Por lo menos 8 caracteres</span
-            >
+              }">* Por lo menos 8 caracteres</span>
           </div>
         </div>
 
         <!--Success message-->
-        <p
-          *ngIf="successMessage"
-          class="success"
-          [ngClass]="{ show: successMessage }"
-        >
+        <p *ngIf="successMessage" class="success" [ngClass]="{ show: successMessage }">
           {{ successMessage }}
         </p>
       </div>
@@ -363,10 +253,11 @@
 
       <div class="button-container">
         <button type="submit" [disabled]="true">Crear cuenta</button>
-        <span class="link"
-          >Ya tienes cuenta? <a routerLink="/user/login">Inicia sesión</a></span
-        >
+        <span class="link">Ya tienes cuenta? <a routerLink="/user/login">Inicia sesión</a></span>
       </div>
     </div>
   </form>
+  <div class="main-image">
+    <img src="assets/img/background.jpg" alt="foto-login">
+  </div>
 </main>

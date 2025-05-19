@@ -15,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { productReducer } from './store/reducers/product.reducer';
 import { ProductEffects } from './store/effects/product.effects';
 import { CardProductSkeletonComponent } from '../../shared/components/card-product-skeleton/card-product-skeleton.component';
+import { CardUserCommentComponent } from '../../shared/components/card-user-comment/card-user-comment.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CardProductSkeletonComponent } from '../../shared/components/card-produ
     CategoriesModule,
     NgxSkeletonLoaderModule,
     ZoomImageDirective,
-    CardProductSkeletonComponent
+    CardProductSkeletonComponent,
+    CardUserCommentComponent
 ],
   exports: [ProductsGridComponent, ProductStarComponent, ProductCardComponent, ProductsSliderComponent],
 })

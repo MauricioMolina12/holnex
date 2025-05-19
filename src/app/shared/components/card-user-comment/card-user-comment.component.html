@@ -1,0 +1,16 @@
+<div class="card-comment">
+    <header class="card-comment__user">
+        <figure class="avatar">
+            <img [src]="user.image" [alt]="'Avatar de: ' + user.name">
+        </figure>
+        <h3 class="name">
+            {{ user.name }}
+            <span class="time-comment">
+                Hace {{ user.time }}
+            </span>
+        </h3>
+    </header>
+    <div class="card-comment__information">
+        <p class="comment-text">{{user.comment}}</p>
+    </div>
+</div>

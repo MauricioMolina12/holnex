@@ -2,8 +2,7 @@
 
   <!-- Logo-->
   <div class=" nav-bar__left">
-    <!-- <img routerLink="''" src="assets/img/credora-blue.png" class="nav-bar__logo " alt="logo"> -->
-     <h1>Holu</h1>
+    <i class="icon-hx-logo nav-bar__logo" [routerLink]="['']"></i>
   </div>
 
 
@@ -40,20 +39,41 @@
   <!-- Side bar -->
   <div class="nav-bar__sidebar">
 
+    <button class="nav-bar__sidebar-close-button" (click)="toggleElement($event, 'nav-bar__sidebar','')">X</button>
+
     <!-- Profile user -->
-    <div class="nav-bar__profile" *ngIf="isLoggued()">
-      <div class="nav-bar__profile-avatar" (click)="toggleElement($event,'nav-bar__modal-profile')">
-        <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
+    <div class="nav-bar__profile">
+      <div class="nav-bar__profile-content">
+        <div class="nav-bar__profile-content-avatar" [ngClass]="{'notLoggued': !isLoggued()}"
+          (click)="isLoggued() && toggleElement($event, 'nav-bar__modal-profile')">
+
+          <img [src]="isLoggued() ? user.image : 'assets/img/user-default.jpg'"
+            [alt]="isLoggued() ? 'Imagen de: ' + user.name : 'Usuario no autenticado'" />
+
+        </div>
+        <div class="nav-bar__profile-content-information">
+          <h1 class="nav-bar__profile-name">
+            {{ isLoggued() ? user.name : 'Ingresa a tu cuenta' }}
+          </h1>
+          <span class="nav-bar__profile-email">
+            {{ isLoggued() ? user.email : 'Podrás interactuar de mejor forma' }}
+          </span>
+        </div>
       </div>
-      <div class="nav-bar__profile-information">
-        <h1 class="nav-bar__profile-name">{{ user.name }}</h1>
-        <span class="nav-bar__profile-email">{{ user.email }}</span>
+      <div class="nav-bar__profile-action">
+        <button class="nav-bar__profile-action-login" *ngIf="!isLoggued()" [routerLink]="'/user/login'">Iniciar
+          sesión</button>
+        <button class="nav-bar__profile-action-edit" *ngIf="isLoggued()">Editar perfil</button>
       </div>
     </div>
 
+
+
+
     <!-- Information user -->
     <div class="nav-bar__information">
-      <div class="nav-bar__item" *ngFor="let item of navItems" (click)="redirectItemNavBar(item.path)">
+      <div class="nav-bar__item" *ngFor="let item of navItems" (click)="redirectItemNavBar(item.path || '')"
+        (mouseenter)="mouseEnter(item.title)" (mouseleave)="mouseLeave()">
         <!--
           Address
           Shop cart
@@ -70,12 +90,28 @@
           <span *ngIf="item.pending == true" class="nav-bar__item-number-pending">5</span>
 
         </div>
+        <div class="nav-bar__item-tooltip">
+          {{ nameItemHover }}
+        </div>
+
       </div>
     </div>
 
     <!--Configuration user -->
     <div class="nav-bar__configurations">
-      <div class="nav-bar__item" *ngFor="let item of configItems" (click)="redirectItemNavBar(item.path)">
+      <div class="nav-bar__item">
+        <i class="nav-bar__item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
+        <div class="nav-bar__item-value">
+          <h5 class="nav-bar__item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
+        </div>
+        <div class="toggle-container">
+          <label class="switch">
+            <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="themeService.isDark" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="nav-bar__item" *ngFor="let item of configItems" (click)="redirectItemNavBar(item.path || '')">
         <!--
           My businness
           Settings
@@ -104,11 +140,7 @@
           </div> -->
         </div>
       </div>
-    </div>
 
-    <div class="nav-bar__buttons" *ngIf="!isLoggued()">
-      <button [routerLink]="'/user/login'">Iniciar sesión</button>
-      <button [routerLink]="'/user/register'">Registrarte</button>
     </div>
   </div>
 
@@ -124,6 +156,18 @@
       </div>
     </div>
 
+    <div class="nav-bar__modal-profile-item">
+      <i class="nav-bar__modal-profile-item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
+      <div class="nav-bar__modal-profile-item-value">
+        <h5 class="nav-bar__modal-profile-item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
+      </div>
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="themeService.isDark" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
     <div class="nav-bar__modal-profile-item" *ngFor="let item of profileItems" [routerLink]="[item.path]">
       <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>
       <div class="nav-bar__modal-profile-item-value">
@@ -135,6 +179,8 @@
       </div>
       <div class="nav-bar__modal-profile-item-pending-dot" *ngIf="item.pending == true"></div>
     </div>
+
+
   </div>
 
 

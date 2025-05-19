@@ -2,7 +2,15 @@
 
 :root {
   --font-family: "Montserrat", sans-serif;
-  --background-color: #f7f7f7;
+  --background-color: #f8f8f8;
+  --background-color2: #f0f3ff;
+
+
+  /* Others variables */
+  --border-radius: 10px;
+
+  // Custom variables
+  --color-primary-to-white: #2292a4;
 
   /** primary **/
   --color-primary: #2292a4;
@@ -177,9 +185,9 @@
   --color-shadow-gray-tint: #1a1a1c;
 
   // Social
-  
+
   /** facebook **/
-  --color-facebook: #1178F2;
+  --color-facebook: #1178f2;
   --color-facebook-rgb: 66, 103, 178;
   --color-facebook-contrast: #ffffff;
   --color-facebook-contrast-rgb: 255, 255, 255;
@@ -193,7 +201,7 @@
   --color-google-contrast-rgb: 255, 255, 255;
   --color-google-shade: #a12100;
   --color-google-tint: #be3b1a;
-  
+
   /** teal **/
   --color-teal: #19d8c6;
   --color-teal-rgb: 25, 216, 198;
@@ -243,8 +251,7 @@
   --color-blue-light-tint: #f3f9ff;
 
   /** Others colors **/
-  --bg-gradient-main: linear-gradient(#E1E1E1, #FFFFFF)
-
+  --bg-gradient-main: linear-gradient(#e1e1e1, #ffffff);
 }
 
 // Custom properties for dark mode
@@ -252,6 +259,7 @@
   --font-family: "Montserrat", sans-serif;
   --background-color: linear-gradient(var(--color-primary), #010101);
 
+  --color-primary-to-white: #FFFFFF;
 
   /** primary **/
   --color-primary: #062023;
@@ -424,9 +432,9 @@
   --color-shadow-gray-tint: #1a1a1c;
 
   // Social
-  
+
   /** facebook **/
-  --color-facebook: #1178F2;
+  --color-facebook: #1178f2;
   --color-facebook-rgb: 66, 103, 178;
   --color-facebook-contrast: #ffffff;
   --color-facebook-contrast-rgb: 255, 255, 255;
@@ -440,7 +448,7 @@
   --color-google-contrast-rgb: 255, 255, 255;
   --color-google-shade: #a12100;
   --color-google-tint: #be3b1a;
-  
+
   /** teal **/
   --color-teal: #19d8c6;
   --color-teal-rgb: 25, 216, 198;
@@ -490,5 +498,5 @@
   --color-blue-light-tint: #f3f9ff;
 
   /** Others colors **/
-  --bg-gradient-main: linear-gradient(#E1E1E1, #FFFFFF)
+  --bg-gradient-main: linear-gradient(#e1e1e1, #ffffff);
 }

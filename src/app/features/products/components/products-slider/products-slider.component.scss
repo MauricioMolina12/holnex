@@ -1,6 +1,6 @@
-@import "../../../../shared/styles/variables.scss";
 @import "../../../../shared/styles/skeleton.scss";
-@import "../../../../../styles.scss";
+@import "breakpoints";
+@import "variables";
 
 /*Phones*/
 .slider-products-wrapper {
@@ -51,7 +51,7 @@
     border: none;
     width: 45px;
     height: 45px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     position: absolute;
     top: calc(100% - 55%);
     display: flex;
@@ -75,11 +75,8 @@
   .slider-button-arrow-right {
     right: 3px;
   }
-}
 
-/* Tablets */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .slider-products-wrapper {
+  @include respond-to("tablet") {
     .slider-products-title {
       font-size: 1.2rem;
     }
@@ -92,11 +89,8 @@
       }
     }
   }
-}
 
-/* Small laptops */
-@media (min-width: 1024px) {
-  .slider-products-wrapper {
+  @include respond-to("laptop") {
     .slider-products-title {
       font-size: 1.4rem;
     }
@@ -118,10 +112,8 @@
       }
     }
   }
-}
 
-@media (min-width: 1280px) {
-  .slider-products-wrapper {
+  @include respond-to("desktop") {
     min-height: 10vh;
 
     .slider-products-title {
@@ -149,8 +141,4 @@
       right: calc(100% - 80%);
     }
   }
-}
-
-/* Big screens */
-@media (min-width: 1920px) {
 }

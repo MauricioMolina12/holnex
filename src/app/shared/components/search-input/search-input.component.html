@@ -1,12 +1,12 @@
 <div class="input-wrapper">
-    <input class="input-search" type="text" placeholder="¿Que deseas comprar hoy?"
-        (focus)="recentSearches.style.display = 'flex'" (input)="recentSearches.style.display = 'none'">
+    <!-- <input class="input-search" type="text" placeholder="¿Que deseas comprar hoy?" (focus)="recentSearches.style.display = 'flex'" (input)="recentSearches.style.display = 'none'"> -->
+    <input class="input-search" type="text" placeholder="¿Que deseas comprar hoy?">
     <i class="input-icon icon-search"></i>
     <div class="input-icon-xmark icon-xmark" (click)="closeWrapperFunction()">
         <div class="line-xmark"></div>
         <div class="line-xmark"></div>
     </div>
-    <div class="input-recent-searches" #recentSearches>
+    <!-- <div class="input-recent-searches" #recentSearches>
         <h2 class="input-recent-searches-title">Busquedas recientes</h2>
         <ul class="input-recent-searches-list">
             <li class="input-recent-searches-list-item" *ngFor="let search of [1,2,3,4,5,6,7,8]">
@@ -14,5 +14,5 @@
                 <span class="item__text-search">Computador HP 32GB RAM 1TB SSD</span>
             </li>
         </ul>
-    </div>
+    </div> -->
 </div>

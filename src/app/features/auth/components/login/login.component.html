@@ -1,28 +1,22 @@
 <main class="main-content">
-  <form class="main-form">
-    <div class="main-inputs">
-      <img
-        class="logo-horizon"
-        src="assets/img/horizon-blue.png"
-        alt="horizon"
-      />
-      <h1 class="title">Ingresa tus credenciales e inicia sesión</h1>
+  <form class="main-content__form">
+    <div class="main-content__form-inputs">
+      <i class="main-content__form-inputs-logo icon-hx-logo" ></i>
+      <h1 class="main-content__form-inputs-title">Ingresa tus credenciales e inicia sesión</h1>
 
       <div class="username-container">
         <div class="user">
           <label for="email">Correo o teléfono</label>
           <input id="email" type="text" />
-          <i class="fa fa-envelope" aria-hidden="true"></i>
+          <i class="icon-email" aria-hidden="true"></i>
         </div>
       </div>
       <div class="password-container">
         <div class="password">
           <label for="password">Contraseña</label>
           <input id="password" type="password" />
-          <i class="fa fa-lock" aria-label="Mostrar contraseña"></i>
-          <a class="password-forget" routerLink="/user/forget"
-            >¿Olvidaste tu contraseña?</a
-          >
+          <i class="icon-password" aria-label="Mostrar contraseña"></i>
+          <a class="password-forget" routerLink="/user/forget">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
 
@@ -42,12 +36,13 @@
       </div>
 
       <div class="button-container">
-        <button>Iniciar sesión</button>
-        <span class="link"
-          >Aún no tienes cuenta?
-          <a routerLink="/user/register">Registrate</a></span
-        >
+        <button routerLink="">Iniciar sesión</button>
+        <span class="link">Aún no tienes cuenta?
+          <a routerLink="/user/register">Registrate</a></span>
       </div>
     </div>
   </form>
+  <div class="main-image">
+    <img src="assets/img/background.jpg" alt="foto-login">
+  </div>
 </main>

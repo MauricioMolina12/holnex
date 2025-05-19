@@ -1,4 +1,5 @@
-@import "../../app/shared/styles/variables.scss";
+@import "breakpoints";
+@import "variables";
 
 .layout-wrapper {
   width: 100%;
@@ -42,32 +43,6 @@
       }
     }
   }
+
 }
 
-/* Tablets */
-@media (min-width: 768px) and (max-width: 1023px) {
-}
-
-/* Small laptops */
-@media (min-width: 1024px) and (max-width: 1279px) {
-}
-
-/* Medium screens */
-@media (min-width: 1280px) {
-  .layout-wrapper {
-    .layout-container {
-      .layout-content {
-        .main {
-          .main__products {
-            flex-direction: row;
-            justify-content: space-between;
-          }
-        }
-      }
-    }
-  }
-}
-
-/* Big screens */
-@media (min-width: 1920px) {
-}

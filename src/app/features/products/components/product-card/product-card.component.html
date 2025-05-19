@@ -1,21 +1,21 @@
-<article class="product" [ngClass]="{ horizontal: horizontal, 'class-dark' : isDark }" (click)="onProductClick($event)">
-  <header class="product-header">
-    <div class="product-image">
+<article class="product" [ngClass]="{ horizontal: horizontal, 'dark' : isDark }" (click)="onProductClick($event)">
+  <header class="product__header">
+    <div class="product__image">
       <img [src]="product.images[0]" [attr.loading]="'lazy'" [alt]="'Imagen de: ' + product.title" />
     </div>
-    <div class="product-titles">
-      <h3 class="product-title">{{ product.title }}</h3>
+    <div class="product__titles">
+      <h3 class="product__title">{{ product.title }}</h3>
     </div>
 
   </header>
-  <div class="product-actions">
-    <span class="product-price">${{ product.price }}</span>
-    <div class="product-buttons">
+  <div class="product__actions">
+    <span class="product__price">${{ product.price }}</span>
+    <div class="product__buttons">
 
-      <button class="product-favorites-button">
+      <button class="product__favorites-button">
         <i class="icon-heart"></i>
       </button>
-      <button class="product-buy-now">
+      <button class="product__buy-now">
         <i class="icon-bag"></i>
       </button>
     </div>

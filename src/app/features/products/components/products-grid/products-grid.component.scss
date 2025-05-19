@@ -1,8 +1,7 @@
-@import "../../../../shared/styles/variables.scss";
-@import "../../../../../styles.scss";
 @import "../../../../shared/styles/skeleton.scss";
+@import "breakpoints";
+@import "variables";
 
-/* Cellphone */
 .container-products {
   width: 100%;
   max-width: 100vw;
@@ -18,7 +17,7 @@
     min-height: 85vh;
     margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     grid-template-rows: max-content;
     gap: 10px;
     justify-items: center;
@@ -27,7 +26,6 @@
       display: block;
       border-radius: 5px;
     }
-    
 
     .product {
       @include skeleton-product(100%, 300px, 80%, 100%, 250px);
@@ -139,8 +137,8 @@
       }
 
       .title {
-        color: var(--color-font-gray);
-        font-weight: 500;
+        color: var(--color-primary-to-white);
+        font-weight: 300;
         font-size: 1.2rem;
         max-width: 80%;
       }
@@ -152,17 +150,20 @@
       }
 
       .subtitle-view-all {
-        color: var(--color-primary);
+        color: var(--color-primary-to-white);
         font-size: 0.8rem;
         text-decoration: none;
       }
     }
   }
-}
 
-/* Tablets */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .container-products {
+  @include respond-to("small-screen") {
+    .product-wrapper {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+  }
+
+  @include respond-to("tablet") {
     .product-wrapper {
       gap: 20px;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -199,11 +200,8 @@
       }
     }
   }
-}
 
-/* Small laptops */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .container-products {
+  @include respond-to("laptop") {
     .product-wrapper {
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       // gap: 18px;
@@ -239,11 +237,8 @@
       }
     }
   }
-}
 
-/* Medium screens */
-@media (min-width: 1280px) {
-  .container-products {
+  @include respond-to("desktop") {
     width: 70vw !important;
     max-height: max-content;
 
@@ -252,7 +247,7 @@
     }
 
     .product-wrapper {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       grid-template-rows: max-content;
       grid-auto-rows: max-content;
     }
@@ -302,7 +297,7 @@
 
         .title {
           width: 100%;
-          font-size: 1.5rem;
+          font-size: 1.8rem;
           white-space: nowrap;
         }
 
@@ -313,8 +308,4 @@
       }
     }
   }
-}
-
-/* Big screens */
-@media (min-width: 1920px) {
 }

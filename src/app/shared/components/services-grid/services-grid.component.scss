@@ -16,8 +16,8 @@
   }
 
   &-title {
-    color: var(--color-primary-secondary);
-    font-weight: 600;
+    color: var(--color-primary-to-white);
+    font-weight: 300;
     font-size: 1.4rem;
   }
 
@@ -53,7 +53,7 @@
       &-name {
         margin: 0;
         font-size: 1.2rem;
-        font-weight: 500;
+        font-weight: 300;
       }
 
       &-description {
@@ -64,8 +64,8 @@
       }
 
       &-icon {
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
         border-radius: 5px;
         display: flex;
         align-items: center;
@@ -73,7 +73,7 @@
         color: white;
         object-fit: cover;
         padding: 10px;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
       }
 
       &-button-detail {
@@ -84,6 +84,16 @@
         border-radius: 10px;
         width: 50px;
         cursor: pointer;
+      }
+    }
+  }
+
+  &.dark {
+    &-grid {
+      .service-grid__item {
+        &-name {
+          color: var(--color-white);
+        }
       }
     }
   }
@@ -114,33 +124,42 @@
   }
 
   @include respond-to("laptop") {
-    
-    &-subtitle{
-      font-size: .95rem;
+    &-title {
+      font-size: 1.8rem;
     }
-    
+
+    &-subtitle {
+      font-size: 0.95rem;
+    }
+
     &-grid {
       max-width: 1000px;
       .service-grid__item {
         height: 300px;
         width: 90%;
 
-        &-description{
-          font-size: .85rem;
+        &-description {
+          font-size: 0.85rem;
           max-width: 90%;
           font-weight: 400;
         }
 
-        &-icon{
+        &-icon {
           height: 30px;
           width: 30px;
-          font-size: 100%;
+          font-size: 1.5rem;
         }
 
         &-button-detail {
           margin-top: 40px;
         }
       }
+    }
+  }
+
+  @include respond-to("desktop") {
+    &-title {
+      font-size: 1.8rem;
     }
   }
 }

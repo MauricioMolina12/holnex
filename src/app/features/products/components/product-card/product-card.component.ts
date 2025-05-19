@@ -23,7 +23,7 @@ export class ProductCardComponent implements OnInit{
   ngOnInit(): void {    
     this.themeService.darkMode$.subscribe((isDark)=>{
       this.isDark = isDark;
-    })    
+    })        
   }
 
   onProductClick(product: any): void {

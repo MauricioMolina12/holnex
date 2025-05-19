@@ -1,15 +1,16 @@
-@import 'variables';
-@import 'breakpoints';
+@import "variables";
+@import "breakpoints";
 
 .alert-container {
   width: 100%;
-  min-height: 8vh;
+  min-height: 5vh;
   background-color: var(--color-primary);
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  position: relative;
 
   .alert-button__close {
     background-color: transparent;
@@ -21,6 +22,9 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
+    position: absolute;
+    top: 4px;
+    right: 4px;
 
     span {
       font-family: "Montserrat";
@@ -32,12 +36,31 @@
     font-size: 0.7rem;
     color: var(--color-white);
     text-align: center;
+    font-weight: 300;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    i{
+      font-size: 1rem;
+    }
 
     .alert-description__link {
       border-radius: 4px;
       margin-left: 4px;
-      padding: 3px;
+      box-sizing: border-box;
       color: var(--color-white);
+      transition: transform 0.5s ease;
+      font-size: .8rem;
+
+
+      &:hover {
+        transform: translateX(10px);
+      }
     }
   }
 
@@ -53,23 +76,24 @@
   @include respond-to("laptop") {
     justify-content: center;
     position: relative;
-    margin: 10px;
-    border-radius: 10px;
-    width: 99%;
+    width: 100%;
 
     .alert-description {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
+      flex-direction: row;
     }
 
     .alert-button__close {
       position: absolute;
+      top: 25%;
       right: 10px;
     }
   }
 
   @include respond-to("desktop") {
+    min-height: 7vh;
     .alert-description {
-      font-size: .8rem;
+      font-size: 0.9rem;
     }
   }
 

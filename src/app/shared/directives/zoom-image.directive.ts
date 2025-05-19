@@ -19,6 +19,8 @@ export class ZoomImageDirective {
   private zoomContainer!: HTMLDivElement;
   private isBrowser!: boolean;
 
+  mql = window.matchMedia('(max-width: 600px)');
+
   // Example => <img [src]="mainImage" appZoomImage [zoomFactor]="2" [alt]="product()?.title"
 
   constructor(
@@ -32,6 +34,9 @@ export class ZoomImageDirective {
 
   ngOnInit() {
     if (this.isBrowser) {
+      if (this.mql.matches) {
+        return;
+      }
       this.imgElement = this.el.nativeElement as HTMLImageElement;
       this.createZoomElements();
     }
@@ -83,7 +88,6 @@ export class ZoomImageDirective {
       'background-position',
       `${-(x * this.zoomFactor - 350)}px ${-(y * this.zoomFactor - 350)}px`
     );
-
   }
 
   @HostListener('mouseleave')

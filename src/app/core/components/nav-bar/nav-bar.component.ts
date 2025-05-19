@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   HostListener,
@@ -8,24 +8,18 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { User } from '../../models/user';
-import { SearchInputComponent } from '../search-input/search-input.component';
+import { User } from '../../../shared/models/user';
+import { SearchInputComponent } from '../../../shared/components/search-input/search-input.component';
 import { Renderer2, ElementRef } from '@angular/core';
 import { AuthService } from '../../../features/auth/auth.service';
-import { ThemeService } from '../../services/theme.service';
-import { MenuItemsComponent } from '../menu-items/menu-items.component';
+import { ThemeService } from '../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    SearchInputComponent,
-    MenuItemsComponent,
-  ],
+  standalone: false,
+  // imports: [CommonModule, RouterModule, SearchInputComponent],
 })
 export class NavBarComponent implements OnInit {
   viewSideBar = false;
@@ -33,25 +27,28 @@ export class NavBarComponent implements OnInit {
   viewSearchInput = false;
 
   // Items for nav bar
-  items: any[] = [
+  items: {
+    icon: string;
+    title: string;
+    subtitle?: string;
+    path?: string;
+    pending?: boolean;
+  }[] = [
     {
       icon: 'icon-location',
       title: 'Dirección',
       subtitle: 'Calle 27 #7B-05, Barranquilla, Atlantico.',
     },
-    // {
-    //   icon: this.isMoodDark
-    //     ? '/assets/img/icons/svg/sun/sun-outline-medium.svg'
-    //     : '/assets/img/icons/svg/moon/moon-outline-medium.svg',
-    //   title: `Modo ${this.isMoodDark ? 'Claro' : 'Oscuro'}`,
-    //   toggle: true,
-    //   action: 'toggleMoodDark',
-    // },
     {
       icon: 'icon-shop-cart',
       title: 'Carrito de compras',
       path: '/shopcart',
     },
+
+    // {
+    //   icon: 'icon-search',
+    //   title: 'Buscar'
+    // },
     {
       icon: 'icon-bag',
       title: 'Mis compras',
@@ -70,10 +67,10 @@ export class NavBarComponent implements OnInit {
       title: 'Mi historial',
     },
 
-    {
-      icon: 'icon-store',
-      title: 'Convertirme en vendedor',
-    },
+    // {
+    //   icon: 'icon-store',
+    //   title: 'Convertirme en vendedor',
+    // },
     {
       icon: 'icon-settings',
       title: 'Configuraciones',
@@ -95,29 +92,16 @@ export class NavBarComponent implements OnInit {
 
   // Props
   @Input() user!: User;
-  @Input() isLoggedIn: boolean = false;
 
   constructor(
     private router: Router,
     private renderer: Renderer2,
     private elRef: ElementRef,
     public authService: AuthService,
-    private themeService: ThemeService,
+    public themeService: ThemeService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
-
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event) {
-    const scrollTop = (event.target as Document).documentElement.scrollTop;
-    const navBar = document.querySelector('nav') as HTMLElement;
-
-    if (scrollTop > 0) {
-      navBar.classList.add('scrolled');
-    } else {
-      navBar.classList.remove('scrolled');
-    }
-  }
 
   ngOnInit(): void {
     this.themeService.darkMode$.subscribe((isDark) => {
@@ -143,6 +127,22 @@ export class NavBarComponent implements OnInit {
     };
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const scrollTop = (event.target as Document).documentElement.scrollTop;
+    const navBar = document.querySelector('nav') as HTMLElement;
+
+    if (scrollTop > 0) {
+      navBar.classList.add('scrolled');
+    } else {
+      navBar.classList.remove('scrolled');
+    }
+  }
+
   redirectItemNavBar(item: string) {
     this.router.navigate([`${item}`]);
     const sidebar = this.elRef.nativeElement.querySelector('.nav-bar__sidebar');
@@ -153,12 +153,11 @@ export class NavBarComponent implements OnInit {
   }
 
   toggleElement(e: Event, classElement: string, type: string = 'close') {
+    const sidebar = this.elRef.nativeElement.querySelector(`.${classElement}`);
     switch (classElement) {
       case 'nav-bar__sidebar':
         // Manipular la barra lateral en pantallas móviles
-        const sidebar = this.elRef.nativeElement.querySelector(
-          `.${classElement}`
-        );
+
         if (sidebar) {
           const body = this.document.querySelector('body');
           if (sidebar.classList.contains('visibility')) {
@@ -224,6 +223,14 @@ export class NavBarComponent implements OnInit {
     }
   }
 
+  nameItemHover: string = '';
+  mouseEnter(name: string) {
+    this.nameItemHover = name;
+  }
+
+  mouseLeave() {
+    this.nameItemHover = '';
+  }
   //Function to know when a click is made outside the element
   closeModalOnOutsideClick = (event: Event, modalClass: string) => {
     const modalElement = this.elRef.nativeElement.querySelector(
@@ -237,13 +244,13 @@ export class NavBarComponent implements OnInit {
     }
   };
 
-  isLoggued(): boolean {
+  isLoggued() {
     return this.authService.isLoggued;
   }
 
   //
   toggleMoodDark(e: Event) {
-    this.isMoodDark = !this.isMoodDark;
+    this.themeService.toggleTheme();
     e.stopPropagation();
   }
 

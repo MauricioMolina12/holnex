@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
-  imports: [NgFor, RouterLink],
+  standalone: false,
+  // imports: [NgFor, RouterLink],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
@@ -21,7 +21,7 @@ export class FooterComponent {
           redirect: '',
         },
         {
-          text: 'Credora Business',
+          text: 'Holnex',
           redirect: '',
         },
         {

@@ -5,17 +5,16 @@ body {
   height: 100%;
   margin: 0;
 
-  &.disabled{
+  &.disabled {
     overflow: hidden;
   }
-  
 }
 
-.blur-10px{
+.blur-10px {
   backdrop-filter: blur(10px);
 }
 
-.bg-blur{
+.bg-blur {
   background: rgba(0, 0, 0, 0.5);
   background-blend-mode: multiply;
 }
@@ -45,7 +44,6 @@ h6 {
 
 @mixin button-styles($bg-color, $hover-color, $width, $height) {
   background-color: $bg-color;
-  border-radius: 4px;
   border: none;
   outline: none;
   color: var(--color-white);
@@ -55,7 +53,7 @@ h6 {
   transition: 0.5s ease;
 
   &:hover {
-    transform: scale(1.1);
+    background-color: $hover-color;
   }
 }
 
@@ -76,6 +74,10 @@ h6 {
   display: none;
 }
 
+.visibility {
+  display: block;
+}
+
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -86,8 +88,6 @@ h6 {
   opacity: 1;
   transform: translateY(0);
 }
-
-
 
 .d-flex {
   display: flex;

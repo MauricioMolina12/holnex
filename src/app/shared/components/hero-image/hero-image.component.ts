@@ -1,11 +1,13 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Inject,
   Input,
   OnInit,
   Output,
+  PLATFORM_ID,
   Renderer2,
   signal,
 } from '@angular/core';
@@ -26,7 +28,11 @@ export class HeroImageComponent implements OnInit {
   @Input() isStatic: boolean = false;
   visibleAds: Ad[] = [];
 
-  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private elRef: ElementRef,
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   async ngOnInit() {
     if (this.sliderAds.length > 0 && !this.staticAdContent) {
@@ -76,19 +82,19 @@ export class HeroImageComponent implements OnInit {
       '.hero-slider__option'
     );
     const sliderOptionActive = (await sliderOptions[0]) as HTMLElement;
-    this.renderer.addClass(sliderOptionActive, 'active');
+    if (sliderOptionActive) {
+      this.renderer.addClass(sliderOptionActive, 'active');
+    }
   }
 
   handleSlideAutomatic() {
-    let timeChangeSlider = 10000;
-    setInterval(() => {
-      if (this.currentSlide < this.sliderAds.length - 1) {
-        this.currentSlide++;
-      } else {
-        this.currentSlide = 0;
-      }
-      this.handleSlideChange();
-    }, timeChangeSlider);
+    if (isPlatformBrowser(this.platformId)) {
+      let timeChangeSlider = 10000;
+      setInterval(() => {
+        this.currentSlide = (this.currentSlide + 1) % this.sliderAds.length;
+        this.handleSlideChange();
+      }, timeChangeSlider);
+    }
   }
 
   updateSlide() {
@@ -104,26 +110,15 @@ export class HeroImageComponent implements OnInit {
     const sliderOptions = this.elRef.nativeElement.querySelectorAll(
       '.hero-slider__option'
     );
-    const sliderOptionActive = sliderOptions[this.currentSlide] as HTMLElement;
     sliderOptions.forEach((el: HTMLElement) => {
       this.renderer.removeClass(el, 'active');
     });
-    this.renderer.addClass(sliderOptionActive, 'active');
-    this.setNextItem();
+    const sliderOptionActive = sliderOptions[this.currentSlide] as HTMLElement;
+    if (sliderOptionActive) {
+      this.renderer.addClass(sliderOptionActive, 'active');
+      this.setNextItem();
+    }
   }
-
-  // moveSlide(imageToActivate: HTMLElement, slider: HTMLElement) {
-  //   const imageOffsetLeft = imageToActivate.offsetLeft;
-  //   const imageWidth = imageToActivate.offsetWidth;
-  //   const sliderWidth = slider.offsetWidth;
-
-  //   const scrollLeft = imageOffsetLeft - sliderWidth / 2 + imageWidth / 2;
-
-  //   slider.scrollTo({
-  //     left: scrollLeft,
-  //     behavior: 'smooth',
-  //   });
-  // }
 
   currentTitle = signal<string>('');
   currentDescription = signal<string>('');

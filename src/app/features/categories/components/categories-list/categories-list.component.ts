@@ -22,7 +22,6 @@ export class CategoriesListComponent implements OnInit {
   loading = computed(()=> !this.categories() || this.categories().length === 0);
   
   ngOnInit() {  
-    console.log(this.categories());
-          
+    this.categoriesService.getAllCategories();          
   }
 }

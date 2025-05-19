@@ -1,5 +1,6 @@
 import { NgClass, NgFor, NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-services-grid',
@@ -8,56 +9,23 @@ import { Component } from '@angular/core';
   styleUrl: './services-grid.component.scss',
   imports: [NgFor, NgStyle, NgClass],
 })
-export class ServicesGridComponent {
+export class ServicesGridComponent implements OnInit {
+  constructor(private themeService: ThemeService) {}
+
+  isDark: boolean = false;
+  ngOnInit(): void {
+    this.themeService.darkMode$.subscribe((isDark) => {
+      this.isDark = isDark;
+    });
+  }
+
   servicesHorizon = [
     {
       name: 'Organización de eventos',
       color: '#FF5733',
-      icon: 'icon-notifications',
+      icon: 'icon-calendar',
       description:
         'Planificación, coordinación y ejecución de eventos corporativos, sociales y culturales.',
-    },
-    {
-      name: 'Consultoría',
-      color: '#2E86C1',
-      icon: 'https://cdn3d.iconscout.com/3d/premium/thumb/consultoria-idea-creativa-7544391-6166279.png?f=webp',
-      description:
-        'Asesoramiento experto en estrategias de negocio, optimización de procesos y gestión empresarial.',
-    },
-    {
-      name: 'Consultoría',
-      color: '#2E86C1',
-      icon: 'https://cdn3d.iconscout.com/3d/premium/thumb/consultoria-idea-creativa-7544391-6166279.png?f=webp',
-      description:
-        'Asesoramiento experto en estrategias de negocio, optimización de procesos y gestión empresarial.',
-    },
-    {
-      name: 'Consultoría',
-      color: '#2E86C1',
-      icon: 'https://cdn3d.iconscout.com/3d/premium/thumb/consultoria-idea-creativa-7544391-6166279.png?f=webp',
-      description:
-        'Asesoramiento experto en estrategias de negocio, optimización de procesos y gestión empresarial.',
-    },
-    {
-      name: 'Consultoría',
-      color: '#2E86C1',
-      icon: 'https://cdn3d.iconscout.com/3d/premium/thumb/consultoria-idea-creativa-7544391-6166279.png?f=webp',
-      description:
-        'Asesoramiento experto en estrategias de negocio, optimización de procesos y gestión empresarial.',
-    },
-    {
-      name: 'Consultoría',
-      color: '#2E86C1',
-      icon: 'https://cdn3d.iconscout.com/3d/premium/thumb/consultoria-idea-creativa-7544391-6166279.png?f=webp',
-      description:
-        'Asesoramiento experto en estrategias de negocio, optimización de procesos y gestión empresarial.',
-    },
-    {
-      name: 'Consultoría',
-      color: '#2E86C1',
-      icon: 'https://cdn3d.iconscout.com/3d/premium/thumb/consultoria-idea-creativa-7544391-6166279.png?f=webp',
-      description:
-        'Asesoramiento experto en estrategias de negocio, optimización de procesos y gestión empresarial.',
     },
     {
       name: 'Diseño UI UX',

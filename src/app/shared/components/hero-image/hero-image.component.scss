@@ -11,7 +11,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-color: rgba(0, 0, 0, 0.7);
-  transition: background-image 0.5s ease-in-out;
+  // transition: background-image 0.5s ease-in-out;
   background-blend-mode: multiply;
   display: flex;
   flex-direction: column;
@@ -68,11 +68,15 @@
     .hero__title {
       color: var(--color-white);
       margin: 0;
-      font-weight: 600;
-      max-width: 60%;
+      font-size: 2rem;
+      font-weight: 200;
+      max-width: 80%;
+      padding: 6px;
+      border-radius: 10px;
     }
 
     .hero__description {
+      font-weight: 300;
       color: var(--color-gray);
     }
 
@@ -101,11 +105,11 @@
         }
 
         .icon {
-          background-color: var(--color-gray);
+          background-color: var(--color-primary);
+          color: var(--color-white);
           padding: 10px;
           clip-path: circle();
           transform: rotate(-45deg);
-          color: var(--color-dark-gray);
         }
       }
     }
@@ -128,9 +132,9 @@
       height: 4px;
       border-radius: 10px;
       background-color: var(--color-gray);
-      opacity: .5;
+      opacity: 0.5;
 
-      &.active{
+      &.active {
         opacity: 1;
         background-color: var(--color-white);
       }
@@ -204,11 +208,9 @@
           }
 
           .icon {
-            background-color: var(--color-gray);
             padding: 10px;
             clip-path: circle();
             transform: rotate(-45deg);
-            color: var(--color-dark-gray);
           }
         }
       }
@@ -253,7 +255,7 @@
       }
     }
 
-    .hero-slider{
+    .hero-slider {
       left: 10px;
       width: 50%;
       justify-content: start;
@@ -261,6 +263,17 @@
   }
 
   @include respond-to("desktop") {
+    .hero-titles {
+      .hero__title {
+        font-size: 3.8rem;
+        max-width: 50%;
+      }
+
+      .hero__description {
+        font-size: 1rem;
+        max-width: 25%;
+      }
+    }
   }
 
   @include respond-to("big-screen") {

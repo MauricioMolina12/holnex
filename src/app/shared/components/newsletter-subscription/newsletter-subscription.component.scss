@@ -39,20 +39,9 @@
       max-width: 90%;
     }
 
-    .newsletter-form__figure {
-      width: max-content;
-      height: 20%;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 15px;
-
-      img {
-        width: auto;
-        height: 60%;
-        object-fit: contain;
-      }
+    .newsletter-icon{
+      color: white;
+      font-size: 2.4rem;
     }
 
     .newsletter-form {

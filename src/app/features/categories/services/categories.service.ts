@@ -14,7 +14,6 @@ export class CategoriesService {
   categoryProducts$ = signal<any[]>([]);
 
   constructor(private http: HttpClient) {
-    this.getAllCategories();
   }
 
   getAllCategories(): void {
