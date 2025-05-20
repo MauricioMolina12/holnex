@@ -1,18 +1,19 @@
 <div class="categories">
-  <header class="categories-header">
-    <h4 class="categories-header__title">Categoría de productos</h4>
-    <a class="categories-header__subtitle">Ver todas</a>
+  <header class="categories__header">
+    <h4 class="categories__title">Categoría de productos</h4>
+    <a class="categories__link" [routerLink]="['/categorias']">Ver todas</a>
   </header>
+
   <ng-container *ngIf="!loading(); else skeleton">
-    <ul class="categories-list">
-      <li *ngFor="let category of categories().slice(0,5); let i = index">
-        <div class="categories-list__image">
-          <figure class="categories-list__image-figure">
+    <ul class="categories__list">
+      <li class="categories__item" *ngFor="let category of categories().slice(0, 5)">
+        <div class="categories__image">
+          <figure class="categories__figure">
             <img [src]="category?.image" [alt]="category?.name">
           </figure>
         </div>
-        <div class="categories-list__description">
-          <a class="categories-list__name" [routerLink]="['/category', category?.slug]">
+        <div class="categories__info">
+          <a class="categories__name" [routerLink]="['/category', category?.slug]">
             {{ category?.name }}
           </a>
         </div>
@@ -21,12 +22,10 @@
   </ng-container>
 
   <ng-template #skeleton>
-    <ul class="categories-list">
+    <ul class="categories__list">
       <li *ngFor="let _ of [].constructor(10)">
-        <ngx-skeleton-loader class="categories__item skeleton_item" count="1" appearance="line">
-        </ngx-skeleton-loader>
+        <ngx-skeleton-loader class="categories__item skeleton_item" count="1" appearance="line"></ngx-skeleton-loader>
       </li>
     </ul>
   </ng-template>
-
 </div>

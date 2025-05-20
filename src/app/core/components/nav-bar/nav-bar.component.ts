@@ -27,44 +27,54 @@ export class NavBarComponent implements OnInit {
   viewSearchInput = false;
 
   // Items for nav bar
-  items: {
+  navbar_items: {
     icon: string;
     title: string;
     subtitle?: string;
     path?: string;
     pending?: boolean;
+    group: 'user' | 'config' | 'profile';
+    action?: (event?: Event) => void;
   }[] = [
     {
       icon: 'icon-location',
       title: 'Dirección',
       subtitle: 'Calle 27 #7B-05, Barranquilla, Atlantico.',
+      group: 'user',
+    },
+    {
+      icon: 'icon-search',
+      title: 'Buscar',
+      group: 'user',
+      action: (event?: Event) => this.toggleElement(event, 'nav-bar__center'),
     },
     {
       icon: 'icon-shop-cart',
       title: 'Carrito de compras',
       path: '/shopcart',
+      group: 'user',
+      action: (event?: Event) => this.redirectItemNavBar('/shopcart'),
     },
-
-    // {
-    //   icon: 'icon-search',
-    //   title: 'Buscar'
-    // },
     {
       icon: 'icon-bag',
       title: 'Mis compras',
+      group: 'user',
     },
     {
       icon: 'icon-notifications',
       title: 'Notificaciones',
       pending: true,
+      group: 'user',
     },
     {
       icon: 'icon-heart',
       title: 'Productos favoritos',
+      group: 'user',
     },
     {
       icon: 'icon-history',
       title: 'Mi historial',
+      group: 'user',
     },
 
     // {
@@ -74,21 +84,24 @@ export class NavBarComponent implements OnInit {
     {
       icon: 'icon-settings',
       title: 'Configuraciones',
+      group: 'config',
     },
     {
       icon: 'icon-help',
       title: 'Ayuda',
+      group: 'config',
     },
     {
       icon: 'icon-door',
       title: 'Cerrar sesión',
       path: '/user/login',
+      group: 'config',
     },
   ];
 
-  navItems = this.items.slice(0, 6);
-  configItems = this.items.slice(7, 11);
-  profileItems = this.items.slice(5, 11);
+  userItems = this.navbar_items.filter((item) => item.group === 'user');
+  configItems = this.navbar_items.filter((item) => item.group === 'config');
+  profileItems = this.navbar_items.filter((item) => item.group === 'profile');
 
   // Props
   @Input() user!: User;
@@ -125,6 +138,8 @@ export class NavBarComponent implements OnInit {
         ? 'Calle 25 #28 A18. San Sebastián, Magdalena.'
         : '',
     };
+
+    console.log(this.configItems);
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -152,24 +167,29 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  toggleElement(e: Event, classElement: string, type: string = 'close') {
-    const sidebar = this.elRef.nativeElement.querySelector(`.${classElement}`);
+  toggleElement(
+    e: Event | undefined,
+    classElement: string,
+    type: string = 'close'
+  ) {
+    if (e) {
+      e.preventDefault();
+    }
+    const elementHTML = this.elRef.nativeElement.querySelector(
+      `.${classElement}`
+    );
     switch (classElement) {
       case 'nav-bar__sidebar':
         // Manipular la barra lateral en pantallas móviles
 
-        if (sidebar) {
+        if (elementHTML) {
           const body = this.document.querySelector('body');
-          if (sidebar.classList.contains('visibility')) {
-            this.renderer.removeClass(sidebar, 'visibility');
+          if (elementHTML.classList.contains('visibility')) {
+            this.renderer.removeClass(elementHTML, 'visibility');
             this.viewSideBar = false;
-            this.renderer.removeClass(body, 'disabled');
           } else {
-            this.renderer.addClass(sidebar, 'visibility');
-            this.renderer.addClass(sidebar, 'blur-10px');
-            this.renderer.addClass(sidebar, 'bg-blur');
+            this.renderer.addClass(elementHTML, 'visibility');
             this.viewSideBar = true;
-            this.renderer.addClass(body, 'disabled');
           }
         } else {
           console.error('No se encontró el elemento .nav-bar__sidebar');
@@ -178,7 +198,9 @@ export class NavBarComponent implements OnInit {
 
       case 'nav-bar__modal-profile':
         // Activar o desactivar el modal del perfil en pantallas grandes
-        e.stopPropagation();
+        if (e) {
+          e.stopPropagation();
+        }
         const modalProfile = this.elRef.nativeElement.querySelector(
           `.${classElement}`
         );
@@ -200,13 +222,20 @@ export class NavBarComponent implements OnInit {
 
       case 'nav-bar__center':
         // Activar o desactivar el campo de búsqueda en pantallas grandes
-        e.stopPropagation();
+        if (e) {
+          e.stopPropagation();
+        }
         this.viewSearchInput = !this.viewSearchInput;
         const searchContainer = this.elRef.nativeElement.querySelector(
           `.${classElement}`
         );
+
+        const sidebar =
+          this.elRef.nativeElement.querySelector('.nav-bar__sidebar');
+
         if (searchContainer) {
           const isActive = searchContainer.classList.contains('active');
+
           if (isActive) {
             this.renderer.removeClass(searchContainer, 'active');
             document.removeEventListener('click', (event) =>
@@ -217,6 +246,11 @@ export class NavBarComponent implements OnInit {
             document.addEventListener('click', (event) =>
               this.closeModalOnOutsideClick(event, classElement)
             );
+
+            if (sidebar?.classList.contains('visibility')) {
+              this.renderer.removeClass(sidebar, 'visibility');
+              this.viewSideBar = false;
+            }
           }
         }
         break;

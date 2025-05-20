@@ -12,40 +12,38 @@ $min-width-items: 150px;
   padding: 10px;
   margin-block: 10px;
 
-  .categories-header {
+  &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 0;
-
-    &__title {
-      width: 100%;
-      margin: 0;
-      font-size: 1.2rem;
-      font-weight: 300;
-      color: var(--color-primary-to-white);
-    }
-
-    &__subtitle {
-      display: block;
-      width: min-content;
-      white-space: nowrap;
-      color: var(--color-primary);
-      user-select: none;
-      text-decoration: none;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
   }
 
-  .categories-list {
+  &__title {
+    width: 100%;
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--color-primary-to-white);
+  }
+
+  &__link {
+    display: block;
+    width: min-content;
+    white-space: nowrap;
+    color: var(--color-primary);
+    user-select: none;
+    text-decoration: none;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  &__list {
     margin: 0;
     padding: 0;
     overflow-y: hidden;
     overflow-x: auto;
     list-style: none;
-    width: auto;
-    height: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-template-rows: repeat(auto-fit, 1fr);
@@ -69,142 +67,136 @@ $min-width-items: 150px;
       border-radius: var(--border-radius);
       transition: background 0.3s ease;
     }
+  }
 
-    li {
-      height: auto;
-      width: 100%;
-      min-height: 80px;
+  &__item {
+    height: auto;
+    width: 100%;
+    min-height: 80px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background-color: var(--color-primary-contrast);
-      border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: var(--color-primary-contrast);
+    border-radius: var(--border-radius);
 
-      .categories-list__description {
-        width: 50%;
-        height: 100%;
-
-        .categories-list__name {
-          text-align: center;
-          width: auto;
-          height: 100%;
-          outline: none;
-          border: none;
-          cursor: pointer;
-          font-size: 0.8rem;
-          font-weight: 400;
-          text-decoration: none;
-          color: var(--color-font-gray-dark);
-          line-height: normal;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-sizing: border-box;
-        }
-      }
-
-      .categories-list__image {
-        height: 100%;
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .categories-list__image-figure {
-          margin: 0;
-          width: 100%;
-          height: 100%;
-
-          img {
-            border-radius: var(--border-radius);
-            max-width: 100%;
-            height: 100%;
-          }
-        }
-      }
-
-      &::ng-deep ngx-skeleton-loader {
-        div {
-          @include skeleton-style(100%, 100%, 8px);
-        }
+    &::ng-deep ngx-skeleton-loader {
+      div {
+        @include skeleton-style(100%, 100%, 8px);
       }
     }
   }
 
-  @include respond-to("small-screen") {
-    .categories-list {
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  &__image {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-      li {
-        .categories-list__description {
-          .categories-list__name {
-            font-size: 0.6rem;
-          }
-        }
-      }
+  &__figure {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    img {
+      border-radius: var(--border-radius);
+      max-width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__info {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__name {
+    text-align: center;
+    width: auto;
+    height: 100%;
+    font-size: 0.8rem;
+    font-weight: 400;
+    text-decoration: none;
+    color: var(--color-font-gray-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  // 🔸 Breakpoints
+
+  @include respond-to("small-screen") {
+    &__list {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+
+    &__name {
+      font-size: 0.6rem;
     }
   }
 
   @include respond-to("tablet") {
-    .categories-header {
-      .categories-header__title {
-        font-size: 1.4rem;
-      }
-
-      .categories-header__subtitle {
-        font-size: 1rem;
-      }
+    &__title {
+      font-size: 1.4rem;
     }
 
-    .categories-list {
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    &__link {
+      font-size: 1rem;
+    }
 
-      li {
-        min-height: 70px;
-        .categories-list__description {
-          .categories-list__name {
-            font-size: 0.9rem;
-          }
-        }
-      }
+    &__list {
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+
+    &__item {
+      min-height: 70px;
+    }
+
+    &__name {
+      font-size: 0.9rem;
     }
   }
 
   @include respond-to("laptop") {
     width: 70%;
     margin: 0 auto;
-    .categories-list {
+
+    &__list {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      li {
-        min-height: 40px;
-        .categories-list__description {
-          .categories-list__name {
-            font-size: 0.8rem;
-          }
-        }
-      }
+    }
+
+    &__item {
+      min-height: 40px;
+    }
+
+    &__name {
+      font-size: 0.8rem;
     }
   }
 
   @include respond-to("desktop") {
-    .categories-header {
-      &__title {
-        font-size: 1.8rem;
-      }
-
-      .categories-header__subtitle {
-        font-size: 0.8rem;
-      }
+    &__title {
+      font-size: 1.8rem;
     }
 
-    .categories-list {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    &__link {
+      font-size: 0.8rem;
+    }
 
-      li {
-        height: 80px;
-      }
+    &__list {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    &__item {
+      height: 80px;
     }
   }
 }

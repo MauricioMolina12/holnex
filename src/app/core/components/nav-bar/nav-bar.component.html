@@ -15,17 +15,6 @@
   <!-- Elements only visibility in mobile screen -->
   <div class=" nav-bar__right" [class.no-visibility]="viewSearchInput">
 
-    <!-- Button search -->
-    <button class="nav-bar__items-search-input" [class.no-visibility]="viewSideBar"
-      (click)="toggleElement($event, 'nav-bar__center')">
-      <i class="icon-search"></i>
-    </button>
-
-    <!-- Button shopcart -->
-    <button class="nav-bar__items-shop-cart" [class.no-visibility]="viewSideBar" [routerLink]="['/shopcart']">
-      <i class="icon-shop-cart"></i>
-    </button>
-
     <!-- Button burguer -->
     <button class="nav-bar__items-button-bars" (click)="toggleElement($event, 'nav-bar__sidebar','')">
       <div class="icon-bars" [class.active]="viewSideBar">
@@ -67,12 +56,9 @@
       </div>
     </div>
 
-
-
-
     <!-- Information user -->
     <div class="nav-bar__information">
-      <div class="nav-bar__item" *ngFor="let item of navItems" (click)="redirectItemNavBar(item.path || '')"
+      <div class="nav-bar__item" *ngFor="let item of userItems" (click)="item?.action($event)"
         (mouseenter)="mouseEnter(item.title)" (mouseleave)="mouseLeave()">
         <!--
           Address
@@ -95,11 +81,7 @@
         </div>
 
       </div>
-    </div>
-
-    <!--Configuration user -->
-    <div class="nav-bar__configurations">
-      <div class="nav-bar__item">
+      <!-- <div class="nav-bar__item toggle-theme">
         <i class="nav-bar__item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
         <div class="nav-bar__item-value">
           <h5 class="nav-bar__item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
@@ -110,8 +92,26 @@
             <span class="slider"></span>
           </label>
         </div>
-      </div>
-      <div class="nav-bar__item" *ngFor="let item of configItems" (click)="redirectItemNavBar(item.path || '')">
+      </div> -->
+    </div>
+
+
+
+    <!--Configuration user -->
+    <div class="nav-bar__configurations">
+      <!-- <div class="nav-bar__item">
+        <i class="nav-bar__item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
+        <div class="nav-bar__item-value">
+          <h5 class="nav-bar__item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
+        </div>
+        <div class="toggle-container">
+          <label class="switch">
+            <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="themeService.isDark" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div> -->
+      <div class="nav-bar__item" *ngFor="let item of configItems" (click)="item?.action($event)">
         <!--
           My businness
           Settings
@@ -156,7 +156,7 @@
       </div>
     </div>
 
-    <div class="nav-bar__modal-profile-item">
+    <!-- <div class="nav-bar__modal-profile-item">
       <i class="nav-bar__modal-profile-item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
       <div class="nav-bar__modal-profile-item-value">
         <h5 class="nav-bar__modal-profile-item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
@@ -167,8 +167,8 @@
           <span class="slider"></span>
         </label>
       </div>
-    </div>
-    <div class="nav-bar__modal-profile-item" *ngFor="let item of profileItems" [routerLink]="[item.path]">
+    </div> -->
+    <div class="nav-bar__modal-profile-item" *ngFor="let item of configItems" [routerLink]="[item.path]">
       <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>
       <div class="nav-bar__modal-profile-item-value">
         <h5 class="nav-bar__modal-profile-item-title">{{ item.title }}</h5>
@@ -179,6 +179,18 @@
       </div>
       <div class="nav-bar__modal-profile-item-pending-dot" *ngIf="item.pending == true"></div>
     </div>
+    <!-- <div class="nav-bar__item">
+      <i class="nav-bar__item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
+      <div class="nav-bar__item-value">
+        <h5 class="nav-bar__item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
+      </div>
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="themeService.isDark" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div> -->
 
 
   </div>

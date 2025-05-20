@@ -8,7 +8,7 @@ export class AuthService {
   constructor() { }
 
   user: any;
-  isLoggued: boolean = false;
+  isLoggued: boolean = true;
 
   isEmailValid(email: string): boolean {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
