@@ -1,6 +1,6 @@
 <div class="newsletter">
     <div class="newsletter-form__wrapper">
-        <i class="icon-hx-logo newsletter-icon"></i>
+        <i class="icon-holnex newsletter-icon"></i>
         <h2 class="newsletter-title">
             ¿Listo para recibir nuestras novedades?
         </h2>
@@ -8,9 +8,10 @@
         <form class="newsletter-form">
             <i class="newsletter-icon__email icon-search"></i>
             <input class="newsletter-form__input" type="email" placeholder="Ingresa tu email">
-            <button type="submit" class="newsletter-button__submit">
+            <app-button [text]="'Enviar'" [type]="'submit'" [customClass]="['button', 'view-all','p-absolute','right-20','top-20']"></app-button>
+            <!-- <button type="submit" class="newsletter-button__submit">
                 <span>Enviar</span>
-            </button>
+            </button> -->
         </form>
     </div>
     <div class="newsletter-image"></div>

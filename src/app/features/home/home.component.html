@@ -2,12 +2,18 @@
 <app-hero-image [sliderAds]="ads">
 </app-hero-image>
 <main class="main">
-  <app-products-grid [title]="'Inspirado en tus ultimos deseos 📦'"
-    [subtitle]="'En esta sección encontrarás productos que van con tus gustos y tus ultimas vistas'"
-    [products]="productsSignal()" [loading]="loadingSignal()" [width]="'100vw'" [padding]="'10px'" [margin]="'0 auto'">
-  </app-products-grid>
-  <!-- <app-categories-list></app-categories-list> -->
+  <div class="products">
+    <app-products-grid [title]="'Inspirado en lo último que viste'" [products]="productsSignal()"
+      [loading]="loadingSignal()">
+    </app-products-grid>
+  </div>
+  <div class="products">
+    <app-products-grid [title]="'Tu historial'" [labelButton]="'Ir a mi historial de navegación'"
+      [products]="productsSignal()" [loading]="loadingSignal()" [margin]="'0 auto'">
+    </app-products-grid>
+  </div>
+  <app-categories-list></app-categories-list>
   <!-- <app-star-product></app-star-product> -->
-  <app-newsletter-subscription></app-newsletter-subscription>
+  <!-- <app-newsletter-subscription></app-newsletter-subscription> -->
   <app-services-grid></app-services-grid>
 </main>

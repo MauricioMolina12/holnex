@@ -36,6 +36,13 @@ const routes: Routes = [
           ).then((m) => m.CategoryDetailsComponent),
       },
       {
+        path: 'search',
+        loadChildren: () =>
+          import('../features/search-results/search-results.module').then(
+            (m) => m.SearchResultsModule
+          ),
+      },
+      {
         path: 'shopcart',
         loadChildren: () =>
           import('../features/shopcart/shopcart.module').then(

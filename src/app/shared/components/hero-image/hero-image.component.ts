@@ -6,13 +6,13 @@ import {
   Inject,
   Input,
   OnInit,
-  Output,
   PLATFORM_ID,
   Renderer2,
   signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Ad } from '../../models/ads';
+import { ButtonComponent } from "../button/button.component";
 
 @Component({
   selector: 'app-hero-image',
@@ -20,7 +20,7 @@ import { Ad } from '../../models/ads';
   styleUrls: ['./hero-image.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ButtonComponent],
 })
 export class HeroImageComponent implements OnInit {
   @Input() sliderAds: Ad[] = []; // Contains the list of ads that will be displayed in the slider.

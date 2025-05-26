@@ -1,0 +1,23 @@
+<button 
+  [ngClass]="customClass" 
+  [disabled]="loading || disabled" 
+  [attr.aria-label]="text"
+  (click)="onClick()"
+  [type]="type"
+>
+
+  <!-- Ícono izquierdo -->
+  <ng-container *ngIf="icon && iconPosition === 'left'">
+    <i [class]="icon" class="icon-left" [ngClass]="{'not-loading' : !loading}"></i>
+  </ng-container>
+
+  <!-- Texto o Spinner -->
+  <span *ngIf="text" class="description" [ngClass]="{'not-loading' : !loading}">{{ text }}</span>
+  <span *ngIf="loading" class="spinner"></span>
+
+  <!-- Ícono derecho -->
+  <ng-container *ngIf="icon && iconPosition === 'right'">
+    <i [class]="icon" class="icon-right" [ngClass]="{'not-loading' : !loading}"></i>
+  </ng-container>
+
+</button>

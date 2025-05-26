@@ -74,9 +74,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ];
 
   colors = [
-    { title: 'blue', colorHex: '#2292A4' },
-    { title: 'gray', colorHex: '#545453' },
-    { title: 'white', colorHex: '#D9D9D9' },
+    { name: 'blue', colorHex: '#2292A4' },
+    { name: 'gray', colorHex: '#545453' },
+    { name: 'white', colorHex: '#D9D9D9' },
   ];
   comments: { name: string; image: string; time: string; comment: string }[] = [
     {

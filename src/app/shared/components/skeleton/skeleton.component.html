@@ -1,0 +1,53 @@
+<div [ngSwitch]="typeskeleton">
+
+    <!-- Opción: product -->
+    <div *ngSwitchCase="'productCard'" class="product-card">
+        <div class="product-card__image">
+            <ngx-skeleton-loader class="product__image-skeleton" count="1"></ngx-skeleton-loader>
+        </div>
+
+        <div class="product-card__titles">
+            <ngx-skeleton-loader class="product__title" count="1"></ngx-skeleton-loader>
+        </div>
+
+        <div class="product-card__actions">
+            <div class="product-card__actions-price">
+                <ngx-skeleton-loader class="product__price" count="1"></ngx-skeleton-loader>
+            </div>
+
+            <!-- <div class="product-card__actions-buttons">
+                <ngx-skeleton-loader class="product__button product__button--cart" count="1"
+                    appearance="circle"></ngx-skeleton-loader>
+                <ngx-skeleton-loader class="product__button product__button--favorite" count="1"
+                    appearance="circle"></ngx-skeleton-loader>
+            </div> -->
+        </div>
+    </div>
+
+    <div *ngSwitchCase="'productDetails'" class="product-details">
+        <figure class="main-image">
+
+            <!--Skeleton main image-->
+            <ngx-skeleton-loader class="skeleton image" appearance="line"
+                [theme]="{ borderRadius: '10px', width: '100%', height: '100%' }">
+            </ngx-skeleton-loader>
+
+            <!--Skeleton button favorites-->
+            <ngx-skeleton-loader class="skeleton wrapper-product-button-favorites" appearance="line"
+                [theme]="{ borderRadius: '10px', width: '100%', height: '100%', backgroundColor: '#dee2e6' }">
+            </ngx-skeleton-loader>
+        </figure>
+
+        <aside class="thumbnail-images">
+
+            <!--Skeleton thumnail-images-->
+            <ngx-skeleton-loader class="skeleton thumbnail-item" *ngFor="let i of [1,2,3]" appearance="line"
+                [theme]="{ width: '100px', height: '100%', borderRadius: '10px', margin: '0' }">
+            </ngx-skeleton-loader>
+        </aside>
+    </div>
+
+    <div *ngSwitchDefault>
+        <p>No hay skeleton para el tipo especificado</p>
+    </div>
+</div>

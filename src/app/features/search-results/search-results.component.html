@@ -1,0 +1,12 @@
+<section class="search">
+    <div class="search__filters">
+        <!-- <div class="search__filters-query">
+            <h2>{{query}}</h2>
+            <span>42 resultados</span>
+        </div> -->
+        <!-- <app-filters></app-filters> -->
+    </div>
+    <div class="search__results">
+        <app-products-grid [title]="query" [subtitle]="'42 resultados'" [products]="products()" [loading]="loading()"></app-products-grid>
+    </div>
+</section>

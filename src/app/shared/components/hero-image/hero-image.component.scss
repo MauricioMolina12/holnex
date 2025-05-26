@@ -3,7 +3,7 @@
 
 .hero {
   width: 100%;
-  min-height: 70vh;
+  min-height: 75vh;
   box-sizing: border-box;
   padding: 10px;
   position: relative;
@@ -11,7 +11,6 @@
   background-repeat: no-repeat;
   background-position: center;
   background-color: rgba(0, 0, 0, 0.7);
-  // transition: background-image 0.5s ease-in-out;
   background-blend-mode: multiply;
   display: flex;
   flex-direction: column;
@@ -20,7 +19,7 @@
   gap: 10px;
   position: relative;
 
-  .hero-buttons {
+  &-buttons {
     position: absolute;
     top: 14px;
     right: 4px;
@@ -55,7 +54,7 @@
     }
   }
 
-  .hero-titles {
+  &-titles {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -115,7 +114,7 @@
     }
   }
 
-  .hero-slider {
+  &-slider {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -142,12 +141,12 @@
   }
 
   @include respond-to("small-screen") {
-    .hero-buttons {
+    &-buttons {
       width: 20%;
       height: 30px;
     }
 
-    .hero-titles {
+    &-titles {
       .hero__title {
         font-size: 1rem;
         max-width: 50%;
@@ -180,7 +179,7 @@
   }
 
   @include respond-to("tablet") {
-    .hero-buttons {
+    &-buttons {
       width: 15%;
       .hero-button {
         i {
@@ -189,7 +188,7 @@
       }
     }
 
-    .hero-titles {
+    &-titles {
       .hero__title {
         font-size: 1.8rem;
       }
@@ -220,7 +219,7 @@
   @include respond-to("laptop") {
     min-height: 80vh;
 
-    .hero-buttons {
+    &-buttons {
       bottom: 10px;
       top: auto;
       right: 4px;
@@ -233,7 +232,7 @@
       }
     }
 
-    .hero-titles {
+    &-titles {
       .hero__title {
         font-size: 2.8rem;
         max-width: 50%;
@@ -255,7 +254,7 @@
       }
     }
 
-    .hero-slider {
+    &-slider {
       left: 10px;
       width: 50%;
       justify-content: start;
@@ -263,7 +262,10 @@
   }
 
   @include respond-to("desktop") {
-    .hero-titles {
+    // margin: 10px;
+    // width: 99%;
+    // border-radius: var(--border-radius);
+    &-titles {
       .hero__title {
         font-size: 3.8rem;
         max-width: 50%;
@@ -277,7 +279,7 @@
   }
 
   @include respond-to("big-screen") {
-    .hero-titles {
+    &-titles {
       .hero__title {
         font-size: 3.4rem;
         max-width: 50%;

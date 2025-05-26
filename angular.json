@@ -46,6 +46,7 @@
               "src/styles.scss",
               "src/app/shared/styles/variables.scss",
               "src/app/shared/styles/breakpoints.scss",
+              "src/app/shared/styles/buttons.scss",
               "src/assets/icons/style.css"
             ],
             "scripts": [],

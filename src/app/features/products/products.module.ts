@@ -14,8 +14,10 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { productReducer } from './store/reducers/product.reducer';
 import { ProductEffects } from './store/effects/product.effects';
-import { CardProductSkeletonComponent } from '../../shared/components/card-product-skeleton/card-product-skeleton.component';
 import { CardUserCommentComponent } from '../../shared/components/card-user-comment/card-user-comment.component';
+import { FiltersComponent } from '../../shared/components/filters/filters.component';
+import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.component';
+import { ButtonComponent } from '../../shared/components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +34,10 @@ import { CardUserCommentComponent } from '../../shared/components/card-user-comm
     CategoriesModule,
     NgxSkeletonLoaderModule,
     ZoomImageDirective,
-    CardProductSkeletonComponent,
-    CardUserCommentComponent
+    SkeletonComponent,
+    CardUserCommentComponent,
+    FiltersComponent,
+    ButtonComponent
 ],
   exports: [ProductsGridComponent, ProductStarComponent, ProductCardComponent, ProductsSliderComponent],
 })

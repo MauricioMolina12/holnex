@@ -1,35 +1,61 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  OnDestroy,
+  PLATFORM_ID,
+  Input,
+} from '@angular/core';
+import { DOCUMENT, isPlatformBrowser, NgClass, NgFor } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { selectLoading } from '../../../features/products/store/selectors/product.selectors';
 
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.scss',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass],
+  imports: [NgClass, NgFor],
 })
-export class FiltersComponent implements OnInit {
-  
-  openFilters: boolean = false;
+export class FiltersComponent implements OnInit, OnDestroy {
+  openFilter: string | null = null;
+  private isBrowser: boolean;
+  @Input() loading: boolean = true;
 
-  toggleModal(type: string) {
-    switch (type) {
-      case 'filters':
-        this.openFilters = !this.openFilters;
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  @Input() filters: string[] = [];
+  ngOnInit(): void {
+    if (this.isBrowser) {
+      this.filters = ['Categoría', 'Tamaño', 'Precio', 'Puntuación', 'Color'];
+      this.document.addEventListener('click', this.handleClickOutside);
     }
   }
 
-  ngOnInit(): void {
-    this.filters = [
-      'Precio',
-      'Marca',
-      'Puntuación',
-      'Color',
-      'Más vendidos',
-      'En ofertas',
-      'Basado en tus gustos',
-    ];
+  ngOnDestroy(): void {
+    if (this.isBrowser) {
+      this.document.removeEventListener('click', this.handleClickOutside);
+    }
   }
 
-  @Input() filters: any[] = [];
+  toggleFilter(filter: string) {
+    this.openFilter = this.openFilter === filter ? null : filter;
+  }
+
+  isOpen(filter: string): boolean {
+    return this.openFilter === filter;
+  }
+
+  handleClickOutside = (event: MouseEvent) => {
+    const modal = this.document.querySelector('.filters');
+    if (modal && !modal.contains(event.target as Node)) {
+      this.openFilter = null;
+    }
+  };
 }

@@ -22,24 +22,21 @@
     border-radius: 10px;
     margin: 0 10px;
     padding-left: 55px;
-    background-color: var(--color-dark-contrast);
-    border: 1px solid var(--color-blue-light-shade);
-    font-size: 1.1rem;
+    background-color: var(--color-light);
+    // border: 1px solid var(--color-blue-light-shade);
     color: var(--color-dark-gray);
 
     &::placeholder {
       font-size: 1rem;
-      font-weight: 400;
+      color: var(--color-dark-gray);
     }
   }
 
   .input-icon {
-    max-width: 20%;
-    height: 20%;
     z-index: 1000;
     margin-left: 25px;
     font-size: 1.2rem;
-    color: var(--color-gray);
+    color: var(--color-dark-gray);
   }
 
   .input-icon-xmark {

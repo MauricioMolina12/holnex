@@ -2,17 +2,37 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   HostListener,
+  inject,
   Inject,
   Input,
   OnInit,
   PLATFORM_ID,
+  signal,
 } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { User } from '../../../shared/models/user';
 import { SearchInputComponent } from '../../../shared/components/search-input/search-input.component';
 import { Renderer2, ElementRef } from '@angular/core';
 import { AuthService } from '../../../features/auth/auth.service';
 import { ThemeService } from '../../../shared/services/theme.service';
+import { filter } from 'rxjs';
+
+interface UserNav {
+  name: string;
+  avatar: string;
+  email: string;
+}
+
+interface NavBarItem {
+  profile?: UserNav;
+  icon?: string;
+  title?: string;
+  subtitle?: string;
+  path?: string;
+  pending?: boolean;
+  group: 'user' | 'config' | 'profile';
+  action?: (event?: Event) => void;
+}
 
 @Component({
   selector: 'app-nav-bar',
@@ -26,85 +46,11 @@ export class NavBarComponent implements OnInit {
   isMoodDark = false;
   viewSearchInput = false;
 
-  // Items for nav bar
-  navbar_items: {
-    icon: string;
-    title: string;
-    subtitle?: string;
-    path?: string;
-    pending?: boolean;
-    group: 'user' | 'config' | 'profile';
-    action?: (event?: Event) => void;
-  }[] = [
-    {
-      icon: 'icon-location',
-      title: 'Dirección',
-      subtitle: 'Calle 27 #7B-05, Barranquilla, Atlantico.',
-      group: 'user',
-    },
-    {
-      icon: 'icon-search',
-      title: 'Buscar',
-      group: 'user',
-      action: (event?: Event) => this.toggleElement(event, 'nav-bar__center'),
-    },
-    {
-      icon: 'icon-shop-cart',
-      title: 'Carrito de compras',
-      path: '/shopcart',
-      group: 'user',
-      action: (event?: Event) => this.redirectItemNavBar('/shopcart'),
-    },
-    {
-      icon: 'icon-bag',
-      title: 'Mis compras',
-      group: 'user',
-    },
-    {
-      icon: 'icon-notifications',
-      title: 'Notificaciones',
-      pending: true,
-      group: 'user',
-    },
-    {
-      icon: 'icon-heart',
-      title: 'Productos favoritos',
-      group: 'user',
-    },
-    {
-      icon: 'icon-history',
-      title: 'Mi historial',
-      group: 'user',
-    },
+  navbar_items: NavBarItem[] = [];
 
-    // {
-    //   icon: 'icon-store',
-    //   title: 'Convertirme en vendedor',
-    // },
-    {
-      icon: 'icon-settings',
-      title: 'Configuraciones',
-      group: 'config',
-    },
-    {
-      icon: 'icon-help',
-      title: 'Ayuda',
-      group: 'config',
-    },
-    {
-      icon: 'icon-door',
-      title: 'Cerrar sesión',
-      path: '/user/login',
-      group: 'config',
-    },
-  ];
-
-  userItems = this.navbar_items.filter((item) => item.group === 'user');
-  configItems = this.navbar_items.filter((item) => item.group === 'config');
-  profileItems = this.navbar_items.filter((item) => item.group === 'profile');
-
-  // Props
-  @Input() user!: User;
+  userItems: NavBarItem[] = [];
+  configItems: NavBarItem[] = [];
+  profileItems: NavBarItem[] = [];
 
   constructor(
     private router: Router,
@@ -139,8 +85,103 @@ export class NavBarComponent implements OnInit {
         : '',
     };
 
-    console.log(this.configItems);
+    this.navbar_items = [
+      {
+        profile: {
+          avatar: this.isLoggued() ? this.user.image : 'assets/img/user-default.jpg',
+          name: this.isLoggued() ? this.user.name : 'Ingresar cuenta',
+          email: this.isLoggued() ? this.user.email : 'Podrás interactuar con tu cuenta',
+        },
+        group: 'user',
+      },
+      {
+        icon: 'icon-home',
+        title: 'Inicio',
+        group: 'user',
+        path: '/',
+        action: (event?: Event) => this.navigateRoute('/'),
+      },
+      {
+        icon: 'icon-location',
+        title: 'Dirección',
+        subtitle: this.user.address ? this.user.address : 'No tienes una dirección registrada',
+        group: 'user',
+      },
+      {
+        icon: 'icon-search',
+        title: 'Buscar',
+        group: 'user',
+        action: (event?: Event) => this.toggleElement(event, 'nav-bar__center'),
+      },
+      {
+        icon: 'icon-shop-cart',
+        title: 'Carrito',
+        path: '/shopcart',
+        group: 'user',
+        action: (event?: Event) => this.navigateRoute('/shopcart'),
+      },
+      {
+        icon: 'icon-bag',
+        title: 'Mis compras',
+        group: 'user',
+      },
+      {
+        icon: 'icon-notifications',
+        title: 'Notificaciones',
+        pending: true,
+        group: 'user',
+      },
+      {
+        icon: 'icon-heart',
+        title: 'Productos favoritos',
+        group: 'user',
+      },
+      {
+        icon: 'icon-history',
+        title: 'Mi historial',
+        group: 'user',
+      },
+
+      // {
+      //   icon: 'icon-store',
+      //   title: 'Convertirme en vendedor',
+      // },
+      {
+        icon: 'icon-settings',
+        title: 'Configuraciones',
+        group: 'config',
+      },
+      {
+        icon: 'icon-help',
+        title: 'Ayuda',
+        group: 'config',
+      },
+      {
+        icon: 'icon-door',
+        title: 'Cerrar sesión',
+        path: '/user/login',
+        group: 'config',
+        action: (event?: Event) => this.navigateRoute('/user/login'),
+      },
+    ];
+
+    this.userItems = this.navbar_items.filter((item) => item.group === 'user');
+    this.configItems = this.navbar_items.filter((item) => item.group === 'config');
+    this.profileItems = this.navbar_items.filter((item) => item.group === 'profile');
+
+    this.router.events
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        )
+      )
+      .subscribe((event) => {
+        this.url.set(event.url);
+      });
   }
+
+  @Input() user!: User;
+  url = signal('');
 
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
@@ -158,10 +199,16 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  redirectItemNavBar(item: string) {
-    this.router.navigate([`${item}`]);
+  navigateRoute(item: string) {
+    if (item) {
+      this.router.navigate([`${item}`]);
+      this.closeSidebar();
+    }
+  }
+
+  closeSidebar() {
     const sidebar = this.elRef.nativeElement.querySelector('.nav-bar__sidebar');
-    if (sidebar) {
+    if (sidebar && sidebar.classList.contains('visibility')) {
       this.renderer.removeClass(sidebar, 'visibility');
       this.viewSideBar = false;
     }
@@ -174,109 +221,90 @@ export class NavBarComponent implements OnInit {
   ) {
     if (e) {
       e.preventDefault();
+      e.stopPropagation();
     }
+
     const elementHTML = this.elRef.nativeElement.querySelector(
       `.${classElement}`
     );
+    const sidebar = this.elRef.nativeElement.querySelector('.nav-bar__sidebar');
+
+    if (!elementHTML) {
+      console.error(`No se encontró el elemento .${classElement}`);
+      return;
+    }
+
     switch (classElement) {
       case 'nav-bar__sidebar':
-        // Manipular la barra lateral en pantallas móviles
-
-        if (elementHTML) {
-          const body = this.document.querySelector('body');
-          if (elementHTML.classList.contains('visibility')) {
-            this.renderer.removeClass(elementHTML, 'visibility');
-            this.viewSideBar = false;
-          } else {
-            this.renderer.addClass(elementHTML, 'visibility');
-            this.viewSideBar = true;
-          }
-        } else {
-          console.error('No se encontró el elemento .nav-bar__sidebar');
-        }
+        this.toggleClass(elementHTML, 'visibility');
+        this.viewSideBar = elementHTML.classList.contains('visibility');
         break;
 
       case 'nav-bar__modal-profile':
-        // Activar o desactivar el modal del perfil en pantallas grandes
-        if (e) {
-          e.stopPropagation();
-        }
-        const modalProfile = this.elRef.nativeElement.querySelector(
-          `.${classElement}`
+        this.toggleClass(elementHTML, 'active');
+        this.toggleOutsideClickListener(
+          classElement,
+          elementHTML.classList.contains('active')
         );
-        if (modalProfile) {
-          const isActive = modalProfile.classList.contains('active');
-          if (isActive) {
-            this.renderer.removeClass(modalProfile, 'active');
-            document.removeEventListener('click', (event) =>
-              this.closeModalOnOutsideClick(event, classElement)
-            );
-          } else {
-            this.renderer.addClass(modalProfile, 'active');
-            document.addEventListener('click', (event) =>
-              this.closeModalOnOutsideClick(event, classElement)
-            );
-          }
-        }
         break;
 
       case 'nav-bar__center':
-        // Activar o desactivar el campo de búsqueda en pantallas grandes
-        if (e) {
-          e.stopPropagation();
-        }
         this.viewSearchInput = !this.viewSearchInput;
-        const searchContainer = this.elRef.nativeElement.querySelector(
-          `.${classElement}`
+        this.toggleClass(elementHTML, 'active');
+        this.toggleOutsideClickListener(
+          classElement,
+          elementHTML.classList.contains('active')
         );
 
-        const sidebar =
-          this.elRef.nativeElement.querySelector('.nav-bar__sidebar');
-
-        if (searchContainer) {
-          const isActive = searchContainer.classList.contains('active');
-
-          if (isActive) {
-            this.renderer.removeClass(searchContainer, 'active');
-            document.removeEventListener('click', (event) =>
-              this.closeModalOnOutsideClick(event, classElement)
-            );
-          } else {
-            this.renderer.addClass(searchContainer, 'active');
-            document.addEventListener('click', (event) =>
-              this.closeModalOnOutsideClick(event, classElement)
-            );
-
-            if (sidebar?.classList.contains('visibility')) {
-              this.renderer.removeClass(sidebar, 'visibility');
-              this.viewSideBar = false;
-            }
-          }
+        if (sidebar?.classList.contains('visibility')) {
+          this.renderer.removeClass(sidebar, 'visibility');
+          this.viewSideBar = false;
         }
         break;
     }
   }
 
-  nameItemHover: string = '';
-  mouseEnter(name: string) {
-    this.nameItemHover = name;
+  private toggleClass(el: Element, className: string) {
+    if (el.classList.contains(className)) {
+      this.renderer.removeClass(el, className);
+    } else {
+      this.renderer.addClass(el, className);
+    }
   }
 
-  mouseLeave() {
-    this.nameItemHover = '';
+  private toggleOutsideClickListener(classElement: string, isActive: boolean) {
+    const handler = (event: Event) =>
+      this.closeModalOnOutsideClick(event, classElement);
+
+    if (isActive) {
+      document.addEventListener('click', handler);
+    } else {
+      document.removeEventListener('click', handler);
+    }
   }
+
   //Function to know when a click is made outside the element
-  closeModalOnOutsideClick = (event: Event, modalClass: string) => {
+  private closeModalOnOutsideClick = (event: Event, elementClass: string) => {
     const modalElement = this.elRef.nativeElement.querySelector(
-      `.${modalClass}`
+      `.${elementClass}`
     );
     if (modalElement && !modalElement.contains(event.target as Node)) {
       this.renderer.removeClass(modalElement, 'active');
       this.document.removeEventListener('click', (e) =>
-        this.closeModalOnOutsideClick(e, modalClass)
+        this.closeModalOnOutsideClick(e, elementClass)
       );
     }
   };
+
+  nameItemHover: string = '';
+  seeTooltipItem(name: string) {
+    this.nameItemHover = name;
+    console.log(this.nameItemHover);
+    
+  }
+  seeTooltipItemLeave() {
+    this.nameItemHover = '';
+  }
 
   isLoggued() {
     return this.authService.isLoggued;

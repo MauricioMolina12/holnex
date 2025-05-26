@@ -39,9 +39,14 @@
       max-width: 90%;
     }
 
-    .newsletter-icon{
+    .newsletter-icon {
       color: white;
-      font-size: 2.4rem;
+      font-size: clamp(3rem, 3vw, 4rem);
+      position: relative;
+
+      &:before {
+        color: var(--color-white);
+      }
     }
 
     .newsletter-form {
@@ -147,7 +152,7 @@
       .newsletter-form {
         width: 70%;
 
-        .newsletter-button__submit{
+        .newsletter-button__submit {
           right: 20px;
         }
       }

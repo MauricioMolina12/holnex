@@ -12,6 +12,8 @@ import {
   OnDestroy,
   OnInit,
   ChangeDetectionStrategy,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
@@ -33,6 +35,7 @@ import { UtilsService } from '../../../../shared/services/utils.service';
   templateUrl: './products-grid.component.html',
   styleUrl: './products-grid.component.scss',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   // imports: [
   //   RouterModule,
   //   CommonModule,
@@ -44,15 +47,7 @@ import { UtilsService } from '../../../../shared/services/utils.service';
 })
 export class ProductsGridComponent implements OnInit {
   @Input() products: any[] = []; // => Array products
-  @Input() hasPagination: boolean = true; // => Determines if the component should have pagination
-  @Input() productPerPage: number = 8; // => Products per page
-  @Input() currentPage: number = 1; // => Current page the user views
-  @Input() totalPages: number = 1; // => Total pages of the pagination
-
-  @Input() filters: { [key: string]: any } = {};
-  @Input() category: string = '';
-  @Input() offerType: string = '';
-
+  @Input() loading: boolean = true;
   @Input() width: string = '100vw'; // => Width main wrapper for mobile size
   @Input() isfullWidth!: boolean; // True => Container envelope will have a width of 100vw otherwise the one you pass through the "width" prop
   @Input() height: string = ''; // => Height main wrapper
@@ -61,9 +56,9 @@ export class ProductsGridComponent implements OnInit {
 
   @Input() title: string = ''; // Title for current section
   @Input() subtitle: string = ''; // Subtitle for current section
-  @Input() loading: boolean = true;
+  @Input() hasHeader: boolean = true; // => Determines if the component should have a header
+  @Input() labelButton: string = '';
 
-  product: any;
   pages: number[] = [];
   isDark: boolean = false;
   isOnline = this.networkService.isOnline;
@@ -84,6 +79,11 @@ export class ProductsGridComponent implements OnInit {
       this.isDark = isDark;
     });
   }
+  
+  
+  get isDisabled(): boolean {
+    return this.loading || !this.isOnline();
+  }
 
   ngAfterViewInit() {
     this.observer = this.utilsService.parallaxEffect(this.productCards, 0.05);
@@ -93,6 +93,10 @@ export class ProductsGridComponent implements OnInit {
     if (this.observer) {
       this.observer.disconnect();
     }
+  }
+
+  addMore() {
+    this.products = this.products.concat(this.products);
   }
 
   // addShoppingCart(e: Event) {
