@@ -10,7 +10,6 @@ body {
   }
 }
 
-
 .blur-10px {
   backdrop-filter: blur(10px);
 }
@@ -30,9 +29,15 @@ h3,
 h4,
 h5,
 h6,
-figure
-{
+figure {
   margin: 0;
+}
+
+.title-section {
+  font-size: clamp(1.5rem, 1.8vw, 2rem);
+  color: var(--color-primary-to-white);
+  font-weight: 400;
+  max-width: 90%;
 }
 
 @mixin input-container {
@@ -120,14 +125,14 @@ figure
   margin-top: 20px;
 }
 
-.p-absolute{
+.p-absolute {
   position: absolute;
 }
 
-.right-20{
+.right-20 {
   right: 20px;
 }
 
-.top-20{
+.top-20 {
   top: 20%;
 }

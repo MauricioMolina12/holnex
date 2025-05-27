@@ -1,29 +1,23 @@
 <section class="products" [ngStyle]="{'padding': padding, 'margin': margin }" [ngClass]="{'full-width': isfullWidth}">
 
   <header class="products__header" *ngIf="hasHeader">
-
     <div class="products__header-content">
       <div class="products__header-content-title">
-        <h2 class="products__title">{{title}}</h2>
+        <h2 class="products__title title-section">{{title}}</h2>
         <span class="products__subtitle">{{subtitle}}</span>
       </div>
-
-
-      <app-button *ngIf="labelButton" [text]="labelButton" [loading]="isDisabled" [disabled]="isDisabled"
+      <app-button *ngIf="labelButton" [text]="labelButton" [loading]="isDisabled" [disabled]="isDisabled"  aria-label="Ver todos los productos"
         [customClass]="['button', 'view-all']">
       </app-button>
-
     </div>
-
   </header>
 
 
   <div class="products__grid">
-
     <!--Card product-->
     <ng-container *ngIf="!loading">
 
-      <div *ngFor="let product of products.slice(1,29)" class="products__grid-item">
+      <div *ngFor="let product of products.slice(8,16)" class="products__grid-item">
 
         <app-product-card [product]="product" (productClick)="productsService.detailProduct(product)">
         </app-product-card>
@@ -31,9 +25,7 @@
       </div>
 
     </ng-container>
-
-
-    <ng-container *ngIf="loading || isOnline() == false">
+    <ng-container *ngIf="loading || isOffline || isEmptyList === 0">
 
       <div *ngFor="let _ of [].constructor(20)" class="products__grid-item">
 
@@ -42,7 +34,6 @@
 
       </div>
     </ng-container>
-
   </div>
 
   <div class="products__pagination">
@@ -53,7 +44,7 @@
 
     <div class="products__pagination-pages">
 
-      <button class="button-left disabled">
+      <button class="button-left disabled" aria-label="Página anterior">
         <i class="icon-arrow-chevron-left"></i>
       </button>
 
@@ -70,7 +61,7 @@
         </button>
       </div>
 
-      <button class="button-right">
+      <button class="button-right"  aria-label="Página siguiente">
         <i class="icon-arrow-chevron-right"></i>
       </button>
 

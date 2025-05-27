@@ -1,7 +1,8 @@
 <div class="categories">
   <header class="categories__header">
-    <h4 class="categories__title">Categoría de productos</h4>
-    <a class="categories__link" [routerLink]="['/categorias']">Ver todas las categorías</a>
+    <h4 class="categories__title title-section">Categoría de productos</h4>
+    <app-button [text]="'Ver todas las categorías'" [customClass]="['button', 'view-all']"></app-button>
+    <!-- <a class="categories__link" [routerLink]="['/categorias']">Ver todas las categorías</a> -->
   </header>
 
   <ng-container *ngIf="!loading(); else skeleton">

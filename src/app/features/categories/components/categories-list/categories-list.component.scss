@@ -19,19 +19,11 @@ $min-width-items: 150px;
     padding: 20px 0;
   }
 
-  &__title {
-    width: 100%;
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 300;
-    color: var(--color-primary-to-white);
-  }
-
   &__link {
     display: block;
     width: min-content;
     white-space: nowrap;
-    color: var(--color-primary);
+    color: var(--color-font-gray);
     user-select: none;
     text-decoration: none;
     font-size: 0.8rem;

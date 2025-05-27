@@ -4,6 +4,7 @@ import { CategoriesListComponent } from './components/categories-list/categories
 import { CategoryDetailsComponent } from './components/category-details/category-details.component';
 import { RouterModule } from '@angular/router';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ButtonComponent } from "../../shared/components/button/button.component";
 
 
 
@@ -13,10 +14,11 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
   ],
   imports: [
     CommonModule,
-    RouterModule, 
+    RouterModule,
     CategoryDetailsComponent,
     NgxSkeletonLoaderModule,
-  ],
+    ButtonComponent
+],
   exports: [CategoriesListComponent, CategoryDetailsComponent]
 })
 export class CategoriesModule { }

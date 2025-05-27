@@ -96,20 +96,22 @@
       flex-direction: column;
       font-size: 1rem;
       font-weight: 600;
-      color: var(--color-primary-to-white);
       box-sizing: border-box;
 
-      .product__price-discount{
-        font-size: .8rem;
+      .product__price-discount {
+        font-size: 0.8rem;
         font-weight: 300;
         text-decoration: line-through;
         color: var(--color-font-gray);
       }
 
-      .product__price-current{
-        .percentage-discount{
+      .product__price-current {
+        font-size: 1.4rem;
+        color: var(--color-primary-to-white);
+        .percentage-discount {
           color: var(--color-success);
           font-weight: 300;
+          font-size: 0.8rem;
         }
       }
     }

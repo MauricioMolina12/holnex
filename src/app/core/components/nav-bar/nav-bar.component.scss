@@ -46,6 +46,7 @@
       align-items: center;
       font-size: clamp(2.5rem, 3vw, 3rem);
       position: relative;
+      cursor: pointer;
 
       &:before {
         color: var(--color-primary-to-white);
@@ -159,7 +160,7 @@
     transform: translateX(100%);
     opacity: 0;
     visibility: hidden;
-    transition: transform 1s ease, opacity 1s ease;
+    transition: transform .5s ease, opacity .5s ease;
 
     display: flex;
     flex-direction: column;
@@ -292,8 +293,8 @@
           justify-content: center;
           height: auto;
           min-height: 20px;
-          max-width: 20px;
-          max-height: 20px;
+          max-width: 25px;
+          max-height: 25px;
           font-size: 1.5rem;
           color: var(--color-primary);
           background-color: var(--color-blue-light-tint);
@@ -618,8 +619,9 @@
             justify-content: center;
             height: auto;
             min-height: 25px;
-            max-width: 25px;
-            max-height: 25px;
+            min-width: 25px;
+            max-width: 30px;
+            max-height: 20px;
             font-size: 1.2rem;
             color: var(--color-primary);
             background-color: var(--color-blue-light-tint);

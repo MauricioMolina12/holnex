@@ -73,20 +73,26 @@ export class ProductsGridComponent implements OnInit {
     private utilsService: UtilsService
   ) {}
 
-  @ViewChildren('productCard') productCards!: QueryList<ElementRef>;
+  // @ViewChildren('productCard') productCards!: QueryList<ElementRef>;
   async ngOnInit() {
     this.themeService.darkMode$.subscribe((isDark) => {
       this.isDark = isDark;
     });
   }
-  
-  
-  get isDisabled(): boolean {
-    return this.loading || !this.isOnline();
-  }
 
   ngAfterViewInit() {
-    this.observer = this.utilsService.parallaxEffect(this.productCards, 0.05);
+    // this.observer = this.utilsService.parallaxEffect(this.productCards, 0.05);
+  }
+
+  get isDisabled(): boolean {
+    return this.loading || !this.isOffline || this.isEmptyList === 0;
+  }
+
+  get isOffline(): boolean {
+    return !this.isOnline();
+  }
+  get isEmptyList() {
+    return this.products.length;
   }
 
   ngOnDestroy(): void {
@@ -98,23 +104,6 @@ export class ProductsGridComponent implements OnInit {
   addMore() {
     this.products = this.products.concat(this.products);
   }
-
-  // addShoppingCart(e: Event) {
-  //   e.stopPropagation();
-  //   const shopCartIcon = this.elRef.nativeElement.querySelector(
-  //     '.product-add-cart-shop-icon'
-  //   );
-  //   if (shopCartIcon) {
-  //     this.renderer.addClass(shopCartIcon, 'add');
-  //     shopCartIcon.addEventListener(
-  //       'animationend',
-  //       () => {
-  //         this.renderer.removeClass(shopCartIcon, 'add');
-  //       },
-  //       { once: true }
-  //     );
-  //   }
-  // }
 
   detailProduct(product: any) {
     this.router.navigate([`/product/${product.slug}`]);
