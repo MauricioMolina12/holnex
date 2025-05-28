@@ -16,25 +16,30 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductsService } from '../../services/products.service';
+import { ProductsService } from '../../../../features/products/services/products.service';
 import { environment } from '../../../../../environments/environment';
-import { ThemeService } from '../../../../shared/services/theme.service';
+import { ThemeService } from '../../../services/theme.service';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   selectAllProducts,
   selectError,
   selectLoading,
-} from '../../store/selectors/product.selectors';
-import { loadProducts } from '../../store/actions/product.actions';
-import { NetworkService } from '../../../../shared/services/network.service';
-import { UtilsService } from '../../../../shared/services/utils.service';
+} from '../../../../features/products/store/selectors/product.selectors';
+import { loadProducts } from '../../../../features/products/store/actions/product.actions';
+import { NetworkService } from '../../../services/network.service';
+import { UtilsService } from '../../../services/utils.service';
+import { ButtonComponent } from '../../button/button.component';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { SkeletonComponent } from '../../skeleton/skeleton.component';
+import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
   selector: 'app-products-grid',
   templateUrl: './products-grid.component.html',
   styleUrl: './products-grid.component.scss',
-  standalone: false,
+  standalone: true,
+  imports: [ButtonComponent, SkeletonComponent, ProductCardComponent, NgIf, NgClass, NgStyle, NgFor],
   changeDetection: ChangeDetectionStrategy.OnPush,
   // imports: [
   //   RouterModule,

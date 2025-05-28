@@ -6,15 +6,15 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DropdownCountriesComponent } from './shared/components/dropdown-countries/dropdown-countries.component';
+import { DropdownCountriesComponent } from './features/auth/components/dropdown-countries/dropdown-countries.component';
 import { HttpClientModule, withInterceptors } from '@angular/common/http';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { LayoutComponent } from './layout/layout.component';
-import { NavBarComponent } from './core/components/nav-bar/nav-bar.component';
-import { AlertNewPromotionsComponent } from './shared/components/alert-new-promotions/alert-new-promotions.component';
+import { NavBarComponent } from './layout/components/nav-bar/nav-bar.component';
+import { AlertNewPromotionsComponent } from './layout/components/alert-new-promotions/alert-new-promotions.component';
 import { FiltersComponent } from './shared/components/filters/filters.component';
 import { CategoryDetailsComponent } from './features/categories/components/category-details/category-details.component';
-import { FooterComponent } from './core/components/footer/footer.component';
+import { FooterComponent } from './layout/components/footer/footer.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { StoreModule } from '@ngrx/store';
 import { productReducer } from './features/products/store/reducers/product.reducer';

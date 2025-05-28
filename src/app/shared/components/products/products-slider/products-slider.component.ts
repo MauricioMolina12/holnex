@@ -1,11 +1,15 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
+import { ProductsService } from '../../../../features/products/services/products.service';
+import { SkeletonComponent } from '../../skeleton/skeleton.component';
+import { ProductCardComponent } from '../product-card/product-card.component';
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-slider-products',
   templateUrl: './products-slider.component.html',
   styleUrl: './products-slider.component.scss',
-  standalone: false,
+  standalone: true,
+  imports: [SkeletonComponent, ProductCardComponent, NgStyle, NgIf, NgFor]
 })
 export class ProductsSliderComponent implements OnInit {
   @Input() title: string = '';

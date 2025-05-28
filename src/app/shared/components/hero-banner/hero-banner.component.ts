@@ -15,14 +15,14 @@ import { Ad } from '../../models/ads';
 import { ButtonComponent } from "../button/button.component";
 
 @Component({
-  selector: 'app-hero-image',
-  templateUrl: './hero-image.component.html',
-  styleUrls: ['./hero-image.component.scss'],
+  selector: 'app-hero-banner',
+  templateUrl: './hero-banner.component.html',
+  styleUrls: ['./hero-banner.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule, ButtonComponent],
+  imports: [CommonModule, RouterModule],
 })
-export class HeroImageComponent implements OnInit {
+export class HeroBannerComponent implements OnInit {
   @Input() sliderAds: Ad[] = []; // Contains the list of ads that will be displayed in the slider.
   @Input() staticAdContent: Ad | null = null;
   @Input() isStatic: boolean = false;

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectAllProducts, selectLoading } from '../products/store/selectors/product.selectors';
+import { selectAllProducts, selectLoading } from '../../../products/store/selectors/product.selectors';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { loadProducts } from '../products/store/actions/product.actions';
+import { loadProducts } from '../../../products/store/actions/product.actions';
 
 @Component({
   selector: 'app-search-results',

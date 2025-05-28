@@ -1,11 +1,12 @@
 import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ThemeService } from '../../../../shared/services/theme.service';
-import { Product } from '../../models/products.model';
+import { ThemeService } from '../../../services/theme.service';
+import { Product } from '../../../../features/products/models/products.model';
 
 @Component({
   selector: 'app-product-card',
-  standalone: false,
+  standalone: true,
+  imports: [NgClass],
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })

@@ -1,15 +1,16 @@
 import { Component, computed, effect, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HeroImageComponent } from '../../../../shared/components/hero-image/hero-image.component';
+import { HeroBannerComponent } from '../../../../shared/components/hero-banner/hero-banner.component';
 import { CategoriesService } from '../../services/categories.service';
 import { ProductsModule } from '../../../products/products.module';
+import { ProductsGridComponent } from '../../../../shared/components/products/products-grid/products-grid.component';
 
 @Component({
   selector: 'app-category-details',
   templateUrl: './category-details.component.html',
   styleUrl: './category-details.component.scss',
   standalone: true,
-  imports: [HeroImageComponent, ProductsModule],
+  imports: [HeroBannerComponent, ProductsGridComponent ,ProductsModule],
 })
 export class CategoryDetailsComponent implements OnInit {
   category = computed(() => this.categoriesService.categoryDetail$());
