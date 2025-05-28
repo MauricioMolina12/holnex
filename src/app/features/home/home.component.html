@@ -1,5 +1,5 @@
 <!-- Component to display the slider with ads -->
-<app-hero-banner [sliderAds]="ads">
+<app-hero-banner [slider]="ads">
 </app-hero-banner>
 <main class="main">
   <div class="products">
@@ -12,7 +12,7 @@
       [products]="productsSignal()" [loading]="loadingSignal()" [margin]="'0 auto'">
     </app-products-grid>
   </div>
-  <app-categories-list></app-categories-list>
+  <!-- <app-categories-list></app-categories-list> -->
   <!-- <app-star-product></app-star-product> -->
   <app-newsletter-subscription></app-newsletter-subscription>
   <app-services-grid></app-services-grid>

@@ -20,9 +20,9 @@ import { StoreModule } from '@ngrx/store';
 import { productReducer } from './features/products/store/reducers/product.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './features/products/store/effects/product.effects';
-import { GridComponent } from './shared/components/grid/grid.component';
 import { networkInterceptor } from './core/interceptors/network.interceptor';
 import { CoreModule } from './core/core.module';
+import { StatusUiMessageComponent } from "./shared/components/status-ui-message/status-ui-message.component";
 
 @NgModule({
   declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent],
@@ -33,13 +33,12 @@ import { CoreModule } from './core/core.module';
     AlertNewPromotionsComponent,
     FiltersComponent,
     CategoryDetailsComponent,
-    GridComponent,
     NgxSkeletonLoaderModule,
     CoreModule,
-
     StoreModule.forRoot({ products: productReducer }),
     EffectsModule.forRoot([ProductEffects]),
-  ],
+    StatusUiMessageComponent
+],
   providers: [provideClientHydration(), provideHttpClient(withFetch(), withInterceptors([networkInterceptor]))],
   bootstrap: [AppComponent],
 })

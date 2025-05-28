@@ -44,10 +44,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   mainImage: string = '';
 
   loading: boolean = true;
-  // loadingInformation: boolean = true;
-  // loadingSummary: boolean = true;
 
-  // List
   buttons_options_product = [
     {
       title: 'Comprar ahora',

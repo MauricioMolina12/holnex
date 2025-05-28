@@ -1,0 +1,17 @@
+.network{
+    width: 100%;
+    min-height: 6vh;
+    position: sticky;
+    top: 12vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 1s ease;
+    
+    &__title{
+        font-weight: 400;
+        font-size: 1rem;
+        color: var(--color-white);
+    }
+}

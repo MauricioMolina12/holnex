@@ -1,8 +1,18 @@
 <div class="layout-wrapper">
   <div class="layout-container">
-    <div class="layout-content">  
+    <div class="layout-content">
       <app-nav-bar></app-nav-bar>
-      <app-alert-new-promotions *ngIf="isClose" (closeThisComponent)="closeAlertNewPromotions()"></app-alert-new-promotions>
+
+      <app-status-ui-message
+        *ngIf="showConnectionMessage()"
+        [status]="statusNetwork()">
+      </app-status-ui-message>
+
+      <app-alert-new-promotions
+        *ngIf="isClose"
+        (closeThisComponent)="closeAlertNewPromotions()">
+      </app-alert-new-promotions>
+
       <router-outlet></router-outlet>
       <app-footer></app-footer>
     </div>

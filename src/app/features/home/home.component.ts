@@ -1,24 +1,17 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { Ad } from '../../shared/models/ads';
 import { ProductsService } from '../products/services/products.service';
-import { environment } from '../../../environments/environment';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { loadProducts } from '../products/store/actions/product.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   selectAllProducts,
   selectError,
   selectLoading,
 } from '../products/store/selectors/product.selectors';
-import { NetworkService } from '../../shared/services/network.service';
 
 @Component({
   selector: 'app-home',
@@ -26,24 +19,22 @@ import { NetworkService } from '../../shared/services/network.service';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   productsSignal = toSignal(this.store.select(selectAllProducts), {initialValue: [],});
   loadingSignal = toSignal(this.store.select(selectLoading), {initialValue: false,});
   errorSignal = toSignal(this.store.select(selectError), {initialValue: null,});
 
-  private suscriptionProducts!: Subscription;
 
   constructor(public productsService: ProductsService, private store: Store) {}
 
   async ngOnInit() {
-    
   }
 
   ads: Ad[] = [
     {
-      title: 'Oferta en ropa femenina',
-      description: 'Explora nuestra nueva colección primavera-verano con hasta 50% de descuento.',
-      imageUrl: 'https://magazine.tagheuer.com/wp-content/uploads/2024/03/alexandra-daddario-1-1920x1080-c-default.png'
+      title: 'Oferta en productos de mercado',
+      description: 'Explora nuestra nueva variedad con hasta 50% de descuento.',
+      imageUrl: 'https://www.semana.com/resizer/v2/WJL7H67ESFABZB5QKCCKY7MXEQ.jpg?auth=7e2cff5d4e9bf145b25428a560adcc05472908e34769323eec7c1fddb220e4ec&smart=true&quality=75&width=1920&height=1080'
     },
     {
       title: 'Accesorios que enamoran',
@@ -68,10 +59,5 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
   
 
-  ngOnDestroy(): void {
-    if (this.suscriptionProducts) {
-      this.suscriptionProducts.unsubscribe();
-    }
-  }
 
 }

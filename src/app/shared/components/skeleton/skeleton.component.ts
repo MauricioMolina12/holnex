@@ -11,5 +11,5 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 })
 export class SkeletonComponent {
 
-  @Input() typeskeleton: 'productCard' | 'productDetails' | 'list' | '' = '';
+  @Input() typeskeleton: 'product-card' | 'productDetails' | 'list' | '' = '';
 }

@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { category, productsPerCategory } from '../models/categories';
+import { Category, productsPerCategory } from '../models/categories';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +50,7 @@ export class CategoriesService {
     this.http
       .get<any>(environment.api + `/categories/slug/${slug}`)
       .pipe(
-        map((category: category) => ({
+        map((category: Category) => ({
           id: category.id,
           name: category.name,
           slug: category.slug,

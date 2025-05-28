@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
-import { Product } from '../models/products.model';
-
+import { Product } from '../../../features/products/models/products.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,53 +14,25 @@ export class ProductsService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getAllProducts(): void {
-    this.http
-      .get(environment.api + '/products')
-      .pipe(
-        map((products: any) =>
-          products.map((product: Product) => ({
-            id: product.id,
-            name: product.title,
-            price: product.price,
-            slug: product.slug,
-            description: product.description,
-            images: product.images,
-            category: product.category,
-          }))
-        ),
-        catchError((error) => {
-          console.error('Error getAllProducts():', error);
-          return of([]);
-        })
-      )
-      .subscribe((products) => this.products$.set(products));
+  getAllProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(environment.api + '/products').pipe(
+      catchError((error) => {
+        console.error('ProductsService.getAllProducts() error:', error);
+        return throwError(() => error);
+      })
+    );
   }
-
   /**
    * Fetches a product by ID and updates the signal
    * @param slug Product slug
    */
-  getProductById(slug: string): void {
-    this.http
-      .get<Product>(`${environment.api + '/products/slug/'}${slug}`)
-      .pipe(
-        map((product: Product) => ({
-          id: product.id,
-          name: product.title,
-          price: product.price,
-          slug: product.slug,
-          description: product.description,
-          images: product.images,
-          category: product.category,
-        })),
-        catchError((error) => {
-          console.error('Error getProductById():', error);
-          this.productDetail$.set(null);
-          return of(null);
-        })
-      )
-      .subscribe((product: any) => this.productDetail$.set(product));
+  getProductById(slug: string): Observable<Product> {
+    return this.http.get<Product>(`${environment.api + '/products/slug/'}${slug}`).pipe(
+      catchError((error) => {
+        console.error(`Error loading product ${slug}:`, error);
+        return throwError(() => error);
+      })
+    );
   }
 
 

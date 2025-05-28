@@ -1,8 +1,10 @@
-export interface category {
+export interface Category {
   id: number;
   name: string;
   slug: string;
   image: string;
+  creationAt: string;
+  updatedAt: string;
 }
 
 export interface productsPerCategory {
@@ -11,6 +13,6 @@ export interface productsPerCategory {
     slug: string;
     price: number;
     description: string;
-    category: category,
+    category: Category,
     images: string[];
 }

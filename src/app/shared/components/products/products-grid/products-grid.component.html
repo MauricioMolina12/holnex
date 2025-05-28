@@ -6,8 +6,8 @@
         <h2 class="products__title title-section">{{title}}</h2>
         <span class="products__subtitle">{{subtitle}}</span>
       </div>
-      <app-button *ngIf="labelButton" [text]="labelButton" [loading]="isDisabled" [disabled]="isDisabled"  aria-label="Ver todos los productos"
-        [customClass]="['button', 'view-all']">
+      <app-button *ngIf="labelButton" [text]="labelButton" [loading]="isloading" [disabled]="isloading"
+        aria-label="Ver todos los productos" [customClass]="['button', 'view-all']">
       </app-button>
     </div>
   </header>
@@ -16,38 +16,29 @@
   <div class="products__grid">
     <!--Card product-->
     <ng-container *ngIf="!loading">
-
-      <div *ngFor="let product of products.slice(8,16)" class="products__grid-item">
-
+      <div *ngFor="let product of products.slice(0,8)" class="products__grid-item">
         <app-product-card [product]="product" (productClick)="productsService.detailProduct(product)">
         </app-product-card>
-
       </div>
-
     </ng-container>
-    <ng-container *ngIf="loading || isOffline || isEmptyList === 0">
-
-      <div *ngFor="let _ of [].constructor(20)" class="products__grid-item">
-
-        <app-skeleton [typeskeleton]="'productCard'">
+    <ng-container *ngIf="loading || isEmptyList">
+      <div *ngFor="let _ of [].constructor(8)" class="products__grid-item">
+        <app-skeleton [typeskeleton]="'product-card'">
         </app-skeleton>
-
       </div>
     </ng-container>
   </div>
 
+
+  
   <div class="products__pagination">
-
-    <app-button (clicked)="addMore()" [text]="'Ver más'" [loading]="loading || !isOnline()"
+    <!-- <app-button (clicked)="addMore()" [text]="'Ver más'" [loading]="loading || !isOnline()"
       [disabled]="loading || !isOnline()" [customClass]="['button','view-more']">
-    </app-button>
-
+    </app-button> -->
     <div class="products__pagination-pages">
-
       <button class="button-left disabled" aria-label="Página anterior">
         <i class="icon-arrow-chevron-left"></i>
       </button>
-
       <div class="pages-buttons">
         <button class="page-button" *ngFor="let page of [].constructor(4); let i = index"
           [ngClass]="{'active': i == 0}">
@@ -60,11 +51,9 @@
           10
         </button>
       </div>
-
-      <button class="button-right"  aria-label="Página siguiente">
+      <button class="button-right" aria-label="Página siguiente">
         <i class="icon-arrow-chevron-right"></i>
       </button>
-
     </div>
   </div>
 

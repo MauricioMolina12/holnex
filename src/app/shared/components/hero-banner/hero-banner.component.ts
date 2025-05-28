@@ -23,7 +23,7 @@ import { ButtonComponent } from "../button/button.component";
   imports: [CommonModule, RouterModule],
 })
 export class HeroBannerComponent implements OnInit {
-  @Input() sliderAds: Ad[] = []; // Contains the list of ads that will be displayed in the slider.
+  @Input() slider: Ad[] = []; // Contains the list of ads that will be displayed in the slider.
   @Input() staticAdContent: Ad | null = null;
   @Input() isStatic: boolean = false;
   visibleAds: Ad[] = [];
@@ -35,12 +35,12 @@ export class HeroBannerComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    if (this.sliderAds.length > 0 && !this.staticAdContent) {
+    if (this.slider.length > 0 && !this.staticAdContent) {
       this.handleSlideChange();
       this.setClassToFirstElement();
       this.handleSlideAutomatic();
     } else if (
-      this.sliderAds.length === 0 &&
+      this.slider.length === 0 &&
       this.isStatic &&
       this.staticAdContent
     ) {
@@ -60,7 +60,7 @@ export class HeroBannerComponent implements OnInit {
 
   currentSlide: number = 0;
   nextSlide() {
-    if (this.currentSlide < this.sliderAds.length - 1) {
+    if (this.currentSlide < this.slider.length - 1) {
       this.currentSlide++;
     } else {
       this.currentSlide = 0;
@@ -72,7 +72,7 @@ export class HeroBannerComponent implements OnInit {
     if (this.currentSlide > 0) {
       this.currentSlide--;
     } else if (this.currentSlide === 0) {
-      this.currentSlide = this.sliderAds.length - 1;
+      this.currentSlide = this.slider.length - 1;
     }
     this.handleSlideChange();
   }
@@ -91,7 +91,7 @@ export class HeroBannerComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       let timeChangeSlider = 10000;
       setInterval(() => {
-        this.currentSlide = (this.currentSlide + 1) % this.sliderAds.length;
+        this.currentSlide = (this.currentSlide + 1) % this.slider.length;
         this.handleSlideChange();
       }, timeChangeSlider);
     }
@@ -123,7 +123,7 @@ export class HeroBannerComponent implements OnInit {
   currentTitle = signal<string>('');
   currentDescription = signal<string>('');
   setNextItem() {
-    const currentItem = this.sliderAds[this.currentSlide];
+    const currentItem = this.slider[this.currentSlide];
     this.setBackgroundImage('hero', currentItem.imageUrl);
     this.currentTitle.set(currentItem.title);
     this.currentDescription.set(currentItem.description);
