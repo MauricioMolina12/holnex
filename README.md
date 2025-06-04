@@ -1,4 +1,4 @@
-# Horizon
+# Holnex
 
 Este proyecto se generó con [Angular CLI] versión 18.0.7.
 
