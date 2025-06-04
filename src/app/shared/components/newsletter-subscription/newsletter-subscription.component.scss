@@ -170,10 +170,13 @@
     .newsletter-image {
       width: 50%;
       height: 100%;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: end;
-      background-image: url("https://puntorojo.com/blog/wp-content/uploads/2019/05/TechniMobili-Blog-5RulesForBuying.jpg");
+
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
     }
   }
 }

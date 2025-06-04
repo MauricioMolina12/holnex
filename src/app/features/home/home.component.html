@@ -1,19 +1,34 @@
-<!-- Component to display the slider with ads -->
-<app-hero-banner [slider]="ads">
-</app-hero-banner>
-<main class="main">
-  <div class="products">
-    <app-products-grid [title]="'Inspirado en lo último que viste'" [products]="productsSignal()"
-      [loading]="loadingSignal()">
-    </app-products-grid>
-  </div>
-  <div class="products">
-    <app-products-grid [title]="'Tu historial'" [labelButton]="'Ir a mi historial de navegación'"
-      [products]="productsSignal()" [loading]="loadingSignal()" [margin]="'0 auto'">
-    </app-products-grid>
-  </div>
-  <!-- <app-categories-list></app-categories-list> -->
-  <!-- <app-star-product></app-star-product> -->
-  <app-newsletter-subscription></app-newsletter-subscription>
-  <app-services-grid></app-services-grid>
-</main>
+<div class="home">
+
+  <!-- Hero banner / Ads -->
+  <section class="home__section home__section--banner">
+    <app-hero-banner [slider]="ads"></app-hero-banner>
+  </section>
+
+  <main class="home__main">
+
+    <!-- Productos recientes -->
+    <section class="home__section home__section--recent">
+      <app-products-grid [title]="'Inspirado en lo último que viste'" [products]="productsSignal()"
+        [loading]="loadingSignal()" [labelButton]="'Descubre más'">
+      </app-products-grid>
+    </section>
+
+    <!-- Suscripción a newsletter -->
+    <section class="home__section home__section--newsletter">
+      <app-newsletter-subscription></app-newsletter-subscription>
+    </section>
+
+    <!-- Ofertas -->
+    <section class="home__section home__section--offers">
+      <app-slider-products [title]="'Ofertas'" [typeSlider]="'flash-sale'" [products]="productsSignal()" [loading]="loadingSignal()">
+      </app-slider-products>
+    </section>
+
+    <!-- Servicios -->
+    <section class="home__section home__section--services">
+      <app-services-grid></app-services-grid>
+    </section>
+
+  </main>
+</div>

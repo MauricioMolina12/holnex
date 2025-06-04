@@ -10,14 +10,6 @@ body {
   }
 }
 
-.blur-10px {
-  backdrop-filter: blur(10px);
-}
-
-.bg-blur {
-  background: rgba(0, 0, 0, 0.5);
-  background-blend-mode: multiply;
-}
 
 * {
   font-family: "Poppins", sans-serif;
@@ -34,7 +26,7 @@ figure {
 }
 
 .title-section {
-  font-size: clamp(1.5rem, 1.8vw, 2rem);
+  font-size: clamp(1.2rem, 1.8vw, 2rem);
   color: var(--color-primary-to-white);
   font-weight: 400;
   max-width: 90%;
@@ -129,10 +121,6 @@ figure {
   position: absolute;
 }
 
-.right-20 {
-  right: 20px;
-}
-
-.top-20 {
-  top: 20%;
+.z-index-100{
+  z-index: 100;
 }

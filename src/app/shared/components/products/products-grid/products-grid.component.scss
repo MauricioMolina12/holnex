@@ -120,7 +120,7 @@
         button {
           @include button-styles(transparent, transparent, 15px, 15px);
           font-size: 1rem;
-          font-weight: 500;
+          font-weight: 300;
           padding: 20px;
           border-radius: var(--border-radius);
           cursor: pointer;
@@ -128,10 +128,11 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--color-dark-gray);
+          color: var(--color-font-gray);
           border-radius: 50%;
 
           &.active {
+            font-weight: 400;
             background-color: var(--color-primary);
             color: var(--color-white);
           }
@@ -142,7 +143,7 @@
 
   @include respond-to("small-screen") {
     &__grid {
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     }
   }
 
@@ -150,13 +151,13 @@
     // width: 80%;
     &__grid {
       gap: 20px;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
 
   @include respond-to("laptop") {
     &__grid {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
   }
 
@@ -174,7 +175,7 @@
     }
 
     &__grid {
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       grid-template-rows: max-content;
       grid-auto-rows: max-content;
     }

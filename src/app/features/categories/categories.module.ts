@@ -4,7 +4,7 @@ import { CategoriesListComponent } from './components/categories-list/categories
 import { CategoryDetailsComponent } from './components/category-details/category-details.component';
 import { RouterModule } from '@angular/router';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { ButtonComponent } from "../../shared/components/button/button.component";
+import { ButtonComponent } from "../../shared/components/ui/button/button.component";
 
 
 

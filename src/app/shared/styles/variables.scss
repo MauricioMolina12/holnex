@@ -5,12 +5,11 @@
   --background-color: #f8f8f8;
   --background-color2: #f0f3ff;
 
-
   /* Others variables */
   --border-radius: 10px;
 
   // Custom variables
-  --color-primary-to-white: #2292a4;
+  --color-primary-to-white: var(--color-primary);
 
   /** primary **/
   --color-primary: #2292a4;
@@ -62,6 +61,14 @@
   --color-danger-contrast-rgb: 255, 255, 255;
   --color-danger-shade: #c23838;
   --color-danger-tint: #e05353;
+
+  /* Orange */
+  --color-orange: #f57c00;
+  --color-orange-rgb: 245, 124, 0;
+  --color-orange-contrast: #ffffff;
+  --color-orange-contrast-rgb: 255, 255, 255;
+  --color-orange-shade: #db6f00;
+  --color-orange-tint: #ffb061ea;
 
   /** dark **/
   --color-dark: #24272a;
@@ -259,7 +266,7 @@
   --font-family: "Montserrat", sans-serif;
   --background-color: linear-gradient(var(--color-primary), #010101);
 
-  --color-primary-to-white: #FFFFFF;
+  --color-primary-to-white: #ffffff;
 
   /** primary **/
   --color-primary: #062023;

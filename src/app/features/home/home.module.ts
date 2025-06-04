@@ -11,6 +11,7 @@ import { ServicesGridComponent } from '../../shared/components/services-grid/ser
 import { ProductsModule } from '../products/products.module';
 import { CategoriesModule } from '../categories/categories.module';
 import { ProductsGridComponent } from '../../shared/components/products/products-grid/products-grid.component';
+import { ProductsSliderComponent } from "../../shared/components/products/products-slider/products-slider.component";
 
 @NgModule({
   declarations: [HomeComponent],
@@ -24,7 +25,8 @@ import { ProductsGridComponent } from '../../shared/components/products/products
     ServicesGridComponent,
     ProductsModule,
     CategoriesModule,
-    ProductsGridComponent
-  ],
+    ProductsGridComponent,
+    ProductsSliderComponent
+],
 })
 export class HomeModule {}

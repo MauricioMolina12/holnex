@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Ad } from '../../models/ads';
-import { ButtonComponent } from "../button/button.component";
+import { ButtonComponent } from '../ui/button/button.component';
 
 @Component({
   selector: 'app-hero-banner',
@@ -26,7 +26,11 @@ export class HeroBannerComponent implements OnInit {
   @Input() slider: Ad[] = []; // Contains the list of ads that will be displayed in the slider.
   @Input() staticAdContent: Ad | null = null;
   @Input() isStatic: boolean = false;
+
   visibleAds: Ad[] = [];
+
+  currentTitle = signal<string>('');
+  currentDescription = signal<string>('');
 
   constructor(
     private elRef: ElementRef,
@@ -119,13 +123,11 @@ export class HeroBannerComponent implements OnInit {
       this.setNextItem();
     }
   }
-
-  currentTitle = signal<string>('');
-  currentDescription = signal<string>('');
   setNextItem() {
     const currentItem = this.slider[this.currentSlide];
     this.setBackgroundImage('hero', currentItem.imageUrl);
     this.currentTitle.set(currentItem.title);
     this.currentDescription.set(currentItem.description);
   }
+  
 }

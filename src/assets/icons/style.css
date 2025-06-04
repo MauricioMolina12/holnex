@@ -1,19 +1,18 @@
 @font-face {
-  font-family: "icomoon";
-  src: url("fonts/icomoon.eot?xlxx5n");
-  src: url("fonts/icomoon.eot?xlxx5n#iefix") format("embedded-opentype"),
-    url("fonts/icomoon.ttf?xlxx5n") format("truetype"),
-    url("fonts/icomoon.woff?xlxx5n") format("woff"),
-    url("fonts/icomoon.svg?xlxx5n#icomoon") format("svg");
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?ji7lgn');
+  src:  url('fonts/icomoon.eot?ji7lgn#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ji7lgn') format('truetype'),
+    url('fonts/icomoon.woff?ji7lgn') format('woff'),
+    url('fonts/icomoon.svg?ji7lgn#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "icomoon" !important;
+  font-family: 'icomoon' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -26,6 +25,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-fire .path1:before {
+  content: "\e92d";
+  color: rgb(242, 138, 38);
+}
+.icon-fire .path2:before {
+  content: "\e92e";
+  margin-left: -0.6767578125em;
+  color: rgb(244, 230, 8);
+}
+.icon-ray:before {
+  content: "\e92c";
+  color: #ffcd18;
+}
 .icon-order:before {
   content: "\e92b";
 }

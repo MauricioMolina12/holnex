@@ -1,7 +1,7 @@
 @import "variables";
 @import "breakpoints";
 
-.alert-container {
+.alert {
   width: 100%;
   min-height: 5vh;
   background-color: var(--color-primary);
@@ -12,7 +12,7 @@
   padding: 10px;
   position: relative;
 
-  .alert-button__close {
+  &-button__close {
     background-color: transparent;
     border: none;
     outline: none;
@@ -31,7 +31,7 @@
     }
   }
 
-  .alert-description {
+  &-description {
     line-height: 22px;
     font-size: 0.7rem;
     color: var(--color-white);
@@ -63,7 +63,7 @@
   }
 
   @include respond-to("tablet") {
-    .alert-description {
+    &-description {
       font-size: 1rem;
     }
   }
@@ -73,12 +73,12 @@
     position: relative;
     width: 100%;
 
-    .alert-description {
+    &-description {
       font-size: 0.9rem;
       flex-direction: row;
     }
 
-    .alert-button__close {
+    &-button__close {
       position: absolute;
       top: 25%;
       right: 10px;
@@ -87,7 +87,7 @@
 
   @include respond-to("desktop") {
     min-height: 7vh;
-    .alert-description {
+    &-description {
       font-size: 0.9rem;
     }
   }

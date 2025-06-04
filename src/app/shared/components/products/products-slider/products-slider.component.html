@@ -1,29 +1,37 @@
-<div class="slider-products-wrapper" [ngStyle]="customStyles">
-    <h1 class="slider-products-title">{{title}}</h1>
-    <div class="slider-products" #slider (scroll)="checkScrollPosition()"> 
+<section class="slider-products">
+    <ng-container *ngIf="typeSlider === 'default' && title">
+        <h1 class="slider-products-title title-section">{{title}}</h1>
+    </ng-container>
 
+    <ng-container *ngIf="typeSlider === 'flash-sale'">
+        <header class="slider-products__flash-sale">
+            <span class="slider-products__flash-sale--title"><i class="icon-ray"></i> Ofertas relampago en
+                prendas</span>
+            <h2 class="slider-products__flash-sale--time">{{timeFlashSale | timeRemaining}}</h2>
+        </header>
+    </ng-container>
+
+    <div class="slider-products__wrapper" #slider (scroll)="checkScrollPosition()">
         <ng-container *ngIf="!loading; else skeleton">
             <div class="product" *ngFor="let product of products">
-
-                <app-product-card [product]="product" (productClick)="productsService.detailProduct(product)"></app-product-card>
-            
+                <app-product-card [product]="product"
+                    (productClick)="productsService.detailProduct(product)"></app-product-card>
             </div>
         </ng-container>
-        
+
         <ng-template #skeleton>
-            
             <div class="product" *ngFor="let _ of [].constructor(20)">
-            
                 <app-skeleton [typeskeleton]="'product-card'"></app-skeleton>
-            
             </div>
         </ng-template>
     </div>
 
-    <button class="slider-button-arrow-left arrow" (click)="loading ? null : scrollSlider('left')" [disabled]="isAtStart" [class.disabled]="isAtStart">
+    <button class="slider-products__button-arrow-left arrow" (click)="loading ? null : scrollSlider('left')"
+        [disabled]="isAtStart" [class.disabled]="isAtStart">
         <i class="icon-arrow-chevron-left"></i>
     </button>
-    <button class="slider-button-arrow-right arrow" (click)="loading ? null : scrollSlider('right')" [disabled]="isAtEnd" [class.disabled]="isAtEnd">
+    <button class="slider-products__button-arrow-right arrow" (click)="loading ? null : scrollSlider('right')"
+        [disabled]="isAtEnd" [class.disabled]="isAtEnd">
         <i class="icon-arrow-chevron-right"></i>
     </button>
-</div>
+</section>

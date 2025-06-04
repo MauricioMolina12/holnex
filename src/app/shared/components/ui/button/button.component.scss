@@ -5,6 +5,7 @@ button {
   .icon-right,
   .description {
     display: none;
+    white-space: nowrap;
 
     &.active {
       display: block;

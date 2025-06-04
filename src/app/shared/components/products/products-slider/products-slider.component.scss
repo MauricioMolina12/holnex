@@ -3,22 +3,15 @@
 @import "variables";
 
 /*Phones*/
-.slider-products-wrapper {
+.slider-products {
   width: 100%;
   height: auto;
   min-height: 30vh;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 10px;
   position: relative;
 
-  .slider-products-title {
-    font-size: 1rem;
-    color: var(--color-primary);
-    margin-bottom: 20px;
-    font-weight: 500;
-  }
-
-  .slider-products {
+  &__wrapper {
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
@@ -45,6 +38,39 @@
     }
   }
 
+  &__flash-sale {
+    width: 100%;
+    min-height: 60px;
+    background-color: var(--color-orange-tint);
+    border-radius: 10px;
+    margin-block: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    box-sizing: border-box;
+
+    &--title{
+      color: var(--color-white);
+
+      i::before{
+        color: white;
+      }
+    }
+
+    &--time{
+      background-color: var(--color-warning);
+      color: var(--color-white);
+      padding: 4px;
+      border-radius: var(--border-radius);
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
+    
+  }
+
   .arrow {
     background-color: var(--color-medium);
     outline: none;
@@ -58,37 +84,26 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-
-    img {
-      max-width: 60%;
-      height: 60%;
-    }
   }
 
-  .slider-button-arrow-left {
-    left: 10px;
-    img {
-      transform: rotateY(180deg);
-    }
+  &__button-arrow-left {
+    left: 0;
   }
 
-  .slider-button-arrow-right {
-    right: 3px;
+  &__button-arrow-right {
+    right: 0;
   }
 
   button {
     &.disabled {
-      background-color: var(--color-light);
+      opacity: .4;
+      background-color: var(--color-font-gray);
       cursor: not-allowed;
     }
   }
 
   @include respond-to("tablet") {
-    .slider-products-title {
-      font-size: 1.2rem;
-    }
-
-    .slider-products {
+    &__wrapper {
       .product {
         width: 50%;
         height: min-content;
@@ -99,11 +114,7 @@
   }
 
   @include respond-to("laptop") {
-    .slider-products-title {
-      font-size: 1.4rem;
-    }
-
-    .slider-products {
+    &__wrapper {
       &::-webkit-scrollbar {
         display: block;
       }
@@ -118,22 +129,13 @@
       width: 60px;
       height: 60px;
       top: calc(100% - 60%);
-
-      img {
-        max-width: 60%;
-        height: 60%;
-      }
     }
   }
 
   @include respond-to("desktop") {
     min-height: 10vh;
 
-    .slider-products-title {
-      font-size: 1.2rem;
-    }
-
-    .slider-products {
+    &__wrapper {
       gap: 0;
 
       &::-webkit-scrollbar {
@@ -152,3 +154,5 @@
     }
   }
 }
+
+

@@ -6,9 +6,19 @@
         <h2 class="products__title title-section">{{title}}</h2>
         <span class="products__subtitle">{{subtitle}}</span>
       </div>
-      <app-button *ngIf="labelButton" [text]="labelButton" [loading]="isloading" [disabled]="isloading"
-        aria-label="Ver todos los productos" [customClass]="['button', 'view-all']">
+      <app-button
+      *ngIf="labelButton"
+      [text]="labelButton"
+      aria-label="Ver todos los productos"
+      [customClass]="[
+        'button',
+        'button--transparent',
+        'button--secondary',
+        'button--medium',
+      ]">
       </app-button>
+
+
     </div>
   </header>
 
@@ -16,7 +26,7 @@
   <div class="products__grid">
     <!--Card product-->
     <ng-container *ngIf="!loading">
-      <div *ngFor="let product of products.slice(0,8)" class="products__grid-item">
+      <div *ngFor="let product of products.slice(1,9)" class="products__grid-item">
         <app-product-card [product]="product" (productClick)="productsService.detailProduct(product)">
         </app-product-card>
       </div>
@@ -30,7 +40,7 @@
   </div>
 
 
-  
+
   <div class="products__pagination">
     <!-- <app-button (clicked)="addMore()" [text]="'Ver más'" [loading]="loading || !isOnline()"
       [disabled]="loading || !isOnline()" [customClass]="['button','view-more']">

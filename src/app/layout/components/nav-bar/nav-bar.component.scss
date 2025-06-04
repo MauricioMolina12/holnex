@@ -157,7 +157,7 @@
     background-color: var(--color-primary-contrast);
     animation: sideBarAnimation 1s ease;
 
-    transform: translateX(100%);
+    // transform: translateX(100%);
     opacity: 0;
     visibility: hidden;
     transition: transform .5s ease, opacity .5s ease;
@@ -606,8 +606,8 @@
             order: 2;
           }
 
-          &:has(i[class*="home"]),
           &:has(i[class*="location"]),
+          &:has(i[class*="home"]),
           &:has(i[class*="search"]),
           &:has(i[class*="history"]) {
             display: none;
@@ -637,7 +637,7 @@
 
           &-tooltip{
             position: absolute;
-            top: -2px;
+            top: -6px;
             font-size: .6rem;
             white-space: nowrap;
             display: block;

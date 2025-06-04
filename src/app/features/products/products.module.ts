@@ -9,7 +9,7 @@ import { ZoomImageDirective } from '../../shared/directives/zoom-image.directive
 import { CardUserCommentComponent } from '../../shared/components/card-user-comment/card-user-comment.component';
 import { FiltersComponent } from '../../shared/components/filters/filters.component';
 import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.component';
-import { ButtonComponent } from '../../shared/components/button/button.component';
+import { ButtonComponent } from '../../shared/components/ui/button/button.component';
 import { ProductsSliderComponent } from '../../shared/components/products/products-slider/products-slider.component';
 
 @NgModule({

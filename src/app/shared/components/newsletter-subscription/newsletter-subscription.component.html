@@ -4,15 +4,27 @@
         <h2 class="newsletter-title">
             ¿Listo para recibir nuestras novedades?
         </h2>
-        <span class="newsletter-description">Ingresa tu correo y escucharemos sus necesidades, identificaremos el mejor enfoque y luego crearemos una solución adecuada para usted.</span>
+        <span class="newsletter-description">Ingresa tu correo y escucharemos sus necesidades, identificaremos el mejor
+            enfoque y luego crearemos una solución adecuada para usted.</span>
         <form class="newsletter-form">
             <i class="newsletter-icon__email icon-search"></i>
             <input class="newsletter-form__input" type="email" placeholder="Ingresa tu email">
-            <app-button [text]="'Enviar'" [type]="'submit'" [customClass]="['button', 'view-all','p-absolute','right-20','top-20']"></app-button>
+            <app-button [text]="'Enviar'" [type]="'submit'" [customClass]="[
+                'button', 
+                'button--transparent', 
+                'button--primary',
+                'button--medium',
+                'z-index-100',
+                'p-absolute',
+                'top-10',
+                'right-0']">
+            </app-button>
             <!-- <button type="submit" class="newsletter-button__submit">
                 <span>Enviar</span>
             </button> -->
         </form>
     </div>
-    <div class="newsletter-image"></div>
+    <div class="newsletter-image">
+        <img src="assets/img/woman-computer.png" alt="">
+    </div>
 </div>

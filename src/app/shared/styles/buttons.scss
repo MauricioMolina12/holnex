@@ -1,29 +1,201 @@
+@import "variables";
+@import "positions";
+
+$btn-padding-y: 0.5rem;
+$btn-padding-x: 1rem;
+$btn-gap: 0.5rem;
+$btn-border-radius: var(--border-radius);
+$btn-font-weight: 300;
+$btn-font-size: 0.875rem;
+$btn-transition: all 0.3s ease;
+
+$btn-colors: (
+  "primary": var(--color-primary),
+  "secondary": var(--color-font-gray),
+  "danger": var(--color-danger),
+  "success": var(--color-success),
+  "warning": var(--color-warning),
+  "info": var(--color-tertiary),
+  "light": var(--color-light),
+  "dark": var(--color-dark),
+  "transparent": transparent,
+);
+
+$btn-text-colors: (
+  "primary": var(--color-primary-to-white),
+  "secondary": var(--color-font-gray),
+  "danger": var(--color-danger),
+  "success": var(--color-success),
+  "warning": var(--color-warning),
+  "info": var(--color-tertiary),
+  "light": var(--color-light),
+  "dark": var(--color-dark),
+);
+
+$btn-sizes: (
+  "small": (
+    padding: 0.25rem 0.5rem,
+    font-size: 0.75rem,
+    border-radius: 4px,
+  ),
+  "medium": (
+    padding: 0.5rem 1rem,
+    font-size: 0.875rem,
+    border-radius: 6px,
+  ),
+  "large": (
+    padding: 0.75rem 1.5rem,
+    font-size: 1rem,
+    border-radius: 8px,
+  ),
+);
+
+@mixin btn-state($bg, $color, $border: null) {
+  background-color: $bg;
+  color: $color;
+  @if $border != null {
+    border: $border;
+  }
+}
+
+// base-button-class
 .button {
-  font-weight: 400;
-  padding: 10px;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: $btn-gap;
+  padding: $btn-padding-y $btn-padding-x;
+  border-radius: $btn-border-radius;
+  font-weight: $btn-font-weight;
+  font-size: $btn-font-size;
   border: none;
   outline: none;
-  z-index: 100;
+  cursor: pointer;
+  transition: $btn-transition;
   background-color: transparent;
-  font-size: .8rem;
-  
+  user-select: none;
+  z-index: 100;
+
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+  }
 }
 
-.view-more{
-  background-color: var(--color-primary);
-  color: var(--color-white);
+@each $name, $color in $btn-colors {
+  .button--#{"" + $name} {
+    background-color: $color;
+    color: map-get($btn-text-colors, $name);
+
+    &:hover:not(:disabled) {
+      filter: brightness(90%);
+    }
+
+    &:active:not(:disabled) {
+      filter: brightness(80%);
+    }
+  }
 }
 
-.view-all {
-  color: var(--color-primary-to-white);
+// Outline buttons
+@each $name, $color in $btn-colors {
+  .button--outline-#{"" + $name} {
+    background-color: transparent;
+    color: $color;
+    border: 2px solid $color;
 
-  &:hover{
-    color: var(--color-tertiary);
+    &:hover:not(:disabled) {
+      background-color: $color;
+      color: map-get($btn-text-colors, $name);
+    }
+
+    &:active:not(:disabled) {
+      filter: brightness(85%);
+    }
+  }
+}
+
+@each $name, $color in $btn-colors {
+  .button--ghost-#{"" + $name} {
+    background-color: transparent;
+    color: $color;
+    border: none;
+
+    &:hover:not(:disabled) {
+      background-color: rgba($color, 0.1);
+    }
+
+    &:active:not(:disabled) {
+      background-color: rgba($color, 0.2);
+    }
+  }
+}
+
+@each $size, $styles in $btn-sizes {
+  .button--#{$size} {
+    padding: map-get($styles, padding);
+    font-size: map-get($styles, font-size);
+    border-radius: map-get($styles, border-radius);
+  }
+}
+
+// Iconos
+.button--icon-only {
+  padding: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  justify-content: center;
+  gap: 0;
+}
+
+// Estados especiales
+.button--loading {
+  cursor: wait;
+  pointer-events: none;
+  opacity: 0.8;
+  position: relative;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spinner 0.7s linear infinite;
+    z-index: 1;
+  }
+}
+
+// Ejemplo para iconos dentro del botón, alinea verticalmente
+.button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  line-height: 0;
+}
+
+// Ejemplo para texto dentro del botón
+.button__text {
+  display: inline-block;
+}
+
+
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

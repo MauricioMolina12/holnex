@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { ProductsService } from '../../../../features/products/services/products.service';
 import { ThemeService } from '../../../services/theme.service';
 import { NetworkService } from '../../../services/network.service';
-import { ButtonComponent } from '../../button/button.component';
+import { ButtonComponent } from '../../ui/button/button.component';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { SkeletonComponent } from '../../skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';

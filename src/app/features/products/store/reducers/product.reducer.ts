@@ -11,7 +11,7 @@ const initialState: ProductState = {
 
 export const productReducer = createReducer(
   initialState,
-  
+
   // Cargar todos los productos
   on(ProductActions.loadProducts, (state) => ({ ...state, loading: true, error: null })),
   on(ProductActions.loadProductsSuccess, (state, { products }) => ({ ...state, products, loading: false })),
