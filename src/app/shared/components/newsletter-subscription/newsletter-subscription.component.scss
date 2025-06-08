@@ -99,6 +99,10 @@
     }
   }
 
+  .newsletter-image {
+    display: none;
+  }
+
   @include respond-to("small-screen") {
     height: 80vh;
     .newsletter-form__wrapper {
@@ -170,8 +174,9 @@
     .newsletter-image {
       width: 50%;
       height: 100%;
+      display: block;
 
-      img{
+      img {
         width: 100%;
         height: 100%;
         object-fit: cover;

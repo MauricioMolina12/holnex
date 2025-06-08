@@ -8,11 +8,12 @@ import {
   OnInit,
   PLATFORM_ID,
   Renderer2,
+  ViewChildren,
+  QueryList,
   signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Ad } from '../../models/ads';
-import { ButtonComponent } from '../ui/button/button.component';
 
 @Component({
   selector: 'app-hero-banner',
@@ -23,111 +24,101 @@ import { ButtonComponent } from '../ui/button/button.component';
   imports: [CommonModule, RouterModule],
 })
 export class HeroBannerComponent implements OnInit {
-  @Input() slider: Ad[] = []; // Contains the list of ads that will be displayed in the slider.
+  @Input() slider: Ad[] = [];
   @Input() staticAdContent: Ad | null = null;
   @Input() isStatic: boolean = false;
 
+  @ViewChildren('slideRef') slideElements!: QueryList<ElementRef>;
+
   visibleAds: Ad[] = [];
+  currentSlide = 0;
+  intervalId: any;
 
   currentTitle = signal<string>('');
   currentDescription = signal<string>('');
 
   constructor(
-    private elRef: ElementRef,
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  async ngOnInit() {
-    if (this.slider.length > 0 && !this.staticAdContent) {
-      this.handleSlideChange();
-      this.setClassToFirstElement();
-      this.handleSlideAutomatic();
-    } else if (
-      this.slider.length === 0 &&
-      this.isStatic &&
-      this.staticAdContent
+  ngOnInit() {
+    if (
+      isPlatformBrowser(this.platformId) &&
+      this.slider.length > 0 &&
+      !this.isStatic
     ) {
-      this.setBackgroundImage(
-        'hero-slider__option-static',
-        this.staticAdContent.imageUrl
-      );
+      this.defaultSlide();
+      this.startSlider();
     }
   }
 
-  setBackgroundImage = (containerClass: string, image: string) => {
-    const hero = this.elRef.nativeElement.querySelector(`.${containerClass}`);
-    if (hero) {
-      this.renderer.setStyle(hero, 'backgroundImage', `url('${image}')`);
-    }
-  };
+  startSlider() {
+    this.intervalId = setInterval(() => {
+      this.currentSlide = (this.currentSlide + 1) % this.slider.length;
+      const currentAd = this.slider[this.currentSlide];
+      this.visibleAds = [currentAd];
+      this.currentTitle.set(currentAd.title);
+      this.currentDescription.set(currentAd.description);
 
-  currentSlide: number = 0;
-  nextSlide() {
-    if (this.currentSlide < this.slider.length - 1) {
-      this.currentSlide++;
-    } else {
-      this.currentSlide = 0;
-    }
-    this.handleSlideChange();
+      setTimeout(() => {
+        const slide = this.slideElements.get(0)?.nativeElement;
+        if (slide) {
+          this.setBackgroundImage(slide, currentAd.imageUrl);
+        }
+      });
+    }, 5000);
+  }
+
+  defaultSlide() {
+    const firstAd = this.slider[0];
+    this.visibleAds = [firstAd];
+    this.currentTitle.set(firstAd.title);
+    this.currentDescription.set(firstAd.description);
+
+    setTimeout(() => {
+      const slide = this.slideElements.get(0)?.nativeElement;
+      if (slide) {
+        this.setBackgroundImage(slide, firstAd.imageUrl);
+      }
+    });
+  }
+
+  setBackgroundImage(element: HTMLElement, image: string) {
+    this.renderer.setStyle(element, 'backgroundImage', `url('${image}')`);
   }
 
   prevSlide() {
-    if (this.currentSlide > 0) {
-      this.currentSlide--;
-    } else if (this.currentSlide === 0) {
-      this.currentSlide = this.slider.length - 1;
-    }
-    this.handleSlideChange();
+    if (this.slider.length === 0) return;
+    this.currentSlide =
+      this.currentSlide === 0 ? this.slider.length - 1 : this.currentSlide - 1;
+    this.updateSlide();
   }
 
-  async setClassToFirstElement() {
-    const sliderOptions = this.elRef.nativeElement.querySelectorAll(
-      '.hero-slider__option'
-    );
-    const sliderOptionActive = (await sliderOptions[0]) as HTMLElement;
-    if (sliderOptionActive) {
-      this.renderer.addClass(sliderOptionActive, 'active');
-    }
+  nextSlide() {
+    if (this.slider.length === 0) return;
+    this.currentSlide =
+      this.currentSlide === this.slider.length - 1 ? 0 : this.currentSlide + 1;
+    this.updateSlide();
   }
 
-  handleSlideAutomatic() {
-    if (isPlatformBrowser(this.platformId)) {
-      let timeChangeSlider = 10000;
-      setInterval(() => {
-        this.currentSlide = (this.currentSlide + 1) % this.slider.length;
-        this.handleSlideChange();
-      }, timeChangeSlider);
-    }
-  }
+  private updateSlide() {
+    const currentAd = this.slider[this.currentSlide];
+    this.visibleAds = [currentAd];
+    this.currentTitle.set(currentAd.title);
+    this.currentDescription.set(currentAd.description);
 
-  updateSlide() {
-    this.handleSlideChange();
-  }
-
-  updateSlideWithId(id: number) {
-    this.currentSlide = id;
-    this.handleSlideChange();
-  }
-
-  handleSlideChange() {
-    const sliderOptions = this.elRef.nativeElement.querySelectorAll(
-      '.hero-slider__option'
-    );
-    sliderOptions.forEach((el: HTMLElement) => {
-      this.renderer.removeClass(el, 'active');
+    setTimeout(() => {
+      const slide = this.slideElements.get(0)?.nativeElement;
+      if (slide) {
+        this.setBackgroundImage(slide, currentAd.imageUrl);
+      }
     });
-    const sliderOptionActive = sliderOptions[this.currentSlide] as HTMLElement;
-    if (sliderOptionActive) {
-      this.renderer.addClass(sliderOptionActive, 'active');
-      this.setNextItem();
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
   }
-  setNextItem() {
-    const currentItem = this.slider[this.currentSlide];
-    this.setBackgroundImage('hero', currentItem.imageUrl);
-    this.currentTitle.set(currentItem.title);
-    this.currentDescription.set(currentItem.description);
-  }
-  
 }

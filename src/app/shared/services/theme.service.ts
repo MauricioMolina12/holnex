@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
@@ -9,14 +9,15 @@ import { BehaviorSubject } from 'rxjs';
 export class ThemeService {
   private darkModeSubject = new BehaviorSubject<boolean>(false);
   darkMode$ = this.darkModeSubject.asObservable();
+  darkModeSignal = signal<boolean>(false);
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      this.initTheme(); // Inicializamos el tema con la preferencia del sistema
-      this.listenToSystemPreferenceChanges(); // Escuchamos cambios en tiempo real
+      this.initTheme(); 
+      this.listenToSystemPreferenceChanges(); 
     }
   }
 
@@ -34,6 +35,7 @@ export class ThemeService {
 
   private applyTheme(isDark: boolean) {
     this.document.body.classList.toggle('dark', isDark);
+    this.darkModeSignal.set(isDark);
     this.darkModeSubject.next(isDark);
   }
 
@@ -53,6 +55,7 @@ export class ThemeService {
     if (isPlatformBrowser(this.platformId)) {
       const isDark = this.document.body.classList.contains('dark');
       this.darkModeSubject.next(isDark);
+      this.darkModeSignal.set(isDark);
     }
   }
 }

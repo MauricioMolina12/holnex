@@ -15,6 +15,7 @@ import { SkeletonComponent } from '../../skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { DOCUMENT, isPlatformBrowser, NgFor, NgIf } from '@angular/common';
 import { TimeRemainingPipe } from '../../../pipes/time-remaining.pipe';
+import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
   selector: 'app-slider-products',
@@ -24,6 +25,7 @@ import { TimeRemainingPipe } from '../../../pipes/time-remaining.pipe';
   imports: [
     SkeletonComponent,
     ProductCardComponent,
+    ButtonComponent,
     NgIf,
     NgFor,
     TimeRemainingPipe,

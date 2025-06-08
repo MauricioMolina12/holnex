@@ -3,10 +3,11 @@
   <!-- Logo-->
   <div class=" nav-bar__left">
     <i class="icon-holnex nav-bar__logo" [routerLink]="['']"></i>
-    <div class="nav-bar__address-user">
+    <div class="name-holnex">HOLNEX</div>
+    <!-- <div class="nav-bar__address-user">
       <h4 class="nav-bar__adress-text">{{ isLoggued() ? 'Dirección' : 'No tienes dirección?' }}</h4>
       <span class="nav-bar__adress-value">{{ isLoggued() ? user.address : 'Agregala aquí' }}</span>
-    </div>
+    </div> -->
   </div>
 
 
@@ -31,13 +32,16 @@
 
 
   <div class="nav-bar__sidebar">
+
     <button class="close-button" (click)="toggleElement($event, 'nav-bar__sidebar','')">X</button>
+
     <ul class="nav-bar__sidebar-list user-list">
-      <li class="nav-bar__sidebar-list-item" *ngFor="let item of userItems" (click)="item?.action($event)" (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
+      <li class="nav-bar__sidebar-list-item" *ngFor="let item of userItems" (click)="item?.action($event)"
+        (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
         <div class="nav-bar__sidebar-list-item-user" *ngIf="item.profile"
           [ngClass]="{'not-logged' : !isLoggued(), 'logged' : isLoggued()}">
           <div class="nav-bar__sidebar-list-item-user-content">
-            <figure class="user-avatar" (click)="isLoggued() && toggleElement($event, 'nav-bar__modal-profile')"> 
+            <figure class="user-avatar" (click)="isLoggued() && toggleElement($event, 'nav-bar__modal-profile')">
               <img [src]="item?.profile?.avatar" [alt]="item?.profile?.name || ''" />
             </figure>
             <div class="user-info">
@@ -65,6 +69,18 @@
       </li>
     </ul>
     <ul class="nav-bar__sidebar-list settings-list">
+      <div class="nav-bar__sidebar-list-item">
+        <i class="nav-bar__sidebar-list-item-icon theme" [ngClass]="isDark() ? 'icon-sun' : 'icon-moon'"></i>
+        <div class="nav-bar__sidebar-list-item-value">
+          <h5 class="item-title">{{isDark() ? 'Modo claro' : 'Modo oscuro' }}</h5>
+        </div>
+        <div class="toggle-container">
+          <label class="switch">
+            <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="isDark()" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
       <li class="nav-bar__sidebar-list-item" *ngFor="let item of configItems">
         <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
         <div class="nav-bar__sidebar-list-item-value">
@@ -91,18 +107,30 @@
       </div>
     </div>
 
-    <!-- <div class="nav-bar__modal-profile-item">
-      <i class="nav-bar__modal-profile-item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
+
+
+    <div class="nav-bar__modal-profile-item">
+      <i class="nav-bar__modal-profile-item-icon icon-location"></i>
       <div class="nav-bar__modal-profile-item-value">
-        <h5 class="nav-bar__modal-profile-item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
+        <h5 class="nav-bar__modal-profile-item-title">Dirección</h5>
+        <h5 class="nav-bar__modal-profile-item-subtitle">{{ user.address }}</h5>
+      </div>
+    </div>
+
+    <!-- Switch dark mode -->
+    <div class="nav-bar__modal-profile-item">
+      <i class="nav-bar__modal-profile-item-icon" [ngClass]="isDark() ? 'icon-sun' : 'icon-moon'"></i>
+      <div class="nav-bar__modal-profile-item-value">
+        <h5 class="nav-bar__modal-profile-item-title">{{isDark() ? 'Modo claro' : 'Modo oscuro' }}</h5>
       </div>
       <div class="toggle-container">
         <label class="switch">
-          <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="themeService.isDark" />
+          <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="isDark()" />
           <span class="slider"></span>
         </label>
       </div>
-    </div> -->
+    </div>
+
     <div class="nav-bar__modal-profile-item" *ngFor="let item of configItems" [routerLink]="[item.path]">
       <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>
       <div class="nav-bar__modal-profile-item-value">

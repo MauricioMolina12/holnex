@@ -353,8 +353,7 @@
               gap: 10px;
               height: auto;
               font-size: 0.8rem;
-              background-color: var(--color-primary-contrast);
-              padding: 10px;
+              padding-block: 10px;
               border-radius: var(--border-radius);
 
               .key {
@@ -380,9 +379,9 @@
 
           &-text {
             color: var(--color-gray);
-            font-size: 0.8rem;
+            font-size: 1rem;
             max-width: 80%;
-            line-height: 20px;
+            line-height: 24px;
             font-weight: 300;
 
             .button-view-more {

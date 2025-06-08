@@ -7,7 +7,7 @@ import {
   Input,
   OnInit,
   PLATFORM_ID,
-  signal,
+  Signal
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { User } from '../../../shared/models/user';
@@ -43,7 +43,7 @@ interface NavBarItem {
 })
 export class NavBarComponent implements OnInit {
   viewSideBar = false;
-  isMoodDark = false;
+  isDark!: Signal<boolean>;
   viewSearchInput = false;
 
   navbar_items: NavBarItem[] = [];
@@ -63,9 +63,8 @@ export class NavBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.themeService.darkMode$.subscribe((isDark) => {
-      this.isMoodDark = isDark;
-    });
+    
+    this.isDark = this.themeService.darkModeSignal;
 
     this.user = {
       id: '12345678900987654321',
@@ -168,20 +167,9 @@ export class NavBarComponent implements OnInit {
     this.userItems = this.navbar_items.filter((item) => item.group === 'user');
     this.configItems = this.navbar_items.filter((item) => item.group === 'config');
     this.profileItems = this.navbar_items.filter((item) => item.group === 'profile');
-
-    this.router.events
-      .pipe(
-        filter(
-          (event): event is NavigationEnd => event instanceof NavigationEnd
-        )
-      )
-      .subscribe((event) => {
-        this.url.set(event.url);
-      });
   }
 
   @Input() user!: User;
-  url = signal('');
 
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {

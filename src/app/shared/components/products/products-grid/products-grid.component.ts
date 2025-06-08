@@ -46,7 +46,7 @@ export class ProductsGridComponent implements OnInit {
   @Input() hasHeader: boolean = true; // => Determines if the component should have a header
   @Input() labelButton: string = '';
 
-  isDark: boolean = false;
+  isDark!: Signal<boolean>;
   isOnline!: Signal<boolean>;
   loadingAction: boolean = false;
 
@@ -58,9 +58,7 @@ export class ProductsGridComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.themeService.darkMode$.subscribe((isDark) => {
-      this.isDark = isDark;
-    });
+    this.isDark = this.themeService.darkModeSignal;
     this.isOnline = computed(() => this.networkService.isOnline());
   }
 
@@ -76,10 +74,10 @@ export class ProductsGridComponent implements OnInit {
     this.loadingAction = true;
 
     setTimeout(() => {
-      const moreProducts = [...this.products]; 
+      const moreProducts = [...this.products];
       this.products = this.products.concat(moreProducts);
       this.loadingAction = false;
-    }, 1000); 
+    }, 1000);
   }
 
   detailProduct(product: any) {

@@ -6,11 +6,11 @@
   min-height: 5vh;
   background-color: var(--color-primary);
   box-sizing: border-box;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
   position: relative;
+  display: none;
 
   &-button__close {
     background-color: transparent;
@@ -87,6 +87,8 @@
 
   @include respond-to("desktop") {
     min-height: 7vh;
+    display: flex;
+
     &-description {
       font-size: 0.9rem;
     }

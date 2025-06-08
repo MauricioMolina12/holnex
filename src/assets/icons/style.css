@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?ji7lgn');
-  src:  url('fonts/icomoon.eot?ji7lgn#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?ji7lgn') format('truetype'),
-    url('fonts/icomoon.woff?ji7lgn') format('woff'),
-    url('fonts/icomoon.svg?ji7lgn#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?xgv4qx');
+  src:  url('fonts/icomoon.eot?xgv4qx#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?xgv4qx') format('truetype'),
+    url('fonts/icomoon.woff?xgv4qx') format('woff'),
+    url('fonts/icomoon.svg?xgv4qx#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -59,22 +59,22 @@
 }
 .icon-help .path1:before {
   content: "\e902";
-  color: #000;
+  color: ;
 }
 .icon-help .path2:before {
   content: "\e903";
   margin-left: -1em;
-  color: #000;
+  color: ;
 }
 .icon-help .path3:before {
   content: "\e904";
   margin-left: -1em;
-  color: #000;
+  color: ;
 }
 .icon-help .path4:before {
   content: "\e905";
   margin-left: -1em;
-  color: #000;
+  color: ;
 }
 .icon-shop-cart:before {
   content: "\e906";
