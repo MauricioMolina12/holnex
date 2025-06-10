@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent implements OnInit {
-  @Input() text: string = 'Enviar';
+  @Input() text!: string;
   @Input() loading: boolean = false;
   @Input() disabled: boolean = false;
   @Input() icon?: string;

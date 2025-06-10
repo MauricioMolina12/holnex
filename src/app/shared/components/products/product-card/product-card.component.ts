@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Signal } from '@angular/core';
 import { ThemeService } from '../../../services/theme.service';
 import { Product } from '../../../../features/products/models/products.model';
 import { Subject, takeUntil } from 'rxjs';
@@ -18,23 +18,12 @@ export class ProductCardComponent implements OnInit {
   @Output() productClick = new EventEmitter<any>();
 
   imageLoaded = false;
-  isDark: boolean = false;
+  isDark!: Signal<boolean>;
 
-  // Optimizar
-  private destroy$ = new Subject<void>();
 
   constructor(private themeService: ThemeService) {}
   ngOnInit(): void {
-    this.themeService.darkMode$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((isDark) => {
-        this.isDark = isDark;
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.isDark = this.themeService.darkModeSignal;
   }
 
   onProductClick(product: any): void {

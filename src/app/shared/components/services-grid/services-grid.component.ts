@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgStyle } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
@@ -12,11 +12,9 @@ import { ThemeService } from '../../services/theme.service';
 export class ServicesGridComponent implements OnInit {
   constructor(private themeService: ThemeService) {}
 
-  isDark: boolean = false;
+  isDark!: Signal<boolean>;
   ngOnInit(): void {
-    this.themeService.darkMode$.subscribe((isDark) => {
-      this.isDark = isDark;
-    });
+    this.isDark = this.themeService.darkModeSignal;
   }
 
   servicesHorizon = [

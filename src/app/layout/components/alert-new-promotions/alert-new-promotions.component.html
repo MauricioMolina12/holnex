@@ -1,4 +1,4 @@
-<div class="alert" [ngClass]="{'dark': isMoodDark}">
+<div class="alert" [ngClass]="{'dark': isDark()}">
     <span class="alert-description">✨En Holnex tenemos el 40% en todos los productos por el black friday. <a href="#" class="alert-description__link">Ver productos <i class="icon-arrow-right"></i></a> </span>
     <button (click)="closeComponent()" class="alert-button__close"><span>x</span></button>
 </div>

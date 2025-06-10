@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Ad } from '../../models/ads';
+import { ButtonComponent } from '../ui/button/button.component';
 
 @Component({
   selector: 'app-hero-banner',
@@ -68,6 +69,12 @@ export class HeroBannerComponent implements OnInit {
         }
       });
     }, 5000);
+  }
+
+  toggleSlide: boolean = true;
+  toggleSlider() {
+    this.toggleSlide = !this.toggleSlide;
+    !this.toggleSlide ? clearInterval(this.intervalId) : this.startSlider();
   }
 
   defaultSlide() {

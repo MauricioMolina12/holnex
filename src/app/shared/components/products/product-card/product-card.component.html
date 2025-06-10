@@ -1,4 +1,4 @@
-<article class="product" [ngClass]="{ horizontal: horizontal, 'dark' : isDark }" (click)="onProductClick($event)">
+<article class="product" [ngClass]="{ horizontal: horizontal, 'dark' : isDark() }" (click)="onProductClick($event)">
   <header class="product__header">
     <div class="product__image">
       <img [src]="product.images[0]" [attr.loading]="'lazy'" [alt]="'Imagen de: ' + product.title" />

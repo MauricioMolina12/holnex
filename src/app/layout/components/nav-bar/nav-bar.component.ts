@@ -42,6 +42,7 @@ interface NavBarItem {
   // imports: [CommonModule, RouterModule, SearchInputComponent],
 })
 export class NavBarComponent implements OnInit {
+  
   viewSideBar = false;
   isDark!: Signal<boolean>;
   viewSearchInput = false;
@@ -51,6 +52,7 @@ export class NavBarComponent implements OnInit {
   userItems: NavBarItem[] = [];
   configItems: NavBarItem[] = [];
   profileItems: NavBarItem[] = [];
+  
 
   constructor(
     private router: Router,

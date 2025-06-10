@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../../../shared/services/theme.service';
 
@@ -11,15 +11,13 @@ import { ThemeService } from '../../../shared/services/theme.service';
   imports: [RouterModule, CommonModule],
 })
 export class AlertNewPromotionsComponent implements OnInit {
-  isMoodDark: boolean = false;
+  isDark!: Signal<boolean>;
   @Output() closeThisComponent = new EventEmitter<boolean>(false);
 
   constructor(private themeService: ThemeService) {}
 
   ngOnInit(): void {
-    this.themeService.darkMode$.subscribe((isDark) => {
-      this.isMoodDark = isDark;
-    });
+    this.isDark = this.themeService.darkModeSignal;
   }
 
   closeComponent() {

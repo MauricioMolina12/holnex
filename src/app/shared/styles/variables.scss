@@ -264,7 +264,7 @@
 // Custom properties for dark mode
 .dark {
   --font-family: "Montserrat", sans-serif;
-  --background-color: linear-gradient(var(--color-primary), #010101);
+  --background-color: var(--color-primary);
 
   --color-primary-to-white: #ffffff;
 

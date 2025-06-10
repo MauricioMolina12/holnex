@@ -12,6 +12,7 @@ import { ProductsModule } from '../products/products.module';
 import { CategoriesModule } from '../categories/categories.module';
 import { ProductsGridComponent } from '../../shared/components/products/products-grid/products-grid.component';
 import { ProductsSliderComponent } from "../../shared/components/products/products-slider/products-slider.component";
+import { HighlightShowcaseComponentComponent } from '../../shared/components/highlight-showcase-component/highlight-showcase-component.component';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -26,7 +27,8 @@ import { ProductsSliderComponent } from "../../shared/components/products/produc
     ProductsModule,
     CategoriesModule,
     ProductsGridComponent,
-    ProductsSliderComponent
+    ProductsSliderComponent,
+    HighlightShowcaseComponentComponent
 ],
 })
 export class HomeModule {}

@@ -7,8 +7,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ThemeService {
-  private darkModeSubject = new BehaviorSubject<boolean>(false);
-  darkMode$ = this.darkModeSubject.asObservable();
   darkModeSignal = signal<boolean>(false);
 
   constructor(
@@ -36,7 +34,6 @@ export class ThemeService {
   private applyTheme(isDark: boolean) {
     this.document.body.classList.toggle('dark', isDark);
     this.darkModeSignal.set(isDark);
-    this.darkModeSubject.next(isDark);
   }
 
   toggleTheme() {
@@ -54,7 +51,6 @@ export class ThemeService {
   checkDarkMode() {
     if (isPlatformBrowser(this.platformId)) {
       const isDark = this.document.body.classList.contains('dark');
-      this.darkModeSubject.next(isDark);
       this.darkModeSignal.set(isDark);
     }
   }
