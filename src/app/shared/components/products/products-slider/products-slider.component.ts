@@ -13,9 +13,10 @@ import {
 import { ProductsService } from '../../../../features/products/services/products.service';
 import { SkeletonComponent } from '../../skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { DOCUMENT, isPlatformBrowser, NgFor, NgIf } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { TimeRemainingPipe } from '../../../pipes/time-remaining.pipe';
 import { ButtonComponent } from '../../ui/button/button.component';
+import { sliderType } from './products-slider-type.enum';
 
 @Component({
   selector: 'app-slider-products',
@@ -26,9 +27,11 @@ import { ButtonComponent } from '../../ui/button/button.component';
     SkeletonComponent,
     ProductCardComponent,
     ButtonComponent,
+    TimeRemainingPipe,
     NgIf,
     NgFor,
-    TimeRemainingPipe,
+    NgSwitch,
+    NgSwitchCase
   ],
 })
 export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
@@ -42,8 +45,11 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   @Input() products: any[] = [];
 
   // Slider variables
-  @Input() typeSlider: 'default' | 'flash-sale' = 'default';
   @ViewChild('slider') slider!: ElementRef<HTMLElement>;
+  @Input() typeSlider: sliderType = sliderType.default;
+  sliderType = sliderType;
+
+  
   currentIndex: number = 0;
   isAtStart: boolean = true;
   isAtEnd: boolean = false;
@@ -72,10 +78,7 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (
-      this.isBrowser &&
-      changes['typeSlider']?.currentValue === 'flash-sale'
-    ) {
+    if (this.isBrowser && changes['typeSlider']?.currentValue === 'flash-sale') {
       this.startCountdown();
     }
   }
@@ -100,7 +103,7 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   getCardsPerView(): number {
     const width = window.innerWidth;
     if (width < 768) {
-      return 1; // móvil
+      return 2; // móvil
     } else if (width < 1024) {
       return 2; // tablet
     } else {

@@ -1,23 +1,24 @@
 <section class="slider-products">
-    <ng-container *ngIf="typeSlider === 'default' && title">
-        <header class="slider-products__header">
-            <h1 class="slider-products-title title-section">{{title}}</h1>
-            <app-button [text]="'Ver todos'" [type]="'submit'" aria-label="Ver todos los productos" 
-            [customClass]="[
+    <ng-container [ngSwitch]="typeSlider">
+
+        <ng-container *ngSwitchCase="sliderType.default">
+            <header class="slider-products__header">
+                <h1 class="slider-products-title title-section">{{title}}</h1>
+                <app-button [text]="'Ver todos'" [type]="'submit'" aria-label="Ver todos los productos" [customClass]="[
                 'button',
                 'button--transparent',
                 'button--secondary',
                 'button--medium',
                 ]">
-            >
-            </app-button>
+                    >
+                </app-button>
 
-        </header>
-    </ng-container>
+            </header>
+        </ng-container>
 
-    <ng-container *ngIf="typeSlider === 'flash-sale'">
-        <header class="slider-products__flash-sale">
-            <app-button [text]="'Ver todos'" [type]="'submit'" [customClass]="[
+        <ng-container *ngSwitchCase="sliderType.flashSale">
+            <header class="slider-products__flash-sale">
+                <app-button [text]="'Ver todos'" [type]="'submit'" [customClass]="[
                 'button', 
                 'button--transparent', 
                 'button--primary',
@@ -26,11 +27,12 @@
                 'p-absolute',
                 'top-10',
                 'right-0']">
-            </app-button>
-            <span class="slider-products__flash-sale--title"><i class="icon-ray"></i> Ofertas relampago en
-                prendas</span>
-            <h2 class="slider-products__flash-sale--time">{{timeFlashSale | timeRemaining}}</h2>
-        </header>
+                </app-button>
+                <span class="slider-products__flash-sale--title"><i class="icon-ray"></i> Ofertas relampago en
+                    prendas</span>
+                <h2 class="slider-products__flash-sale--time">{{timeFlashSale | timeRemaining}}</h2>
+            </header>
+        </ng-container>
     </ng-container>
 
     <div class="slider-products__wrapper" #slider (scroll)="checkScrollPosition()">

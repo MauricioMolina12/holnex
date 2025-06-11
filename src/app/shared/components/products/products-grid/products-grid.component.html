@@ -26,7 +26,7 @@
   <div class="products__grid">
     <!--Card product-->
     <ng-container *ngIf="!loading">
-      <div *ngFor="let product of products.slice(1,9)" class="products__grid-item">
+      <div *ngFor="let product of products.slice(0,8)" class="products__grid-item">
         <app-product-card [product]="product" (productClick)="productsService.detailProduct(product)">
         </app-product-card>
       </div>

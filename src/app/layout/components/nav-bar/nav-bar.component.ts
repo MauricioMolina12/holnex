@@ -74,8 +74,7 @@ export class NavBarComponent implements OnInit {
       country_id: '48',
       created_at: '2025-01-15',
       email: 'ruizsheila0384@gmail.com',
-      image:
-        'https://media.istockphoto.com/id/1368424494/es/foto/retrato-de-estudio-de-una-mujer-alegre.jpg?s=612x612&w=0&k=20&c=V6sLE6kK9t4_QJtnTJ5kp8c8poiWuqdgWdJh59zV14A=',
+      image: 'https://b2472105.smushcdn.com/2472105/wp-content/uploads/2023/01/Fotografo-Monterrey-_49-1-819x1024.jpg?lossy=1&strip=1&webp=1',
       language_id: '1',
       name: 'Sheila Ruiz',
       password: '***********',
@@ -289,7 +288,6 @@ export class NavBarComponent implements OnInit {
   nameItemHover: string = '';
   seeTooltipItem(name: string) {
     this.nameItemHover = name;
-    console.log(this.nameItemHover);
     
   }
   seeTooltipItemLeave() {

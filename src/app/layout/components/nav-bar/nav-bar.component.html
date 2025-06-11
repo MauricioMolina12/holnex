@@ -38,6 +38,7 @@
     <ul class="nav-bar__sidebar-list user-list">
       <li class="nav-bar__sidebar-list-item" *ngFor="let item of userItems" (click)="item?.action($event)"
         (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
+
         <div class="nav-bar__sidebar-list-item-user" *ngIf="item.profile"
           [ngClass]="{'not-logged' : !isLoggued(), 'logged' : isLoggued()}">
           <div class="nav-bar__sidebar-list-item-user-content">
@@ -55,6 +56,7 @@
           </div>
         </div>
 
+
         <!-- Only items -->
         <ng-container *ngIf="!item.profile">
           <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
@@ -68,6 +70,13 @@
         </ng-container>
       </li>
     </ul>
+
+    <div class="toggle-container desktop-toogle-theme">
+      <label class="switch">
+        <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="isDark()" />
+        <span class="slider"></span>
+      </label>
+    </div>
     <ul class="nav-bar__sidebar-list settings-list">
       <div class="nav-bar__sidebar-list-item">
         <i class="nav-bar__sidebar-list-item-icon theme" [ngClass]="isDark() ? 'icon-sun' : 'icon-moon'"></i>
@@ -89,6 +98,7 @@
         </div>
       </li>
     </ul>
+
   </div>
 
 
@@ -118,7 +128,7 @@
     </div>
 
     <!-- Switch dark mode -->
-    <div class="nav-bar__modal-profile-item">
+    <!-- <div class="nav-bar__modal-profile-item">
       <i class="nav-bar__modal-profile-item-icon" [ngClass]="isDark() ? 'icon-sun' : 'icon-moon'"></i>
       <div class="nav-bar__modal-profile-item-value">
         <h5 class="nav-bar__modal-profile-item-title">{{isDark() ? 'Modo claro' : 'Modo oscuro' }}</h5>
@@ -129,7 +139,7 @@
           <span class="slider"></span>
         </label>
       </div>
-    </div>
+    </div> -->
 
     <div class="nav-bar__modal-profile-item" *ngFor="let item of configItems" [routerLink]="[item.path]">
       <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>

@@ -109,7 +109,15 @@
       .newsletter-form {
         width: 100%;
         justify-content: center;
-        height: 100px;
+
+        .newsletter-icon__email {
+          top: 42%;
+        }
+
+        app-button{
+          top: 42%;
+        }
+
         .newsletter-form__input {
           width: 80%;
         }
