@@ -4,7 +4,7 @@
 // Phones
 .newsletter {
   width: 100%;
-  height: 60vh;
+  // height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,7 @@
   background-color: var(--color-primary);
   margin-block: 30px;
 
-  .newsletter-form__wrapper {
+  &-form__wrapper {
     width: 100%;
     height: 100%;
     display: flex;
@@ -51,6 +51,7 @@
 
     .newsletter-form {
       width: 90%;
+      min-height: 60px;
       height: 60px;
       display: flex;
       align-items: center;
@@ -62,7 +63,7 @@
       border: 1px solid var(--color-medium);
       background-color: var(--color-medium);
 
-      .newsletter-icon__email {
+      &-icon__email {
         height: 25px;
         width: 25px;
         z-index: 1000;
@@ -72,7 +73,7 @@
         color: var(--color-gray);
       }
 
-      .newsletter-form__input {
+      &__input {
         position: absolute;
         left: 0;
         width: 90%;
@@ -82,19 +83,6 @@
         outline: none;
         border-radius: inherit;
         padding-left: 45px;
-      }
-
-      .newsletter-button__submit {
-        position: absolute;
-        right: 5px;
-        z-index: 1000;
-        padding: 10px;
-        border-radius: 10px;
-        color: var(--color-white);
-        outline: none;
-        border: none;
-        background-color: var(--color-primary);
-        cursor: pointer;
       }
     }
   }
@@ -110,19 +98,12 @@
         width: 100%;
         justify-content: center;
 
-        .newsletter-icon__email {
+        &-icon__email {
           top: 42%;
         }
 
-        app-button{
-          top: 42%;
-        }
-
-        .newsletter-form__input {
+        &__input {
           width: 80%;
-        }
-        .newsletter-button__submit {
-          right: 10px;
         }
       }
     }
@@ -160,13 +141,8 @@
           height: 70%;
         }
       }
-
       .newsletter-form {
         width: 70%;
-
-        .newsletter-button__submit {
-          right: 20px;
-        }
       }
 
       .newsletter-title {
@@ -191,5 +167,9 @@
         object-position: center;
       }
     }
+  }
+
+  @include respond-to("desktop") {
+    height: 60vh;
   }
 }

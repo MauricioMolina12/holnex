@@ -1,7 +1,12 @@
 <div class="categories">
   <header class="categories__header">
     <h4 class="categories__title title-section">Categoría de productos</h4>
-    <app-button [text]="'Ver todas las categorías'" [customClass]="['button', 'view-all']"></app-button>
+    <app-button [text]="'Ver todas las categorías'" aria-label="Ver todas las categorías" [customClass]="[
+        'button',
+        'button--transparent',
+        'button--secondary',
+        'button--medium',
+      ]"></app-button>
     <!-- <a class="categories__link" [routerLink]="['/categorias']">Ver todas las categorías</a> -->
   </header>
 

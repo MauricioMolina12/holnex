@@ -16,7 +16,8 @@
     }
     &--recent,
     &--offers,
-    &--news-products  {
+    &--news-products,
+    &--categories  {
       @include respond-to("desktop") {
         width: 80%;
         margin: 0 auto;

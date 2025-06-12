@@ -15,6 +15,7 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { SkeletonComponent } from '../../skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../../../features/products/models/products.model';
+import { StatusUiMessageComponent } from "../../status-ui-message/status-ui-message.component";
 
 @Component({
   selector: 'app-products-grid',
@@ -29,12 +30,15 @@ import { Product } from '../../../../features/products/models/products.model';
     NgClass,
     NgStyle,
     NgFor,
-  ],
+    StatusUiMessageComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsGridComponent implements OnInit {
   @Input() products: Product[] = []; // => Array products
   @Input() loading: boolean = true;
+  @Input() error: any = '';
+
   @Input() width: string = '100vw'; // => Width main wrapper for mobile size
   @Input() isfullWidth!: boolean; // True => Container envelope will have a width of 100vw otherwise the one you pass through the "width" prop
   @Input() height: string = ''; // => Height main wrapper

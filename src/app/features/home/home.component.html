@@ -9,8 +9,12 @@
 
     <!-- Productos recientes -->
     <section class="home__section home__section--recent">
-      <app-products-grid [title]="'Inspirado en lo último que viste'" [products]="productsSignal()"
-        [loading]="loadingSignal()" [labelButton]="'Descubre más'">
+      <app-products-grid 
+        [title]="'Inspirado en lo último que viste'" 
+        [products]="productsSignal()"
+        [loading]="loadingSignal()" 
+        [error]="errorSignal()"
+        [labelButton]="'Descubre más'">
       </app-products-grid>
     </section>
 
@@ -21,15 +25,18 @@
 
     <!-- Ofertas -->
     <section class="home__section home__section--offers">
-      <app-slider-products [title]="'Ofertas'" [typeSlider]="sliderType.default" [products]="productsSignal()" [loading]="loadingSignal()">
+      <app-slider-products [title]="'Ofertas'" [typeSlider]="sliderType.flashSale" [products]="productsSignal()" [loading]="loadingSignal()">
       </app-slider-products>
     </section>
 
     <section class="home__section home__section--news-products">
-      <app-highlight-showcase-component [typeShowcase]="ShowcaseTypeEnum.NewProducts" [data]="productsSignal()" [loading]="loadingSignal()"></app-highlight-showcase-component>
+      <app-highlight-showcase-component [orientation]="'left'" [typeShowcase]="ShowcaseTypeEnum.NewProducts" [data]="productsSignal()" [loading]="loadingSignal()" [labelButton]="'ver todos'"></app-highlight-showcase-component>
     </section>
 
 
+    <section class="home__Section home__section--categories">
+      <app-categories-list></app-categories-list>
+    </section>
 
     <!-- Servicios -->
     <!-- <section class="home__section home__section--services">

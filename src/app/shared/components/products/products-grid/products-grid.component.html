@@ -6,42 +6,44 @@
         <h2 class="products__title title-section">{{title}}</h2>
         <span class="products__subtitle">{{subtitle}}</span>
       </div>
-      <app-button
-      *ngIf="labelButton"
-      [text]="labelButton"
-      aria-label="Ver todos los productos"
-      [customClass]="[
+      <app-button *ngIf="labelButton" [text]="labelButton" aria-label="Ver todos los productos" [customClass]="[
         'button',
         'button--transparent',
         'button--secondary',
         'button--medium',
       ]">
       </app-button>
-
-
     </div>
   </header>
 
 
-  <div class="products__grid">
+  <article class="products__grid">
     <!--Card product-->
-    <ng-container *ngIf="!loading">
+    <ng-container *ngIf="!loading && !isEmptyList">
       <div *ngFor="let product of products.slice(0,8)" class="products__grid-item">
         <app-product-card [product]="product" (productClick)="productsService.detailProduct(product)">
         </app-product-card>
       </div>
     </ng-container>
-    <ng-container *ngIf="loading || isEmptyList">
+    <ng-container *ngIf="loading && !isEmptyList">
       <div *ngFor="let _ of [].constructor(8)" class="products__grid-item">
         <app-skeleton [typeskeleton]="'product-card'">
         </app-skeleton>
       </div>
     </ng-container>
-  </div>
+  </article>
 
 
+  <article class="products__emptyList" *ngIf="isEmptyList">
+    <app-status-ui-message [status]="{type: 'empty', title: 'Productos no disponibles'}"></app-status-ui-message>
+  </article>
 
-  <div class="products__pagination">
+  <article class="products__emptyList" *ngIf="error">
+    <app-status-ui-message [status]="{type: 'empty', title: error}"></app-status-ui-message>
+  </article>
+
+
+  <article class="products__pagination" *ngIf="!loading && !isEmptyList">
     <!-- <app-button (clicked)="addMore()" [text]="'Ver más'" [loading]="loading || !isOnline()"
       [disabled]="loading || !isOnline()" [customClass]="['button','view-more']">
     </app-button> -->
@@ -65,7 +67,7 @@
         <i class="icon-arrow-chevron-right"></i>
       </button>
     </div>
-  </div>
+  </article>
 
 
 </section>

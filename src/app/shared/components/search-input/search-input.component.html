@@ -1,5 +1,4 @@
 <div class="input-wrapper">
-    <!-- <input class="input-search" type="text" placeholder="¿Que deseas comprar hoy?" (focus)="recentSearches.style.display = 'flex'" (input)="recentSearches.style.display = 'none'"> -->
     <input class="input-search" enterkeyhint="search" type="text" [(ngModel)]="searchTerm" (keyup.enter)="onSearch()"
         placeholder="¿Que deseas comprar hoy?">
     <i class="input-icon icon-search"></i>

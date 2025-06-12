@@ -36,18 +36,18 @@
     </ng-container>
 
     <div class="slider-products__wrapper" #slider (scroll)="checkScrollPosition()">
-        <ng-container *ngIf="!loading; else skeleton">
+        <ng-container *ngIf="!loading;">
             <div class="product" *ngFor="let product of products">
                 <app-product-card [product]="product"
                     (productClick)="productsService.detailProduct(product)"></app-product-card>
             </div>
         </ng-container>
 
-        <ng-template #skeleton>
+        <ng-container *ngIf="loading || isEmptyList">
             <div class="product" *ngFor="let _ of [].constructor(20)">
                 <app-skeleton [typeskeleton]="'product-card'"></app-skeleton>
             </div>
-        </ng-template>
+        </ng-container>
     </div>
 
     <button class="slider-products__button-arrow-left arrow" (click)="loading ? null : scrollSlider('left')"

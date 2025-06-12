@@ -4,4 +4,9 @@
             <h1 class="network__title">{{ status.title }}</h1>
         </section>
     </ng-container>
+    <ng-container *ngSwitchCase="'empty'">
+        <section class="empty">
+            <h2>{{ status.title }}</h2>
+        </section>
+    </ng-container>
 </ng-container>

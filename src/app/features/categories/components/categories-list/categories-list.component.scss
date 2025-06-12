@@ -158,7 +158,6 @@ $min-width-items: 150px;
   }
 
   @include respond-to("laptop") {
-    width: 70%;
     margin: 0 auto;
 
     &__list {

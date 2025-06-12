@@ -1,6 +1,16 @@
 <section class="container">
-    <h1 class="container__title title-section">{{ showcaseContent[typeShowcase].title }}</h1>
-    <div class="container__inner">
+    <header class="container__header">
+        <h1 class="container__title title-section">{{ showcaseContent[typeShowcase].title }}</h1>
+        <app-button [text]="labelButton" aria-label="Ver todos los productos" [customClass]="[
+        'button',
+        'button--transparent',
+        'button--secondary',
+        'button--medium',
+        ]">
+        </app-button>
+
+    </header>
+    <div class="container__inner" [ngClass]="{'right': orientation === 'right'}">
         <article class="container__inner__main">
             <h2 class="container__inner__main--title">Nuevas prendas</h2>
             <p class="container__inner__main--subtitle">Explora los ultimas modas</p>
@@ -9,7 +19,8 @@
             <ng-container [ngSwitch]="typeShowcase">
                 <ng-container *ngSwitchCase="ShowcaseTypeEnum.NewProducts">
                     <div class="container__inner__grid-item" *ngFor="let product of data.slice(0,8)">
-                        <app-product-card (productClick)="productsService.detailProduct(product)" [product]="product"></app-product-card>
+                        <app-product-card (productClick)="productsService.detailProduct(product)"
+                            [product]="product"></app-product-card>
                     </div>
                 </ng-container>
             </ng-container>

@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   ElementRef,
   Inject,
   Input,
@@ -7,16 +8,26 @@ import {
   OnDestroy,
   OnInit,
   PLATFORM_ID,
+  Signal,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ProductsService } from '../../../../features/products/services/products.service';
 import { SkeletonComponent } from '../../skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { DOCUMENT, isPlatformBrowser, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import {
+  DOCUMENT,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
 import { TimeRemainingPipe } from '../../../pipes/time-remaining.pipe';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { sliderType } from './products-slider-type.enum';
+import { NetworkService } from '../../../services/network.service';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-slider-products',
@@ -31,7 +42,7 @@ import { sliderType } from './products-slider-type.enum';
     NgIf,
     NgFor,
     NgSwitch,
-    NgSwitchCase
+    NgSwitchCase,
   ],
 })
 export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
@@ -47,6 +58,8 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   // Slider variables
   @ViewChild('slider') slider!: ElementRef<HTMLElement>;
   @Input() typeSlider: sliderType = sliderType.default;
+  
+  
   sliderType = sliderType;
 
   
@@ -56,11 +69,18 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
 
   //Time example flash sale
   timeFlashSale = 30000;
+  
+  
   private intervalId: any;
   isBrowser: boolean;
 
+  isOnline!: Signal<boolean>;
+  isDark!: Signal<boolean>;
+
   constructor(
     public productsService: ProductsService,
+    private networkService: NetworkService,
+    private themeService: ThemeService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
@@ -71,6 +91,8 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
     if (this.isBrowser && this.typeSlider === 'flash-sale') {
       this.startCountdown();
     }
+    this.isDark = this.themeService.darkModeSignal;
+    this.isOnline = computed(() => this.networkService.isOnline());
   }
 
   ngOnDestroy(): void {
@@ -78,9 +100,20 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.isBrowser && changes['typeSlider']?.currentValue === 'flash-sale') {
+    if (
+      this.isBrowser &&
+      changes['typeSlider']?.currentValue === 'flash-sale'
+    ) {
       this.startCountdown();
     }
+  }
+
+  get isloading(): boolean {
+    return this.loading || !this.isOnline() || this.isEmptyList;
+  }
+
+  get isEmptyList() {
+    return this.products.length === 0;
   }
 
   scrollSlider(direction: 'left' | 'right'): void {

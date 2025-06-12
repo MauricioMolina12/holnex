@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?8y71e4');
-  src:  url('fonts/icomoon.eot?8y71e4#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?8y71e4') format('truetype'),
-    url('fonts/icomoon.woff?8y71e4') format('woff'),
-    url('fonts/icomoon.svg?8y71e4#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?v6y0w7');
+  src:  url('fonts/icomoon.eot?v6y0w7#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?v6y0w7') format('truetype'),
+    url('fonts/icomoon.woff?v6y0w7') format('woff'),
+    url('fonts/icomoon.svg?v6y0w7#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-truck:before {
+  content: "\e905";
+}
 .icon-paused:before {
   content: "\e92f";
 }
@@ -74,11 +77,6 @@
 }
 .icon-help .path3:before {
   content: "\e904";
-  margin-left: -1em;
-  color: ;
-}
-.icon-help .path4:before {
-  content: "\e905";
   margin-left: -1em;
   color: ;
 }
