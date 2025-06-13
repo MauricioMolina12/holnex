@@ -1,0 +1,12 @@
+<!-- dropdown.component.html -->
+<div class="dropdown">
+    <div class="dropdown__inner">
+        <button class="dropdown-toggle" (click)="toggle()">
+            <ng-content select="[dropdown-trigger]"></ng-content>
+        </button>
+
+        <div class="dropdown-menu" *ngIf="isOpen">
+            <ng-content select="[dropdown-content]"></ng-content>
+        </div>
+    </div>
+</div>

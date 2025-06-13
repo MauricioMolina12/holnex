@@ -1,4 +1,4 @@
-<div class="card-product-wrapper">
+<section class="card-product-wrapper">
     <div class="product">
         <header class="product__header">
             <figure class="product__image">
@@ -10,7 +10,10 @@
                 <h3 class="product-name">{{product?.title | uppercase}}</h3>
                 <!-- <h4 class="product-price">{{product?.price}}0000</h4> -->
                 <div class="product-shipment">
-                    <span class="product-shipmentFree">Envío gratis</span>
+                    <span class="product-shipmentFree">
+                        <i class="icon-truck"></i>    
+                        Envío gratis
+                    </span>
                     <span class="product-discount">Descuento 5%</span>
                 </div>
 
@@ -27,11 +30,11 @@
                 </div>
             </div>
         </header>
-        <div class="product__actions">
+        <footer class="product__actions">
             <button *ngFor="let button of buttons_options_product" [ngClass]="button.cssClass">
                 <span *ngIf="button.title">{{button.title}}</span>
                 <i *ngIf="button.icon" [ngClass]="button.icon" alt="icon"></i>
             </button>
-        </div>
+        </footer>
     </div>
-</div>
+</section>

@@ -1,0 +1,21 @@
+<div class="steps">
+  <div #stepsLine class="steps-line">
+    <div class="progress-bar-background"></div>
+    <div
+      class="progress-bar-fill"
+      [style.width.%]="(step - 1) / (steps - 1) * 100"
+    ></div>
+
+    <div
+      class="step"
+      (click)="updateStep(i)"
+      *ngFor="let s of stepArray; let i = index"
+      [ngClass]="{
+        'completed': isCompleted(i),
+        'current': isCurrent(i)
+      }"
+    >
+      <span class="step-number">{{ s }}</span>
+    </div>
+  </div>
+</div>

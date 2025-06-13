@@ -30,10 +30,17 @@ export class ShopcartComponent implements OnInit {
   summaryShopping!: SummaryShopping;
   totalPrice: any;
 
+  steps: number = 3;
+  step: number = 1;
+
   constructor(public productsService: ProductsService, private store: Store) {}
 
   async ngOnInit() {
     this.store.dispatch(loadProducts());
+  }
+
+  changeStep(newStep: number) {
+    this.step = newStep;    
   }
 
   // Prepare the information for the component that displays the cart summary

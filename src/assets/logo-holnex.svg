@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 467.285 485.681">
+  <defs>
+    <style>
+      .cls-1 { fill: #2892a4; }
+      .cls-2 { fill: #07454c; }
+      .cls-3 { fill: #07373b; }
+      .cls-4 {
+      fill: none;
+      stroke: #07454c;
+      stroke-miterlimit: 10;
+      stroke-width: .2px;
+      }
+
+      .bar1,
+      .bar2{
+      animation: bars .5s ease infinite;
+      }
+
+      .bar3{
+        animation: barsReverse .5s ease infinite;
+      }
+
+
+      @keyframes reveal {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+      }
+
+      .mask-rect {
+      animation: reveal .5s ease infinite;
+      }
+
+      #plane {
+      transform: translate(-50%);
+      animation: flyPlane .5s ease infinite;
+      }
+
+      @keyframes flyPlane {
+      to {
+      transform: translateX(0);
+      }
+      }
+
+      @keyframes bars{
+      from{
+      transform: translateY(-30px);
+      }
+      to{
+      transform: translateY(0);
+      }
+      }
+
+      @keyframes barsReverse{
+      from{
+      transform: translateY(30px);
+      }
+      to{
+      transform: translateY(0);
+      }
+      }
+    </style>
+
+    <mask id="revealMask">
+      <rect x="0" y="0" width="100%" height="100%" fill="white" />
+      <rect class="mask-rect" x="0" y="0" width="100%" height="100%" fill="black" />
+    </mask>
+  </defs>
+
+  <g id="bar1">
+    <path class="cls-1 bar1"
+      d="m73.362,127.703v182.517c-12.478,5.814-26.243,13.1-40.669,22.248-12.355,7.836-23.235,15.795-32.693,23.399v-180.615l73.362-47.549Z" />
+  </g>
+  <g id="bar2">
+    <path class="cls-1 bar2"
+      d="m236.22,239.273c.056-68.21.111-136.42.167-204.63L305.673,0c.113,72.116.226,144.233.34,216.349-11.76,3.147-24.064,6.79-36.821,11.016-11.588,3.839-22.585,7.841-32.972,11.908Z" />
+  </g>
+  <g id="bar3">
+    <path class="cls-1 bar3"
+      d="m236.387,296.333c-.649,42.285-.077,84.57,0,126.854l69.286-30.567v-131.44c-9.782,3.42-20.483,7.744-31.756,13.246-14.551,7.101-27.054,14.699-37.53,21.907Z" />
+  </g>
+
+  <g id="line" mask="url(#revealMask)">
+    <path class="cls-2"
+      d="m370.889,218.661C86.953,293.381,0,376.318,0,376.318v109.363s143.327-195.631,374.959-268.313l-4.07,1.293Z" />
+  </g>
+
+  <g id="plane">
+    <polygon class="cls-4"
+      points="374.959 209.896 370.014 201.065 441.287 191.723 387.607 223.751 383.069 213.8 374.959 217.368 374.959 209.896" />
+    <polygon class="cls-1" points="377.223 219.812 467.285 183.096 384.748 234.307 377.223 219.812" />
+    <polygon class="cls-1" points="364.509 215.829 467.285 183.096 354.139 198.759 364.509 215.829" />
+    <polygon class="cls-3" points="364.509 215.829 365.974 229.387 465.045 183.775 364.509 215.829" />
+  </g>
+</svg>

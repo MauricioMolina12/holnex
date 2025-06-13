@@ -1,5 +1,5 @@
 @import "../../shared/styles/skeleton.scss";
-@import 'breakpoints';
+@import "breakpoints";
 
 .shopcart {
   width: 100%;
@@ -8,6 +8,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  align-items: start;
+  position: relative;
 
   &-title {
     color: var(--color-primary);
@@ -19,33 +21,88 @@
     margin-block: 20px;
   }
 
-  &-tabs{
+  &__inner {
     width: 100%;
-    height: 50px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    padding: 16px;
+    box-sizing: border-box;
 
-    .shopcart-tab{
-      padding: 10px;
-      box-sizing: border-box;
-      height: 100%;
-      color: var(--color-gray);
+    &-products,
+    &-steps {
+      width: 100%;
+    }
 
-      &.active{
-        color: var(--color-primary);
-        position: relative;
+    &-products {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
 
-        span{
-          &::after{
-            content: "";
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            bottom: 10px;
-            background-color: var(--color-primary);
+      &--dropdowns,
+      &--summary {
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+      }
+
+      &--dropdowns {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .description-step {
+          display: block;
+          color: var(--color-font-gray);
+          font-size: 0.9rem;
+          font-weight: 300;
+          margin-bottom: 10px;
+        }
+
+        .input-wrapper {
+          margin-block: 15px;
+
+          label{
+            font-size: .9rem;
           }
+
+          .input-inner {
+            width: 50%;
+          }
+        }
+      }
+
+      &--summary {
+        position: sticky;
+        bottom: 0;
+      }
+    }
+  }
+
+  @include respond-to("desktop") {
+    &__inner {
+      width: 85%;
+      margin: 0 auto;
+      align-items: center;
+
+      &-steps {
+        margin-right: auto;
+        width: 30%;
+      }
+
+      &-products {
+        flex-direction: row;
+        padding: 10px;
+
+        &--summary {
+          width: 30%;
+        }
+
+        &--dropdowns {
+          width: 30%;
+        }
+
+        &--list {
+          width: 40%;
         }
       }
     }

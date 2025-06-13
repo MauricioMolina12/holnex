@@ -4,6 +4,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  position: relative;
 }
 
 * {
@@ -21,6 +22,10 @@ p {
   margin: 0;
 }
 
+iframe{
+  border: none;
+  outline: none;
+}
 
 @mixin input-container {
   width: 100%;
@@ -58,4 +63,20 @@ p {
   svg {
     fill: var(--color-danger);
   }
+}
+
+#global-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
 }

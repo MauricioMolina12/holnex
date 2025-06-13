@@ -5,6 +5,10 @@ import { ShopcartRoutingModule } from './shopcart-routing.module';
 import { ShopcartComponent } from '../shopcart/shopcart.component';
 import { CardProductShopcartComponent } from './components/card-product-shopcart/card-product-shopcart.component';
 import { CardSummaryShoppingComponent } from './components/card-summary-shopping/card-summary-shopping.component';
+import { StepsIndicatorComponent } from "../../shared/components/steps-indicator/steps-indicator.component";
+import { DropdownDynamicComponent } from '../../shared/components/dropdown-dynamic/dropdown-dynamic.component';
+import { ButtonComponent } from "../../shared/components/ui/button/button.component";
+import { InputComponent } from "../../shared/components/ui/input/input.component";
 
 
 @NgModule({
@@ -15,7 +19,11 @@ import { CardSummaryShoppingComponent } from './components/card-summary-shopping
   ],
   imports: [
     CommonModule,
-    ShopcartRoutingModule
-  ]
+    ShopcartRoutingModule,
+    StepsIndicatorComponent,
+    DropdownDynamicComponent,
+    ButtonComponent,
+    InputComponent
+]
 })
 export class ShopcartModule { }

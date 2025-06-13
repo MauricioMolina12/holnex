@@ -15,6 +15,7 @@ export class ButtonComponent implements OnInit {
   @Input() icon?: string;
   @Input() iconPosition: 'left' | 'right' = 'left';
   @Input() customClass: string | string[] = [];
+  
   @Input() type: string = '';
   @Output() clicked = new EventEmitter<void>();
 

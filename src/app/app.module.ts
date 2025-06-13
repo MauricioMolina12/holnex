@@ -23,9 +23,10 @@ import { ProductEffects } from './features/products/store/effects/product.effect
 import { networkInterceptor } from './core/interceptors/network.interceptor';
 import { CoreModule } from './core/core.module';
 import { StatusUiMessageComponent } from "./shared/components/status-ui-message/status-ui-message.component";
+import { GlobalLoaderComponent } from './shared/components/global-loader/global-loader.component';
 
 @NgModule({
-  declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent],
+  declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent, GlobalLoaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
