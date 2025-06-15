@@ -15,7 +15,8 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { SkeletonComponent } from '../../skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../../../features/products/models/products.model';
-import { StatusUiMessageComponent } from "../../status-ui-message/status-ui-message.component";
+import { skeletonType } from '../../skeleton/skeleton.type.enum';
+import { StatusUiMessageComponent } from '../../status-ui-message/status-ui-message.component';
 
 @Component({
   selector: 'app-products-grid',
@@ -26,18 +27,18 @@ import { StatusUiMessageComponent } from "../../status-ui-message/status-ui-mess
     ButtonComponent,
     SkeletonComponent,
     ProductCardComponent,
+    StatusUiMessageComponent,
     NgIf,
     NgClass,
     NgStyle,
     NgFor,
-    StatusUiMessageComponent
-],
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsGridComponent implements OnInit {
   @Input() products: Product[] = []; // => Array products
   @Input() loading: boolean = true;
-  @Input() error: any = '';
+  @Input() error: string | null = '';
 
   @Input() width: string = '100vw'; // => Width main wrapper for mobile size
   @Input() isfullWidth!: boolean; // True => Container envelope will have a width of 100vw otherwise the one you pass through the "width" prop
@@ -54,6 +55,9 @@ export class ProductsGridComponent implements OnInit {
   isOnline!: Signal<boolean>;
   loadingAction: boolean = false;
 
+  // Enums
+  SkeletonTypeEnum = skeletonType;
+
   constructor(
     public productsService: ProductsService,
     private router: Router,
@@ -66,8 +70,24 @@ export class ProductsGridComponent implements OnInit {
     this.isOnline = computed(() => this.networkService.isOnline());
   }
 
-  get isloading(): boolean {
+  get visibleProducts(): Product[] {
+    return this.products.slice(0, 8);
+  }
+
+  get showSkeleton(): boolean {
     return this.loading || !this.isOnline() || this.isEmptyList;
+  }
+
+  get showError(): boolean {
+    return !this.loading && !!this.error;
+  }
+
+  get showEmpty(): boolean {
+    return !this.loading && !this.error && this.isEmptyList;
+  }
+
+  get showProducts(): boolean {
+    return !this.loading && !this.isEmptyList && !this.error;
   }
 
   get isEmptyList() {

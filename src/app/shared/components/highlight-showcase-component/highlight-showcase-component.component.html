@@ -10,20 +10,32 @@
         </app-button>
 
     </header>
-    <div class="container__inner" [ngClass]="{'right': orientation === 'right'}">
+    <div class="container__inner" [ngClass]="{ 'right': orientation === 'right' }">
         <article class="container__inner__main">
             <h2 class="container__inner__main--title">Nuevas prendas</h2>
-            <p class="container__inner__main--subtitle">Explora los ultimas modas</p>
+            <p class="container__inner__main--subtitle">Explora las últimas modas</p>
         </article>
-        <article class="container__inner__grid">
-            <ng-container [ngSwitch]="typeShowcase">
-                <ng-container *ngSwitchCase="ShowcaseTypeEnum.NewProducts">
-                    <div class="container__inner__grid-item" *ngFor="let product of data.slice(0,8)">
+
+        <article class="container__inner__grid" [ngSwitch]="typeShowcase">
+
+            <ng-container *ngSwitchCase="ShowcaseTypeEnum.NewProducts">
+            
+                <div class="container__inner__grid-item"
+                    *ngFor="let product of showSkeleton ? skeletonArray : data.slice(0, 8)">
+
+                    <ng-container *ngIf="showData">
                         <app-product-card (productClick)="productsService.detailProduct(product)"
                             [product]="product"></app-product-card>
-                    </div>
-                </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="showSkeleton">
+                        <app-skeleton [typeskeleton]="SkeletonTypeEnum.productCard"></app-skeleton>
+                    </ng-container>
+                
+                </div>
+            
             </ng-container>
         </article>
     </div>
+
 </section>

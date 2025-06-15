@@ -27,6 +27,7 @@ export class ShopcartComponent implements OnInit {
     initialValue: null,
   });
 
+  
   summaryShopping!: SummaryShopping;
   totalPrice: any;
 

@@ -123,7 +123,6 @@ $min-width-items: 150px;
     box-sizing: border-box;
   }
 
-  // 🔸 Breakpoints
 
   @include respond-to("small-screen") {
     &__list {

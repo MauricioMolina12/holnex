@@ -45,7 +45,7 @@
 
         <ng-container *ngIf="loading || isEmptyList">
             <div class="product" *ngFor="let _ of [].constructor(20)">
-                <app-skeleton [typeskeleton]="'product-card'"></app-skeleton>
+                <app-skeleton [typeskeleton]="SkeletonTypeEnum.productCard"></app-skeleton>
             </div>
         </ng-container>
     </div>

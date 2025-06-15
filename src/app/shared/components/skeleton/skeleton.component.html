@@ -1,7 +1,7 @@
 <div [ngSwitch]="typeskeleton">
 
     <!-- Opción: product -->
-    <div *ngSwitchCase="'product-card'" class="product-card">
+    <div *ngSwitchCase="skeletonType.productCard" class="product-card">
         <div class="product-card__image">
             <ngx-skeleton-loader class="product__image-skeleton" count="1"></ngx-skeleton-loader>
         </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div *ngSwitchCase="'productDetails'" class="product-details">
+    <div *ngSwitchCase="skeletonType.productDetails" class="product-details">
         <figure class="main-image">
 
             <!--Skeleton main image-->
@@ -45,6 +45,24 @@
                 [theme]="{ width: '100px', height: '100%', borderRadius: '10px', margin: '0' }">
             </ngx-skeleton-loader>
         </aside>
+    </div>
+
+    <div *ngSwitchCase="skeletonType.productsGrid" class="products-grid">
+        <div class="product-card" *ngFor="let product of [].constructor(10)">
+            <div class="product-card__image">
+                <ngx-skeleton-loader class="product__image-skeleton" count="1"></ngx-skeleton-loader>
+            </div>
+
+            <div class="product-card__titles">
+                <ngx-skeleton-loader class="product__title" count="1"></ngx-skeleton-loader>
+            </div>
+
+            <div class="product-card__actions">
+                <div class="product-card__actions-price">
+                    <ngx-skeleton-loader class="product__price" count="1"></ngx-skeleton-loader>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div *ngSwitchDefault>

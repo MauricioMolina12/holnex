@@ -28,6 +28,7 @@ import { ButtonComponent } from '../../ui/button/button.component';
 import { sliderType } from './products-slider-type.enum';
 import { NetworkService } from '../../../services/network.service';
 import { ThemeService } from '../../../services/theme.service';
+import { skeletonType } from '../../skeleton/skeleton.type.enum';
 
 @Component({
   selector: 'app-slider-products',
@@ -58,24 +59,24 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   // Slider variables
   @ViewChild('slider') slider!: ElementRef<HTMLElement>;
   @Input() typeSlider: sliderType = sliderType.default;
-  
-  
+
   sliderType = sliderType;
 
-  
   currentIndex: number = 0;
   isAtStart: boolean = true;
   isAtEnd: boolean = false;
 
   //Time example flash sale
   timeFlashSale = 30000;
-  
-  
+
   private intervalId: any;
   isBrowser: boolean;
 
   isOnline!: Signal<boolean>;
   isDark!: Signal<boolean>;
+
+  // Enums
+  SkeletonTypeEnum = skeletonType;
 
   constructor(
     public productsService: ProductsService,

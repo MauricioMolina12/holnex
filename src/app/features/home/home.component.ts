@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
 
   // Enums for components
   ShowcaseTypeEnum = ShowcaseTypeEnum;
+
   sliderType = sliderType;
 
   // Signals for ads

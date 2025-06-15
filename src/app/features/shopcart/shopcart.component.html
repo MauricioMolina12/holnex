@@ -1,26 +1,21 @@
 <section class="shopcart">
-    <h1 class="shopcart-title">Carrito de compras</h1>
     <div class="shopcart__inner">
+        
         <div class="shopcart__inner-steps">
             <app-steps-indicator (stepChange)="changeStep($event)" [steps]="steps" [step]="step"></app-steps-indicator>
         </div>
+        
         <div class="shopcart__inner-products">
             <div class="shopcart__inner-products--dropdowns">
-
+                
                 <app-dropdown-dynamic [isOpen]="step === 1">
-
                     <span dropdown-trigger>Datos personales</span>
-
                     <article dropdown-content>
-                        <span class="description-step">Complete todos los campos a continuación para continuar con su
-                            compra</span>
-
+                        <span class="description-step">Complete todos los campos a continuación para continuar con su compra</span>
                         <div class="user-name input-wrapper">
                             <label for="user-name">Nombre completo</label>
-                            <app-input [id]="'user-name'" [placeholder]="'Ingresa nombre completo'"
-                                [type]="'text'"></app-input>
+                            <app-input [value]="'Mauricio Molina'" [disabled]="true" [id]="'user-name'" [placeholder]="'Ingresa nombre completo'" [type]="'text'"></app-input>
                         </div>
-
                         <div class="email phone input-wrapper flex gap-2">
                             <div class="input-inner">
                                 <label for="email">Correo</label>
@@ -32,19 +27,15 @@
                             </div>
                         </div>
                     </article>
-
                 </app-dropdown-dynamic>
 
                 <app-dropdown-dynamic [isOpen]="step === 2">
                     <span dropdown-trigger>Entrega</span>
                     <div dropdown-content>
-                        <span class="description-step">Complete todos los campos a continuación para continuar con su
-                            compra</span>
-
+                        <span class="description-step">Rellene los campos para una entrega rápida y segura</span>
                         <div class="user-name input-wrapper">
                             <label for="user-name">Nombre completo</label>
-                            <app-input [id]="'user-name'" [placeholder]="'Ingresa nombre completo'"
-                                [type]="'text'"></app-input>
+                            <app-input [id]="'user-name'" [placeholder]="'Ingresa nombre completo'" [type]="'text'"></app-input>
                         </div>
 
                         <div class="email phone input-wrapper flex gap-2">
@@ -59,18 +50,15 @@
                         </div>
                     </div>
                 </app-dropdown-dynamic>
+
                 <app-dropdown-dynamic [isOpen]="step === 3">
                     <span dropdown-trigger>Pago</span>
                     <div dropdown-content>
-                        <span class="description-step">Complete todos los campos a continuación para continuar con su
-                            compra</span>
-
+                        <span class="description-step">Complete todos los campos a continuación para continuar con su compra</span>
                         <div class="user-name input-wrapper">
                             <label for="user-name">Nombre completo</label>
-                            <app-input [id]="'user-name'" [placeholder]="'Ingresa nombre completo'"
-                                [type]="'text'"></app-input>
+                            <app-input [id]="'user-name'" [placeholder]="'Ingresa nombre completo'" [type]="'text'"></app-input>
                         </div>
-
                         <div class="email phone input-wrapper flex gap-2">
                             <div class="input-inner">
                                 <label for="email">Correo</label>
@@ -83,15 +71,14 @@
                         </div>
                     </div>
                 </app-dropdown-dynamic>
-
-
             </div>
+
             <div class="shopcart__inner-products--list">
                 <div class="product" *ngFor="let product of productsSignal().slice(2, 14)">
                     <app-card-product-shopcart [product]="product"></app-card-product-shopcart>
                 </div>
-
             </div>
+            
             <div class="shopcart__inner-products--summary">
                 <app-card-summary-shopping *ngIf="summaryShopping"
                     [summary]="summaryShopping"></app-card-summary-shopping>

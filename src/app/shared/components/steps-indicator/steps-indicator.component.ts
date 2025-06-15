@@ -1,9 +1,10 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
   Output,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 import { NgFor, NgClass } from '@angular/common';
 
@@ -14,15 +15,17 @@ import { NgFor, NgClass } from '@angular/common';
   standalone: true,
   imports: [NgFor, NgClass],
 })
-export class StepsIndicatorComponent implements AfterViewInit {
+export class StepsIndicatorComponent implements OnChanges {
   @Input() steps: number = 0;
   @Input() step: number = 1;
   @Output() stepChange = new EventEmitter<number>();
 
   stepArray: number[] = [];
 
-  ngAfterViewInit(): void {
-    this.stepArray = Array.from({ length: this.steps }, (_, i) => i + 1);
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('steps' in changes) {
+      this.stepArray = Array.from({ length: this.steps }, (_, i) => i + 1);
+    }
   }
 
   isCompleted(index: number): boolean {
@@ -33,8 +36,8 @@ export class StepsIndicatorComponent implements AfterViewInit {
     return index + 1 === this.step;
   }
 
-  updateStep(index: number) {
+  updateStep(index: number): void {
     this.step = index + 1;
-    this.stepChange.emit(index + 1);
+    this.stepChange.emit(this.step);
   }
 }

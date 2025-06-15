@@ -62,6 +62,10 @@ export class FooterComponent {
           text: 'Vender',
           redirect: '',
         },
+        {
+          text: 'Mi carrito de compras',
+          redirect: '/shopcart',
+        },
       ],
     },
     {

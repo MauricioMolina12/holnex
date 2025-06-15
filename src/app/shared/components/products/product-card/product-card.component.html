@@ -1,14 +1,14 @@
 <article class="product" [ngClass]="{ horizontal: horizontal, 'dark' : isDark() }" (click)="onProductClick($event)">
   <header class="product__header">
-    <div class="product__image">
+    <figure class="product__image">
       <img [src]="product.images[0]" [attr.loading]="'lazy'" [alt]="'Imagen de: ' + product.title" />
-    </div>
+    </figure>
     <div class="product__titles">
       <h3 class="product__title">{{ product.title }}</h3>
-      <div class="product__free-delivery">
+      <!-- <div class="product__free-delivery">
         <i class="icon-truck"></i>
         <span>Gratis</span>
-      </div>
+      </div> -->
     </div>
   </header>
   <footer class="product__footer">
