@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ThemeService } from '../../../shared/services/theme.service';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-alert-new-promotions',

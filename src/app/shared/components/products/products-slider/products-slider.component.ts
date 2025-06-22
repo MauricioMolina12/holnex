@@ -13,7 +13,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ProductsService } from '../../../../features/products/services/products.service';
-import { SkeletonComponent } from '../../skeleton/skeleton.component';
+import { SkeletonComponent } from '../../../../core/components/skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import {
   DOCUMENT,
@@ -26,9 +26,9 @@ import {
 import { TimeRemainingPipe } from '../../../pipes/time-remaining.pipe';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { sliderType } from './products-slider-type.enum';
-import { NetworkService } from '../../../services/network.service';
-import { ThemeService } from '../../../services/theme.service';
-import { skeletonType } from '../../skeleton/skeleton.type.enum';
+import { NetworkService } from '../../../../core/services/network.service';
+import { ThemeService } from '../../../../core/services/theme.service';
+import { skeletonType } from '../../../../core/components/skeleton/skeleton.type.enum';
 
 @Component({
   selector: 'app-slider-products',
@@ -54,22 +54,21 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
 
   // Data variables
   @Input() loading: boolean = true;
+  @Input() error: string | null = '';
   @Input() products: any[] = [];
 
   // Slider variables
   @ViewChild('slider') slider!: ElementRef<HTMLElement>;
   @Input() typeSlider: sliderType = sliderType.default;
-
   sliderType = sliderType;
-
   currentIndex: number = 0;
   isAtStart: boolean = true;
   isAtEnd: boolean = false;
 
   //Time example flash sale
   timeFlashSale = 30000;
-
   private intervalId: any;
+
   isBrowser: boolean;
 
   isOnline!: Signal<boolean>;
@@ -109,12 +108,20 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  get showData(): boolean {
+    return !this.loading && this.isOnline() && !this.error;
+  }
+
   get isloading(): boolean {
-    return this.loading || !this.isOnline() || this.isEmptyList;
+    return this.loading && !this.error;
   }
 
   get isEmptyList() {
     return this.products.length === 0;
+  }
+
+  get visibleProducts() {
+    return this.products.slice(1, 9);
   }
 
   scrollSlider(direction: 'left' | 'right'): void {

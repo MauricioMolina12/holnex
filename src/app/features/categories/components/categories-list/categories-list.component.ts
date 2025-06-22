@@ -1,6 +1,6 @@
 import { NgClass, NgFor } from '@angular/common';
 import { Component, computed, Input, OnInit } from '@angular/core';
-import { HttpService } from '../../../../shared/services/http.service';
+import { HttpService } from '../../../../core/services/http.service';
 import { ProductsService } from '../../../products/services/products.service';
 import { map } from 'rxjs';
 import { CategoriesService } from '../../services/categories.service';

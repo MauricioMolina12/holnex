@@ -11,6 +11,7 @@ $btn-transition: all 0.3s ease;
 
 $btn-colors: (
   "primary": var(--color-primary),
+  "primary-to-white": var(--color-primary-to-white),
   "secondary": var(--color-font-gray),
   "danger": var(--color-danger),
   "success": var(--color-success),
@@ -30,6 +31,7 @@ $btn-text-colors: (
   "info": var(--color-tertiary),
   "light": var(--color-light),
   "dark": var(--color-dark),
+  "white": white
 );
 
 $btn-sizes: (
@@ -38,7 +40,7 @@ $btn-sizes: (
     font-size: 0.75rem,
     border-radius: 4px,
   ),
-  " ": (
+  "medium": (
     padding: 0.5rem 1rem,
     font-size: 0.875rem,
     border-radius: 6px,
@@ -50,13 +52,20 @@ $btn-sizes: (
   ),
 );
 
-@mixin btn-state($bg, $color, $border: null) {
-  background-color: $bg;
-  color: $color;
-  @if $border != null {
-    border: $border;
-  }
-}
+$btn-states: (
+  "default": (
+    "hover": 90%,
+    "active": 80%,
+  ),
+  "outline": (
+    "hover": 95%,
+    "active": 85%,
+  ),
+  "ghost": (
+    "hover": 0.1,
+    "active": 0.2,
+  ),
+);
 
 // base-button-class
 .button {
@@ -65,7 +74,6 @@ $btn-sizes: (
   justify-content: center;
   gap: $btn-gap;
   padding: $btn-padding-y $btn-padding-x;
-  border-radius: $btn-border-radius;
   font-weight: $btn-font-weight;
   font-size: $btn-font-size;
   border: none;
@@ -87,7 +95,7 @@ $btn-sizes: (
 @each $name, $color in $btn-colors {
   .button--#{"" + $name} {
     background-color: $color;
-    color: map-get($btn-text-colors, $name);
+    color: transparent;
 
     &:hover:not(:disabled) {
       filter: brightness(90%);
@@ -99,6 +107,12 @@ $btn-sizes: (
   }
 }
 
+@each $name, $color in $btn-text-colors{
+  .button--text-#{"" + $name}{
+    color: $color;
+  }
+}
+
 // Outline buttons
 @each $name, $color in $btn-colors {
   .button--outline-#{"" + $name} {
@@ -107,7 +121,7 @@ $btn-sizes: (
     border: 2px solid $color;
 
     &:hover:not(:disabled) {
-      background-color: $color;
+      // background-color: $color;
       color: map-get($btn-text-colors, $name);
     }
 
@@ -152,27 +166,10 @@ $btn-sizes: (
 
 // Estados especiales
 .button--loading {
-  cursor: wait;
+  cursor: not-allowed;
   pointer-events: none;
   opacity: 0.8;
   position: relative;
-
-  &::after {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1em;
-    height: 1em;
-    margin-top: -0.5em;
-    margin-left: -0.5em;
-    border: 2px solid rgba(0, 0, 0, 0.15);
-    border-top: 2px solid currentColor;
-    border-radius: 50%;
-    animation: spinner 0.7s linear infinite;
-    z-index: 1;
-  }
 }
 
 // Ejemplo para iconos dentro del botón, alinea verticalmente
@@ -187,9 +184,7 @@ $btn-sizes: (
 // Ejemplo para texto dentro del botón
 .button__text {
   display: inline-block;
-} 
-
-
+}
 
 @keyframes spinner {
   0% {

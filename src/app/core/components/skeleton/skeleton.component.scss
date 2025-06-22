@@ -79,3 +79,11 @@
     grid-auto-rows: max-content;
   }
 }
+
+.default {
+  ::ng-deep ngx-skeleton-loader.container div {
+    border-radius: var(--border-radius);
+    height: 100%;
+    background-color: var(--color-medium);
+  }
+}

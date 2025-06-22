@@ -14,7 +14,7 @@ import { User } from '../../../shared/models/user';
 import { SearchInputComponent } from '../../../shared/components/search-input/search-input.component';
 import { Renderer2, ElementRef } from '@angular/core';
 import { AuthService } from '../../../features/auth/auth.service';
-import { ThemeService } from '../../../shared/services/theme.service';
+import { ThemeService } from '../../../core/services/theme.service';
 import { filter } from 'rxjs';
 
 interface UserNav {

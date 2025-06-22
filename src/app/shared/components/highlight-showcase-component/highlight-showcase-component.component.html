@@ -1,14 +1,20 @@
 <section class="container">
-    <header class="container__header">
-        <h1 class="container__title title-section">{{ showcaseContent[typeShowcase].title }}</h1>
-        <app-button [text]="labelButton" aria-label="Ver todos los productos" [customClass]="[
-        'button',
-        'button--transparent',
-        'button--secondary',
-        'button--medium',
-        ]">
-        </app-button>
 
+    <header class="container__header">
+        <h1 class="container__header--title title-section">{{ showcaseContent[typeShowcase].title }}</h1>
+        <app-button 
+            *ngIf="labelButton" 
+            [text]="labelButton" 
+            aria-label="Ver toda la información" 
+            variant="outline"
+            [classCustom]="{
+              base: 'button',
+              bgColor: 'primary-to-white',
+              textColor: 'white',
+              more: ['rounded-lg']
+
+            }">
+        </app-button>
     </header>
     <div class="container__inner" [ngClass]="{ 'right': orientation === 'right' }">
         <article class="container__inner__main">
@@ -19,9 +25,9 @@
         <article class="container__inner__grid" [ngSwitch]="typeShowcase">
 
             <ng-container *ngSwitchCase="ShowcaseTypeEnum.NewProducts">
-            
+
                 <div class="container__inner__grid-item"
-                    *ngFor="let product of showSkeleton ? skeletonArray : data.slice(0, 8)">
+                    *ngFor="let product of showSkeleton ? skeletonArray : visibleData">
 
                     <ng-container *ngIf="showData">
                         <app-product-card (productClick)="productsService.detailProduct(product)"
@@ -31,9 +37,9 @@
                     <ng-container *ngIf="showSkeleton">
                         <app-skeleton [typeskeleton]="SkeletonTypeEnum.productCard"></app-skeleton>
                     </ng-container>
-                
+
                 </div>
-            
+
             </ng-container>
         </article>
     </div>

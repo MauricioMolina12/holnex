@@ -8,15 +8,15 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../../../features/products/services/products.service';
-import { ThemeService } from '../../../services/theme.service';
-import { NetworkService } from '../../../services/network.service';
+import { ThemeService } from '../../../../core/services/theme.service';
+import { NetworkService } from '../../../../core/services/network.service';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { SkeletonComponent } from '../../skeleton/skeleton.component';
+import { SkeletonComponent } from '../../../../core/components/skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../../../features/products/models/products.model';
-import { skeletonType } from '../../skeleton/skeleton.type.enum';
-import { StatusUiMessageComponent } from '../../status-ui-message/status-ui-message.component';
+import { skeletonType } from '../../../../core/components/skeleton/skeleton.type.enum';
+import { StatusUiMessageComponent } from '../../../../core/components/status-ui-message/status-ui-message.component';
 
 @Component({
   selector: 'app-products-grid',
@@ -71,23 +71,23 @@ export class ProductsGridComponent implements OnInit {
   }
 
   get visibleProducts(): Product[] {
-    return this.products.slice(0, 8);
-  }
-
-  get showSkeleton(): boolean {
-    return this.loading || !this.isOnline() || this.isEmptyList;
-  }
-
-  get showError(): boolean {
-    return !this.loading && !!this.error;
-  }
-
-  get showEmpty(): boolean {
-    return !this.loading && !this.error && this.isEmptyList;
+    return this.products.slice(1, 9);
   }
 
   get showProducts(): boolean {
     return !this.loading && !this.isEmptyList && !this.error;
+  }
+
+  get showSkeleton(): boolean {
+    return this.loading && this.isOnline();
+  }
+
+  get showError(): boolean {
+    return !this.loading && (!!this.error || !this.isOnline());
+  }
+
+  get showEmpty(): boolean {
+    return !this.loading && !this.error && this.isEmptyList;
   }
 
   get isEmptyList() {

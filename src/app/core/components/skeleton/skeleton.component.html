@@ -1,4 +1,4 @@
-<div [ngSwitch]="typeskeleton">
+<section [ngSwitch]="typeskeleton">
 
     <!-- Opción: product -->
     <div *ngSwitchCase="skeletonType.productCard" class="product-card">
@@ -66,6 +66,10 @@
     </div>
 
     <div *ngSwitchDefault>
-        <p>No hay skeleton para el tipo especificado</p>
+        <div class="default">
+            <ngx-skeleton-loader class="container" count="1"></ngx-skeleton-loader>
+        </div>
+
     </div>
-</div>
+    
+</section>

@@ -16,6 +16,10 @@
   transition: all 0.5s ease;
   position: relative;
 
+  &.dark{
+    background-color: #0c292e;
+  }
+
   &__header {
     .product__image {
       border-radius: var(--border-radius);

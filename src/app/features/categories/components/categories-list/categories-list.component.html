@@ -1,15 +1,17 @@
 <div class="categories">
   <header class="categories__header">
     <h4 class="categories__title title-section">Categoría de productos</h4>
-    <app-button [text]="'Ver todas las categorías'" aria-label="Ver todas las categorías" [customClass]="[
-        'button',
-        'button--transparent',
-        'button--secondary',
-        'button--medium',
-      ]"></app-button>
-    <!-- <a class="categories__link" [routerLink]="['/categorias']">Ver todas las categorías</a> -->
+        <app-button 
+        [text]="'Ver todas las categorías'" 
+        aria-label="Ver todas las categorías" 
+        variant="ghost"
+        [classCustom]="{
+          base: 'button',
+          bgColor: 'primary-to-white',
+          textColor: 'white'
+        }">
+        </app-button>  
   </header>
-
   <ng-container *ngIf="!loading(); else skeleton">
     <ul class="categories__list">
       <li class="categories__item" *ngFor="let category of categories().slice(0, 5)">

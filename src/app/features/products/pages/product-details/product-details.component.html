@@ -1,360 +1,175 @@
-<section class="product-details">
+<section class="product">
 
-  <article class="product">
+  <div class="product__content">
+    <section class="product__images">
+      <figure class="product__images--main">
 
-    <!-- Section images product -->
-    <section class="product-images">
-      <!-- Container of uploaded images -->
-      <ng-container *ngIf="!loading; else skeletonImages">
-        <figure class="product-images__main">
-          <img class="image" [src]="mainImage" appZoomImage [zoomFactor]="3"
-            [alt]="product()?.name || 'Producto sin nombre'" loading="lazy" />
+        <img class="image" [src]="mainImage" appZoomImage [zoomFactor]="3"
+          [alt]="product()?.name || 'Producto sin nombre'" loading="lazy" />
 
-          <div class="product-images__main-button__favorites">
-            <button>
-              <i class="icon-heart"></i>
-            </button>
-          </div>
+        <div class="product__images--main-favorite-button">
+          <button>
+            <i class="icon-heart"></i>
+          </button>
+        </div>
+      </figure>
+      <aside class="product__images--thumbnail">
+
+        <figure class="product__images--thumbnail-item" *ngFor="let image of product()?.images; let i = index"
+          (mousemove)="changeMainImage(i, product()?.images, $event)">
+          <img #imagesProducts [src]="image" [alt]="product()?.title + ' - vista adicional'" />
         </figure>
-
-        <aside class="product-images__thumbnail">
-          <figure class="product-images__thumbnail-item" *ngFor="let image of product()?.images; let i = index"
-            (mousemove)="changeMainImage(i, product()?.images, $event)">
-            <img #imagesProducts [src]="image" [alt]="product()?.title + ' - vista adicional'" />
-          </figure>
-        </aside>
-      </ng-container>
-
-      <!-- Container of image skeletons -->
-      <ng-template #skeletonImages>
-
-        <figure class="main-image">
-
-          <!--Skeleton main image-->
-          <ngx-skeleton-loader class="skeleton image" appearance="line"
-            [theme]="{ borderRadius: '10px', width: '100%', height: '100%' }">
-          </ngx-skeleton-loader>
-
-          <!--Skeleton button favorites-->
-          <ngx-skeleton-loader class="skeleton wrapper-product-button-favorites" appearance="line"
-            [theme]="{ borderRadius: '10px', width: '100%', height: '100%', backgroundColor: '#dee2e6' }">
-          </ngx-skeleton-loader>
-        </figure>
-
-        <aside class="thumbnail-images">
-
-          <!--Skeleton thumnail-images-->
-          <ngx-skeleton-loader class="skeleton thumbnail-item" *ngFor="let i of [1,2,3]" appearance="line"
-            [theme]="{ width: '100px', height: '100%', borderRadius: '10px', margin: '0' }">
-          </ngx-skeleton-loader>
-        </aside>
-      </ng-template>
-
-
+      </aside>
     </section>
 
-    <section class="product-information">
+    <section class="product__information">
 
-      <!-- Product information container loaded -->
-      <ng-container *ngIf="!loading; else skeletonInformation">
-        <header class="product-information__name">
-          <h1>{{ product()?.title }}</h1>
+      <header class="product__information--name">
+        <h1>{{ product()?.title }}</h1>
+      </header>
+
+      <div class="product__information--rating">
+        <div class="product__information--rating-star">
+          <i class="icon-star-yellow"></i>
+          <span>{{product()?.rate}} rating</span>
+        </div>
+        <span>·</span>
+        <div class="product__information--rating-review">
+          <span>2.3k+ Reviews</span>
+        </div>
+      </div>
+
+      <div class="product__information--segment">
+        <header class="product__information--segment-header">
+          <button (click)="segment(1)" [ngClass]="{'active' : segmentIndicator == 1}">Acerca del producto</button>
+          <button (click)="segment(2)" [ngClass]="{'active' : segmentIndicator == 2}">Comentarios & opiniones</button>
         </header>
+      </div>
 
-        <div class="product-information__rating">
-          <div class="product-information__rating-star">
-            <i class="icon-star-yellow"></i>
-            <span>{{product()?.rate}} rating</span>
-          </div>
-          <span>·</span>
-          <div class="product-information__rating-review">
-            <span>2.3k+ Reviews</span>
-          </div>
-        </div>
+      <ng-container [ngSwitch]="segmentIndicator">
+        <div class="product__information--details" *ngSwitchCase="1">
 
-        <section class="product-information__options">
-          <div class="product-information__options-size">
-            <h2 class="product-information__options-size-title title">Escoge tu talla</h2>
-            <div class="product-information__options-size-container">
-              <button class="option" *ngFor="let option of [1,2,3,4,5]">
-                <span>XL</span>
+          <article class="product__information--details-description">
+            <h4 class="title-section">Descripción</h4>
+            <p>
+              {{ product()?.description | truncate:260:showFullText }}
+              <button class="button-view-more" (click)="toggleText()">
+                {{ showFullText ? 'Ver menos' : 'Ver más' }}
               </button>
-            </div>
-          </div>
-          <div class="product-information__options-colors ">
-            <h2 class="product-information__options-colors-title">Escoge el color</h2>
-            <div class="product-information__options-colors-container">
-              <button class="option" *ngFor="let color of colors" [ngStyle]="{'backgroundColor' : color.colorHex}"
-                [attr.aria-label]="'Color ' + color.name" [title]="color.name">
-              </button>
-            </div>
-          </div>
-        </section>
+            </p>
+          </article>
 
-        <nav class="product-information__segment">
-          <header class="product-information__segment-header">
-            <button (click)="segment(1)" [ngClass]="{'active' : segmentIndicator == 1}">Acerca del producto</button>
-            <button (click)="segment(2)" [ngClass]="{'active' : segmentIndicator == 2}">Comentarios & opiniones</button>
-          </header>
-        </nav>
+          <article class="product__information--details-about">
+            <h4 class="title-section">Caracteristicas del producto</h4>
 
-        <ng-container [ngSwitch]="segmentIndicator">
-          <section class="product-information__details" *ngSwitchCase="1">
-            <section class="product-information__details-about">
-              <h4 class="title">Caracteristicas del producto</h4>
-              <div class="product-information__details-about-grid">
-                <div class="characteristic">
-                  <div class="key"><span>Tamaño de pantalla: </span></div>
-                  <div class="value"><span>27 "</span></div>
-                </div>
-                <div class="characteristic">
-                  <div class="key"><span>Es curvo: </span></div>
-                  <div class="value"><span>No</span></div>
-                </div>
-                <div class="characteristic">
-                  <div class="key"><span>Con altavoces incorporados: </span></div>
-                  <div class="value"><span>Sí</span></div>
-                </div>
-                <div class="characteristic">
-                  <div class="key"><span>Tipo de resolución: </span></div>
-                  <div class="value"><span>4k</span></div>
-                </div>
-                <div class="characteristic">
-                  <div class="key"><span>Es reclinable: </span></div>
-                  <div class="value"><span>Sí</span></div>
-                </div>
-                <div class="characteristic">
-                  <div class="key"><span>Es reclinable: </span></div>
-                  <div class="value"><span>Sí</span></div>
-                </div>
-                <div class="characteristic">
-                  <div class="key"><span>Es reclinable: </span></div>
-                  <div class="value"><span>Sí</span></div>
-                </div>
-                <div class="characteristic">
-                  <div class="key"><span>Es reclinable: </span></div>
-                  <div class="value"><span>Sí</span></div>
-                </div>
-              </div>
-            </section>
-
-            <section class="product-information__details-description">
-              <h4 class="title">Descripción</h4>
-              <p class="product-information__details-description-text">
-                {{ product()?.description | truncate:260:showFullText }}
-                <button class="button-view-more" (click)="toggleText()">
-                  {{ showFullText ? 'Ver menos' : 'Ver más' }}
-                </button>
-              </p>
-            </section>
-
-
-
-            <h2 class="seller-title">Información del vendedor</h2>
-            <section class="product-information__details-seller">
-              <div class="product-information__details-seller-information">
-                <figure class="logo-seller">
-                  <img src="https://i.pinimg.com/550x/b5/33/6f/b5336f0645ee7d40c6547de48a92f608.jpg" alt="logo">
-                </figure>
-                <div class="name-seller">
-                  <h2>Sony</h2>
-                  <span>
-                    Active 5 minutes ago
-                  </span>
-                </div>
-              </div>
-              <div class="product-information__details-seller-actions">
-                <button *ngFor="let button of buttons_options_seller" [ngClass]="button.cssClass">
-                  <span>{{button.title}}</span>
-                </button>
-              </div>
-
-            </section>
-
-          </section>
-
-          <section *ngSwitchCase="2" class="product-information__review">
-            <div class="product-information__review-rating">
-              <div class="rating-number">
-                <h2>4,7</h2>
-              </div>
-              <div class="rating-star">
-                <figure>
-                  <i class="icon-star-yellow" *ngFor="let star of [].constructor(5)"></i>
-                </figure>
-                <span>Basado en 153 opiniones</span>
+            <div class="product__information--details-about-grid">
+              <div class="characteristic" *ngFor="let characteristic of [].constructor(8); let i = index">
+                <div class="key"><span>Caracteristica {{i}}</span></div>
+                <div class="value"><span>{{characteristic}}</span></div>
               </div>
             </div>
-            <div class="product-information__review__comments">
-              <header class="header">
-                <h2 class="title">Opiniones</h2>
-                <span class="number_opinions">153</span>
-              </header>
-              <ng-container *ngFor="let comment of comments">
-                <app-card-user-comment [user]="comment"></app-card-user-comment>
-              </ng-container>
-            </div>
 
-          </section>
-        </ng-container>
+          </article>
 
-      </ng-container>
-
-      <ng-template #skeletonInformation>
-
-        <!-- Skeleton name product -->
-        <header class="product-name">
-          <ngx-skeleton-loader class="skeleton product-name" appearance="line"
-            [theme]="{ borderRadius: '10px', width: '90%', height: '24px' }">
-          </ngx-skeleton-loader>
-        </header>
-
-        <!-- Skeleton rating product-->
-        <div class="product-rating">
-          <ngx-skeleton-loader class="skeleton rating" appearance="line" [theme]="{ width: '80px', height: '20px' }">
-          </ngx-skeleton-loader>
-          <ngx-skeleton-loader class="skeleton rating" appearance="line" [theme]="{ width: '80px', height: '20px' }">
-          </ngx-skeleton-loader>
+          <h2 class="title-section">Información del vendedor</h2>
+          <app-card-profile-seller [seller]="{
+                name: 'Lenovo', 
+                image: 'https://http2.mlstatic.com/D_NQ_NP_949689-MLA74975093681_032024-G.jpg', 
+                cover: 'https://http2.mlstatic.com/D_NQ_NP_970790-MLA79580638193_092024-OO.jpg', 
+                description: 'Activo hace 5 min'}">
+          </app-card-profile-seller>
         </div>
 
-        <!-- Skeleton options product -->
-        <section class="product-options-choose">
-          <div class="size-options-wrapper">
-            <ngx-skeleton-loader class="skeleton title" appearance="line" [theme]="{ width: '150px', height: '20px' }">
-            </ngx-skeleton-loader>
-            <div class="options-size">
-              <ngx-skeleton-loader *ngFor="let option of [1,2,3,4,5]" class="skeleton option"
-                [theme]="{ width: '50px', height: '100%', margin: '0', borderRadius: '8px' }">
-              </ngx-skeleton-loader>
+        <div class="product__information--review" *ngSwitchCase="2">
+          <div class="product__information--review-rating">
+            <div class="rating-number">
+              <h2>4,7</h2>
+            </div>
+            <div class="rating-star">
+              <figure>
+                <i class="icon-star-yellow" *ngFor="let star of [].constructor(5)"></i>
+              </figure>
+              <span>Basado en 153 opiniones</span>
             </div>
           </div>
-        </section>
-
-        <!-- Skeleton segments product -->
-        <section class="product-segment">
-          <ngx-skeleton-loader class="skeleton description-title" appearance="line"
-            [theme]="{ width: '120px', height: '12px', marginRight: '10px' }">
-          </ngx-skeleton-loader>
-          <ngx-skeleton-loader class="skeleton description-title" appearance="line"
-            [theme]="{ width: '120px', height: '12px' }">
-          </ngx-skeleton-loader>
-        </section>
-
-        <!-- Skeleton characteristics product -->
-        <section class="wrapper-details">
-          <section class="product-about">
-            <ngx-skeleton-loader class="skeleton characteristic" appearance="line" *ngFor="let _ of [].constructor(10)"
-              [theme]="{ width: '80px', height: '12px', marginRight: '10px' }">
-            </ngx-skeleton-loader>
-          </section>
-        </section>
-
-        <!-- Skeleton description product -->
-        <section class="product-description">
-          <ngx-skeleton-loader class="skeleton description-title" appearance="line"
-            [theme]="{ width: '120px', height: '20px' }">
-          </ngx-skeleton-loader>
-          <ngx-skeleton-loader *ngFor="let _ of [1,2,3,4,5,6,7]" class="skeleton description-text" appearance="line"
-            [theme]="{ width: '100%', height: '10px' }">
-          </ngx-skeleton-loader>
-        </section>
-
-
-        <!-- Skeleton seller product -->
-        <section class="product-seller mt-4">
-
-          <!-- Skeleton seller information -->
-          <div class="seller-information flex items-center">
-            <figure class="logo-seller">
-              <ngx-skeleton-loader class="skeleton seller-logo" appearance="circle"
-                [theme]="{ width: '50px', height  : '50px' }">
-              </ngx-skeleton-loader>
-            </figure>
-
-            <div class="name-seller flex flex-col">
-              <ngx-skeleton-loader class="skeleton seller-name" appearance="line"
-                [theme]="{ width: '120px', height: '15px', marginBottom: '10px' }">
-              </ngx-skeleton-loader>
-              <ngx-skeleton-loader class="skeleton seller-actions" appearance="line"
-                [theme]="{ width: '100px', height: '15px' }">
-              </ngx-skeleton-loader>
-            </div>
-          </div>
-
-          <!-- Skeleton seller actions -->
-          <div class="seller-actions">
-            <ngx-skeleton-loader class="skeleton" appearance="line"
-              [theme]="{ width: '100px', height: '30px', marginRight: '10px' }">
-            </ngx-skeleton-loader>
-            <ngx-skeleton-loader class="skeleton" appearance="line" [theme]="{ width: '100px', height: '30px' }">
-            </ngx-skeleton-loader>
-          </div>
-
-        </section>
-
-      </ng-template>
-
-    </section>
-
-    <section class="product-summary">
-
-      <!-- Container summary loaded -->
-      <ng-container *ngIf="!loading; else skeletonSummary">
-        <div class="product-summary__price">
-          <div class="price-text">
-            <div class="previous-price-wrapper">
-              <small class="previous-price">$899</small>
-              <small class="discount">88% OFF</small>
-            </div>
-            <small class="price">
-              ${{product()?.price}}0
-            </small>
-          </div>
-        </div>
-        <div class="product-summary__order-details">
-
-          <h5 class="title">Detalle de orden</h5>
-
-          <p class="product-name">{{ product()?.title }}</p>
-
-
-          <div class="product-quantity">
-            <span class="product-quantity__text">Cantidad <br> (50 disponibles)</span>
-            <div class="product-quantity__input-wrapper">
-              <button class="product-quantity__button-lower-quantity" (click)="uploadQuantity('down')">-</button>
-              <span class="product-quantity__number">{{quantityProduct}}</span>
-              <button class="product-quantity__button-upload-quantity" (click)="uploadQuantity('upload')">+</button>
-            </div>
-          </div>
-          <div class="product-button-actions">
-            <button *ngFor="let button of buttons_options_product" [ngClass]="button.cssClass">
-              <i [ngClass]="button.icon" *ngIf="button.icon"></i>
-              <span>{{button.title}}</span>
-            </button>
+          <div class="product__information--review-comments">
+            <header class="header">
+              <h2 class="title">Opiniones</h2>
+              <span class="number_opinions">153</span>
+            </header>
+            <ng-container *ngFor="let comment of comments">
+              <app-card-user-comment [user]="comment"></app-card-user-comment>
+            </ng-container>
           </div>
         </div>
       </ng-container>
 
-      <!-- Container summary skeleton -->
-      <ng-template #skeletonSummary>
-
-        <!-- Skeleton price product-->
-        <ngx-skeleton-loader class="product-price-skeleton" appearance="line"
-          [theme]="{ borderRadius: '10px', width: '100%', height: '5rem' }">
-        </ngx-skeleton-loader>
-
-        <!-- Skeleton information summary product -->
-        <ngx-skeleton-loader class="product-information-summary-skeleton" appearance="line"
-          [theme]="{ width: '100%', height: '20rem' }">
-        </ngx-skeleton-loader>
-
-
-      </ng-template>
     </section>
-  </article>
-  
+
+    <section class="product__summary">
+
+      <div class="product__summary--price">
+        <div class="previous">
+          <p class="previous-price">$899</p>
+        </div>
+        <p class="current">
+          ${{product()?.price}}0
+          <small class="discount">88% OFF</small>
+        </p>
+      </div>
+
+      <div class="product__summary--order">
+
+        <h5 class="title-order">Detalle de orden</h5>
+
+        <p class="product-name">{{ product()?.title }}</p>
+
+        <div class="product-quantity">
+          <span class="value">Stock disponible <br> <small>(50 disponibles)</small></span>
+
+          <div class="actions">
+            <button class="button-lower-quantity" (click)="uploadQuantity('down')">-</button>
+            <span class="number">{{quantityProduct}}</span>
+            <button class="button-upload-quantity" (click)="uploadQuantity('upload')">+</button>
+          </div>
+
+        </div>
+
+        <div class="product-actions">
+          <app-button [text]="'Comprar ahora'" [classCustom]="{
+                base: 'button', 
+                bgColor: 'primary', 
+                textColor: 'white', 
+                more: ['w-full','p-4', 'rounded-lg']}">
+          </app-button>
+
+          <app-button [text]="'Agregar al carrito'" [iconPosition]="'left'" [icon]="'icon-shop-cart'"
+            [variant]="'outline'" [classCustom]="{
+              base: 'button', 
+              bgColor: 'primary', 
+              more: ['w-full','p-4','rounded-lg']}">
+          </app-button>
+
+          <app-button [text]="'Compartir'" [variant]="'ghost'" [classCustom]="{
+              base: 'button', 
+              bgColor: 'primary', 
+              more: ['w-full','p-4','rounded-lg']}">
+          </app-button>
+
+
+        </div>
+      </div>
+    </section>
+  </div>
+
   <div class="products-slider">
     <app-slider-products [products]="productsSignal().slice(2, 20)" [loading]="loadingSignal()"
       [title]="'Productos relacionados'"></app-slider-products>
   </div>
+
+  <div class="products-slider">
+    <app-slider-products [products]="productsSignal().slice(2, 20).reverse()" [loading]="loadingSignal()"
+      [title]="'Productos que te pueden gustar'"></app-slider-products>
+  </div>
+
 </section>

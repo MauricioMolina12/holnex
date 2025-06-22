@@ -9,15 +9,18 @@
         <form class="newsletter-form">
             <i class="newsletter-form-icon__email icon-search"></i>
             <input class="newsletter-form__input" type="email" placeholder="Ingresa tu email">
-            <app-button [text]="'Enviar'" [type]="'submit'" [customClass]="[
-                'button', 
-                'button--transparent', 
-                'button--primary',
-                'button--medium',
+            <app-button [text]="'Enviar'" [type]="'submit'" [classCustom]="{
+                base: 'button', 
+                bgColor: 'primary', 
+                textColor: 'white',
+                more: [
                 'z-index-100',
                 'p-absolute',
                 'top-10',
-                'right-10']">
+                'right-10',
+                'rounded-lg']
+                
+                }">
             </app-button>
         </form>
     </article>

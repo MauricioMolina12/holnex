@@ -17,7 +17,9 @@
 
     </div>
     <div class="hero-slider">
-        <div class="hero-slider__option" *ngFor="let ad of slider; let i = index"
+        <div class="hero-slider__option" 
+            (click)="currentSlideIndex(i)"
+            *ngFor="let ad of slider; let i = index"
             [ngClass]="{'active' : i === currentSlide}">
         </div>
     </div>

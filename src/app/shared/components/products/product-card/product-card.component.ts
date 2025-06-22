@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, Signal } from '@angular/core';
-import { ThemeService } from '../../../services/theme.service';
+import { ThemeService } from '../../../../core/services/theme.service';
 import { Product } from '../../../../features/products/models/products.model';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -17,7 +17,6 @@ export class ProductCardComponent implements OnInit {
 
   @Output() productClick = new EventEmitter<any>();
 
-  imageLoaded = false;
   isDark!: Signal<boolean>;
 
 

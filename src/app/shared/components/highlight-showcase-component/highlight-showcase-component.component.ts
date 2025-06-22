@@ -11,10 +11,10 @@ import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { ShowcaseTypeEnum } from './highlight-showcase-type.enum';
 import { ProductsService } from '../../../features/products/services/products.service';
 import { ButtonComponent } from '../ui/button/button.component';
-import { ThemeService } from '../../services/theme.service';
-import { NetworkService } from '../../services/network.service';
-import { skeletonType } from '../skeleton/skeleton.type.enum';
-import { SkeletonComponent } from '../skeleton/skeleton.component';
+import { ThemeService } from '../../../core/services/theme.service';
+import { NetworkService } from '../../../core/services/network.service';
+import { skeletonType } from '../../../core/components/skeleton/skeleton.type.enum';
+import { SkeletonComponent } from '../../../core/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-highlight-showcase-component',
@@ -56,8 +56,12 @@ export class HighlightShowcaseComponentComponent implements OnInit {
     this.isOnline = computed(() => this.networkService.isOnline());
   }
 
+  get visibleData(){
+    return this.data.slice(1, 9);
+  }
+
   get showSkeleton(): boolean {
-    return this.loading || !this.isOnline() || this.isEmptyList;
+    return this.loading && !this.showError;
   }
 
   get showError(): boolean {

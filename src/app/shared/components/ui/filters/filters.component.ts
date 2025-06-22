@@ -9,7 +9,7 @@ import {
 import { DOCUMENT, isPlatformBrowser, NgClass, NgFor } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { selectLoading } from '../../../features/products/store/selectors/product.selectors';
+import { selectLoading } from '../../../../features/products/store/selectors/product.selectors';
 
 @Component({
   selector: 'app-filters',

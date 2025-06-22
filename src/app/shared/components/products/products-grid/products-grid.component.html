@@ -6,13 +6,20 @@
         <h2 class="products__title title-section">{{title}}</h2>
         <span class="products__subtitle">{{subtitle}}</span>
       </div>
-      <app-button *ngIf="labelButton" [text]="labelButton" aria-label="Ver todos los productos" [customClass]="[
-        'button',
-        'button--transparent',
-        'button--secondary',
-        'button--medium',
-      ]">
-      </app-button>
+
+      <app-button 
+        *ngIf="labelButton" 
+        [text]="labelButton" 
+        aria-label="Ver todos los productos" 
+        variant="outline"
+        [classCustom]="{
+          base: 'button',
+          bgColor: 'primary-to-white',
+          textColor: 'white',
+          more: ['rounded-lg']
+
+        }"></app-button>
+
     </div>
   </header>
 
@@ -45,12 +52,6 @@
         <button class="page-button" *ngFor="let page of [].constructor(4); let i = index"
           [ngClass]="{'active': i == 0}">
           {{i+1}}
-        </button>
-        <button class="page-button">
-          ...
-        </button>
-        <button class="page-button">
-          10
         </button>
       </div>
 

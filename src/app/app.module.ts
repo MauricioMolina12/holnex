@@ -12,7 +12,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { LayoutComponent } from './layout/layout.component';
 import { NavBarComponent } from './layout/components/nav-bar/nav-bar.component';
 import { AlertNewPromotionsComponent } from './layout/components/alert-new-promotions/alert-new-promotions.component';
-import { FiltersComponent } from './shared/components/filters/filters.component';
+import { FiltersComponent } from './shared/components/ui/filters/filters.component';
 import { CategoryDetailsComponent } from './features/categories/components/category-details/category-details.component';
 import { FooterComponent } from './layout/components/footer/footer.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -20,10 +20,9 @@ import { StoreModule } from '@ngrx/store';
 import { productReducer } from './features/products/store/reducers/product.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './features/products/store/effects/product.effects';
-import { networkInterceptor } from './core/interceptors/network.interceptor';
 import { CoreModule } from './core/core.module';
-import { StatusUiMessageComponent } from "./shared/components/status-ui-message/status-ui-message.component";
-import { GlobalLoaderComponent } from './shared/components/global-loader/global-loader.component';
+import { StatusUiMessageComponent } from "./core/components/status-ui-message/status-ui-message.component";
+import { GlobalLoaderComponent } from './core/components/global-loader/global-loader.component';
 
 @NgModule({
   declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent, GlobalLoaderComponent],
@@ -40,7 +39,7 @@ import { GlobalLoaderComponent } from './shared/components/global-loader/global-
     EffectsModule.forRoot([ProductEffects]),
     StatusUiMessageComponent
 ],
-  providers: [provideClientHydration(), provideHttpClient(withFetch(), withInterceptors([networkInterceptor]))],
+  providers: [provideClientHydration(), provideHttpClient(withFetch())],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

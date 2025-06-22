@@ -22,7 +22,7 @@ import { ButtonComponent } from '../ui/button/button.component';
   styleUrls: ['./hero-banner.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ButtonComponent],
 })
 export class HeroBannerComponent implements OnInit {
   @Input() slider: Ad[] = [];
@@ -106,6 +106,11 @@ export class HeroBannerComponent implements OnInit {
     if (this.slider.length === 0) return;
     this.currentSlide =
       this.currentSlide === this.slider.length - 1 ? 0 : this.currentSlide + 1;
+    this.updateSlide();
+  }
+
+  currentSlideIndex(index: number) {
+    this.currentSlide = index;
     this.updateSlide();
   }
 

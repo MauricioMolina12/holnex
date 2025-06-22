@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppService } from './app.service';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { GlobalLoaderService } from './shared/services/global-loader.service';
+import { GlobalLoaderService } from './core/services/global-loader.service';
 
 @Component({
   selector: 'app-root',

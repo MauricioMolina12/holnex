@@ -135,10 +135,6 @@ $min-width-items: 150px;
   }
 
   @include respond-to("tablet") {
-    &__title {
-      font-size: 1.4rem;
-    }
-
     &__link {
       font-size: 1rem;
     }
@@ -173,10 +169,6 @@ $min-width-items: 150px;
   }
 
   @include respond-to("desktop") {
-    &__title {
-      font-size: 1.8rem;
-    }
-
     &__link {
       font-size: 0.8rem;
     }

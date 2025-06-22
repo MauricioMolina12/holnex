@@ -56,7 +56,6 @@
     }
   }
 
-
   &__pagination {
     width: 100%;
     display: flex;
@@ -112,7 +111,6 @@
       }
 
       .pages-buttons {
-        width: 60%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -148,6 +146,7 @@
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     }
   }
+  
 
   @include respond-to("tablet") {
     // width: 80%;

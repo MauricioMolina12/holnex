@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgStyle } from '@angular/common';
 import { Component, OnInit, Signal } from '@angular/core';
-import { ThemeService } from '../../services/theme.service';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-services-grid',

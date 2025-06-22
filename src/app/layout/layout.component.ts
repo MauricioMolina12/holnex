@@ -1,7 +1,7 @@
-import { Component, OnInit, computed, Signal } from '@angular/core';
+import { Component, OnInit, Signal, computed } from '@angular/core';
 import { AuthService } from '../features/auth/auth.service';
-import { NetworkService } from '../shared/services/network.service';
-import { UiStatus } from '../shared/components/status-ui-message/status-ui.model';
+import { NetworkService } from '../core/services/network.service';
+import { UiStatus } from '../core/components/status-ui-message/status-ui.model';
 
 @Component({
   selector: 'app-layout',
@@ -9,26 +9,46 @@ import { UiStatus } from '../shared/components/status-ui-message/status-ui.model
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent implements OnInit {
+  
+  // === Estado de red ===
   isOnline!: Signal<boolean>;
-  statusNetwork!: Signal<UiStatus>;
   showConnectionMessage!: Signal<boolean>;
+  statusNetwork!: Signal<UiStatus>;
 
-  constructor(private networkService: NetworkService, private authService: AuthService) {}
+  // === Estado del layout (UI) ===
+  isClose: boolean = true;
+
+  constructor(
+    private networkService: NetworkService,
+    private authService: AuthService
+  ) {}
+
 
   ngOnInit(): void {
+    // Señales de red
     this.isOnline = this.networkService.isOnline;
     this.showConnectionMessage = this.networkService.connectionChanged;
 
+    // Estado de red para componente visual
     this.statusNetwork = computed(() => ({
       type: 'network',
       title: this.isOnline() ? 'Tienes conexión' : 'Sin conexión',
       color: this.isOnline() ? 'var(--color-success)' : 'var(--color-danger)',
+      description: this.isOnline()
+        ? 'Ahora vuelves a tener conexión! Sigue navegando'
+        : 'Por favor verifica tu red y vuelve a intentarlo.',
+      actionLabel: 'Reintentar',
+      actionType: 'retry',
+      options: { isOnline: this.isOnline() }
     }));
+
+    // Lógica centralizada de reconexión y recarga
+    this.networkService.refreshAfterOffline();
   }
 
-  isClose: boolean = true;
-
-  closeAlertNewPromotions() {
+  
+  // === Métodos ===
+  closeAlertNewPromotions(): void {
     this.isClose = false;
   }
 

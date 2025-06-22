@@ -22,7 +22,7 @@ import {
 } from '../../store/selectors/product.selectors';
 import { loadProducts } from '../../store/actions/product.actions';
 import { Product } from '../../models/products.model';
-import { SeoService } from '../../../../shared/services/seo.service';
+import { SeoService } from '../../../../core/services/seo.service';
 @Component({
   selector: 'app-product-details',
   standalone: false,
@@ -45,36 +45,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
 
-  buttons_options_product = [
-    {
-      title: 'Comprar ahora',
-      cssClass: 'product-buy-now-button',
-    },
-    {
-      title: 'Agregar al carrito',
-      icon: 'icon-shop-cart',
-      cssClass: 'product-add-shop-cart-button',
-    },
-    {
-      title: 'Compartir',
-    },
-  ];
-
-  buttons_options_seller = [
-    {
-      title: 'Visitar perfil',
-      cssClass: 'visit-profile',
-    },
-    {
-      title: 'Seguir',
-    },
-  ];
-
-  colors = [
-    { name: 'blue', colorHex: '#2292A4' },
-    { name: 'gray', colorHex: '#545453' },
-    { name: 'white', colorHex: '#D9D9D9' },
-  ];
   comments: { name: string; image: string; time: string; comment: string }[] = [
     {
       name: 'Juan Rodríguez',
@@ -108,15 +78,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     },
   ];
 
-  productsSignal = toSignal(this.store.select(selectAllProducts), {
-    initialValue: [],
-  });
-  loadingSignal = toSignal(this.store.select(selectLoading), {
-    initialValue: false,
-  });
-  errorSignal = toSignal(this.store.select(selectError), {
-    initialValue: null,
-  });
+  productsSignal = toSignal(this.store.select(selectAllProducts), {initialValue: [],});
+  loadingSignal = toSignal(this.store.select(selectLoading), {initialValue: false,});
+  errorSignal = toSignal(this.store.select(selectError), {initialValue: null,});
+
 
   private route = inject(ActivatedRoute);
   constructor(
@@ -134,7 +99,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this.getProductById(this.slug);
       this.product = await computed(() => this.productService.productDetail$());
       if (this.product) {
-        this.seoService.setTitle('HOLNEX - ' + this.product()?.slug);
+        this.seoService.setTitle(this.product()?.slug);
         this.seoService.setDescription(this.product()?.description);
         this.seoService.setKeywords('camiseta, ropa, horizon. algodón');
         this.store.dispatch(loadProducts());
@@ -161,7 +126,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   segment(type: number) {
-    type == 1 ? (this.segmentIndicator = 1) : (this.segmentIndicator = 2);
+    this.segmentIndicator = type;
   }
 
   toggleText() {

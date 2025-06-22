@@ -71,9 +71,9 @@
   --color-orange-tint: #ffb061ea;
 
   /** dark **/
-  --color-dark: #24272a;
+  --color-dark: #2d2d2d;
   --color-dark-rgb: 36, 39, 42;
-  --color-dark-contrast: #ffffff;
+  --color-dark-contrast: var(--color-dark);
   --color-dark-contrast-rgb: 255, 255, 255;
   --color-dark-shade: #202225;
   --color-dark-tint: #3a3d3f;
@@ -81,7 +81,7 @@
   /** medium **/
   --color-medium: #dee2e6;
   --color-medium-rgb: 222, 226, 230;
-  --color-medium-contrast: #000000;
+  --color-medium-contrast: var(--color-medium);
   --color-medium-contrast-rgb: 0, 0, 0;
   --color-medium-shade: #c3c7ca;
   --color-medium-tint: #e1e5e9;

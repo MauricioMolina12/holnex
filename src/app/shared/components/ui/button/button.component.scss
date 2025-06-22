@@ -6,6 +6,7 @@ button {
   .description {
     display: none;
     white-space: nowrap;
+    font-weight: 300;
 
     &.active {
       display: block;
@@ -21,8 +22,8 @@ button {
   .spinner {
     width: 16px;
     height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid #fff;
+    border: 2px solid rgba(139, 139, 139, 0.3);
+    border-top: 2px solid #2292a4;
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
     display: none;

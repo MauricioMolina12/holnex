@@ -46,11 +46,11 @@ export class ZoomImageDirective {
     this.zoomContainer = this.renderer.createElement('div');
     this.renderer.setStyle(this.zoomContainer, 'position', 'absolute');
     this.renderer.setStyle(this.zoomContainer, 'width', '400px');
-    this.renderer.setStyle(this.zoomContainer, 'min-width', '400px');
     this.renderer.setStyle(this.zoomContainer, 'height', '400px');
+    this.renderer.setStyle(this.zoomContainer, 'min-width', '400px');
     this.renderer.setStyle(this.zoomContainer, 'min-height', '400px');
     this.renderer.setStyle(this.zoomContainer, 'overflow', 'hidden');
-    this.renderer.setStyle(this.zoomContainer, 'display', 'none');
+    // this.renderer.setStyle(this.zoomContainer, 'display', 'none');
     this.renderer.setStyle(
       this.zoomContainer,
       'background-size',
@@ -86,7 +86,7 @@ export class ZoomImageDirective {
     this.renderer.setStyle(
       this.zoomContainer,
       'background-position',
-      `${-(x * this.zoomFactor - 350)}px ${-(y * this.zoomFactor - 350)}px`
+      `${-(x * this.zoomFactor - 70)}px ${-(y * this.zoomFactor - 70)}px`
     );
   }
 

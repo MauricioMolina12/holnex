@@ -1,61 +1,61 @@
 <section class="slider-products">
     <ng-container [ngSwitch]="typeSlider">
-
         <ng-container *ngSwitchCase="sliderType.default">
             <header class="slider-products__header">
                 <h1 class="slider-products-title title-section">{{title}}</h1>
-                <app-button [text]="'Ver todos'" [type]="'submit'" aria-label="Ver todos los productos" [customClass]="[
-                'button',
-                'button--transparent',
-                'button--secondary',
-                'button--medium',
-                ]">
-                    >
-                </app-button>
+                <app-button [text]="'Ver todas las ofertas'" aria-label="Ver todos las ofertas" variant="outline"
+                    [classCustom]="{
+                        base: 'button',
+                        bgColor: 'primary-to-white',
+                        textColor: 'white',
+                        more: ['rounded-lg']
+                }"></app-button>
 
             </header>
         </ng-container>
 
         <ng-container *ngSwitchCase="sliderType.flashSale">
-            <header class="slider-products__flash-sale">
-                <app-button [text]="'Ver todos'" [type]="'submit'" [customClass]="[
-                'button', 
-                'button--transparent', 
-                'button--primary',
-                'button--light',
-                'z-index-100',
-                'p-absolute',
-                'top-10',
-                'right-0']">
+            <header class="slider-products__header--flash-sale">
+                <app-button [text]="'Ver todas'" aria-label="Ver todas las ofertas relampago" variant="ghost"
+                    [classCustom]="{
+                    base: 'button', 
+                    bgColor: 'light', 
+                    more: [
+                    'z-index-100',
+                    'p-absolute',
+                    'top-10',
+                    'right-10']
+                    
+                    }">
                 </app-button>
-                <span class="slider-products__flash-sale--title"><i class="icon-ray"></i> Ofertas relampago en
+                <span class="slider-products__header--flash-sale--title"><i class="icon-ray"></i> Ofertas relampago en
                     prendas</span>
-                <h2 class="slider-products__flash-sale--time">{{timeFlashSale | timeRemaining}}</h2>
+                <h2 class="slider-products__header--flash-sale--time">{{timeFlashSale | timeRemaining}}</h2>
             </header>
         </ng-container>
     </ng-container>
 
-    <div class="slider-products__wrapper" #slider (scroll)="checkScrollPosition()">
-        <ng-container *ngIf="!loading;">
-            <div class="product" *ngFor="let product of products">
+    <article class="slider-products__wrapper" #slider (scroll)="checkScrollPosition()">
+        <ng-container *ngIf="showData;">
+            <div class="product" *ngFor="let product of visibleProducts">
                 <app-product-card [product]="product"
                     (productClick)="productsService.detailProduct(product)"></app-product-card>
             </div>
         </ng-container>
 
-        <ng-container *ngIf="loading || isEmptyList">
+        <ng-container *ngIf="isloading">
             <div class="product" *ngFor="let _ of [].constructor(20)">
                 <app-skeleton [typeskeleton]="SkeletonTypeEnum.productCard"></app-skeleton>
             </div>
         </ng-container>
-    </div>
+    </article>
 
-    <button class="slider-products__button-arrow-left arrow" (click)="loading ? null : scrollSlider('left')"
-        [disabled]="isAtStart" [class.disabled]="isAtStart">
+    <button *ngIf="showData" class="slider-products__button-arrow-left arrow"
+        (click)="loading ? null : scrollSlider('left')" [disabled]="isAtStart" [class.disabled]="isAtStart">
         <i class="icon-arrow-chevron-left"></i>
     </button>
-    <button class="slider-products__button-arrow-right arrow" (click)="loading ? null : scrollSlider('right')"
-        [disabled]="isAtEnd" [class.disabled]="isAtEnd">
+    <button *ngIf="showData" class="slider-products__button-arrow-right arrow"
+        (click)="loading ? null : scrollSlider('right')" [disabled]="isAtEnd" [class.disabled]="isAtEnd">
         <i class="icon-arrow-chevron-right"></i>
     </button>
 </section>

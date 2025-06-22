@@ -1,9 +1,17 @@
+@import 'breakpoints';
+
 .title-section {
-  font-size: clamp(1.5rem, 1.8vw, 1.8rem);
+  font-size: clamp(1.2rem, 1vw, 1.4rem);
   color: var(--color-primary-to-white);
-  font-weight: 400;
-  max-width: 90%;
+  font-weight: 500;
+  max-width: 50%;
+
+  @include respond-to("desktop") {
+    font-size: clamp(1.4rem, 1.5vw, 1.8rem);
+  }
 }
+
+
 
 /* Text */
 .text-xs {

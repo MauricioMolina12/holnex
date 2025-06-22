@@ -1,0 +1,30 @@
+<section class="card">
+    <article class="card__content card__content--seller">
+        <header class="card__content--header">
+            <img [src]="seller.cover" [alt]="seller.name" class="card__content--header-cover" />
+            <figure class="card__content--header-avatar">
+                <img [src]="seller.image" [alt]="seller.name">
+            </figure>
+        </header>
+        <div class="card__content--body">
+            <div class="card__content--body-info">
+                <h3 class="name">{{seller.name}}</h3>
+                <p class="description">{{ seller.description }}</p>
+            </div>
+            <div class="card__content--body-stats-summary">
+                <p class="item">
+                    <span class="item--value">+1000</span>
+                    <span class="item--label">Seguidores</span>
+                </p>
+                <p class="item">
+                    <span class="item--value">+100</span>
+                    <span class="item--label">Productos</span>
+                </p>
+            </div>
+        </div>
+        <footer class="card__content--footer">
+            <app-button [text]="'Visitar perfil'" [classCustom]="{base: 'button', bgColor: 'primary', textColor: 'white', more: ['rounded-md']}"></app-button>
+            <app-button [text]="'Seguir'" [variant]="'ghost'" [classCustom]="{base: 'button', bgColor: 'primary'}"></app-button>
+        </footer>
+    </article>
+</section>
