@@ -89,12 +89,12 @@
   }
 
   @include respond-to("desktop") {
-    min-height: 7vh;
+    min-height: 5vh;
     // display: flex;
 
     &-description {
       width: 100%;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
   }
 

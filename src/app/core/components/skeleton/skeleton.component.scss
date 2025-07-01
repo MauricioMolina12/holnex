@@ -1,21 +1,28 @@
 @import "breakpoints";
+@import "skeleton";
 
 .product-card {
   width: 100%;
   &__image {
-    ::ng-deep ngx-skeleton-loader.product__image-skeleton div {
-      border-radius: 12px;
-      height: 280px;
-      background-color: var(--color-medium);
-    }
+    @include skeleton-style(
+      product__image-skeleton,
+      (
+        border-radius: 12px,
+        height: 280px,
+        background-color: var(--color-medium),
+      )
+    );
   }
 
   &__titles {
-    ::ng-deep ngx-skeleton-loader.product__title div {
-      background-color: var(--color-medium);
-      height: 20px;
-      border-radius: 4px;
-    }
+    @include skeleton-style(
+      product__title,
+      (
+        background-color: var(--color-medium),
+        height: 20px,
+        border-radius: 4px,
+      )
+    );
   }
 
   &__actions {
@@ -28,13 +35,16 @@
       display: flex;
       align-items: center;
 
-      ::ng-deep ngx-skeleton-loader.product__price div {
-        width: 40px;
-        height: 20px;
-        background-color: var(--color-medium);
-        margin: 0;
-        border-radius: 4px;
-      }
+      @include skeleton-style(
+        product__price,
+        (
+          width: 40px,
+          height: 20px,
+          background-color: var(--color-medium),
+          margin: 0,
+          border-radius: 4px,
+        )
+      );
     }
 
     &-buttons {
@@ -42,12 +52,15 @@
       align-items: center;
       gap: 8px;
 
-      ::ng-deep ngx-skeleton-loader.product__button div {
-        width: 30px;
-        height: 30px;
-        background-color: var(--color-medium);
-        border-radius: 50%;
-      }
+      @include skeleton-style(
+        product__button,
+        (
+          width: 30px,
+          height: 30px,
+          background-color: var(--color-medium),
+          border-radius: 50%,
+        )
+      );
     }
   }
 }
@@ -77,6 +90,267 @@
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     grid-template-rows: max-content;
     grid-auto-rows: max-content;
+  }
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  .product__images {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &--main {
+      padding: 10px;
+      @include skeleton-style(
+        product__image-skeleton,
+        (
+          border-radius: 12px,
+          height: 460px,
+          background-color: var(--color-medium),
+        )
+      );
+    }
+
+    &--thumbnail {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+
+      @include skeleton-style(
+        item-skeleton,
+        (
+          border-radius: 8px,
+          height: 112px,
+          width: 100px,
+          background-color: var(--color-medium),
+        )
+      );
+    }
+  }
+
+  .product__information {
+    padding: 10px;
+    box-sizing: border-box;
+    &--header {
+      @include skeleton-style(
+        name,
+        (
+          height: 20px,
+          background-color: var(--color-medium),
+          border-radius: 8px,
+        )
+      );
+
+      &-rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        @include skeleton-style(
+          review,
+          (
+            height: 10px,
+            width: 60px,
+            background-color: var(--color-medium),
+            border-radius: 4px,
+          )
+        );
+
+        @include skeleton-style(
+          rating,
+          (
+            height: 10px,
+            width: 60px,
+            background-color: var(--color-medium),
+            border-radius: 4px,
+          )
+        );
+      }
+
+      &-tabs {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+
+        @include skeleton-style(
+          tab,
+          (
+            height: 15px,
+            width: 123px,
+            background-color: var(--color-medium),
+            border-radius: 4px,
+          )
+        );
+      }
+    }
+
+    &--description {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+
+      @include skeleton-style(
+        title-description,
+        (
+          height: 20px,
+          width: 30%,
+          background-color: var(--color-medium),
+          border-radius: 4px,
+        )
+      );
+
+      @include skeleton-style(
+        content-description,
+        (
+          height: 10px,
+          width: 100%,
+          background-color: var(--color-medium),
+          border-radius: 4px,
+        )
+      );
+    }
+  }
+
+  .product__summary {
+    padding: 10px;
+
+    &--header {
+      @include skeleton-style(
+        skeleton,
+        (
+          height: 75.2px,
+          background-color: var(--color-medium),
+          border-radius: var(--border-radius),
+        )
+      );
+    }
+
+    &--content {
+      height: 403px;
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--color-medium);
+      margin-block: 20px;
+      border-radius: var(--border-radius);
+
+      @include skeleton-style(
+        title-content,
+        (
+          height: 20px,
+          width: 30%,
+          background-color: var(--color-medium),
+          border-radius: 4px,
+        )
+      );
+
+      @include skeleton-style(
+        name-product,
+        (
+          width: 60%,
+          height: 25px,
+          background-color: var(--color-medium),
+          border-radius: 4px,
+        )
+      );
+
+      .stock {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-block: 10px;
+
+        &-value,
+        &-button {
+          width: 50%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          @include skeleton-style(
+            stock-text,
+            (
+              width: 60%,
+              height: 15px,
+              background-color: var(--color-medium),
+              border-radius: 4px,
+            )
+          );
+        }
+
+        &-button {
+          position: relative;
+
+          @include skeleton-style(
+            stock-text,
+            (
+              position: absolute,
+              right: 0,
+              top: 20%,
+              height: 45px,
+              border-radius: 10px,
+            )
+          );
+        }
+      }
+
+      @include skeleton-style(
+        button-skeleton,
+        (
+          height: 52px,
+          background-color: var(--color-medium),
+          border-radius: 10px,
+        )
+      );
+    }
+
+    &--seller {
+      @include skeleton-style(
+        skeleton,
+        (
+          height: 376px,
+          background-color: var(--color-medium),
+          border-radius: var(--border-radius),
+        )
+      );
+    }
+  }
+
+  @include respond-to("desktop") {
+    width: 90%;
+    flex-direction: row;
+    margin: 0 auto;
+    padding: 10px;
+
+    .product__images {
+      width: 35%;
+      display: flex;
+      flex-direction: column;
+      order: 1;
+    }
+
+    .product__information {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      order: 2;
+    }
+
+    .product__summary {
+      width: 30%;
+      order: 3;
+    }
   }
 }
 

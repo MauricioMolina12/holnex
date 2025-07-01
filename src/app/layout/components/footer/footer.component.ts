@@ -14,15 +14,16 @@ export class FooterComponent {
 
   Columns = [
     {
-      title: 'Acerca de',
+      title: 'Acerca de Holnex',
       items: [
         {
           text: 'Blog',
           redirect: '',
         },
         {
-          text: 'Holnex',
-          redirect: '',
+          text: 'Quienes somos',
+          type: 'href',
+          redirect: 'https://news.mercadolibre.com/',
         },
         {
           text: 'Tendencias',

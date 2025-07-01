@@ -1,47 +1,7 @@
-// skeleton.scss
-
-// Mixin principal para estilos de skeleton
-@mixin skeleton-style($width, $height, $radius: inherit) {
-  display: block;
-  background-color: #e0e0e0;
-  width: $width;
-  height: $height;
-  border-radius: $radius;
-  margin: 0;
-}
-
-@mixin skeleton-product($width, $height, $minWidth, $maxWidth, $minHeight) {
-  width: $width;
-  min-width: $minWidth;
-  max-width: $maxWidth;
-  height: $height;
-  min-height: $minHeight;
-  border-radius: 9px;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  gap: 10px;
-
-  &-image {
-    background-color: var(--color-medium);
-    height: 50vh;
-    width: 100%;
-    border-radius: 10px;
-  }
-
-  &-titles {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  &-title {
-    height: 15px;
-    width: 80%;
-  }
-
-  &-price {
-    height: 10px;
-    width: 40%;
+@mixin skeleton-style($class, $styles) {
+  ::ng-deep ngx-skeleton-loader.#{$class} div {
+    @each $property, $value in $styles {
+      #{$property}: #{$value};
+    }
   }
 }

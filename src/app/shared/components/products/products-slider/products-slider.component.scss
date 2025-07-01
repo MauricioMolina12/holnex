@@ -8,45 +8,17 @@
   height: auto;
   min-height: 30vh;
   box-sizing: border-box;
-  padding: 10px;
   position: relative;
+  padding: 40px 10px;
 
-  &__wrapper {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    gap: 2px;
-    padding-bottom: 10px;
-    white-space: nowrap;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    .product {
-      width: 45%;
-      min-width: 45%;
-      height: min-content;
-      scroll-snap-align: start;
-      min-height: 250px;
-      border-radius: 9px;
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      gap: 10px;
-    }
-  }
-
-  &__header{
+  &__header {
     width: 100%;
     min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
   }
-  
+
   &__header--flash-sale {
     width: 100%;
     min-height: 60px;
@@ -62,7 +34,7 @@
     box-sizing: border-box;
     position: relative;
 
-    &--view-all-button{
+    &--view-all-button {
       position: absolute;
       top: 10px;
       right: 10px;
@@ -72,7 +44,7 @@
       color: var(--color-white);
       cursor: pointer;
     }
-    
+
     &--title {
       color: var(--color-white);
 
@@ -88,6 +60,33 @@
       border-radius: var(--border-radius);
       font-size: 1.5rem;
       text-transform: uppercase;
+    }
+  }
+
+  &__content {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    gap: 2px;
+    white-space: nowrap;
+    padding-block: 20px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product {
+      width: calc((100% - 40px) / 2);
+      min-width: calc((100% - 40px) / 2);
+      height: min-content;
+      scroll-snap-align: start;
+      min-height: 250px;
+      border-radius: 9px;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      gap: 10px;
     }
   }
 
@@ -107,11 +106,11 @@
   }
 
   &__button-arrow-left {
-    left: 0;
+    left: 10px;
   }
 
   &__button-arrow-right {
-    right: 0;
+    right: 10px;
   }
 
   button {
@@ -123,25 +122,23 @@
   }
 
   @include respond-to("tablet") {
-    &__wrapper {
+    &__content {
       .product {
-        width: 50%;
         height: min-content;
-        min-width: 50%;
         min-height: 250px;
       }
     }
   }
 
   @include respond-to("laptop") {
-    &__wrapper {
+    &__content {
       &::-webkit-scrollbar {
         display: block;
       }
 
       .product {
-        width: calc(100% / 3);
-        min-width: calc(100% / 3);
+        width: calc((100% - 65px) / 3);
+        min-width: calc((100% - 65px) / 3);
       }
     }
 
@@ -155,7 +152,7 @@
   @include respond-to("desktop") {
     min-height: 10vh;
 
-    &__wrapper {
+    &__content {
       gap: 0;
 
       &::-webkit-scrollbar {
@@ -163,8 +160,8 @@
       }
 
       .product {
-        width: calc(100% / 4.4);
-        min-width: calc(100% / 4.4);
+        width: calc(100% / 4.25);
+        min-width: calc(100% / 4.25);
       }
     }
 

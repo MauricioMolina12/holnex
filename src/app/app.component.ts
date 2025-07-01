@@ -13,34 +13,34 @@ export class AppComponent implements OnInit {
 
   constructor(
     private appService: AppService,
-    private globalLoaderService: GlobalLoaderService,
+    public globalLoaderService: GlobalLoaderService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      window.addEventListener('load', () => {
-        // set the global loader loading to true
-        this.globalLoaderService.show();
-        // Execute the main function of the app
-        this.appService.startApp();
+    this.appService.startApp();
+    // if (isPlatformBrowser(this.platformId)) {
+    //   window.addEventListener('load', () => {
+    //     // set the global loader loading to true
+    //     this.globalLoaderService.show();
+    //     // Execute the main function of the app
 
-        this.document.body.style.overflow = 'hidden';
+    //     this.document.body.style.overflow = 'hidden';
 
-        const loader = this.document.getElementById('global-loader');
-        if (loader && this.globalLoaderService.isVisible()) {
-          this.document.body.style.overflow = 'auto';
-          loader.style.transition = 'opacity 300ms ease';
-          loader.style.opacity = '0';
-          setTimeout(() => {
-            loader.remove();
-            this.globalLoaderService.hide()
-          }, 300);
-        }
-      });
-    } else {
-      return;
-    }
+    //     const loader = this.document.getElementById('global-loader');
+    //     if (loader && this.globalLoaderService.isVisible()) {
+    //       this.document.body.style.overflow = 'auto';
+    //       loader.style.transition = 'opacity 300ms ease';
+    //       loader.style.opacity = '0';
+    //       setTimeout(() => {
+    //         loader.remove();
+    //         this.globalLoaderService.hide()
+    //       }, 300);
+    //     }
+    //   });
+    // } else {
+    //   return;
+    // }
   }
 }

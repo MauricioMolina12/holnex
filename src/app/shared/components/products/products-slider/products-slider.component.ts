@@ -29,6 +29,7 @@ import { sliderType } from './products-slider-type.enum';
 import { NetworkService } from '../../../../core/services/network.service';
 import { ThemeService } from '../../../../core/services/theme.service';
 import { skeletonType } from '../../../../core/components/skeleton/skeleton.type.enum';
+import { FlashSaleService } from '../../../services/flash-sale.service';
 
 @Component({
   selector: 'app-slider-products',
@@ -47,6 +48,7 @@ import { skeletonType } from '../../../../core/components/skeleton/skeleton.type
   ],
 })
 export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
+  
   // Header variables
   @Input() title: string = '';
   @Input() subtitle: string = '';
@@ -60,27 +62,24 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   // Slider variables
   @ViewChild('slider') slider!: ElementRef<HTMLElement>;
   @Input() typeSlider: sliderType = sliderType.default;
+
+
+  // Other variables
   sliderType = sliderType;
   currentIndex: number = 0;
   isAtStart: boolean = true;
   isAtEnd: boolean = false;
-
-  //Time example flash sale
-  timeFlashSale = 30000;
-  private intervalId: any;
-
   isBrowser: boolean;
-
   isOnline!: Signal<boolean>;
   isDark!: Signal<boolean>;
-
-  // Enums
   SkeletonTypeEnum = skeletonType;
 
+  
   constructor(
     public productsService: ProductsService,
     private networkService: NetworkService,
     private themeService: ThemeService,
+    public flashSaleService: FlashSaleService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
@@ -89,14 +88,14 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     if (this.isBrowser && this.typeSlider === 'flash-sale') {
-      this.startCountdown();
+      this.flashSaleService.startCountdown();
     }
     this.isDark = this.themeService.darkModeSignal;
     this.isOnline = computed(() => this.networkService.isOnline());
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.intervalId);
+    this.flashSaleService.stopCountdown();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -104,7 +103,7 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
       this.isBrowser &&
       changes['typeSlider']?.currentValue === 'flash-sale'
     ) {
-      this.startCountdown();
+      this.flashSaleService.startCountdown();
     }
   }
 
@@ -121,7 +120,7 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   get visibleProducts() {
-    return this.products.slice(1, 9);
+    return this.products;
   }
 
   scrollSlider(direction: 'left' | 'right'): void {
@@ -158,15 +157,4 @@ export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
     this.isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
   }
 
-  private startCountdown(): void {
-    if (this.intervalId) return;
-
-    this.intervalId = setInterval(() => {
-      if (this.timeFlashSale > 0) {
-        this.timeFlashSale--;
-      } else {
-        clearInterval(this.intervalId);
-      }
-    }, 1000);
-  }
 }

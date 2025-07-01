@@ -30,16 +30,15 @@
                 </app-button>
                 <span class="slider-products__header--flash-sale--title"><i class="icon-ray"></i> Ofertas relampago en
                     prendas</span>
-                <h2 class="slider-products__header--flash-sale--time">{{timeFlashSale | timeRemaining}}</h2>
+                <h2 class="slider-products__header--flash-sale--time">{{ flashSaleService.getTime() | timeRemaining}}</h2>
             </header>
         </ng-container>
     </ng-container>
 
-    <article class="slider-products__wrapper" #slider (scroll)="checkScrollPosition()">
+    <article class="slider-products__content" #slider (scroll)="checkScrollPosition()">
         <ng-container *ngIf="showData;">
             <div class="product" *ngFor="let product of visibleProducts">
-                <app-product-card [product]="product"
-                    (productClick)="productsService.detailProduct(product)"></app-product-card>
+                <app-product-card [product]="product" (productClick)="productsService.detailProduct(product)"></app-product-card>
             </div>
         </ng-container>
 

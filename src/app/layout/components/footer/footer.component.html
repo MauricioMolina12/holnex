@@ -9,7 +9,16 @@
       <div class="footer__column" *ngFor="let column of Columns">
         <h4 class="footer__column-title">{{ column?.title }}</h4>
         <span class="footer__column-link" *ngFor="let item of column?.items">
-          <a [routerLink]="item.redirect">{{ item?.text }}</a>
+          <ng-container *ngIf="item.type === 'href'; else internalLink">
+            <a [href]="item.redirect" target="_blank" rel="noopener noreferrer">
+              {{ item?.text }}
+            </a>
+          </ng-container>
+          <ng-template #internalLink>
+            <a [routerLink]="item.redirect">
+              {{ item?.text }}
+            </a>
+          </ng-template>
         </span>
       </div>
     </div>

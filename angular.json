@@ -50,6 +50,7 @@
               "src/app/shared/styles/positions.scss",
               "src/app/shared/styles/utilities.scss",
               "src/app/shared/styles/typography.scss",
+              "src/app/shared/styles/skeleton.scss",
               "src/assets/icons/style.css"
             ],
             "scripts": [],

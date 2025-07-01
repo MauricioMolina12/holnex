@@ -11,7 +11,7 @@ import {
   Renderer2,
   ViewChildren,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
@@ -19,10 +19,12 @@ import {
   selectAllProducts,
   selectError,
   selectLoading,
+  selectProductDetail,
 } from '../../store/selectors/product.selectors';
-import { loadProducts } from '../../store/actions/product.actions';
-import { Product } from '../../models/products.model';
+import { loadProductBySlug } from '../../store/actions/product.actions';
 import { SeoService } from '../../../../core/services/seo.service';
+import { skeletonType } from '../../../../core/components/skeleton/skeleton.type.enum';
+import { Product } from '../../models/products.model';
 @Component({
   selector: 'app-product-details',
   standalone: false,
@@ -33,17 +35,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   // Inputs
   product!: any;
   @ViewChildren('imagesProducts') imagesProducts!: QueryList<ElementRef>;
+  loading!: boolean;
+
+  skeletonType = skeletonType;
 
   // Variables
-  segmentIndicator: number = 1;
+  segmentIndicator: number = 3;
   showFullText: boolean = false;
-  visibleComments: string[] = [];
+
   slug: string = '';
   quantityProduct: number = 1;
-  relatedProducts: any;
   mainImage: string = '';
-
-  loading: boolean = true;
 
   comments: { name: string; image: string; time: string; comment: string }[] = [
     {
@@ -78,51 +80,73 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     },
   ];
 
-  productsSignal = toSignal(this.store.select(selectAllProducts), {initialValue: [],});
-  loadingSignal = toSignal(this.store.select(selectLoading), {initialValue: false,});
-  errorSignal = toSignal(this.store.select(selectError), {initialValue: null,});
-
+  productsRelated = toSignal(this.store.select(selectAllProducts), {
+    initialValue: [],
+  });
+  loadingProductsRelated = toSignal(this.store.select(selectLoading), {
+    initialValue: false,
+  });
+  errorProductsRelated = toSignal(this.store.select(selectError), {
+    initialValue: null,
+  });
 
   private route = inject(ActivatedRoute);
   constructor(
     public productService: ProductsService,
     private seoService: SeoService,
     private renderer: Renderer2,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {}
 
+  productDetail = toSignal(this.store.select(selectProductDetail), {
+    initialValue: null,
+  });
   ngOnInit() {
-    this.route.paramMap.subscribe(async (params) => {
-      this.loading = true;
+    this.loading = true;
+    this.route.paramMap.subscribe((params) => {
       this.slug = params.get('slug') || '';
 
-      this.getProductById(this.slug);
-      this.product = await computed(() => this.productService.productDetail$());
-      if (this.product) {
-        this.seoService.setTitle(this.product()?.slug);
-        this.seoService.setDescription(this.product()?.description);
-        this.seoService.setKeywords('camiseta, ropa, horizon. algodón');
-        this.store.dispatch(loadProducts());
+      if (!this.slug) {
+        this.router.navigate(['/']);
+        return;
+      }
+      
+      // If the product is already loaded from the service, it is added
+      const existing = this.productService.productDetail$();
+      if (existing) {
+        this.setProduct(existing);
+        return;
+      }
+      
+      this.store.dispatch(loadProductBySlug({ slug: this.slug }));
+      if (this.productDetail()) {
+        this.setProduct(this.productDetail());
+        console.log(this.productDetail());
+        
       }
     });
   }
 
-  ngOnDestroy(): void {
-    this.seoService.setTitle('');
-    this.seoService.setDescription('');
-    this.seoService.setKeywords('');
+  private setProduct(product: any) {
+    if(!product) return;
+
+    this.product = product;
+    if (product.images?.length) {
+      this.mainImage = product.images[0];
+    }
+    this.seoService.setMetaData(
+      { key: 'name', value: product.title },
+      { key: 'description', value: product.description }
+    );
+    this.loading = false;
   }
 
-  readonly setProduct = effect(() => {
-    const product = this.product();
-    if (product && product.images?.length) {
-      this.mainImage = product.images[0];
-      this.loading = false;
-    }
-  });
+  loadProduct = (slug: string) => {};
 
-  getProductById(slug: string) {
-    this.productService.getProductById(slug);
+  ngOnDestroy(): void {
+    this.slug = '';
+    this.seoService.default();
   }
 
   segment(type: number) {

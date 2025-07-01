@@ -24,14 +24,14 @@ export class ProductEffects {
     )
   );
 
-  // Load product by Id
-  loadProductById$ = createEffect(() =>
+  // Load product by Slug
+  loadProductBySlug$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.loadProductById),
+      ofType(ProductActions.loadProductBySlug),
       mergeMap(({ slug }) =>
-        this.http.get<Product>(`${environment.api}/products/slug/${slug}`).pipe(
-          map((product) => ProductActions.loadProductByIdSuccess({ product })),
-          catchError((error) => of(ProductActions.loadProductByIdFailure({ error: error.message })))
+        this.productsService.getProductBySlug(slug).pipe(
+          map((product) => ProductActions.loadProductBySlugSuccess({ product })),
+          catchError((error) => of(ProductActions.loadProductBySlugFailure({ error: error.message })))
         )
       )
     )

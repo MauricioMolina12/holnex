@@ -3,14 +3,25 @@ import { Title } from '@angular/platform-browser';
 import { Meta } from '@angular/platform-browser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SeoService {
+  constructor(private titleService: Title, private metaService: Meta) {}
 
-  constructor(
-    private titleService: Title,
-    private metaService: Meta
-  ) {    
+  setMetaData(...properties: { key: string; value: string }[]) {
+    properties.forEach((property) => {
+      switch (property.key) {
+        case 'name':
+          this.setTitle(property.value);
+          break;
+        case 'description':
+          this.setDescription(property.value);
+          break;
+        case 'keywords':
+          this.setKeywords(property.value);
+          break;
+      }
+    });
   }
 
   setTitle(title: string) {
@@ -47,5 +58,15 @@ export class SeoService {
     } else {
       this.metaService.updateTag({ name, content });
     }
+  }
+
+  default(){
+    this.setTitle('');
+    this.setDescription('');
+    this.setKeywords('');
+    this.setOgTitle('');
+    this.setOgDescription('');
+    this.setOgImage('');
+    this.setOgUrl('');
   }
 }

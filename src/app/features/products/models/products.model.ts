@@ -9,14 +9,18 @@ export interface Product {
   images: string[];
   creationAt: string;
   updatedAt: string;
-  category: Category;
-
-  
+  category: Category; 
 }
 
-export interface ProductState {
+export interface ProductsListState {
   products: Product[];
-  productDetail: Product | null;
   loading: boolean;
   error: string | null;
 }
+
+export interface ProductDetailState {
+  product: Product | null;
+  loading: boolean;
+  error: string | null;
+}
+

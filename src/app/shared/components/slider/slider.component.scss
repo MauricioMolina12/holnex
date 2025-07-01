@@ -1,0 +1,103 @@
+@import "breakpoints";
+@import "variables";
+
+/*Phones*/
+.slider {
+  width: 100%;
+  height: auto;
+  min-height: 30vh;
+  box-sizing: border-box;
+  position: relative;
+
+  &__header {
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &--title {
+      font-weight: 300;
+      color: var(--color-primary-to-white);
+      font-size: 1rem;
+      margin: 15px 0;
+    }
+  }
+
+  &__content {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    gap: 2px;
+    white-space: nowrap;
+    padding-block: 20px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .arrow {
+    background-color: var(--color-medium);
+    outline: none;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: var(--border-radius);
+    position: absolute;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  &__button-arrow-left {
+    left: 10px;
+  }
+
+  &__button-arrow-right {
+    right: 10px;
+  }
+
+  button {
+    &.disabled {
+      opacity: 0.4;
+      background-color: var(--color-font-gray);
+      cursor: not-allowed;
+    }
+  }
+
+  //   @include respond-to("tablet") {
+  //     &__content {
+  //       .product {
+  //         height: min-content;
+  //         min-height: 250px;
+  //       }
+  //     }
+  //   }
+
+  @include respond-to("laptop") {
+    .arrow {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  @include respond-to("desktop") {
+    min-height: 10vh;
+    &__content {
+      gap: 0;
+
+      &::-webkit-scrollbar {
+        display: block;
+      }
+    }
+
+    .arrow {
+      width: 45px;
+      height: 45px;
+    }
+  }
+}

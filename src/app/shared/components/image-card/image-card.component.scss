@@ -1,0 +1,23 @@
+@import "breakpoints";
+
+.card {
+  width: 100%;
+  min-width: 200px;
+  min-height: 300px;
+  max-height: max-content;
+  position: relative;
+
+  &__image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

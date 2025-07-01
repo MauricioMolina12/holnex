@@ -1,0 +1,24 @@
+<section class="slider">
+    <header class="slider__header">
+        <h1 class="slider__header--title text-sm">{{title}}</h1>
+        <app-button *ngIf="!!labelButton" [text]="labelButton" [ariaLabel]="labelButton" variant="ghost" [classCustom]="{
+                        base: 'button',
+                        bgColor: 'secondary',
+                        textColor: 'white',
+                        more: ['rounded-lg','flex','justify-end','p-0']}">
+        </app-button>
+    </header>
+
+    <article class="slider__content" #slider (scroll)="checkScrollPosition()">
+        <ng-content select="[slider-item]"></ng-content>
+    </article>
+
+    <button class="slider__button-arrow-left arrow" (click)="scrollSlider('left')"
+        [disabled]="isAtStart" [class.disabled]="isAtStart">
+        <i class="icon-arrow-chevron-left"></i>
+    </button>
+    <button class="slider__button-arrow-right arrow" (click)="scrollSlider('right')"
+        [disabled]="isAtEnd" [class.disabled]="isAtEnd">
+        <i class="icon-arrow-chevron-right"></i>
+    </button>
+</section>

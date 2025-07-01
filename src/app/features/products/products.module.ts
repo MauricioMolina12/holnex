@@ -12,11 +12,15 @@ import { SkeletonComponent } from '../../core/components/skeleton/skeleton.compo
 import { ButtonComponent } from '../../shared/components/ui/button/button.component';
 import { ProductsSliderComponent } from '../../shared/components/products/products-slider/products-slider.component';
 import { SellersModule } from '../sellers/sellers.module';
+import { StoreModule } from '@ngrx/store';
+import { productDetailReducer, productsAllReducer } from './store/reducers/product.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './store/effects/product.effects';
+import { ImageCardComponent } from '../../shared/components/image-card/image-card.component';
+import { SliderComponent } from '../../shared/components/slider/slider.component';
 
 @NgModule({
-  declarations: [
-    ProductDetailsComponent
-  ],
+  declarations: [ProductDetailsComponent],
   imports: [
     CommonModule,
     ProductsRoutingModule,
@@ -29,7 +33,14 @@ import { SellersModule } from '../sellers/sellers.module';
     FiltersComponent,
     ButtonComponent,
     ProductsSliderComponent,
-    SellersModule
-],
+    SellersModule,
+    ImageCardComponent,
+    SliderComponent,
+
+    // State Management
+    StoreModule.forFeature('products', productsAllReducer),
+    StoreModule.forFeature('productDetail', productDetailReducer),
+    EffectsModule.forFeature([ProductEffects]),
+  ],
 })
 export class ProductsModule {}

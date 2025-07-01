@@ -104,7 +104,7 @@ export class ProductsGridComponent implements OnInit {
     }, 1000);
   }
 
-  detailProduct(product: any) {
-    this.router.navigate([`/product/${product.slug}`]);
+  detailProduct(product: Product) {
+    this.productsService.detailProduct(product);
   }
 }
