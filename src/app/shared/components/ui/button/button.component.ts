@@ -28,7 +28,7 @@ export class ButtonComponent {
 
   onClick() {
     if (!this.loading && !this.disabled) {
-      this.loading = true;
+      // this.loading = true;
       this.clicked.emit();
     }
   }

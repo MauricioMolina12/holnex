@@ -33,7 +33,7 @@
         <footer class="product__actions">
             <button *ngFor="let button of buttons_options_product" [ngClass]="button.cssClass">
                 <span *ngIf="button.title">{{button.title}}</span>
-                <i *ngIf="button.icon" [ngClass]="button.icon" alt="icon"></i>
+                <!-- <i *ngIf="button.icon" [ngClass]="button.icon" alt="icon"></i> -->
             </button>
         </footer>
     </div>

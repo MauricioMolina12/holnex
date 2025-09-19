@@ -87,7 +87,7 @@
         max-width: 400px;
         overflow-x: auto;
         overflow-y: hidden;
-        height: 250px;
+        min-height: 120px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -114,7 +114,7 @@
         }
 
         &-item {
-          border: 1px solid var(--color-medium);
+          border: 3px solid transparent;
           width: calc((100% / 2) - 4px);
           flex: 0 0 auto;
           display: flex;
@@ -570,7 +570,7 @@
         max-height: 70vh;
         &--thumbnail {
           &-item {
-            border: 1px solid var(--color-medium);
+            border: 3px solid transparent;
             flex: 0 0 auto;
             height: 80%;
             display: flex;

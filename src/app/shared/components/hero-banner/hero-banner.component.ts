@@ -22,7 +22,7 @@ import { ButtonComponent } from '../ui/button/button.component';
   styleUrls: ['./hero-banner.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule, ButtonComponent],
+  imports: [CommonModule, RouterModule],
 })
 export class HeroBannerComponent implements OnInit {
   @Input() slider: Ad[] = [];

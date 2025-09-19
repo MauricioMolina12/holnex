@@ -1,9 +1,11 @@
 <section class="product">
-  <ng-container *ngIf="loading">
+  @if (loading) {
+  <ng-container>
     <app-skeleton [typeskeleton]="skeletonType.productDetails">
     </app-skeleton>
   </ng-container>
-  <ng-container *ngIf="!loading">
+  }@else {
+  <ng-container>
     <div class="product__content">
       <section class="product__images">
         <figure class="product__images--main">
@@ -172,5 +174,6 @@
         [title]="'Productos que te pueden gustar'"></app-slider-products>
     </div>
   </ng-container>
+  }
 
 </section>

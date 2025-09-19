@@ -13,6 +13,21 @@
 
 
 
+// Sizes
+
+:root{
+  --text-size-10: clamp(10px, 1vw, 12px);
+  --text-size-12: clamp(12px, 1vw, 14px);
+  --text-size-14: clamp(14px, 1vw, 16px);
+  --text-size-16: clamp(16px, 1vw, 18px);
+  --text-size-18: clamp(18px, 1vw, 20px);
+  --text-size-20: clamp(20px, 1vw, 22px);
+  --text-size-22: clamp(22px, 1vw, 24px);
+  --text-size-24: clamp(24px, 1vw, 26px);
+  --text-size-26: clamp(26px, 1vw, 28px);
+  --text-size-28: clamp(28px, 1vw, 30px);
+}
+
 /* Text */
 .text-xs {
   font-size: 0.75rem !important;
@@ -52,4 +67,44 @@
 }
 .text-right {
   text-align: right !important;
+}
+
+.text-font-bold{
+  font-weight: bold !important;
+}
+
+.text-font-900{
+  font-weight: 900 !important;
+}
+
+.text-font-800{
+  font-weight: 800 !important;
+}
+
+.text-font-700{
+  font-weight: 700 !important;
+}
+
+.text-font-600{
+  font-weight: 600 !important;
+}
+
+.text-font-500{
+  font-weight: 500 !important;
+}
+
+.text-font-400{
+  font-weight: 400 !important;
+}
+
+.text-font-300{
+  font-weight: 300 !important;
+}
+
+.text-font-200{
+  font-weight: 200 !important;
+}
+
+.text-font-100{
+  font-weight: 100 !important;
 }

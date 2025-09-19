@@ -2,7 +2,7 @@
 
 :root {
   --font-family: "Montserrat", sans-serif;
-  --background-color: #f8f8f8;
+  --background-color: #fcfcfc;
   --background-color2: #f0f3ff;
 
   /* Others variables */
@@ -256,6 +256,9 @@
   --color-blue-light-contrast-rgb: 0, 0, 0;
   --color-blue-light-shade: #d5dae0;
   --color-blue-light-tint: #f3f9ff;
+
+  --color-skeleton-base: #e0e0e0;
+  --color-skeleton-medium: #f8f8f8;
 
   /** Others colors **/
   --bg-gradient-main: linear-gradient(#e1e1e1, #ffffff);

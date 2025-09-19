@@ -15,6 +15,7 @@ export class LayoutComponent implements OnInit {
   showConnectionMessage!: Signal<boolean>;
   statusNetwork!: Signal<UiStatus>;
 
+  
   // === Estado del layout (UI) ===
   isClose: boolean = true;
 

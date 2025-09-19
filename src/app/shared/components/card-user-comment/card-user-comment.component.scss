@@ -9,6 +9,9 @@
   background-color: var(--color-primary-contrast);
   padding: 10px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   &__user {
     width: 100%;
@@ -21,8 +24,8 @@
 
     .avatar {
       clip-path: circle();
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       margin: 0;
       margin-left: 10px;
 

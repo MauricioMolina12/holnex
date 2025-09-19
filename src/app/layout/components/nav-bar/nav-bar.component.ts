@@ -7,7 +7,7 @@ import {
   Input,
   OnInit,
   PLATFORM_ID,
-  Signal
+  Signal,
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { User } from '../../../shared/models/user';
@@ -42,7 +42,6 @@ interface NavBarItem {
   // imports: [CommonModule, RouterModule, SearchInputComponent],
 })
 export class NavBarComponent implements OnInit {
-  
   viewSideBar = false;
   isDark!: Signal<boolean>;
   viewSearchInput = false;
@@ -52,7 +51,7 @@ export class NavBarComponent implements OnInit {
   userItems: NavBarItem[] = [];
   configItems: NavBarItem[] = [];
   profileItems: NavBarItem[] = [];
-  
+  viewNotifications: boolean = false;
 
   constructor(
     private router: Router,
@@ -65,7 +64,6 @@ export class NavBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.isDark = this.themeService.darkModeSignal;
 
     this.user = {
@@ -73,10 +71,10 @@ export class NavBarComponent implements OnInit {
       cellphone: '3008236761',
       country_id: '48',
       created_at: '2025-01-15',
-      email: 'freddyvega@gmail.com',
-      image: 'https://b2472105.smushcdn.com/2472105/wp-content/uploads/2023/01/Fotografo-Monterrey-_49-1-819x1024.jpg?lossy=1&strip=1&webp=1',
+      email: 'alfredocomas8@gmail.com',
+      image: 'https://d3puay5pkxu9s4.cloudfront.net/Users/6336778/imagen-azMqusmjFE.jpg',
       language_id: '1',
-      name: 'Freddy Vega',
+      name: 'Alfredo Comas',
       password: '***********',
       role: 'premium',
       source: '',
@@ -93,6 +91,7 @@ export class NavBarComponent implements OnInit {
           email: this.isLoggued() ? this.user.email : 'Podrás interactuar con tu cuenta',
         },
         group: 'user',
+        path: '/profile',
       },
       {
         icon: 'icon-home',
@@ -130,6 +129,7 @@ export class NavBarComponent implements OnInit {
         title: 'Notificaciones',
         pending: true,
         group: 'user',
+        action: (event?: Event) => this.viewNotifications = !this.viewNotifications,
       },
       {
         icon: 'icon-heart',
@@ -166,8 +166,12 @@ export class NavBarComponent implements OnInit {
     ];
 
     this.userItems = this.navbar_items.filter((item) => item.group === 'user');
-    this.configItems = this.navbar_items.filter((item) => item.group === 'config');
-    this.profileItems = this.navbar_items.filter((item) => item.group === 'profile');
+    this.configItems = this.navbar_items.filter(
+      (item) => item.group === 'config'
+    );
+    this.profileItems = this.navbar_items.filter(
+      (item) => item.group === 'profile'
+    );
   }
 
   @Input() user!: User;
@@ -203,11 +207,7 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  toggleElement(
-    e: Event | undefined,
-    classElement: string,
-    type: string = 'close'
-  ) {
+  toggleElement(e: Event | undefined,classElement: string,type: string = 'close') {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -288,7 +288,6 @@ export class NavBarComponent implements OnInit {
   nameItemHover: string = '';
   seeTooltipItem(name: string) {
     this.nameItemHover = name;
-    
   }
   seeTooltipItemLeave() {
     this.nameItemHover = '';

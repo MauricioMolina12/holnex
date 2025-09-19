@@ -14,8 +14,8 @@ export class ThemeService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      this.initTheme(); 
-      this.listenToSystemPreferenceChanges(); 
+      // this.initTheme(); 
+      // this.listenToSystemPreferenceChanges(); 
     }
   }
 

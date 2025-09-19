@@ -3,11 +3,7 @@
   <!-- Logo-->
   <div class=" nav-bar__left">
     <i class="icon-holnex nav-bar__logo" [routerLink]="['']"></i>
-    <!-- <div class="nav-bar__left--title">HOLNEX</div> -->
-    <!-- <div class="nav-bar__address-user">
-      <h4 class="nav-bar__adress-text">{{ isLoggued() ? 'Dirección' : 'No tienes dirección?' }}</h4>
-      <span class="nav-bar__adress-value">{{ isLoggued() ? user.address : 'Agregala aquí' }}</span>
-    </div> -->
+    <div class="nav-bar__left--title">Hola, <span>{{user.name}}</span></div>
   </div>
 
 
@@ -36,11 +32,12 @@
     <button class="close-button" (click)="toggleElement($event, 'nav-bar__sidebar','')">X</button>
 
     <ul class="nav-bar__sidebar-list user-list">
-      <li class="nav-bar__sidebar-list-item" *ngFor="let item of userItems" (click)="item?.action($event)"
+      @for (item of userItems; track $index) {
+      <li class="nav-bar__sidebar-list-item" (click)="item?.action($event)"
         (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
 
-        <div class="nav-bar__sidebar-list-item-user" *ngIf="item.profile"
-          [ngClass]="{'not-logged' : !isLoggued(), 'logged' : isLoggued()}">
+        @if (item.profile) {
+        <div class="nav-bar__sidebar-list-item-user" [ngClass]="{'not-logged' : !isLoggued(), 'logged' : isLoggued()}">
           <div class="nav-bar__sidebar-list-item-user-content">
             <figure class="user-avatar" (click)="isLoggued() && toggleElement($event, 'nav-bar__modal-profile')">
               <img [src]="item?.profile?.avatar" [alt]="item?.profile?.name || ''" />
@@ -55,28 +52,36 @@
             <button class="button-edit" *ngIf="isLoggued()">Editar perfil</button>
           </div>
         </div>
+        }
 
 
         <!-- Only items -->
-        <ng-container *ngIf="!item.profile">
+        @if (!item.profile) {
+        <ng-container>
           <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
           <div class="nav-bar__sidebar-list-item-value">
             <h5 class="item-title">{{ item.title }}</h5>
-            <span class="item-subtitle" *ngIf="item.subtitle">{{ item.subtitle }}</span>
+            @if (item.subtitle) {
+            <span class="item-subtitle">{{ item.subtitle }}</span>
+            }
           </div>
-          <div class="nav-bar__sidebar-list-item-tooltip" *ngIf="nameItemHover === item.title">
+          @if (nameItemHover === item.title) {
+          <div class="nav-bar__sidebar-list-item-tooltip">
             {{ nameItemHover }}
           </div>
+          }
         </ng-container>
+        }
       </li>
+      }
     </ul>
 
-    <div class="toggle-container desktop-toogle-theme">
+    <!-- <div class="toggle-container desktop-toogle-theme">
       <label class="switch">
         <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="isDark()" />
         <span class="slider"></span>
       </label>
-    </div>
+    </div> -->
     <ul class="nav-bar__sidebar-list settings-list">
       <div class="nav-bar__sidebar-list-item">
         <i class="nav-bar__sidebar-list-item-icon theme" [ngClass]="isDark() ? 'icon-sun' : 'icon-moon'"></i>
@@ -90,24 +95,26 @@
           </label>
         </div>
       </div>
-      <li class="nav-bar__sidebar-list-item" *ngFor="let item of configItems">
+      @for (item of configItems; track $index) {
+      <li class="nav-bar__sidebar-list-item">
         <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
         <div class="nav-bar__sidebar-list-item-value">
           <h5 class="item-title">{{ item.title }}</h5>
-          <span class="item-subtitle" *ngIf="item.subtitle">{{ item.subtitle }}</span>
+          @if (item.subtitle) {
+          <span class="item-subtitle">{{ item.subtitle }}</span>
+          }
         </div>
       </li>
+      }
     </ul>
 
   </div>
 
 
   <!-- Side bar -->
-
-
   <!-- Modal only in desktop screen -->
   <div class="nav-bar__modal-profile">
-    <div class="nav-bar__modal-profile-user">
+    <div class="nav-bar__modal-profile-user" [routerLink]="['/profile']">
       <div class="nav-bar__modal-profile-avatar">
         <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
       </div>
@@ -116,9 +123,6 @@
         <span class="nav-bar__modal-profile-email">{{ user.email }}</span>
       </div>
     </div>
-
-
-
     <div class="nav-bar__modal-profile-item">
       <i class="nav-bar__modal-profile-item-icon icon-location"></i>
       <div class="nav-bar__modal-profile-item-value">
@@ -127,31 +131,23 @@
       </div>
     </div>
 
-    <!-- Switch dark mode -->
-    <!-- <div class="nav-bar__modal-profile-item">
-      <i class="nav-bar__modal-profile-item-icon" [ngClass]="isDark() ? 'icon-sun' : 'icon-moon'"></i>
-      <div class="nav-bar__modal-profile-item-value">
-        <h5 class="nav-bar__modal-profile-item-title">{{isDark() ? 'Modo claro' : 'Modo oscuro' }}</h5>
-      </div>
-      <div class="toggle-container">
-        <label class="switch">
-          <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="isDark()" />
-          <span class="slider"></span>
-        </label>
-      </div>
-    </div> -->
-
-    <div class="nav-bar__modal-profile-item" *ngFor="let item of configItems" [routerLink]="[item.path]">
+    @for (item of configItems; track $index) {
+    <div class="nav-bar__modal-profile-item" [routerLink]="[item.path]">
       <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>
       <div class="nav-bar__modal-profile-item-value">
         <h5 class="nav-bar__modal-profile-item-title">{{ item.title }}</h5>
         <span class="nav-bar__modal-profile-item-subtitle" *ngIf="item.subtitle">
           {{ item.subtitle }}
         </span>
-        <span *ngIf="item.pending == true" class="nav-bar__modal-profile-item-pending-number">5</span>
+        @if (item.pending == true) {
+        <span class="nav-bar__modal-profile-item-pending-number">5</span>
+        }
       </div>
-      <div class="nav-bar__modal-profile-item-pending-dot" *ngIf="item.pending == true"></div>
+      @if (item.pending == true) {
+      <div class="nav-bar__modal-profile-item-pending-dot"></div>
+      }
     </div>
+    }
     <!-- <div class="nav-bar__item">
       <i class="nav-bar__item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
       <div class="nav-bar__item-value">

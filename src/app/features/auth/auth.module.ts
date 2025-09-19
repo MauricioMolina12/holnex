@@ -9,6 +9,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { FiltersComponent } from '../../shared/components/ui/filters/filters.component';
+import { HeroBannerComponent } from "../../shared/components/hero-banner/hero-banner.component";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FiltersComponent } from '../../shared/components/ui/filters/filters.com
     CommonModule,
     AuthRoutingModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    HeroBannerComponent
+]
 })
 export class AuthModule { }

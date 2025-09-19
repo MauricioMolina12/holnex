@@ -13,9 +13,9 @@ export class CardProductShopcartComponent {
       title: 'Comprar ahora',
       cssClass: 'product-buy-now-button',
     },
-    {
-      cssClass: 'product-delete-button',
-      icon: 'icon-delete',
-    },
+    // {
+    //   cssClass: 'product-delete-button',
+    //   icon: 'icon-delete',
+    // },
   ];
 }

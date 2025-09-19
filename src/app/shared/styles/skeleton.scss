@@ -1,7 +1,74 @@
+@import "variables.scss";
+
 @mixin skeleton-style($class, $styles) {
   ::ng-deep ngx-skeleton-loader.#{$class} div {
     @each $property, $value in $styles {
       #{$property}: #{$value};
+    }
+  }
+}
+
+.skltn {
+  display: flex;
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-base) 25%,
+    var(--color-skeleton-medium) 50%,
+    var(--color-skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+
+  animation: shimmer 1.5s infinite linear, skeleton-loading 1.5s ease-in-out infinite alternate;
+  width: 100%;
+
+  &.skltn-text {
+    height: 1rem;
+    width: 100%;
+    border-radius: 0.25rem;
+
+    &.large {
+      height: 24px;
+    }
+  }
+
+  &.skltn-image {
+    height: 100%;
+    width: 100%;
+    border-radius: 0.25rem;
+
+    &.small {
+      height: 30px;
+      width: 30px;
+    }
+
+    &.medium {
+      height: 36px;
+      width: 36px;
+    }
+
+    &.large {
+      height: 54px;
+      width: 54px;
+      min-width: 54px;
+    }
+  }
+
+  @keyframes skeleton-loading {
+    0% {
+      background-color: hsla(219, 66%, 34%, 0.12);
+    }
+
+    100% {
+      background-color: hsla(219, 66%, 34%, 0.24);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
     }
   }
 }

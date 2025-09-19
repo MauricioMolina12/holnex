@@ -19,9 +19,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from './core/core.module';
 import { StatusUiMessageComponent } from "./core/components/status-ui-message/status-ui-message.component";
 import { GlobalLoaderComponent } from './core/components/global-loader/global-loader.component';
+import { NotificationsAlertComponent } from "./shared/components/notifications-alert/notifications-alert.component";
+import { NotificationsModalComponent } from './shared/components/notifications-modal/notifications-modal.component';
+import { CloseOutsideDirective } from './shared/directives/close-outside.directive';
 
 @NgModule({
-  declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent, GlobalLoaderComponent],
+  declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent, GlobalLoaderComponent, NotificationsModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,7 +36,9 @@ import { GlobalLoaderComponent } from './core/components/global-loader/global-lo
     CoreModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
-    StatusUiMessageComponent
+    StatusUiMessageComponent,
+    NotificationsAlertComponent,
+    CloseOutsideDirective
 ],
   providers: [provideClientHydration(), provideHttpClient(withFetch())],
   bootstrap: [AppComponent],

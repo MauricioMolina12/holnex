@@ -18,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './store/effects/product.effects';
 import { ImageCardComponent } from '../../shared/components/image-card/image-card.component';
 import { SliderComponent } from '../../shared/components/slider/slider.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ProductDetailsComponent],
@@ -36,6 +37,7 @@ import { SliderComponent } from '../../shared/components/slider/slider.component
     SellersModule,
     ImageCardComponent,
     SliderComponent,
+    ReactiveFormsModule,
 
     // State Management
     StoreModule.forFeature('products', productsAllReducer),

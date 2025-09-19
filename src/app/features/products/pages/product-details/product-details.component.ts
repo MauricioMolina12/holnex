@@ -37,6 +37,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   @ViewChildren('imagesProducts') imagesProducts!: QueryList<ElementRef>;
   loading!: boolean;
 
+  
+
   skeletonType = skeletonType;
 
   // Variables

@@ -13,9 +13,25 @@ import { loadProductBySlug } from '../store/actions/product.actions';
 export class ProductsService {
   products$ = signal<Product[]>([]);
   productDetail$ = signal<Product | null>(null);
+  users$ = signal<
+    | {
+        id: number;
+        email: string;
+        password: string;
+        name: string;
+        role: string;
+        avatar: string;
+        creationAt: string;
+        updatedAt: string;
+      }[]
+    | null
+  >(null);
 
-  constructor(private http: HttpClient, private router: Router, private store: Store) {}
-
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store
+  ) {}
 
   /**
    * Fetches all products and updates the signal
@@ -28,7 +44,6 @@ export class ProductsService {
       })
     );
   }
-
 
   /**
    * Fetches a product by ID and updates the signal
@@ -43,6 +58,34 @@ export class ProductsService {
           return throwError(() => error);
         })
       );
+  }
+
+  getUsers() {
+    this.http
+      .get<
+        {
+          id: number;
+          email: string;
+          password: string;
+          name: string;
+          role: string;
+          avatar: string;
+          creationAt: string;
+          updatedAt: string;
+        }[]
+      >('https://api.escuelajs.co/api/v1/users')
+      .subscribe((users) => this.users$.set(users));
+  }
+
+  private apiUrl = 'http://www.omdbapi.com/';
+  private apiKey = 'd1ba5b3a';
+  searchMovies(query: string): Observable<any> {
+    return this.http.get(this.apiUrl, {
+      params: {
+        s: query,
+        apikey: this.apiKey,
+      },
+    });
   }
 
   /**

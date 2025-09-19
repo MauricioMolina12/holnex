@@ -1,47 +1,50 @@
 <section class="products" [ngStyle]="{'padding': padding, 'margin': margin }" [ngClass]="{'full-width': isfullWidth}">
 
-  <header class="products__header" *ngIf="hasHeader">
+  @if (hasHeader) {
+  <header class="products__header">
     <div class="products__header-content">
       <div class="products__header-content-title">
         <h2 class="products__title title-section">{{title}}</h2>
         <span class="products__subtitle">{{subtitle}}</span>
       </div>
 
-      <app-button 
-        *ngIf="labelButton" 
-        [text]="labelButton" 
-        aria-label="Ver todos los productos" 
-        variant="outline"
+      <app-button *ngIf="labelButton" [text]="labelButton" aria-label="Ver todos los productos" variant="ghost"
         [classCustom]="{
           base: 'button',
           bgColor: 'primary-to-white',
           textColor: 'white',
           more: ['rounded-lg']
-
         }"></app-button>
 
     </div>
   </header>
+  }
 
 
-  <article class="products__grid" *ngIf="showProducts">
+  @if (showProducts) {
+  <article class="products__grid">
     <div *ngFor="let product of visibleProducts" class="products__grid-item">
       <app-product-card [product]="product" (productClick)="productsService.detailProduct(product)">
       </app-product-card>
     </div>
   </article>
+  }
 
-  <article class="products__grid--skeleton" *ngIf="showSkeleton">
+  @if (showSkeleton) {
+  <article class="products__grid--skeleton">
     <app-skeleton [typeskeleton]="SkeletonTypeEnum.productsGrid"></app-skeleton>
   </article>
+  }
 
-  <article class="products__emptyList" *ngIf="showError">
+  @if (showError) {
+  <article class="products__emptyList">
     <app-status-ui-message [status]="{type: 'error', title: error}"></app-status-ui-message>
   </article>
+  }
 
 
-
-  <article class="products__pagination" *ngIf="!loading && !isEmptyList">
+  @if (!loading && !isEmptyList) {
+  <article class="products__pagination">
     <div class="products__pagination-pages">
 
       <button class="button-left disabled" aria-label="Página anterior">
@@ -60,6 +63,7 @@
       </button>
     </div>
   </article>
+  }
 
 
 </section>

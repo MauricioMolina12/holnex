@@ -86,7 +86,7 @@
           font-size: 1rem;
           font-weight: 300;
           max-width: 250px;
-          color: var(--color-dark-tint);
+          color: var(--color-dark-contrast);
           text-overflow: ellipsis;
           overflow: hidden;
         }
@@ -102,7 +102,7 @@
 
           &Free {
             background-color: var(--color-success-light);
-            padding: 2px;
+            padding: 4px;
             border-radius: 3px;
             color: var(--color-success-tint);
           }
@@ -110,7 +110,7 @@
           .product-discount {
             background-color: var(--color-warning-light);
             color: var(--color-warning);
-            padding: 2px;
+            padding: 4px;
             border-radius: 3px;
           }
         }
@@ -133,18 +133,20 @@
             button {
               padding: 4px;
               border: 1px solid var(--color-medium);
-              border-radius: 3px;
+              border-radius: 10px;
               outline: none;
               width: 30px;
               background-color: transparent;
               cursor: pointer;
+              color: var(--color-dark-contrast);
             }
 
             .product-quantity__number {
-              padding: 3px;
+              padding: 4px;
               flex-grow: 1;
-              border-radius: 3px;
+              border-radius: 10px;
               text-align: center;
+              color: var(--color-dark-contrast);
               border: 1px solid var(--color-medium);
             }
           }
@@ -164,7 +166,7 @@
             .product-price {
               font-weight: 600;
               font-size: 1.2rem;
-              color: var(--color-primary);
+              color: var(--color-primary-to-white);
             }
           }
         }
@@ -194,18 +196,13 @@
         justify-content: center;
         text-align: center;
         font-size: 0.7rem;
-
-        img {
-          max-width: 75%;
-          height: 75%;
-        }
       }
 
       .product-buy-now-button {
         position: relative;
         span {
           font-size: 0.8rem;
-          color: var(--color-primary);
+          color: var(--color-dark-contrast);
         }
 
         &::after {
@@ -239,4 +236,3 @@
     }
   }
 }
-

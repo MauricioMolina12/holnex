@@ -4,41 +4,6 @@
 @import "breakpoints";
 
 /* Phones */
-.main-content {
+.container {
   @include layoutAuth();
-
-  @include respond-to("tablet") {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .main-form {
-      border-radius: 10px;
-      margin: 0 auto;
-      max-width: 75%;
-      height: auto;
-    }
-  }
-
-  @include respond-to("laptop") {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .main-form {
-      margin: 0 auto;
-      max-width: 60%;
-      height: auto;
-    }
-  }
-
-  @include respond-to("desktop") {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .main-form {
-      margin: 0 auto;
-      max-width: 40%;
-      height: auto;
-    }
-
-  }
 }

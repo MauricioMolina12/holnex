@@ -1,13 +1,62 @@
-<div class="summary-card">
+<main class="summary-card">
     <header class="summary-card__header">
-        <span class="summary-card__products-count">
-            {{ summary.numberOfProducts === 1 ? 'Producto' : 'Productos(' + summary.numberOfProducts + ')' }}
-        </span>
-        <span class="summary-card__products-price">${{ summary.totalPrice }}</span>
+        <h1>Resumen de compra</h1>
     </header>
-    <div class="summary-card__total">
-        <h3>Total</h3>
-        <span>${{ summary.totalPrice }}</span>
-    </div>
-    <button class="summary-card__buy-button">Continuar compra</button>
-</div>
+    <section class="section-card summary-card__products-quantity">
+        <h3 class="section-card--title">
+            <i class="icon-bag"></i>
+            {{ summary.numberOfProducts === 1 ? 'Producto' : 'Productos' }}
+        </h3>
+        <span class="section-card--value">{{ summary.numberOfProducts }}</span>
+    </section>
+    <section class="section-card summary-card__subtotal">
+        <h3 class="section-card--title">
+            <i class="icon-box"></i>
+            Subtotal
+        </h3>
+        <span class="section-card--value">${{ summary.totalPrice }}</span>
+    </section>
+    <section class="section-card summary-card__discount">
+        <h3 class="section-card--title">
+            <i class="icon-arrow-chevron-right rotate-90deg"></i>
+            Descuento
+        </h3>
+        <span class="section-card--value">${{ summary.totalPrice }}</span>
+    </section>
+    <section class="section-card summary-card__shipment">
+        <h3 class="section-card--title">
+            <i class="icon-truck"></i>
+            Envío
+        </h3>
+        <span class="section-card--value">${{ summary.totalPrice }}</span>
+    </section>
+    <hr class="divider">
+    <section class="section-card summary-card__total">
+        <h3 class="section-card--title">
+            <i class="icon-ray"></i>
+            Total
+        </h3>
+        <span class="section-card--value">${{ summary.totalPrice }}</span>
+    </section>
+
+    <app-button icon="icon-shop-cart" iconPosition="right" [text]="'Continuar con compra'"
+        aria-label="Ejecutar compra carrito de compras" variant="solid" [classCustom]="{
+          base: 'button',
+          bgColor: 'primary',
+          textColor: 'white',
+          more: ['rounded-lg','p-4','w-full']}">
+    </app-button>
+
+
+    <section class="section-card summary-card__payments">
+        <h3 class="section-card--title">Conoce nuestros métodos de pago</h3>
+        <article class="summary-card__payments-item" *ngFor="let payment of paymentMethods">
+            <h4 class="summary-card__payments-item__label">{{payment.label}}</h4>
+            <div class="summary-card__payments-item__content" *ngFor="let type of payment.values">
+                <img [src]="type.image" [alt]="type.name" class="payment-image" />
+                <span class="payment-name">{{ type.name }}</span>
+            </div>
+        </article>
+    </section>
+
+</main>

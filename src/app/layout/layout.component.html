@@ -3,15 +3,25 @@
     <div class="layout-content">
       <app-nav-bar></app-nav-bar>
 
-      <app-status-ui-message
-        *ngIf="showConnectionMessage()"
-        [status]="statusNetwork()">
-      </app-status-ui-message>
+      @if (showConnectionMessage()) {
+        <app-status-ui-message [status]="statusNetwork()">
+        </app-status-ui-message>
+      }
 
-      <app-alert-new-promotions
-        *ngIf="isClose"
-        (closeThisComponent)="closeAlertNewPromotions()">
+      @if (isClose) {
+      <app-alert-new-promotions (closeThisComponent)="closeAlertNewPromotions()">
       </app-alert-new-promotions>
+      }
+
+      <!-- <div class="notifications">
+        <app-notifications-modal></app-notifications-modal>
+      </div> -->
+
+      <!-- <div class="notifications-container"> -->
+        <!-- <app-notifications-alert></app-notifications-alert> -->
+        <!-- <app-notifications-alert></app-notifications-alert> -->
+        <!-- <app-notifications-alert></app-notifications-alert> -->
+      <!-- </div> -->
 
       <router-outlet></router-outlet>
       <app-footer></app-footer>

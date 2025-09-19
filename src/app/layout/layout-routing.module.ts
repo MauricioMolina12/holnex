@@ -49,6 +49,10 @@ const routes: Routes = [
             (m) => m.ShopcartModule
           ),
       },
+      {
+        path: 'profile',
+        loadChildren: () => import('../features/profile/profile.module').then(m=> m.ProfileModule)
+      }
     ],
   },
   {
