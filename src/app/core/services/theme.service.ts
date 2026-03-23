@@ -1,5 +1,5 @@
-import { Injectable, Inject, PLATFORM_ID, signal } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, Inject, PLATFORM_ID, signal, DOCUMENT } from '@angular/core';
+
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 

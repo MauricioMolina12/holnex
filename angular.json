@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Horizon": {
+    "holnex": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/horizon",
+            "outputPath": "dist/holnex",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -51,6 +51,7 @@
               "src/app/shared/styles/utilities.scss",
               "src/app/shared/styles/typography.scss",
               "src/app/shared/styles/skeleton.scss",
+              "src/app/shared/styles/loader.scss",
               "src/assets/icons/style.css"
             ],
             "scripts": [],
@@ -68,15 +69,16 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2MB",
-                  "maximumError": "3MB"
+                  "maximumWarning": "5MB",
+                  "maximumError": "10MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kB",
-                  "maximumError": "20kB"
+                  "maximumWarning": "30kB",
+                  "maximumError": "60kB"
                 }
               ],
+
               "outputHashing": "all"
             },
             "development": {
@@ -91,10 +93,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Horizon:build:production"
+              "buildTarget": "holnex:build:production"
             },
             "development": {
-              "buildTarget": "Horizon:build:development"
+              "buildTarget": "holnex:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -124,5 +126,31 @@
   },
   "cli": {
     "analytics": "626e3656-59fe-4ed6-a7ff-fc3bf37c7d62"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
   }
 }

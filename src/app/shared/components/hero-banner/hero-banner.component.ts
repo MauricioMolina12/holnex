@@ -17,12 +17,11 @@ import { Ad } from '../../models/ads';
 import { ButtonComponent } from '../ui/button/button.component';
 
 @Component({
-  selector: 'app-hero-banner',
-  templateUrl: './hero-banner.component.html',
-  styleUrls: ['./hero-banner.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule],
+    selector: 'app-hero-banner',
+    templateUrl: './hero-banner.component.html',
+    styleUrls: ['./hero-banner.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, RouterModule]
 })
 export class HeroBannerComponent implements OnInit {
   @Input() slider: Ad[] = [];
@@ -34,6 +33,7 @@ export class HeroBannerComponent implements OnInit {
   visibleAds: Ad[] = [];
   currentSlide = 0;
   intervalId: any;
+  isSliding = false;
 
   currentTitle = signal<string>('');
   currentDescription = signal<string>('');
@@ -49,32 +49,42 @@ export class HeroBannerComponent implements OnInit {
       this.slider.length > 0 &&
       !this.isStatic
     ) {
-      this.defaultSlide();
+      this.visibleAds = this.slider;
+      this.setSlideBackgrounds();
+      this.updateSlideTexts();
       this.startSlider();
     }
   }
 
+  getTranslateX() {
+    return `translateX(-${this.currentSlide * 100}%)`;
+  }
+
+  private setSlideBackgrounds() {
+    setTimeout(() => {
+      this.slideElements.forEach((el, i) => {
+        this.setBackgroundImage(el.nativeElement, this.slider[i].imageUrl);
+      });
+    });
+  }
+
+  private updateSlideTexts() {
+    const currentAd = this.slider[this.currentSlide];
+    this.currentTitle.set(currentAd.title);
+    this.currentDescription.set(currentAd.description);
+  }
+
   startSlider() {
     this.intervalId = setInterval(() => {
-      this.currentSlide = (this.currentSlide + 1) % this.slider.length;
-      const currentAd = this.slider[this.currentSlide];
-      this.visibleAds = [currentAd];
-      this.currentTitle.set(currentAd.title);
-      this.currentDescription.set(currentAd.description);
-
-      setTimeout(() => {
-        const slide = this.slideElements.get(0)?.nativeElement;
-        if (slide) {
-          this.setBackgroundImage(slide, currentAd.imageUrl);
-        }
-      });
-    }, 5000);
+      if (!this.isSliding) this.nextSlide();
+    }, 100);
   }
 
   toggleSlide: boolean = true;
   toggleSlider() {
     this.toggleSlide = !this.toggleSlide;
-    !this.toggleSlide ? clearInterval(this.intervalId) : this.startSlider();
+    if (this.toggleSlide) clearInterval(this.intervalId);
+    else this.startSlider();
   }
 
   defaultSlide() {
@@ -95,18 +105,30 @@ export class HeroBannerComponent implements OnInit {
     this.renderer.setStyle(element, 'backgroundImage', `url('${image}')`);
   }
 
-  prevSlide() {
-    if (this.slider.length === 0) return;
-    this.currentSlide =
-      this.currentSlide === 0 ? this.slider.length - 1 : this.currentSlide - 1;
-    this.updateSlide();
+  nextSlide() {
+    if (this.isSliding) return;
+    this.isSliding = true;
+
+    this.currentSlide = this.currentSlide === this.slider.length - 1 ? 0 : this.currentSlide + 1;
+
+    this.updateSlideTexts();
+
+    setTimeout(() => {
+      this.isSliding = false;
+    }, 500);
   }
 
-  nextSlide() {
-    if (this.slider.length === 0) return;
-    this.currentSlide =
-      this.currentSlide === this.slider.length - 1 ? 0 : this.currentSlide + 1;
-    this.updateSlide();
+  prevSlide() {
+    if (this.isSliding) return;
+    this.isSliding = true;
+
+    this.currentSlide = this.currentSlide === 0 ? this.slider.length - 1 : this.currentSlide - 1;
+
+    this.updateSlideTexts();
+
+    setTimeout(() => {
+      this.isSliding = false;
+    }, 500);
   }
 
   currentSlideIndex(index: number) {
@@ -114,18 +136,10 @@ export class HeroBannerComponent implements OnInit {
     this.updateSlide();
   }
 
-  private updateSlide() {
+  updateSlide() {
     const currentAd = this.slider[this.currentSlide];
-    this.visibleAds = [currentAd];
     this.currentTitle.set(currentAd.title);
     this.currentDescription.set(currentAd.description);
-
-    setTimeout(() => {
-      const slide = this.slideElements.get(0)?.nativeElement;
-      if (slide) {
-        this.setBackgroundImage(slide, currentAd.imageUrl);
-      }
-    });
   }
 
   ngOnDestroy() {

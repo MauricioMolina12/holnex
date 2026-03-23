@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { ProductCardComponent } from '../products/product-card/product-card.component';
-import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ShowcaseTypeEnum } from './highlight-showcase-type.enum';
 import { ProductsService } from '../../../features/products/services/products.service';
 import { ButtonComponent } from '../ui/button/button.component';
@@ -17,20 +17,15 @@ import { skeletonType } from '../../../core/components/skeleton/skeleton.type.en
 import { SkeletonComponent } from '../../../core/components/skeleton/skeleton.component';
 
 @Component({
-  selector: 'app-highlight-showcase-component',
-  templateUrl: './highlight-showcase-component.component.html',
-  styleUrl: './highlight-showcase-component.component.scss',
-  standalone: true,
-  imports: [
+    selector: 'app-highlight-showcase-component',
+    templateUrl: './highlight-showcase-component.component.html',
+    styleUrl: './highlight-showcase-component.component.scss',
+    imports: [
     ProductCardComponent,
     ButtonComponent,
-    NgFor,
-    NgSwitch,
-    NgSwitchCase,
     NgClass,
-    NgIf,
-    SkeletonComponent,
-  ],
+    SkeletonComponent
+]
 })
 export class HighlightShowcaseComponentComponent implements OnInit {
   constructor(

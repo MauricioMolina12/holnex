@@ -1,0 +1,46 @@
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  overflow: hidden;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--color-primary);
+    font-size: 1rem;
+    user-select: none;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-white);
+    border-radius: 6px;
+  }
+
+  .content-wrapper {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-6px);
+    transition:
+      max-height .28s ease,
+      opacity .25s ease,
+      transform .25s ease;
+    will-change: height, opacity;
+  }
+
+  &.open .content-wrapper {
+    max-height: 500px;  
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .content {
+    padding: .55rem;
+    color: #ddd;
+    font-size: .85rem;
+  }
+}

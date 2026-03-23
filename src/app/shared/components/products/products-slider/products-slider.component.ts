@@ -11,18 +11,12 @@ import {
   Signal,
   SimpleChanges,
   ViewChild,
+  DOCUMENT
 } from '@angular/core';
 import { ProductsService } from '../../../../features/products/services/products.service';
 import { SkeletonComponent } from '../../../../core/components/skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import {
-  DOCUMENT,
-  isPlatformBrowser,
-  NgFor,
-  NgIf,
-  NgSwitch,
-  NgSwitchCase,
-} from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { TimeRemainingPipe } from '../../../pipes/time-remaining.pipe';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { sliderType } from './products-slider-type.enum';
@@ -32,20 +26,15 @@ import { skeletonType } from '../../../../core/components/skeleton/skeleton.type
 import { FlashSaleService } from '../../../services/flash-sale.service';
 
 @Component({
-  selector: 'app-slider-products',
-  templateUrl: './products-slider.component.html',
-  styleUrl: './products-slider.component.scss',
-  standalone: true,
-  imports: [
+    selector: 'app-slider-products',
+    templateUrl: './products-slider.component.html',
+    styleUrl: './products-slider.component.scss',
+    imports: [
     SkeletonComponent,
     ProductCardComponent,
     ButtonComponent,
-    TimeRemainingPipe,
-    NgIf,
-    NgFor,
-    NgSwitch,
-    NgSwitchCase,
-  ],
+    TimeRemainingPipe
+]
 })
 export class ProductsSliderComponent implements OnInit, OnDestroy, OnChanges {
   

@@ -1,3 +1,6 @@
+:root {
+  --promo-banner-height: 40px;
+}
 
 .no-visibility {
   display: none;
@@ -88,7 +91,7 @@
   margin-right: 1rem !important;
 }
 
-.p-0{
+.p-0 {
   padding: 0 !important;
 }
 
@@ -284,6 +287,6 @@
   left: 0 !important;
 }
 
-.rotate-90deg{
-   transform: rotate(90deg) !important;
+.rotate-90deg {
+  transform: rotate(90deg) !important;
 }

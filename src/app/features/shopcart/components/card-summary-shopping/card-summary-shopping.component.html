@@ -1,62 +1,55 @@
 <main class="summary-card">
+
     <header class="summary-card__header">
         <h1>Resumen de compra</h1>
     </header>
-    <section class="section-card summary-card__products-quantity">
+
+    @if (summary.numberOfProducts > 0) {
+
+    @for (item of cartSummaryItems; track $index) {
+    <section class="summary-card__quantity section-card">
         <h3 class="section-card--title">
-            <i class="icon-bag"></i>
-            {{ summary.numberOfProducts === 1 ? 'Producto' : 'Productos' }}
+            <i class="icon" [ngClass]="item.icon"></i>
+            {{ item.label }}
         </h3>
-        <span class="section-card--value">{{ summary.numberOfProducts }}</span>
+        <span class="section-card--value" [class.green]="item.label == 'Envío' && item.value == 'Gratis'">{{ item.value
+            }}</span>
     </section>
-    <section class="section-card summary-card__subtotal">
-        <h3 class="section-card--title">
-            <i class="icon-box"></i>
-            Subtotal
-        </h3>
-        <span class="section-card--value">${{ summary.totalPrice }}</span>
-    </section>
-    <section class="section-card summary-card__discount">
-        <h3 class="section-card--title">
-            <i class="icon-arrow-chevron-right rotate-90deg"></i>
-            Descuento
-        </h3>
-        <span class="section-card--value">${{ summary.totalPrice }}</span>
-    </section>
-    <section class="section-card summary-card__shipment">
-        <h3 class="section-card--title">
-            <i class="icon-truck"></i>
-            Envío
-        </h3>
-        <span class="section-card--value">${{ summary.totalPrice }}</span>
-    </section>
-    <hr class="divider">
-    <section class="section-card summary-card__total">
-        <h3 class="section-card--title">
-            <i class="icon-ray"></i>
-            Total
-        </h3>
-        <span class="section-card--value">${{ summary.totalPrice }}</span>
-    </section>
+    @if ($index == 3) {
+    <hr class="divider" [ngStyle]="{'height' : '.5px'}">
+    }
+    }
 
     <app-button icon="icon-shop-cart" iconPosition="right" [text]="'Continuar con compra'"
         aria-label="Ejecutar compra carrito de compras" variant="solid" [classCustom]="{
-          base: 'button',
-          bgColor: 'primary',
-          textColor: 'white',
-          more: ['rounded-lg','p-4','w-full']}">
+            base: 'button',
+            bgColor: 'primary',
+            textColor: 'white',
+            more: ['rounded-lg','p-4','w-full']}">
     </app-button>
+    }@else {
+    <span class="text-sm">Aquí verás los importes de tu compra una vez que agregues productos.</span>
+    }
 
 
-    <section class="section-card summary-card__payments">
+
+
+    <!-- 
+    <section class="summary-card__payments section-card">
         <h3 class="section-card--title">Conoce nuestros métodos de pago</h3>
-        <article class="summary-card__payments-item" *ngFor="let payment of paymentMethods">
+        @for (payment of paymentMethods; track $index) {
+        <article class="summary-card__payments-item">
             <h4 class="summary-card__payments-item__label">{{payment.label}}</h4>
-            <div class="summary-card__payments-item__content" *ngFor="let type of payment.values">
-                <img [src]="type.image" [alt]="type.name" class="payment-image" />
-                <span class="payment-name">{{ type.name }}</span>
+            <div class="flex">
+                @for (type of payment.values; track $index) {
+                    <div class="summary-card__payments-item__content">
+                        <img [src]="type.image" [alt]="type.name" class="payment-image" />
+                        <span class="payment-name">{{ type.name }}</span>
+                    </div>
+                }
             </div>
         </article>
-    </section>
+        }
+    </section> -->
 
 </main>

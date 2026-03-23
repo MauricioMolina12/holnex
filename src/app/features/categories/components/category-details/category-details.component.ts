@@ -6,11 +6,10 @@ import { ProductsModule } from '../../../products/products.module';
 import { ProductsGridComponent } from '../../../../shared/components/products/products-grid/products-grid.component';
 
 @Component({
-  selector: 'app-category-details',
-  templateUrl: './category-details.component.html',
-  styleUrl: './category-details.component.scss',
-  standalone: true,
-  imports: [HeroBannerComponent, ProductsGridComponent ,ProductsModule],
+    selector: 'app-category-details',
+    templateUrl: './category-details.component.html',
+    styleUrl: './category-details.component.scss',
+    imports: [HeroBannerComponent, ProductsGridComponent, ProductsModule]
 })
 export class CategoryDetailsComponent implements OnInit {
   category = computed(() => this.categoriesService.categoryDetail$());

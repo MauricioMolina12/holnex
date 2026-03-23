@@ -1,26 +1,31 @@
 <section class="hero">
-    <div class="hero__inner" *ngFor="let slide of visibleAds" #slideRef>
-        <h1 class="hero__inner--title">{{ currentTitle() }}</h1>
-        <p class="hero__inner--description">{{ currentDescription() }}</p>
+  <div class="hero__track" [style.transform]="getTranslateX()">
+    @for (slide of visibleAds; track slide) {
+      <div class="hero__inner" #slideRef>
+        <h1 class="hero__inner--title">{{ slide.title }}</h1>
+        <p class="hero__inner--description">{{ slide.description }}</p>
         <button class="hero__inner--call-action">Ver en detalle</button>
-    </div>
-    <div class="hero-buttons">
-        <button class="hero-button" (click)="prevSlide()">
-            <i class="icon-arrow-chevron-left"></i>
-        </button>
-        <button class="hero-button" (click)="nextSlide()">
-            <i class="icon-arrow-chevron-right"></i>
-        </button>
-        <button class="hero-button" (click)="toggleSlider()">
-            <i [ngClass]="{'icon-play' : !toggleSlide, 'icon-paused': toggleSlide}"></i>
-        </button>
+      </div>
+    }
+  </div>
 
-    </div>
-    <div class="hero-slider">
-        <div class="hero-slider__option" 
-            (click)="currentSlideIndex(i)"
-            *ngFor="let ad of slider; let i = index"
-            [ngClass]="{'active' : i === currentSlide}">
-        </div>
-    </div>
+  <div class="hero-buttons">
+    <button class="hero-button" (click)="prevSlide()">
+      <i class="icon-arrow-chevron-left"></i>
+    </button>
+    <button class="hero-button" (click)="nextSlide()">
+      <i class="icon-arrow-chevron-right"></i>
+    </button>
+    <button class="hero-button" (click)="toggleSlider()">
+      <i [ngClass]="{'icon-play' : !toggleSlide, 'icon-paused': toggleSlide}"></i>
+    </button>
+  </div>
+
+  <div class="hero-slider">
+    @for (ad of slider; track ad; let i = $index) {
+      <div class="hero-slider__option" (click)="currentSlideIndex(i)"
+        [ngClass]="{'active' : i === currentSlide}">
+      </div>
+    }
+  </div>
 </section>

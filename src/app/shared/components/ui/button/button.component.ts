@@ -1,12 +1,11 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-button',
-  templateUrl: './button.component.html',
-  standalone: true,
-  imports: [NgClass, NgIf],
-  styleUrl: './button.component.scss',
+    selector: 'app-button',
+    templateUrl: './button.component.html',
+    imports: [NgClass],
+    styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
   @Input() text!: string | number | null;

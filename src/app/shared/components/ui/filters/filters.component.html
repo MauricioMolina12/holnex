@@ -1,60 +1,64 @@
 <div class="filters">
 
   <!-- <button class="filters__button" (click)="toggleFilter('filters')" [attr.aria-expanded]="isOpen('filters')"
-    [disabled]="loading" [class.disabled]="loading">
-    <i class="icon-funnel"></i>
-    <span class="filters__text">Filtrar</span>
-  </button> -->
+  [disabled]="loading" [class.disabled]="loading">
+  <i class="icon-funnel"></i>
+  <span class="filters__text">Filtrar</span>
+</button> -->
 
-  <button class="filters__button" (click)="toggleFilter('filters')" [attr.aria-expanded]="isOpen('filters')">
-    <i class="icon-order"></i>
-    <span class="filters__text">Filtrar</span>
-  </button>
+<button class="filters__button" (click)="toggleFilter('filters')" [attr.aria-expanded]="isOpen('filters')">
+  <i class="icon-order"></i>
+  <span class="filters__text">Filtrar</span>
+</button>
 
 
 
-  <div class="filters__select">
-    <i class="icon-order"></i>
-    <select name="" id="">
-      <option value="">Ordenar por</option>
-      <option value="1">Precio: menor a mayor</option>
-      <option value="2">Precio: mayor a menor</option>
-      <option value="3">Más vendidos</option>
-      <option value="4">Más populares</option>
-    </select>
-  </div>
+<div class="filters__select">
+  <i class="icon-order"></i>
+  <select name="" id="">
+    <option value="">Ordenar por</option>
+    <option value="1">Precio: menor a mayor</option>
+    <option value="2">Precio: mayor a menor</option>
+    <option value="3">Más vendidos</option>
+    <option value="4">Más populares</option>
+  </select>
+</div>
 
-  <div class="filters__grid-options">
-    
-  </div>
+<div class="filters__grid-options">
 
-  <div class="filters__modal-filter modal" [ngClass]="{'open' : isOpen('filters')}">
-    <header class="header-modal">
-      <h2 class="header-modal__title">Filtrar por</h2>
-      <button class="header-modal__clear-all">Limpiar todo</button>
-    </header>
-    <main class="content-modal">
-      <div class="content-modal__dropdown" role="dropdown" *ngFor="let filter of filters">
+</div>
+
+<div class="filters__modal-filter modal" [ngClass]="{'open' : isOpen('filters')}">
+  <header class="header-modal">
+    <h2 class="header-modal__title">Filtrar por</h2>
+    <button class="header-modal__clear-all">Limpiar todo</button>
+  </header>
+  <main class="content-modal">
+    @for (filter of filters; track filter) {
+      <div class="content-modal__dropdown" role="dropdown">
         <div class="content-modal__dropdown-description">
           <h4 class="content-modal__dropdown-description-title">{{filter}}</h4>
           <i class="content-modal__dropdown-description-icon icon-arrow-chevron-right"></i>
         </div>
         <div class="content-modal__dropdown-content"></div>
       </div>
-    </main>
-  </div>
-  <div class="filters__modal-order modal" [ngClass]="{'open' : isOpen('order')}">
-    <header class="header-modal">
-      <h2 class="header-modal__title">Ordenar por</h2>
-    </header>
-    <main class="content-modal">
-      <div class="content-modal__dropdown" role="dropdown" *ngFor="let filter of filters">
+    }
+  </main>
+</div>
+<div class="filters__modal-order modal" [ngClass]="{'open' : isOpen('order')}">
+  <header class="header-modal">
+    <h2 class="header-modal__title">Ordenar por</h2>
+  </header>
+  <main class="content-modal">
+    @for (filter of filters; track filter) {
+      <div class="content-modal__dropdown" role="dropdown">
         <div class="content-modal__dropdown-description">
           <h4 class="content-modal__dropdown-description-title">{{filter}}</h4>
           <i class="content-modal__dropdown-description-icon icon-arrow-chevron-right"></i>
         </div>
         <div class="content-modal__dropdown-content"></div>
       </div>
-    </main>
-  </div>
+    }
+  </main>
+</div>
 </div>

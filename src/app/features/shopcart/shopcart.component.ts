@@ -11,13 +11,14 @@ import { loadProducts } from '../products/store/actions/product.actions';
 import { SummaryShopping } from './models/summary-shopping';
 
 @Component({
-  selector: 'app-shopcart',
-  templateUrl: './shopcart.component.html',
-  styleUrl: './shopcart.component.scss',
+    selector: 'app-shopcart',
+    templateUrl: './shopcart.component.html',
+    styleUrl: './shopcart.component.scss',
+    standalone: false
 })
 export class ShopcartComponent implements OnInit {
   // Temporal (debe ser con el servicio de shopcart)
-  productsSignal = toSignal(this.store.select(selectAllProducts), {
+  products = toSignal(this.store.select(selectAllProducts), {
     initialValue: [],
   });
   loadingSignal = toSignal(this.store.select(selectLoading), {
@@ -27,7 +28,17 @@ export class ShopcartComponent implements OnInit {
     initialValue: null,
   });
 
-  
+  /*** STORE & SIGNALS ***/
+  productsRelated = toSignal(this.store.select(selectAllProducts), {
+    initialValue: [],
+  });
+  loadingProductsRelated = toSignal(this.store.select(selectLoading), {
+    initialValue: false,
+  });
+  errorProductsRelated = toSignal(this.store.select(selectError), {
+    initialValue: null,
+  });
+
   summaryShopping!: SummaryShopping;
   totalPrice: any;
 
@@ -41,12 +52,12 @@ export class ShopcartComponent implements OnInit {
   }
 
   changeStep(newStep: number) {
-    this.step = newStep;    
+    this.step = newStep;
   }
 
   // Prepare the information for the component that displays the cart summary
   readonly updateSummaryEffect = effect(() => {
-    const products = this.productsSignal();
+    const products = this.products();
     if (products.length > 0) {
       const totalPrice = products.reduce((total, p) => total + p.price, 0);
 
@@ -56,4 +67,8 @@ export class ShopcartComponent implements OnInit {
       };
     }
   });
+
+  onToggleStep(stepIndex: number): void {
+    this.step = this.step === stepIndex ? -1 : stepIndex;
+  }
 }

@@ -7,13 +7,13 @@
   height: auto;
   min-height: 18vh;
   background-color: var(--color-primary-contrast);
-  border: 1px solid var(--color-medium);
+  // border: 1px solid var(--color-medium);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
-  padding: 10px;
+  gap: 20px;
+  padding: 20px;
   box-sizing: border-box;
 
   .divider {
@@ -33,8 +33,8 @@
     font-size: 0.9rem;
 
     h1 {
-      font-weight: 500;
-      font-size: clamp(10px,1vw,14px);
+      font-weight: 600;
+      font-size: var(--text-size-14);
     }
   }
 
@@ -46,26 +46,28 @@
 
     &--title {
       color: var(--color-dark-contrast);
-      font-size: calc(0.8rem + 0.06rem);
+      font-size: var(--text-size-14);
       font-weight: 300;
       display: flex;
       align-items: center;
-      gap: calc(6px + 4px);
+      gap: 10px;
 
-      i {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      .icon {
+        &::before {
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-        width: calc(30px + 4px);
-        height: calc(30px + 4px);
+          width: calc(30px + 4px);
+          height: calc(30px + 4px);
 
-        box-sizing: border-box;
-        background-color: var(--color-blue-light-tint);
-        padding: 10px;
-        border-radius: 6px;
-        color: var(--color-primary);
-        font-size: 16px;
+          box-sizing: border-box;
+          background-color: var(--color-blue-light-tint);
+          padding: 10px;
+          border-radius: 6px;
+          color: var(--color-dark-gray);
+          font-size: var(--text-size-20);
+        }
       }
     }
 
@@ -73,6 +75,15 @@
       color: var(--color-primary-to-white);
       font-size: calc(0.8rem + 0.1rem);
       font-weight: 600;
+
+      &.green{
+        color: var(--color-white);
+        border-radius: 100px;
+        padding: 6px;
+        font-size: var(--text-size-12);
+        font-weight: 400;
+        background-color: var(--color-success-shade);
+      }
     }
   }
   .summary-card__payments {
@@ -95,6 +106,8 @@
       &__content {
         display: flex;
         align-items: center;
+        justify-content: center;
+        flex-direction: column;
         gap: 20px;
 
         & > * {

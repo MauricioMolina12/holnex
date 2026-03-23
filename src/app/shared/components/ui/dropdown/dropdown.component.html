@@ -1,0 +1,18 @@
+<div class="dropdown" [class.open]="isOpen">
+  <div
+    class="header"
+    (click)="toggleDropdown()"
+    tabindex="0"
+  >
+    <ng-content select="[dropdown-trigger]"></ng-content>
+  </div>
+
+  <div
+    class="content-wrapper"
+    [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
+  >
+    <div class="content">
+      <ng-content select="[dropdown-content]"></ng-content>
+    </div>
+  </div>
+</div>

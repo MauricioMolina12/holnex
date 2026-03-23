@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   HostListener,
@@ -8,6 +8,7 @@ import {
   OnInit,
   PLATFORM_ID,
   Signal,
+  DOCUMENT
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { User } from '../../../shared/models/user';
@@ -29,7 +30,7 @@ interface NavBarItem {
   title?: string;
   subtitle?: string;
   path?: string;
-  pending?: boolean;
+  unread?: boolean;
   group: 'user' | 'config' | 'profile';
   action?: (event?: Event) => void;
 }
@@ -127,7 +128,7 @@ export class NavBarComponent implements OnInit {
       {
         icon: 'icon-notifications',
         title: 'Notificaciones',
-        pending: true,
+        unread: true,
         group: 'user',
         action: (event?: Event) => this.viewNotifications = !this.viewNotifications,
       },
@@ -166,12 +167,8 @@ export class NavBarComponent implements OnInit {
     ];
 
     this.userItems = this.navbar_items.filter((item) => item.group === 'user');
-    this.configItems = this.navbar_items.filter(
-      (item) => item.group === 'config'
-    );
-    this.profileItems = this.navbar_items.filter(
-      (item) => item.group === 'profile'
-    );
+    this.configItems = this.navbar_items.filter((item) => item.group === 'config');
+    this.profileItems = this.navbar_items.filter((item) => item.group === 'profile');
   }
 
   @Input() user!: User;

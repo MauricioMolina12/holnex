@@ -6,16 +6,17 @@
       [style.width.%]="(step - 1) / (steps - 1) * 100"
     ></div>
 
-    <div
-      class="step"
-      (click)="updateStep(i)"
-      *ngFor="let s of stepArray; let i = index"
+    @for (s of stepArray; track s; let i = $index) {
+      <div
+        class="step"
+        (click)="updateStep(i)"
       [ngClass]="{
         'completed': isCompleted(i),
         'current': isCurrent(i)
       }"
-    >
-      <span class="step-number">{{ s }}</span>
-    </div>
+        >
+        <span class="step-number">{{ s }}</span>
+      </div>
+    }
   </div>
 </div>

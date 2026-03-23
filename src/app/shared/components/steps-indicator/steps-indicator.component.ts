@@ -6,14 +6,13 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-import { NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-steps-indicator',
-  templateUrl: './steps-indicator.component.html',
-  styleUrl: './steps-indicator.component.scss',
-  standalone: true,
-  imports: [NgFor, NgClass],
+    selector: 'app-steps-indicator',
+    templateUrl: './steps-indicator.component.html',
+    styleUrl: './steps-indicator.component.scss',
+    imports: [NgClass]
 })
 export class StepsIndicatorComponent implements OnChanges {
   @Input() steps: number = 0;

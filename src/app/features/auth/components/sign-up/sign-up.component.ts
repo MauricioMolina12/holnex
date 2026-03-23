@@ -4,9 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationTypeError } from '../../../../core/enum/validations.enum';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.scss',
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrl: './sign-up.component.scss',
+    standalone: false
 })
 export class SignUpComponent {
   currentStep: number = 1;

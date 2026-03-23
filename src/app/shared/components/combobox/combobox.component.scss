@@ -1,0 +1,130 @@
+.combobox {
+  position: relative;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  &.disabled {
+    background-color: #f3f4f6;
+    border-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+
+    .combobox__icon {
+      color: #9ca3af;
+    }
+  }
+}
+
+
+
+.combobox__value {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.combobox__placeholder {
+  color: #9ca3af;
+}
+
+
+
+.combobox__icon {
+  font-size: 0.75rem;
+  color: #6b7280;
+  pointer-events: none;
+}
+
+
+.combobox__options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 50;
+
+  max-height: 240px;
+  overflow-y: auto;
+
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  padding: 0.25rem 0;
+}
+
+
+
+.combobox__option {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #111827;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover,
+  &:focus {
+    background-color: #eff6ff;
+    outline: none;
+  }
+
+  &.active {
+    background-color: #2563eb;
+    color: #ffffff;
+  }
+}
+
+
+.combobox__loading {
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+
+
+.combobox__options::-webkit-scrollbar {
+  width: 6px;
+}
+
+.combobox__options::-webkit-scrollbar-thumb {
+  background-color: #cbd5f5;
+  border-radius: 4px;
+}
+
+.combobox__options::-webkit-scrollbar-track {
+  background-color: transparent;
+}

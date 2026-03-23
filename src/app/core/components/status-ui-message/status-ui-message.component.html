@@ -1,10 +1,13 @@
-<ng-container [ngSwitch]="status.type">
-    <ng-container *ngSwitchCase="'network'">
-        <section class="network" [ngStyle]="{ 'background': status.color || '#ffcdd2' }">
-            <h1 class="network__title">{{ status.title }}</h1>
-            <p *ngIf="status.description" class="network__desc">{{ status.description }}</p>
 
-            <app-button *ngIf="status.actionLabel && !status.options?.isOnline" [text]="status.actionLabel" aria-label="Recargar app"
+@switch (status.type) {
+  @case ('network') {
+    <section class="network" [ngStyle]="{ 'background': status.color || '#ffcdd2' }">
+      <h1 class="network__title">{{ status.title }}</h1>
+      @if (status.description) {
+        <p class="network__desc">{{ status.description }}</p>
+      }
+      @if (status.actionLabel && !status.options?.isOnline) {
+        <app-button [text]="status.actionLabel" aria-label="Recargar app"
                 [classCustom]="{
                     base: 'button',
                     bgColor: 'light',
@@ -15,9 +18,9 @@
                     'top-25p'
                     ]
                 }" (clicked)="action.emit(status.actionType || 'retry')">
-            </app-button>
-        </section>
-    </ng-container>
-
-    <!-- Otros casos como 'empty', 'error'... -->
-</ng-container>
+        </app-button>
+      }
+    </section>
+  }
+  <!-- Otros casos como 'empty', 'error'... -->
+}

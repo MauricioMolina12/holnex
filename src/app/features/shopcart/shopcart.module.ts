@@ -6,9 +6,12 @@ import { ShopcartComponent } from '../shopcart/shopcart.component';
 import { CardProductShopcartComponent } from './components/card-product-shopcart/card-product-shopcart.component';
 import { CardSummaryShoppingComponent } from './components/card-summary-shopping/card-summary-shopping.component';
 import { StepsIndicatorComponent } from "../../shared/components/steps-indicator/steps-indicator.component";
-import { DropdownDynamicComponent } from '../../shared/components/ui/dropdown-dynamic/dropdown-dynamic.component';
+import { DropdownComponent } from '../../shared/components/ui/dropdown/dropdown.component';
 import { ButtonComponent } from "../../shared/components/ui/button/button.component";
 import { InputComponent } from "../../shared/components/ui/input/input.component";
+import { ProductsSliderComponent } from '../../shared/components/products/products-slider/products-slider.component';
+import { QuantitySelectorComponent } from '../../shared/components/quantity-selector/quantity-selector.component';
+import { BreadcrumbsComponent } from "../../shared/components/breadcrumbs/breadcrumbs.component";
 
 
 @NgModule({
@@ -21,9 +24,12 @@ import { InputComponent } from "../../shared/components/ui/input/input.component
     CommonModule,
     ShopcartRoutingModule,
     StepsIndicatorComponent,
-    DropdownDynamicComponent,
+    DropdownComponent,
     ButtonComponent,
-    InputComponent
+    InputComponent,
+    ProductsSliderComponent,
+    QuantitySelectorComponent,
+    BreadcrumbsComponent
 ]
 })
 export class ShopcartModule { }

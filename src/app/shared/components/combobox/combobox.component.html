@@ -1,0 +1,47 @@
+<div class="combobox" #comboBox tabindex="0" role="combobox" aria-haspopup="listbox" [attr.aria-expanded]="showOptions"
+  [class.disabled]="disabled" (click)="toggleOptions()">
+
+  <div class="combobox__value">
+    @if (selectedItem) {
+      <ng-container>
+        {{ selectedItem[displayProperty] }}
+      </ng-container>
+      }@else {
+      <ng-template #placeholderTpl>
+        <span class="combobox__placeholder">
+          {{ placeholder }}
+        </span>
+      </ng-template>
+    }
+  </div>
+
+  <div class="icons-container">
+    <span class="icon-arrow-chevron-right icon" [ngClass]="{'open-icon': showOptions}"></span>
+  </div>
+
+  @if (showOptions) {
+    <div class="combobox__options" role="listbox">
+
+      @if (items.length == 0) {
+        <div class="combobox__loading">
+          Cargando...
+        </div>
+      }
+
+      @for (item of items; track item; let i = $index) {
+        <button #option type="button" class="combobox__option" role="option"
+          [class.active]="selectedItem?.id === item.id" [attr.aria-selected]="selectedItem?.id === item.id"
+          tabindex="-1" (click)="selectItem(item)">
+          @if (itemTemplate) {
+            <ng-container [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
+            }@else {
+            <ng-template #defaultItemTpl> {{ item[displayProperty] }}</ng-template>
+          }
+        </button>
+      }
+
+    </div>
+  }
+
+</div>

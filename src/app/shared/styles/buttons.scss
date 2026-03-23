@@ -12,19 +12,21 @@ $btn-transition: all 0.3s ease;
 $btn-colors: (
   "primary": var(--color-primary),
   "primary-to-white": var(--color-primary-to-white),
-  "secondary": var(--color-font-gray),
+  "secondary": var(--color-secondary),
   "danger": var(--color-danger),
   "success": var(--color-success),
   "warning": var(--color-warning),
   "info": var(--color-tertiary),
   "light": var(--color-light),
   "dark": var(--color-dark),
+  "white": var(--color-white),
   "transparent": transparent,
+  "light-blue": #e8f4ff 
 );
 
 $btn-text-colors: (
   "primary": var(--color-primary-to-white),
-  "secondary": var(--color-font-gray),
+  "secondary": var(--color-secondary),
   "danger": var(--color-danger),
   "success": var(--color-success),
   "warning": var(--color-warning),

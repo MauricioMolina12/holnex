@@ -6,21 +6,24 @@
       <span class="footer__subtitle">Holnex, {{ year }}.</span>
     </div>
     <div class="footer__columns">
-      <div class="footer__column" *ngFor="let column of Columns">
-        <h4 class="footer__column-title">{{ column?.title }}</h4>
-        <span class="footer__column-link" *ngFor="let item of column?.items">
-          <ng-container *ngIf="item.type === 'href'; else internalLink">
-            <a [href]="item.redirect" target="_blank" rel="noopener noreferrer">
-              {{ item?.text }}
-            </a>
-          </ng-container>
-          <ng-template #internalLink>
-            <a [routerLink]="item.redirect">
-              {{ item?.text }}
-            </a>
-          </ng-template>
-        </span>
-      </div>
+      @for (column of Columns; track column) {
+        <div class="footer__column">
+          <h4 class="footer__column-title">{{ column?.title }}</h4>
+          @for (item of column?.items; track item) {
+            <span class="footer__column-link">
+              @if (item.type === 'href') {
+                <a [href]="item.redirect" target="_blank" rel="noopener noreferrer">
+                  {{ item?.text }}
+                </a>
+              } @else {
+                <a [routerLink]="item.redirect">
+                  {{ item?.text }}
+                </a>
+              }
+            </span>
+          }
+        </div>
+      }
     </div>
   </header>
   <div class="footer__terms-conditions">
@@ -31,7 +34,7 @@
     </div>
     <div class="footer__item">
       <span>Holnex es una corporación de comercio y servicios en línea, constituido en Barranquilla,
-        Colombia.</span>
+      Colombia.</span>
     </div>
     <div class="footer__item">
       <span>© 2025 - 2026 Holnex Todos los derechos reservados.</span>

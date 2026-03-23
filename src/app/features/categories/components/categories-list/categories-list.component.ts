@@ -1,4 +1,4 @@
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, computed, Input, OnInit } from '@angular/core';
 import { HttpService } from '../../../../core/services/http.service';
 import { ProductsService } from '../../../products/services/products.service';

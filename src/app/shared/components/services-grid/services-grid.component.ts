@@ -1,13 +1,12 @@
-import { NgClass, NgFor, NgStyle } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { Component, OnInit, Signal } from '@angular/core';
 import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
-  selector: 'app-services-grid',
-  templateUrl: './services-grid.component.html',
-  standalone: true,
-  styleUrl: './services-grid.component.scss',
-  imports: [NgFor, NgStyle, NgClass],
+    selector: 'app-services-grid',
+    templateUrl: './services-grid.component.html',
+    styleUrl: './services-grid.component.scss',
+    imports: [NgStyle, NgClass]
 })
 export class ServicesGridComponent implements OnInit {
   constructor(private themeService: ThemeService) {}

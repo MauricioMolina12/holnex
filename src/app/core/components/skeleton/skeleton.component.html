@@ -1,128 +1,130 @@
-<section [ngSwitch]="typeskeleton">
-
+<section>
+  @switch (typeskeleton) {
     <!-- Opción: product -->
-    <div *ngSwitchCase="skeletonType.productCard" class="product-card">
+    @case (skeletonType.productCard) {
+      <div class="product-card" >
         <div class="product-card__image">
-            <ngx-skeleton-loader class="product__image-skeleton" count="1"></ngx-skeleton-loader>
+          <div class="skltn skltn-image"></div>
         </div>
-
-        <div class="product-card__titles">
-            <ngx-skeleton-loader class="product__title" count="1"></ngx-skeleton-loader>
+        <div class="product-card__title">
+          <div class="skltn skltn-text"></div>
+          <div class="skltn skltn-text"></div>
         </div>
-
-        <div class="product-card__actions">
-            <div class="product-card__actions-price">
-                <ngx-skeleton-loader class="product__price" count="1"></ngx-skeleton-loader>
-            </div>
-
-            <!-- <div class="product-card__actions-buttons">
-                <ngx-skeleton-loader class="product__button product__button--cart" count="1"
-                    appearance="circle"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="product__button product__button--favorite" count="1"
-                    appearance="circle"></ngx-skeleton-loader>
-            </div> -->
+        <div class="product-card__footer flex gap-2">
+          <div class="flex flex-col gap-1 h-full" [ngStyle]="{'width' : '50%'}">
+            <div class="skltn skltn-text" [ngStyle]="{'width' : '50%'}"></div>
+            <div class="skltn skltn-text"></div>
+          </div>
+          <div class="flex items-end h-full">
+            <div class="skltn skltn-text"></div>
+          </div>
         </div>
-    </div>
-
-    <div *ngSwitchCase="skeletonType.productDetails" class="product-details">
+      </div>
+    }
+    @case (skeletonType.productDetails) {
+      <div class="product-details">
         <section class="product__images">
-            <figure class="product__images--main">
-                <ngx-skeleton-loader class="product__image-skeleton" count="1"></ngx-skeleton-loader>
+          <figure class="product__images--main">
+            <ngx-skeleton-loader class="product__image-skeleton" count="1"></ngx-skeleton-loader>
+          </figure>
+          <aside class="product__images--thumbnail">
+            <figure class="product__images--thumbnail-item">
+              <ngx-skeleton-loader class="item-skeleton" count="1"></ngx-skeleton-loader>
             </figure>
-            <aside class="product__images--thumbnail">
-                <figure class="product__images--thumbnail-item">
-                    <ngx-skeleton-loader class="item-skeleton" count="1"></ngx-skeleton-loader>
-                </figure>
-                <figure class="product__images--thumbnail-item">
-                    <ngx-skeleton-loader class="item-skeleton" count="1"></ngx-skeleton-loader>
-                </figure>
-                <figure class="product__images--thumbnail-item">
-                    <ngx-skeleton-loader class="item-skeleton" count="1"></ngx-skeleton-loader>
-                </figure>
-
-            </aside>
+            <figure class="product__images--thumbnail-item">
+              <ngx-skeleton-loader class="item-skeleton" count="1"></ngx-skeleton-loader>
+            </figure>
+            <figure class="product__images--thumbnail-item">
+              <ngx-skeleton-loader class="item-skeleton" count="1"></ngx-skeleton-loader>
+            </figure>
+          </aside>
         </section>
         <section class="product__information">
-            <header class="product__information--header">
-                <ngx-skeleton-loader class="name" count="1"></ngx-skeleton-loader>
-                <div class="product__information--header-rating">
-                    <ngx-skeleton-loader class="rating" count="1"></ngx-skeleton-loader>
-                    <ngx-skeleton-loader class="review" count="1"></ngx-skeleton-loader>
-                </div>
-                <div class="product__information--header-tabs">
-                    <ngx-skeleton-loader class="tab" count="1"></ngx-skeleton-loader>
-                    <ngx-skeleton-loader class="tab" count="1"></ngx-skeleton-loader>
-                    <ngx-skeleton-loader class="tab" count="1"></ngx-skeleton-loader>
-                </div>
-            </header>
-            <div class="product__information--description">
-                <ngx-skeleton-loader class="title-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+          <header class="product__information--header">
+            <ngx-skeleton-loader class="name" count="1"></ngx-skeleton-loader>
+            <div class="product__information--header-rating">
+              <ngx-skeleton-loader class="rating" count="1"></ngx-skeleton-loader>
+              <ngx-skeleton-loader class="review" count="1"></ngx-skeleton-loader>
             </div>
-            <div class="product__information--description">
-                <ngx-skeleton-loader class="title-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <div class="product__information--header-tabs">
+              <ngx-skeleton-loader class="tab" count="1"></ngx-skeleton-loader>
+              <ngx-skeleton-loader class="tab" count="1"></ngx-skeleton-loader>
+              <ngx-skeleton-loader class="tab" count="1"></ngx-skeleton-loader>
             </div>
-
+          </header>
+          <div class="product__information--description">
+            <ngx-skeleton-loader class="title-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+          </div>
+          <div class="product__information--description">
+            <ngx-skeleton-loader class="title-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="content-description" count="1"></ngx-skeleton-loader>
+          </div>
         </section>
         <section class="product__summary">
-            <header class="product__summary--header">
-                <ngx-skeleton-loader class="skeleton" count="1"></ngx-skeleton-loader>
-            </header>
-            <div class="product__summary--content">
-                <ngx-skeleton-loader class="title-content" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="name-product" count="1"></ngx-skeleton-loader>
-                <div class="stock">
-                    <div class="stock-value">
-                        <ngx-skeleton-loader class="stock-text" count="1"></ngx-skeleton-loader>
-                        <ngx-skeleton-loader class="stock-text" count="1"></ngx-skeleton-loader>
-                    </div>
-                    <div class="stock-button">
-                        <ngx-skeleton-loader class="stock-text" count="1"></ngx-skeleton-loader>
-                    </div>
-                </div>
-                <ngx-skeleton-loader class="button-skeleton" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="button-skeleton" count="1"></ngx-skeleton-loader>
-                <ngx-skeleton-loader class="button-skeleton" count="1"></ngx-skeleton-loader>
-
+          <header class="product__summary--header">
+            <ngx-skeleton-loader class="skeleton" count="1"></ngx-skeleton-loader>
+          </header>
+          <div class="product__summary--content">
+            <ngx-skeleton-loader class="title-content" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="name-product" count="1"></ngx-skeleton-loader>
+            <div class="stock">
+              <div class="stock-value">
+                <ngx-skeleton-loader class="stock-text" count="1"></ngx-skeleton-loader>
+                <ngx-skeleton-loader class="stock-text" count="1"></ngx-skeleton-loader>
+              </div>
+              <div class="stock-button">
+                <ngx-skeleton-loader class="stock-text" count="1"></ngx-skeleton-loader>
+              </div>
             </div>
-            <div class="product__summary--seller">
-                <ngx-skeleton-loader class="skeleton" count="1"></ngx-skeleton-loader>
-            </div>
+            <ngx-skeleton-loader class="button-skeleton" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="button-skeleton" count="1"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="button-skeleton" count="1"></ngx-skeleton-loader>
+          </div>
+          <div class="product__summary--seller">
+            <ngx-skeleton-loader class="skeleton" count="1"></ngx-skeleton-loader>
+          </div>
         </section>
-    </div>
-
-    <div *ngSwitchCase="skeletonType.productsGrid" class="products-grid">
-        <div class="product-card" *ngFor="let product of [].constructor(10)">
+      </div>
+    }
+    @case (skeletonType.productsGrid) {
+      <div class="products-grid">
+        @for (product of [].constructor(10); track product) {
+          <div class="product-card">
             <div class="product-card__image">
-                <ngx-skeleton-loader class="product__image-skeleton" count="1"></ngx-skeleton-loader>
+              <div class="skltn skltn-image"></div>
             </div>
-
-            <div class="product-card__titles">
-                <ngx-skeleton-loader class="product__title" count="1"></ngx-skeleton-loader>
+            <div class="product-card__title">
+              <div class="skltn skltn-text"></div>
+              <div class="skltn skltn-text"></div>
             </div>
-
-            <div class="product-card__actions">
-                <div class="product-card__actions-price">
-                    <ngx-skeleton-loader class="product__price" count="1"></ngx-skeleton-loader>
-                </div>
+            <div class="product-card__footer flex gap-2">
+              <div class="flex flex-col gap-1 h-full" [ngStyle]="{'width' : '50%'}">
+                <div class="skltn skltn-text" [ngStyle]="{'width' : '50%'}"></div>
+                <div class="skltn skltn-text"></div>
+              </div>
+              <div class="flex items-end h-full">
+                <div class="skltn skltn-text"></div>
+              </div>
             </div>
-        </div>
-    </div>
-
-    <div *ngSwitchDefault>
+          </div>
+        }
+      </div>
+    }
+    @default {
+      <div>
         <div class="default">
-            <ngx-skeleton-loader class="container" count="1"></ngx-skeleton-loader>
+          <ngx-skeleton-loader class="container" count="1"></ngx-skeleton-loader>
         </div>
-
-    </div>
-
+      </div>
+    }
+  }
 </section>

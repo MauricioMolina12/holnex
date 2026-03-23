@@ -1,0 +1,72 @@
+$modal-z-index: 10000;
+$backdrop-bg: rgba(0, 0, 0, 0.55);
+
+$radius: 16px;
+$shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+$bg: #ffffff;
+
+$transition: 0.25s ease;
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: $backdrop-bg;
+  z-index: $modal-z-index;
+  animation: fadeIn $transition;
+}
+
+
+.modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+
+  background: $bg;
+  border-radius: $radius;
+  box-shadow: $shadow;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  z-index: $modal-z-index;
+
+  animation: slideUp $transition;
+
+
+  &.sm {
+    width: 90%;
+    max-width: 420px;
+  }
+
+  &.md {
+    width: 90%;
+    max-width: 640px;
+  }
+
+  &.lg {
+    width: 95%;
+    max-width: 900px;
+  }
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

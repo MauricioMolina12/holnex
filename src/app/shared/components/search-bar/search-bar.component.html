@@ -1,0 +1,41 @@
+<div class="search-bar" [class.search-bar--focused]="focus">
+
+  <div class="search-bar__wrapper">
+    <button type="button" class="search-bar__icon" (click)="focusInput()" [attr.aria-label]="'Buscar'">
+      <i [class]="icon"></i>
+    </button>
+
+    <input #searchInput type="text" class="search-bar__input" [placeholder]="placeholder" [value]="searchQuery"
+      (focus)="onFocus()" (input)="onInput($event)" (keydown.enter)="onEnterKey()" [attr.aria-expanded]="open"
+      [attr.aria-controls]="'dropdown-' + id" autocomplete="off" />
+
+      @if (searchQuery) {
+        <button type="button" class="search-bar__clear" (click)="clearSearch()"
+          [attr.aria-label]="'Limpiar búsqueda'">
+          <i class="icon-close"></i>
+        </button>
+      }
+
+      @if (loading) {
+        <div class="search-bar__spinner">
+          <i class="icon-loading spin"></i>
+        </div>
+      }
+    </div>
+
+    @if (open && items.length > 0) {
+      <ul class="search-bar__dropdown" [id]="'dropdown-' + id" role="listbox">
+        @for (item of items; track item) {
+          <li class="search-bar__item" (click)="onSelectItem(item)" role="option"
+          [innerHTML]="getHighlightedText(item)"></li>
+        }
+      </ul>
+    }
+
+    @if (open && !loading && items.length == 0) {
+      <div class="search-bar__no-results">
+        <i class="icon-search-off"></i>
+        <span>No se encontraron resultados</span>
+      </div>
+    }
+  </div>

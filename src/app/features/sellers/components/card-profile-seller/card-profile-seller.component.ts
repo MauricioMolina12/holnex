@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-card-profile-seller',
-  templateUrl: './card-profile-seller.component.html',
-  styleUrl: './card-profile-seller.component.scss'
+    selector: 'app-card-profile-seller',
+    templateUrl: './card-profile-seller.component.html',
+    styleUrl: './card-profile-seller.component.scss',
+    standalone: false
 })
 export class CardProfileSellerComponent {
 

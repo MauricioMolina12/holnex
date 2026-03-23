@@ -1,0 +1,15 @@
+<div class="quantity-selector" [class.is-disabled]="disabled">
+    <button class="quantity-selector__btn decrease" type="button" aria-label="Disminuir cantidad"
+        [disabled]="disabled || value <= min" (click)="onDecrease()">
+        −
+    </button>
+
+    <span class="quantity-selector__value">
+        {{ value }}
+    </span>
+
+    <button class="quantity-selector__btn increase" type="button" aria-label="Aumentar cantidad"
+        [disabled]="disabled || value >= max" (click)="onIncrease()">
+        +
+    </button>
+</div>

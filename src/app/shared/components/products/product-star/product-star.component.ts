@@ -1,4 +1,4 @@
-import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

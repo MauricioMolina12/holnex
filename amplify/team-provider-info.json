@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-holnex-dev-d0e81-authRole",
+      "UnauthRoleArn": "arn:aws:iam::981686515522:role/amplify-holnex-dev-d0e81-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::981686515522:role/amplify-holnex-dev-d0e81-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-holnex-dev-d0e81-deployment",
+      "UnauthRoleName": "amplify-holnex-dev-d0e81-unauthRole",
+      "StackName": "amplify-holnex-dev-d0e81",
+      "StackId": "arn:aws:cloudformation:us-east-1:981686515522:stack/amplify-holnex-dev-d0e81/37be3160-a865-11f0-90fa-0e9684087b8d",
+      "AmplifyAppId": "d368hp752bezye"
+    }
+  }
+}

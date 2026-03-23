@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-notifications-modal',
-  templateUrl: './notifications-modal.component.html',
-  styleUrl: './notifications-modal.component.scss'
+    selector: 'app-notifications-modal',
+    templateUrl: './notifications-modal.component.html',
+    styleUrl: './notifications-modal.component.scss',
+    standalone: false
 })
 export class NotificationsModalComponent {
 

@@ -5,18 +5,18 @@ import {
   OnDestroy,
   PLATFORM_ID,
   Input,
+  DOCUMENT
 } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser, NgClass, NgFor } from '@angular/common';
+import { isPlatformBrowser, NgClass } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectLoading } from '../../../../features/products/store/selectors/product.selectors';
 
 @Component({
-  selector: 'app-filters',
-  templateUrl: './filters.component.html',
-  styleUrl: './filters.component.scss',
-  standalone: true,
-  imports: [NgClass, NgFor],
+    selector: 'app-filters',
+    templateUrl: './filters.component.html',
+    styleUrl: './filters.component.scss',
+    imports: [NgClass]
 })
 export class FiltersComponent implements OnInit, OnDestroy {
   openFilter: string | null = null;

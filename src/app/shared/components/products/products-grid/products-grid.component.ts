@@ -11,29 +11,27 @@ import { ProductsService } from '../../../../features/products/services/products
 import { ThemeService } from '../../../../core/services/theme.service';
 import { NetworkService } from '../../../../core/services/network.service';
 import { ButtonComponent } from '../../ui/button/button.component';
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { CommonModule, NgClass, NgStyle } from '@angular/common';
 import { SkeletonComponent } from '../../../../core/components/skeleton/skeleton.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../../../features/products/models/products.model';
 import { skeletonType } from '../../../../core/components/skeleton/skeleton.type.enum';
 import { StatusUiMessageComponent } from '../../../../core/components/status-ui-message/status-ui-message.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
 
 @Component({
-  selector: 'app-products-grid',
-  templateUrl: './products-grid.component.html',
-  styleUrl: './products-grid.component.scss',
-  standalone: true,
-  imports: [
-    ButtonComponent,
-    SkeletonComponent,
-    ProductCardComponent,
-    StatusUiMessageComponent,
-    NgIf,
-    NgClass,
-    NgStyle,
-    NgFor,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-products-grid',
+    templateUrl: './products-grid.component.html',
+    styleUrl: './products-grid.component.scss',
+    imports: [
+        ButtonComponent,
+        SkeletonComponent,
+        ProductCardComponent,
+        StatusUiMessageComponent,
+        CommonModule,
+        PaginationComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsGridComponent implements OnInit {
   @Input() products: Product[] = []; // => Array products

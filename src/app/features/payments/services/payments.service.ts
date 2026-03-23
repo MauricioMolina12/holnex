@@ -14,4 +14,6 @@ export class PaymentsService {
   getPaymentsMethdos() {
     return of(paymentMethods);
   }
+
+  
 }

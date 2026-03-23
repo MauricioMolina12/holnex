@@ -1,0 +1,11 @@
+<div class="promo-banner" [ngClass]="{ dark: isDark() }">
+  <span
+    class="promo-banner__description"
+    [class.exiting]="isExiting"
+    [innerHTML]="currentPromo"
+  ></span>
+
+  <button (click)="closeBanner()" class="promo-banner__close">
+    <span>x</span>
+  </button>
+</div>

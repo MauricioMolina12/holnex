@@ -3,11 +3,11 @@
 
 .card-comment {
   width: 100%;
-  min-height: 16vh;
+  // min-height: 16vh;
   height: max-content;
   border-radius: var(--border-radius);
   background-color: var(--color-primary-contrast);
-  padding: 10px;
+  padding: 20px 10px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -24,8 +24,8 @@
 
     .avatar {
       clip-path: circle();
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       margin: 0;
       margin-left: 10px;
 
@@ -37,15 +37,15 @@
     }
 
     .name {
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 500;
+      font-size: var(--text-size-14);
       display: flex;
       flex-direction: column;
       color: var(--color-primary-to-white);
 
-      .time-comment {
+      .bio {
         color: var(--color-font-gray);
-        font-size: 0.6rem;
+        font-size: var(--text-size-10);
         font-weight: 400;
       }
     }
@@ -58,7 +58,7 @@
 
     .comment-text {
       color: var(--color-font-gray);
-      font-size: 0.8rem;
+      font-size: var(--text-size-12);
       font-weight: 300;
       text-align: justify;
       max-width: 95%;

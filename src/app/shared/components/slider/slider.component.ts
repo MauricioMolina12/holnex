@@ -11,20 +11,20 @@ import {
   Signal,
   SimpleChanges,
   ViewChild,
+  DOCUMENT
 } from '@angular/core';
 import { sliderType } from '../products/products-slider/products-slider-type.enum';
 import { skeletonType } from '../../../core/components/skeleton/skeleton.type.enum';
 import { NetworkService } from '../../../core/services/network.service';
 import { ThemeService } from '../../../core/services/theme.service';
-import { DOCUMENT, isPlatformBrowser, NgFor, NgIf } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { ButtonComponent } from '../ui/button/button.component';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrl: './slider.component.scss',
-  standalone: true,
-  imports: [NgIf, ButtonComponent],
+    selector: 'app-slider',
+    templateUrl: './slider.component.html',
+    styleUrl: './slider.component.scss',
+    imports: [ButtonComponent]
 })
 export class SliderComponent implements OnInit, OnDestroy {
   @Input() title: string = '';

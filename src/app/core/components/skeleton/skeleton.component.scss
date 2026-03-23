@@ -3,65 +3,26 @@
 
 .product-card {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
   &__image {
-    @include skeleton-style(
-      product__image-skeleton,
-      (
-        border-radius: 12px,
-        height: 280px,
-        background-color: var(--color-medium),
-      )
-    );
+    border-radius: 12px;
+    height: 280px;
   }
 
-  &__titles {
-    @include skeleton-style(
-      product__title,
-      (
-        background-color: var(--color-medium),
-        height: 20px,
-        border-radius: 4px,
-      )
-    );
-  }
-
-  &__actions {
+  &__title {
+    height: 40px;
+    border-radius: 4px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+  }
 
-    &-price {
-      display: flex;
-      align-items: center;
-
-      @include skeleton-style(
-        product__price,
-        (
-          width: 40px,
-          height: 20px,
-          background-color: var(--color-medium),
-          margin: 0,
-          border-radius: 4px,
-        )
-      );
-    }
-
-    &-buttons {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      @include skeleton-style(
-        product__button,
-        (
-          width: 30px,
-          height: 30px,
-          background-color: var(--color-medium),
-          border-radius: 50%,
-        )
-      );
-    }
+  &__footer {
+    height: 40px;
+    border-radius: 4px;
   }
 }
 

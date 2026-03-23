@@ -1,89 +1,86 @@
 <section class="shopcart">
-    <main class="shopcart__inner">
-        <!-- <div class="shopcart__inner-steps">
-            <app-steps-indicator (stepChange)="changeStep($event)" [steps]="steps" [step]="step"></app-steps-indicator>
-            <div class="shopcart__inner-steps--dropdowns">
+  <main class="shopcart__inner">
+    <!-- <div class="shopcart__inner-steps">
+    <app-steps-indicator (stepChange)="changeStep($event)" [steps]="steps" [step]="step"></app-steps-indicator>
+    <div class="shopcart__inner-steps--dropdowns">
 
-                <app-dropdown-dynamic [isOpen]="step === 1">
-                    <span dropdown-trigger>Datos personales</span>
-                    <article dropdown-content>
-                        <span class="description-step">Complete todos los campos a continuación para continuar con su
-                            compra</span>
-                        <div class="user-name input-wrapper">
-                            <label for="user-name">Nombre completo</label>
-                            <app-input [value]="'Mauricio Molina'" [disabled]="true" [id]="'user-name'"
-                                [placeholder]="'Ingresa nombre completo'" [type]="'text'"></app-input>
-                        </div>
-                        <div class="email phone input-wrapper flex gap-2">
-                            <div class="input-inner">
-                                <label for="email">Correo</label>
-                                <app-input [id]="'email'" [placeholder]="'Ingresa tu correo'"></app-input>
-                            </div>
-                            <div class="input-inner">
-                                <label for="phone">Teléfono</label>
-                                <app-input [id]="'phone'" [placeholder]="'Ingresa tu télefono'"></app-input>
-                            </div>
-                        </div>
-                    </article>
-                </app-dropdown-dynamic>
+      <app-dropdown [isOpen]="step === 1" (toggle)="onToggleStep(1)">
+        <span dropdown-trigger>Datos personales</span>
+        <article dropdown-content>
+          <span class="description-step">Complete todos los campos a continuación para continuar con su
+          compra</span>
+          <div class="user-name input-wrapper">
+            <label for="user-name">Nombre completo</label>
+            <app-input [value]="'Mauricio Molina'" [disabled]="true" [id]="'user-name'"
+            [placeholder]="'Ingresa nombre completo'" [type]="'text'"></app-input>
+          </div>
+          <div class="email input-wrapper">
+            <label for="email">Correo</label>
+            <app-input [id]="'email'" [placeholder]="'Ingresa tu correo'"></app-input>
+          </div>
+          <div class="phone input-wrapper">
+            <label for="phone">Teléfono</label>
+            <app-input [id]="'phone'" [placeholder]="'Ingresa tu télefono'"></app-input>
+          </div>
+        </article>
+      </app-dropdown>
 
-                <app-dropdown-dynamic [isOpen]="step === 2">
-                    <span dropdown-trigger>Entrega</span>
-                    <div dropdown-content>
-                        <span class="description-step">Rellene los campos para una entrega rápida y segura</span>
-                        <div class="user-name input-wrapper">
-                            <label for="user-name">Nombre completo</label>
-                            <app-input [id]="'user-name'" [placeholder]="'Ingresa nombre completo'"
-                                [type]="'text'"></app-input>
-                        </div>
+      <app-dropdown [isOpen]="step === 2" (toggle)="onToggleStep(2)">
+        <span dropdown-trigger>Datos personales</span>
+        <article dropdown-content>
+          <span class="description-step">Complete todos los campos a continuación para continuar con su
+          compra</span>
+          <div class="user-name input-wrapper">
+            <label for="user-name">Nombre completo</label>
+            <app-input [value]="'Mauricio Molina'" [disabled]="true" [id]="'user-name'"
+            [placeholder]="'Ingresa nombre completo'" [type]="'text'"></app-input>
+          </div>
+          <div class="email input-wrapper">
+            <label for="email">Correo</label>
+            <app-input [id]="'email'" [placeholder]="'Ingresa tu correo'"></app-input>
+          </div>
+          <div class="phone input-wrapper">
+            <label for="phone">Teléfono</label>
+            <app-input [id]="'phone'" [placeholder]="'Ingresa tu télefono'"></app-input>
+          </div>
+        </article>
+      </app-dropdown>
 
-                        <div class="email phone input-wrapper flex gap-2">
-                            <div class="input-inner">
-                                <label for="email">Correo</label>
-                                <app-input [id]="'email'" [placeholder]="'Ingresa tu correo'"></app-input>
-                            </div>
-                            <div class="input-inner">
-                                <label for="phone">Teléfono</label>
-                                <app-input [id]="'phone'" [placeholder]="'Ingresa tu télefono'"></app-input>
-                            </div>
-                        </div>
-                    </div>
-                </app-dropdown-dynamic>
 
-                <app-dropdown-dynamic [isOpen]="step === 3">
-                    <span dropdown-trigger>Pago</span>
-                    <div dropdown-content>
-                        <span class="description-step">Complete todos los campos a continuación para continuar con su
-                            compra</span>
-                        <div class="user-name input-wrapper">
-                            <label for="user-name">Nombre completo</label>
-                            <app-input [id]="'user-name'" [placeholder]="'Ingresa nombre completo'"
-                                [type]="'text'"></app-input>
-                        </div>
-                        <div class="email phone input-wrapper flex gap-2">
-                            <div class="input-inner">
-                                <label for="email">Correo</label>
-                                <app-input [id]="'email'" [placeholder]="'Ingresa tu correo'"></app-input>
-                            </div>
-                            <div class="input-inner">
-                                <label for="phone">Teléfono</label>
-                                <app-input [id]="'phone'" [placeholder]="'Ingresa tu télefono'"></app-input>
-                            </div>
-                        </div>
-                    </div>
-                </app-dropdown-dynamic>
-            </div>
-        </div> -->
+    </div>
+  </div> -->
 
-        <div class="shopcart__inner-products">
-            <div class="shopcart__inner-products--list">
-                <div class="product" *ngFor="let product of productsSignal().slice(2, 14)">
-                    <app-card-product-shopcart [product]="product"></app-card-product-shopcart>
-                </div>
-            </div>
-        </div>
-        <div class="shopcart__inner-summary">
-            <app-card-summary-shopping *ngIf="summaryShopping" [summary]="summaryShopping"></app-card-summary-shopping>
-        </div>
-    </main>
+  <div class="shopcart__inner-products">
+    @if (products().length > 0) {
+      <div class="shopcart__inner-products--list">
+        @for (product of products().slice(0, 3); track $index) {
+          <div class="product">
+            <app-card-product-shopcart [product]="product"></app-card-product-shopcart>
+          </div>
+        }
+      </div>
+      }@else {
+      <div class="shopcart__inner-products--empty">
+        <img src="assets/img/empty-cart.svg" alt="shopcart empty">
+        <h4 class="title">Tu carrito está vacío</h4>
+        <p class="description text-sm">Agrega productos a tu carrito para verlos aquí.</p>
+        <a class="CTA text-sm flex items-center gap-1" href="">
+          Descubrir productos
+          <i class="icon icon-arrow-right"></i>
+        </a>
+      </div>
+    }
+  </div>
+  <div class="shopcart__inner-summary">
+    <div class="layer">
+      @if (summaryShopping) {
+        <app-card-summary-shopping [summary]="summaryShopping"></app-card-summary-shopping>
+      }
+    </div>
+  </div>
+</main>
+<article class="shopcart__products-related">
+  <app-slider-products [products]="productsRelated().slice(2, 20)" [loading]="loadingProductsRelated()"
+  [title]="'Productos relacionados'"></app-slider-products>
+</article>
 </section>

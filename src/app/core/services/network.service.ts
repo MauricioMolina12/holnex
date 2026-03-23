@@ -5,8 +5,11 @@ import { AppService } from '../../app.service';
   providedIn: 'root',
 })
 export class NetworkService {
-  private _isOnline = signal(navigator.onLine);
-  public _lastOnlineState = navigator.onLine;
+  private _isOnline = signal(
+    typeof navigator !== 'undefined' ? navigator.onLine : true
+  );
+  public _lastOnlineState =
+    typeof navigator !== 'undefined' ? navigator.onLine : true;
   private _triggerChanged = signal(false);
 
   constructor(private ngZone: NgZone, private appService: AppService) {
@@ -43,7 +46,7 @@ export class NetworkService {
     if (!last && current) {
       this._lastOnlineState = current;
       this.appService.startApp();
-      alert("Se lanzó el start app")
+      alert('Se lanzó el start app');
     } else {
       this._lastOnlineState = current;
     }

@@ -1,20 +1,35 @@
-import { Directive } from '@angular/core';
-import { ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  Output,
+  EventEmitter,
+} from "@angular/core";
 
-@Directive({
-  selector: '[CloseOutside]',
-  standalone: true
+@Directive({ standalone: false,
+  selector: "[clickOutsideDdown]",
 })
 export class CloseOutsideDirective {
+  constructor(private _elementRef: ElementRef) {}
 
-  constructor(private elementRef: ElementRef) {}
-  
-  @Output() CloseOutside = new EventEmitter<void>();
-  
-  @HostListener('document:click', ['$event.target'])
-  public onClick(target: HTMLElement) {
-  if (!this.elementRef.nativeElement.contains(target)) {
-    this.CloseOutside.emit();
+  @Input() ignoreElements: string[] = [];
+  @Output("clickOutsideDdown") clickOutside: EventEmitter<any> = new EventEmitter();
+
+  @HostListener("document:click", ["$event"])
+  onDocumentClick(event: MouseEvent) {
+    const path = event.composedPath();
+    const clickedInside = path.includes(this._elementRef.nativeElement);
+
+    const targetElement =  event.target as HTMLElement;
+
+    if (this.ignoreElements.includes(targetElement.id)) {
+      return;
+    }
+
+    if (!clickedInside) {
+      this.clickOutside.emit(targetElement);
+    }
   }
-}
-}
+} 
+

@@ -1,82 +1,88 @@
 <nav class="nav-bar">
 
-  <!-- Logo-->
-  <div class=" nav-bar__left">
-    <i class="icon-holnex nav-bar__logo" [routerLink]="['']"></i>
-    <div class="nav-bar__left--title">Hola, <span>{{user.name}}</span></div>
-  </div>
+  <div class="nav-bar__inner">
 
 
-  <!-- Input search component -->
-  <div class=" nav-bar__center" [ngClass]="{'active' : viewSearchInput}">
-    <app-search-input (closeWrapper)="viewSearchInput = false"></app-search-input>
-  </div>
+    <!-- Logo-->
+    <div class=" nav-bar__left">
+      <i class="icon-holnex nav-bar__logo" [routerLink]="['']"></i>
+      <div class="nav-bar__left--title">Hola, <span>{{user.name}}</span></div>
+    </div>
 
 
-  <!-- Elements only visibility in mobile screen -->
-  <div class=" nav-bar__right" [class.no-visibility]="viewSearchInput">
-
-    <!-- Button burguer -->
-    <button aria-label="Abrir menú lateral" class="nav-bar__items-button-bars"
-      (click)="toggleElement($event, 'nav-bar__sidebar','')">
-      <div class="icon-bars" [class.active]="viewSideBar">
-        <span class="bars-line"></span>
-        <span class="bars-line"></span>
-      </div>
-    </button>
-  </div>
+    <!-- Input search component -->
+    <div class=" nav-bar__center" [ngClass]="{'active' : viewSearchInput}">
+      <app-search-input (closeWrapper)="viewSearchInput = false"></app-search-input>
+    </div>
 
 
-  <div class="nav-bar__sidebar">
+    <!-- Elements only visibility in mobile screen -->
+    <div class=" nav-bar__right" [class.no-visibility]="viewSearchInput">
 
-    <button class="close-button" (click)="toggleElement($event, 'nav-bar__sidebar','')">X</button>
-
-    <ul class="nav-bar__sidebar-list user-list">
-      @for (item of userItems; track $index) {
-      <li class="nav-bar__sidebar-list-item" (click)="item?.action($event)"
-        (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
-
-        @if (item.profile) {
-        <div class="nav-bar__sidebar-list-item-user" [ngClass]="{'not-logged' : !isLoggued(), 'logged' : isLoggued()}">
-          <div class="nav-bar__sidebar-list-item-user-content">
-            <figure class="user-avatar" (click)="isLoggued() && toggleElement($event, 'nav-bar__modal-profile')">
-              <img [src]="item?.profile?.avatar" [alt]="item?.profile?.name || ''" />
-            </figure>
-            <div class="user-info">
-              <h5 class="user-name">{{ item?.profile?.name }}</h5>
-              <span class="user-email">{{ item?.profile?.email}}</span>
-            </div>
-          </div>
-          <div class="nav-bar__sidebar-list-item-user-actions">
-            <button class="button-login" *ngIf="!isLoggued()" [routerLink]="'/user/login'">Iniciar sesión</button>
-            <button class="button-edit" *ngIf="isLoggued()">Editar perfil</button>
-          </div>
+      <!-- Button burguer -->
+      <button aria-label="Abrir menú lateral" class="nav-bar__items-button-bars"
+        (click)="toggleElement($event, 'nav-bar__sidebar','')">
+        <div class="icon-bars" [class.active]="viewSideBar">
+          <span class="bars-line"></span>
+          <span class="bars-line"></span>
         </div>
-        }
+      </button>
+    </div>
 
 
-        <!-- Only items -->
-        @if (!item.profile) {
-        <ng-container>
-          <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
-          <div class="nav-bar__sidebar-list-item-value">
-            <h5 class="item-title">{{ item.title }}</h5>
-            @if (item.subtitle) {
-            <span class="item-subtitle">{{ item.subtitle }}</span>
+    <div class="nav-bar__sidebar">
+
+      <button class="close-button" (click)="toggleElement($event, 'nav-bar__sidebar','')">X</button>
+
+      <ul class="nav-bar__sidebar-list user-list">
+        @for (item of userItems; track $index) {
+          <li class="nav-bar__sidebar-list-item" (click)="item?.action($event)"
+            (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
+
+            @if (item.profile) {
+              <div class="nav-bar__sidebar-list-item-user"
+                [ngClass]="{'not-logged' : !isLoggued(), 'logged' : isLoggued()}">
+                <div class="nav-bar__sidebar-list-item-user-content">
+                  <figure class="user-avatar" (click)="isLoggued() && toggleElement($event, 'nav-bar__modal-profile')">
+                    <img [src]="item?.profile?.avatar" [alt]="item?.profile?.name || ''" />
+                  </figure>
+                  <div class="user-info">
+                    <h5 class="user-name">{{ item?.profile?.name }}</h5>
+                    <span class="user-email">{{ item?.profile?.email}}</span>
+                  </div>
+                </div>
+                <div class="nav-bar__sidebar-list-item-user-actions">
+                  @if (!isLoggued()) {
+                    <button class="button-login" [routerLink]="'/user/login'">Iniciar sesión</button>
+                  }
+                  @if (isLoggued()) {
+                    <button class="button-edit">Editar perfil</button>
+                  }
+                </div>
+              </div>
             }
-          </div>
-          @if (nameItemHover === item.title) {
-          <div class="nav-bar__sidebar-list-item-tooltip">
-            {{ nameItemHover }}
-          </div>
-          }
-        </ng-container>
-        }
-      </li>
-      }
-    </ul>
 
-    <!-- <div class="toggle-container desktop-toogle-theme">
+
+            <!-- Only items -->
+            @if (!item.profile) {
+              <ng-container>
+                <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
+                @if (item.unread) {
+                  <span class="nav-bar__sidebar-list-item-unread">{{5}}</span>
+                }
+                <div class="nav-bar__sidebar-list-item-value">
+                  <h5 class="item-title">{{ item.title }}</h5>
+                  @if (item.subtitle) {
+                    <span class="item-subtitle">{{ item.subtitle }}</span>
+                  }
+                </div>
+              </ng-container>
+            }
+          </li>
+        }
+      </ul>
+
+      <!-- <div class="toggle-container desktop-toogle-theme">
       <label class="switch">
         <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="isDark()" />
         <span class="slider"></span>
@@ -96,15 +102,15 @@
         </div>
       </div>
       @for (item of configItems; track $index) {
-      <li class="nav-bar__sidebar-list-item">
-        <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
-        <div class="nav-bar__sidebar-list-item-value">
-          <h5 class="item-title">{{ item.title }}</h5>
-          @if (item.subtitle) {
-          <span class="item-subtitle">{{ item.subtitle }}</span>
-          }
-        </div>
-      </li>
+        <li class="nav-bar__sidebar-list-item">
+          <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
+          <div class="nav-bar__sidebar-list-item-value">
+            <h5 class="item-title">{{ item.title }}</h5>
+            @if (item.subtitle) {
+              <span class="item-subtitle">{{ item.subtitle }}</span>
+            }
+          </div>
+        </li>
       }
     </ul>
 
@@ -132,38 +138,41 @@
     </div>
 
     @for (item of configItems; track $index) {
-    <div class="nav-bar__modal-profile-item" [routerLink]="[item.path]">
-      <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>
-      <div class="nav-bar__modal-profile-item-value">
-        <h5 class="nav-bar__modal-profile-item-title">{{ item.title }}</h5>
-        <span class="nav-bar__modal-profile-item-subtitle" *ngIf="item.subtitle">
-          {{ item.subtitle }}
-        </span>
-        @if (item.pending == true) {
-        <span class="nav-bar__modal-profile-item-pending-number">5</span>
+      <div class="nav-bar__modal-profile-item" [routerLink]="[item.path]">
+        <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>
+        <div class="nav-bar__modal-profile-item-value">
+          <h5 class="nav-bar__modal-profile-item-title">{{ item.title }}</h5>
+          @if (item.subtitle) {
+            <span class="nav-bar__modal-profile-item-subtitle">
+              {{ item.subtitle }}
+            </span>
+          }
+          @if (item.unread == true) {
+            <span class="nav-bar__modal-profile-item-pending-number">5</span>
+          }
+        </div>
+        @if (item.unread == true) {
+          <div class="nav-bar__modal-profile-item-pending-dot"></div>
         }
       </div>
-      @if (item.pending == true) {
-      <div class="nav-bar__modal-profile-item-pending-dot"></div>
-      }
-    </div>
     }
     <!-- <div class="nav-bar__item">
-      <i class="nav-bar__item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
-      <div class="nav-bar__item-value">
-        <h5 class="nav-bar__item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
-      </div>
-      <div class="toggle-container">
-        <label class="switch">
-          <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="themeService.isDark" />
-          <span class="slider"></span>
-        </label>
-      </div>
-    </div> -->
+    <i class="nav-bar__item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
+    <div class="nav-bar__item-value">
+      <h5 class="nav-bar__item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
+    </div>
+    <div class="toggle-container">
+      <label class="switch">
+        <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="themeService.isDark" />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div> -->
 
 
-  </div>
+</div>
 
+</div>
 
 
 </nav>

@@ -1,40 +1,42 @@
-<section class="card-product-wrapper">
-    <div class="product">
-        <header class="product__header">
-            <figure class="product__image">
-                <img [src]="product?.images[0]" [alt]="product?.title">
-            </figure>
+<div class="product">
+    <button class="product__btn-delete">
+        <i class="icon icon-delete"></i>
+    </button>
+    <div class="product__info">
+        <figure class="image">
+            <img [src]="product?.images[0]" [alt]="product?.title">
+        </figure>
 
-            <div class="product__information">
-                <span class="product-category">{{product?.category?.name | uppercase}}</span>
-                <h3 class="product-name">{{product?.title | uppercase}}</h3>
-                <!-- <h4 class="product-price">{{product?.price}}0000</h4> -->
-                <div class="product-shipment">
-                    <span class="product-shipmentFree">
-                        <i class="icon-truck"></i>    
-                        Envío gratis
+        <div class="information">
+            <h2 class="name">{{product?.title | uppercase}}</h2>
+            <span class="description">{{product?.description | uppercase}}</span>
+            <div class="price-quantity">
+                <div class="price flex flex-col">
+                    <span class="price__previous">${{product?.price + 100}}</span>
+                    <span class="price__amount">
+                        ${{product?.price}}
+                        <small class="price__amount--discount">10%</small>
                     </span>
-                    <span class="product-discount">Descuento 5%</span>
                 </div>
-
-                <div class="product-quantity">
-                    <div class="product-quantity__input-wrapper">
-                        <button class="product-quantity__button-lower-quantity">-</button>
-                        <span class="product-quantity__number">20</span>
-                        <button class="product-quantity__button-upload-quantity">+</button>
-                    </div>
-                    <div class="product-price-wrapper">
-                        <span class="product-previous-price">100.00</span>
-                        <h4 class="product-price">${{product?.price}}.00</h4>
-                    </div>
-                </div>
+                <app-quantity-selector [value]="2"></app-quantity-selector>
             </div>
-        </header>
-        <footer class="product__actions">
+            <!-- <div class="shipment">
+                <span class="shipment__free">
+                    <i class="icon icon-truck"></i>
+                    Envío gratis
+                </span>
+                <span class="shipment__discount">
+                    Descuento 5%
+                </span>
+            </div> -->
+        </div>
+    </div>
+
+
+    <!-- <footer class="product__actions">
             <button *ngFor="let button of buttons_options_product" [ngClass]="button.cssClass">
                 <span *ngIf="button.title">{{button.title}}</span>
-                <!-- <i *ngIf="button.icon" [ngClass]="button.icon" alt="icon"></i> -->
+                <i *ngIf="button.icon" [ngClass]="button.icon" alt="icon"></i>
             </button>
-        </footer>
-    </div>
-</section>
+        </footer> -->
+</div>

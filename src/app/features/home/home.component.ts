@@ -13,15 +13,17 @@ import {
 import { ShowcaseTypeEnum } from '../../shared/components/highlight-showcase-component/highlight-showcase-type.enum';
 import { sliderType } from '../../shared/components/products/products-slider/products-slider-type.enum';
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HomeComponent implements OnInit {
   constructor(public productsService: ProductsService, private store: Store) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {    
+  }
 
   // Enums for components
   ShowcaseTypeEnum = ShowcaseTypeEnum;

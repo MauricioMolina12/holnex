@@ -20,9 +20,11 @@ const routes: Routes = [
       {
         path: 'product/:slug',
         component: ProductDetailsComponent,
+        data: { breadcrumb: 'Detalle del producto' },
       },
       {
         path: 'product',
+        data: { breadcrumb: 'Productos' },
         loadChildren: () =>
           import('../features/products/products.module').then(
             (m) => m.ProductsModule
@@ -51,8 +53,18 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: () => import('../features/profile/profile.module').then(m=> m.ProfileModule)
-      }
+        loadChildren: () =>
+          import('../features/profile/profile.module').then(
+            (m) => m.ProfileModule
+          ),
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('../features/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
     ],
   },
   {

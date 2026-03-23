@@ -1,39 +1,42 @@
 <div class="categories">
   <header class="categories__header">
     <h4 class="categories__title title-section">Categoría de productos</h4>
-        <app-button 
-        [text]="'Ver todas las categorías'" 
-        aria-label="Ver todas las categorías" 
-        variant="ghost"
+    <app-button
+      [text]="'Ver todas las categorías'"
+      aria-label="Ver todas las categorías"
+      variant="ghost"
         [classCustom]="{
           base: 'button',
           bgColor: 'primary-to-white',
           textColor: 'white'
         }">
-        </app-button>  
+    </app-button>
   </header>
-  <ng-container *ngIf="!loading(); else skeleton">
+  @if (!loading()) {
     <ul class="categories__list">
-      <li class="categories__item" *ngFor="let category of categories().slice(0, 5)">
-        <div class="categories__image">
-          <figure class="categories__figure">
-            <img [src]="category?.image" [alt]="category?.name">
-          </figure>
-        </div>
-        <div class="categories__info">
-          <a class="categories__name" [routerLink]="['/category', category?.slug]">
-            {{ category?.name }}
-          </a>
-        </div>
-      </li>
+      @for (category of categories().slice(0, 5); track category) {
+        <li class="categories__item">
+          <div class="categories__image">
+            <figure class="categories__figure">
+              <img [src]="category?.image" [alt]="category?.name">
+            </figure>
+          </div>
+          <div class="categories__info">
+            <a class="categories__name" [routerLink]="['/category', category?.slug]">
+              {{ category?.name }}
+            </a>
+          </div>
+        </li>
+      }
     </ul>
-  </ng-container>
+  } @else {
+    <ul class="categories__list">
+      @for (_ of [].constructor(10); track _) {
+        <li>
+          <ngx-skeleton-loader class="categories__item skeleton_item" count="1" appearance="line"></ngx-skeleton-loader>
+        </li>
+      }
+    </ul>
+  }
 
-  <ng-template #skeleton>
-    <ul class="categories__list">
-      <li *ngFor="let _ of [].constructor(10)">
-        <ngx-skeleton-loader class="categories__item skeleton_item" count="1" appearance="line"></ngx-skeleton-loader>
-      </li>
-    </ul>
-  </ng-template>
 </div>

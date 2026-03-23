@@ -1,2 +1,4 @@
-<app-global-loader *ngIf="globalLoaderService.isVisible()" />
+@if (globalLoaderService.isVisible()) {
+  <app-global-loader />
+}
 <router-outlet />

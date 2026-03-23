@@ -2,7 +2,7 @@
 
 :root {
   --font-family: "Montserrat", sans-serif;
-  --background-color: #fcfcfc;
+  --background-color: #fbfbfb;
   --background-color2: #f0f3ff;
 
   /* Others variables */
@@ -12,12 +12,12 @@
   --color-primary-to-white: var(--color-primary);
 
   /** primary **/
-  --color-primary: #2292a4;
+  --color-primary: #0F4C5C;
   --color-primary-rgb: 29, 68, 142;
   --color-primary-contrast: #ffffff;
   --color-primary-contrast-rgb: 255, 255, 255;
   --color-primary-shade: #0d5e6a;
-  --color-primary-tint: #345799;
+  --color-primary-tint: #0F4C5C;
   --color-primary-secondary: #062023;
 
   /** secondary **/
@@ -27,6 +27,7 @@
   --color-secondary-contrast-rgb: 255, 255, 255;
   --color-secondary-shade: #246ae0;
   --color-secondary-tint: #3e86ff;
+  --color-secondary-tint-light: #a3c5ff;
 
   /** tertiary **/
   --color-tertiary: #0056bf;
@@ -281,7 +282,7 @@
   --color-primary-secondary: #062023;
 
   /** secondary **/
-  --color-secondary: #2979ff;
+  --color-secondary: #3483fa;
   --color-secondary-rgb: 41, 121, 255;
   --color-secondary-contrast: #ffffff;
   --color-secondary-contrast-rgb: 255, 255, 255;

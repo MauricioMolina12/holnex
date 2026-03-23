@@ -1,16 +1,36 @@
-<article class="product" [ngClass]="{ horizontal: horizontal, 'dark' : isDark() }" (click)="onProductClick($event)">
-  <header class="product__header">
-    <figure class="product__image">
-      <img [src]="product.images[0]" [attr.loading]="'lazy'" [alt]="'Imagen de: ' + product.title" />
-    </figure>
-    <div class="product__titles">
-      <h3 class="product__title">{{ product.title }}</h3>
-      <!-- <div class="product__free-delivery">
-        <i class="icon-truck"></i>
+<article class="product" (click)="onProductClick(product)">
+  <main class="product__content">
+
+    <figure class="image" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+        <img
+          class="image-img"
+          [src]="product.images[0]"
+          [class.active]="indexImage === 0"
+          alt="Imagen de: {{ product.title }}"
+          loading="lazy"
+        />
+        <img
+          class="image-img"
+          [src]="product.images[1]"
+          [class.active]="indexImage === 1"
+          alt="Imagen de: {{ product.title }}"
+          loading="lazy"
+        />
+     </figure>
+
+
+    <div class="info">
+
+      <h3 class="info--title">{{ product.title }}</h3>
+
+      @if (product.id % 2 == 0) {
+      <div class="info--free-delivery">
+        <i class="icon icon-truck"></i>
         <span>Gratis</span>
-      </div> -->
+      </div>
+      }
     </div>
-  </header>
+  </main>
   <footer class="product__footer">
     <div class="product__prices">
       <span class="product__price-discount">${{ product.price + 20 }}</span>

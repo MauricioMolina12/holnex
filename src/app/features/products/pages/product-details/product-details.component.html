@@ -1,179 +1,244 @@
 <section class="product">
-  @if (loading) {
-  <ng-container>
-    <app-skeleton [typeskeleton]="skeletonType.productDetails">
-    </app-skeleton>
-  </ng-container>
-  }@else {
-  <ng-container>
-    <div class="product__content">
-      <section class="product__images">
-        <figure class="product__images--main">
-          <img class="image" [src]="mainImage" appZoomImage [zoomFactor]="3"
-            [alt]="product?.name || 'Producto sin nombre'" loading="lazy" />
-          <app-button [icon]="'icon-heart'" [variant]="'ghost'"
-            [classCustom]="{
-                bgColor: 'light', 
-                more: ['rounded-lg','flex','items-center','justify-center','p-absolute','top-10','right-10','text-2xl']}">
+  @if(!loading) {
+    <ng-container>
+
+      <header class="product__fixed-header" [class.visible]="showFixedHeader()">
+        <div class="information">
+          <span class="product-name">{{ product?.title }}</span>
+        </div>
+        <div class="actions">
+          <app-button [text]="'Comprar ahora'" aria-label="Este botón comprará el producto actual" [type]="'submit'"
+          [classCustom]="{
+          base: 'button', 
+          bgColor: 'primary', 
+          textColor: 'white',
+          more: [
+                'rounded-lg',
+                'mt-1',
+                'p-4'              
+          ]
+               
+          }">
           </app-button>
-        </figure>
-        <aside class="product__images--thumbnail">
-          <figure class="product__images--thumbnail-item" *ngFor="let image of product?.images; let i = index"
-            (mousemove)="changeMainImage(i, product?.images, $event)">
-            <img #imagesProducts [src]="image" [alt]="product?.title + ' - vista adicional'" />
-          </figure>
-        </aside>
-      </section>
-
-      <section class="product__information">
-
-        <header class="product__information--name">
-          <h1>{{ product?.title }}</h1>
-        </header>
-
-        <div class="product__information--rating">
-          <div class="product__information--rating-star">
-            <i class="icon-star-yellow"></i>
-            <span>4.9 rating</span>
-          </div>
-          <span>·</span>
-          <div class="product__information--rating-review">
-            <span>2.3k+ Reviews</span>
-          </div>
         </div>
+      </header>
 
-        <div class="product__information--tabs">
-          <section class="product__information--tabs-content">
-            <button (click)="segment(1)" [ngClass]="{'active' : segmentIndicator == 1}">Información general</button>
-            <button (click)="segment(2)" [ngClass]="{'active' : segmentIndicator == 2}">Caracteristicas</button>
-            <button (click)="segment(3)" [ngClass]="{'active' : segmentIndicator == 3}">Comentarios & opiniones</button>
-          </section>
-        </div>
 
-        <ng-container [ngSwitch]="segmentIndicator">
-          <div class="product__information--details" *ngSwitchCase="1">
+      <main class="product__content">
 
-            <article class="product__information--details-description">
-              <h4 class="title">Descripción</h4>
-              <p>
-                {{ product?.description | truncate:190:showFullText }}
-                <button class="button-view-more" (click)="toggleText()">
-                  {{ showFullText ? 'Ver menos' : 'Ver más' }}
-                </button>
-              </p>
-            </article>
+        <app-breadcrumbs></app-breadcrumbs>
 
-            <article class="product__information--details-basic-information">
-              <h4 class="title">Información básica</h4>
-            </article>
-          </div>
+        <div class="inner">
 
-          <div class="product__information--review" *ngSwitchCase="3">
-            <div class="product__information--review-rating">
-              <div class="rating-number">
-                <h2>4,7</h2>
-              </div>
-              <div class="rating-star">
-                <figure>
-                  <i class="icon-star-yellow" *ngFor="let star of [].constructor(5)"></i>
-                </figure>
-                <span>Basado en 153 opiniones</span>
-              </div>
-            </div>
-            <div class="product__information--review-comments">
-              <header class="header">
-                <h2 class="title">Opiniones</h2>
-                <span class="number_opinions">153</span>
+          <section class="product__images">
+            <figure class="product__images--main">
+              <img class="image" [src]="mainImage" appZoomImage [zoomFactor]="3"
+                [alt]="product?.name || 'Producto sin nombre'" loading="lazy" />
+                <app-button [icon]="isFavorite() ? 'icon-favorite_filled' : 'icon-heart'" (clicked)="favoriteProduct()"
+              variant="ghost" [classCustom]="{
+              bgColor: 'light',
+              more: [
+                'rounded-lg',
+                'flex',
+                'items-center',
+                'justify-center',
+                'p-absolute',
+                'top-10',
+                'right-10',
+                'text-3xl',
+                isFavorite() ? 'color-red' : ''
+              ]
+            }">
+                </app-button>
+
+              </figure>
+              <aside class="product__images--thumbnail">
+                @for (image of product?.images; track image; let i = $index) {
+                  <figure class="product__images--thumbnail-item"
+                    (mousemove)="changeMainImage(i, product?.images, $event)">
+                    <img #imagesProducts [src]="image" [alt]="product?.title + ' - vista adicional'" />
+                  </figure>
+                }
+              </aside>
+            </section>
+
+            <section class="product__information">
+
+              <header class="product__information--name">
+                <h1 class="name">{{ product?.title }}</h1>
+                <span class="tag tag-discount">Más vendido</span>
               </header>
-              <ng-container *ngFor="let comment of comments">
-                <app-card-user-comment [user]="comment"></app-card-user-comment>
-              </ng-container>
-            </div>
-            <!-- <div class="product__information--review-pictures">
-              <app-slider [title]="'Opiniones con fotos'" [itemSelector]="'.image-card'"
-                [itemsPerViewConfig]="{ mobile: 1, tablet: 2, desktop: 2 }">
-                <div slider-item *ngFor="let image of [].constructor(10)" class="image-card">
-                  <app-image-card
-                    [image]="{src: 'https://i.imgur.com/cHddUCu.jpeg', alt: 'imagen', caption: 'Hola'}"></app-image-card>
+
+              <div class="product__information--price">
+                <p class="previous">${{ (product?.price * 1000) - 1000 }}</p>
+                <h2 class="current">$ {{ product?.price * 1000 }}</h2>
+              </div>
+
+              <div class="product__information--rating">
+                <div class="product__information--rating-star">
+                  <i class="icon-star-yellow"></i>
+                  <span>4.9 rating</span>
                 </div>
-              </app-slider>
-            </div> -->
-          </div>
-        </ng-container>
+                <span>·</span>
+                <div class="product__information--rating-review">
+                  <span>2.3k+ Reviews</span>
+                </div>
+              </div>
 
-      </section>
+              <div class="product__information--tabs">
+                <section class="product__information--tabs-content">
+                  <button #tabBtn (click)="segment(1)" [ngClass]="{ active: segmentIndicator === 1 }">
+                    Información general
+                  </button>
 
-      <section class="product__summary">
+                  <button #tabBtn (click)="segment(2)" [ngClass]="{ active: segmentIndicator === 2 }">
+                    Caracteristicas
+                  </button>
 
-        <header class="product__summary--header">
-          <div class="discount">
-            <small class="discount-key">Descuento</small>
-            <span class="discount-value">25% OFF</span>
-          </div>
-          <div class="date-until">
-            <span class="date">Hasta Oct 30,2025</span>
-          </div>
-        </header>
+                  <button #tabBtn (click)="segment(3)" [ngClass]="{ active: segmentIndicator === 3 }">
+                    Comentarios & opiniones
+                  </button>
 
-        <div class="product__summary--order">
-          <h5 class="title">Detalle de orden</h5>
-          <p class="product-name">{{ product?.title }}</p>
-          <div class="product-quantity">
-            <span class="value title">Stock disponible <br> <small>(50 disponibles)</small></span>
-            <div class="actions">
-              <button class="button-lower-quantity" (click)="uploadQuantity('down')">-</button>
-              <span class="number">{{quantityProduct}}</span>
-              <button class="button-upload-quantity" (click)="uploadQuantity('upload')">+</button>
-            </div>
-          </div>
-          <div class="product-actions">
-            <app-button [text]="'Comprar ahora'" [classCustom]="{
+                  <span class="tab-indicator" [style.width.px]="indicatorWidth"
+                  [style.transform]="'translateX(' + indicatorLeft + 'px)'"></span>
+                </section>
+              </div>
+
+
+              @switch (segmentIndicator) {
+                @case (1) {
+                  <div class="product__information--details">
+                    <article class="product__information--details-description">
+                      <h4 class="title">Descripción</h4>
+                      <p>
+                        {{ product?.description | truncate:190:showFullText }}
+                        <button class="button-view-more" (click)="toggleText()">
+                          {{ showFullText ? 'Ver menos' : 'Ver más' }}
+                        </button>
+                      </p>
+                    </article>
+                    <article class="product__information--details-shipping">
+                      <h4 class="title">Envío</h4>
+                      <div class="items">
+                        @for (shipping of shipping; track $index) {
+                          <div class="item flex items-center gap-4" >
+                            <div class="icon-wrapper">
+                              <i class="icon" [ngClass]="shipping.icon"></i>
+                            </div>
+                            <div class="value">
+                              <span class="label">{{shipping.label}}</span>
+                              <span class="text">{{shipping.value}}</span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </article>
+                  </div>
+                }
+                @case (3) {
+                  <div class="product__information--review">
+                    <div class="product__information--review-rating">
+                      <div class="rating-number">
+                        <h2>4,7</h2>
+                      </div>
+                      <div class="rating-star">
+                        <figure>
+                          @for (star of [].constructor(5); track star) {
+                            <i class="icon-star-yellow"></i>
+                          }
+                        </figure>
+                        <span>Basado en 153 opiniones</span>
+                      </div>
+                    </div>
+                    <div class="product__information--review-comments">
+                      <header class="header">
+                        <h2 class="title">Opiniones</h2>
+                        <span class="number_opinions">153</span>
+                      </header>
+                      @for (comment of comments; track comment) {
+                        <app-card-user-comment [user]="comment"></app-card-user-comment>
+                      }
+                    </div>
+                    <!-- <div class="product__information--review-pictures">
+                    <app-slider [title]="'Opiniones con fotos'" [itemSelector]="'.image-card'"
+                      [itemsPerViewConfig]="{ mobile: 1, tablet: 2, desktop: 2 }">
+                      <div slider-item *ngFor="let image of [].constructor(10)" class="image-card">
+                        <app-image-card
+                        [image]="{src: 'https://i.imgur.com/cHddUCu.jpeg', alt: 'imagen', caption: 'Hola'}"></app-image-card>
+                      </div>
+                    </app-slider>
+                  </div> -->
+                </div>
+              }
+            }
+
+          </section>
+
+          <section class="product__summary">
+
+            <div class="product__summary--order">
+
+              <p class="title">Detalle de orden</p>
+
+              <p class="product-name">{{ product?.title }}</p>
+
+              <div class="quantity">
+                <span class="value title">Stock disponible <br> <small>(50 disponibles)</small></span>
+                <div class="actions">
+                  <app-quantity-selector></app-quantity-selector>
+                </div>
+              </div>
+              <div class="actions">
+              <app-button [text]="'Comprar ahora'" [classCustom]="{
                 base: 'button', 
-                bgColor: 'primary', 
+                bgColor: 'secondary', 
                 textColor: 'white', 
-                more: ['w-full','p-4', 'rounded-lg']}">
-            </app-button>
+                more: ['w-full','p-4', 'rounded-lg', 'text-sm']}">
+                </app-button>
 
-            <app-button [text]="'Agregar al carrito'" [iconPosition]="'left'" [icon]="'icon-shop-cart'"
-              [variant]="'outline'" [classCustom]="{
+              <app-button [text]="'Agregar al carrito'" [iconPosition]="'left'" [icon]="'icon-shop-cart'" [classCustom]="{
               base: 'button', 
-              bgColor: 'primary', 
-              more: ['w-full','p-4','rounded-lg','flex','items-center','justify-center']}">
-            </app-button>
+              bgColor: 'light-blue', 
+              textColor: 'secondary',
+              more: ['w-full','p-4','rounded-lg','flex','items-center','justify-center', 'text-sm']}">
+                </app-button>
 
-            <app-button [text]="'Compartir'" [iconPosition]="'left'" [icon]="'icon-share'" [variant]="'ghost'"
-              [classCustom]="{
+                <app-button (clicked)="openModal()" [text]="'Compartir'" [iconPosition]="'left'" [icon]="'icon-share'"
+                [variant]="'ghost'" [classCustom]="{
               base: 'button', 
               bgColor: 'secondary', 
-              more: ['w-full','p-4','rounded-lg','flex','items-center','justify-center']}">
-            </app-button>
+              more: ['w-full','p-4','rounded-lg','flex','items-center','justify-center', 'text-sm']}">
+                </app-button>
 
 
-          </div>
-        </div>
+              </div>
+            </div>
 
-        <div class="product__summary--seller">
-          <h2 class="title title-seller">Información del vendedor</h2>
-          <app-card-profile-seller [seller]="{
+            <div class="product__summary--seller">
+              <h2 class="title title-seller">Información del vendedor</h2>
+            <app-card-profile-seller [seller]="{
                 name: 'Koaj', 
                 image: 'https://bulevar.com.co/wp-content/uploads/2023/07/koaj-logo-bulevar.png', 
                 cover: 'https://permoda.com.co/wp-content/uploads/2024/03/BANNER-INICIO-1.1-100.jpg',
                 description: 'Activo hace 5 min'}">
-          </app-card-profile-seller>
+              </app-card-profile-seller>
+            </div>
+
+          </section>
         </div>
-      </section>
-    </div>
 
-    <div class="products-slider">
-      <app-slider-products [products]="productsRelated().slice(2, 20)" [loading]="loadingProductsRelated()"
+      </main>
+
+      <article class="products-slider">
+        <app-slider-products [products]="productsRelated().slice(2, 20)" [loading]="loadingProductsRelated()"
         [title]="'Productos relacionados'"></app-slider-products>
-    </div>
+      </article>
 
-    <div class="products-slider">
-      <app-slider-products [products]="productsRelated().slice(2, 20).reverse()" [loading]="loadingProductsRelated()"
+      <article class="products-slider">
+        <app-slider-products [products]="productsRelated().slice(2, 20).reverse()" [loading]="loadingProductsRelated()"
         [title]="'Productos que te pueden gustar'"></app-slider-products>
-    </div>
-  </ng-container>
+      </article>
+    </ng-container>
   }
 
 </section>

@@ -1,4 +1,4 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Directive,
   ElementRef,
@@ -7,6 +7,7 @@ import {
   Input,
   PLATFORM_ID,
   Renderer2,
+  DOCUMENT
 } from '@angular/core';
 
 @Directive({
@@ -39,6 +40,12 @@ export class ZoomImageDirective {
       }
       this.imgElement = this.el.nativeElement as HTMLImageElement;
       this.createZoomElements();
+    }
+  }
+
+  ngOnDestroy(){
+    if(this.zoomContainer){
+      this.renderer.setStyle(this.zoomContainer, 'display', 'none');
     }
   }
 

@@ -9,6 +9,10 @@ button {
     &.active {
       display: block;
     }
+
+    &::before {
+      color: inherit;
+    }
   }
 
   .icon-left,
@@ -26,7 +30,7 @@ button {
     animation: spin 0.6s linear infinite;
     display: none;
 
-    &.loading{
+    &.loading {
       display: block;
     }
   }

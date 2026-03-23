@@ -1,0 +1,36 @@
+<article class="pagination">
+    <div class="pagination-total">
+        <span>Total de páginas: {{ totalPages }}</span>
+    </div>
+    <div class="pagination-pages">
+
+        <button class="button-left disabled" aria-label="Página anterior">
+            <i class="icon-arrow-chevron-left"></i>
+        </button>
+
+        <div class="pages">
+            @for (page of pages; track $index) {
+
+            @if (page === '...') {
+            <span class="page-ellipsis">...</span>
+            } @else {
+            <button class="page-button" [class.active]="page === currentPage" (click)="changePage(page)">
+                {{ page }}
+            </button>
+            }
+
+            }
+        </div>
+
+        <button class="button-right" aria-label="Página siguiente">
+            <i class="icon-arrow-chevron-right"></i>
+        </button>
+    </div>
+    <!-- <div class="pagination-showPages">
+        <combobox [items]="[
+    { id: '1', value: 'Hola' },
+    { id: '2', value: 'Hola 2' }
+  ]" displayProperty="value" placeholder="Páginas por página">
+        </combobox>
+    </div> -->
+</article>

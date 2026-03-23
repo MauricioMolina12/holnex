@@ -19,6 +19,8 @@ import { ProductEffects } from './store/effects/product.effects';
 import { ImageCardComponent } from '../../shared/components/image-card/image-card.component';
 import { SliderComponent } from '../../shared/components/slider/slider.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { QuantitySelectorComponent } from '../../shared/components/quantity-selector/quantity-selector.component';
+import { BreadcrumbsComponent } from "../../shared/components/breadcrumbs/breadcrumbs.component";
 
 @NgModule({
   declarations: [ProductDetailsComponent],
@@ -38,11 +40,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     ImageCardComponent,
     SliderComponent,
     ReactiveFormsModule,
+    QuantitySelectorComponent,
+    BreadcrumbsComponent,
 
     // State Management
     StoreModule.forFeature('products', productsAllReducer),
     StoreModule.forFeature('productDetail', productDetailReducer),
     EffectsModule.forFeature([ProductEffects]),
-  ],
+    BreadcrumbsComponent
+],
 })
 export class ProductsModule {}

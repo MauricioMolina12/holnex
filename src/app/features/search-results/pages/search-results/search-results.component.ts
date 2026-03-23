@@ -6,9 +6,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { loadProducts } from '../../../products/store/actions/product.actions';
 
 @Component({
-  selector: 'app-search-results',
-  templateUrl: './search-results.component.html',
-  styleUrl: './search-results.component.scss',
+    selector: 'app-search-results',
+    templateUrl: './search-results.component.html',
+    styleUrl: './search-results.component.scss',
+    standalone: false
 })
 export class SearchResultsComponent {
   constructor(private route: ActivatedRoute, private store: Store) {}
