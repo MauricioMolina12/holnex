@@ -253,10 +253,11 @@ export class ProductDetailsComponent
   }
 
   openModal() {
-    const ref = this.modalService.open(ShareComponent, {
+    this.modalService.open(ShareComponent, {
       size: 'md',
       data: {
-        userId: 10,
+        productUrl: window.location.href,
+        productTitle: this.product?.title || '',
       },
     });
   }
