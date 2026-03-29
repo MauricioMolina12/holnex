@@ -1,0 +1,19 @@
+.profile-layout {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+
+.profile-main {
+  flex: 1;
+  padding: inherit;
+
+  @media (max-width: 600px) {
+    padding: 20px 16px;
+  }
+}

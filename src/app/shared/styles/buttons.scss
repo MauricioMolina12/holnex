@@ -157,6 +157,11 @@ $btn-states: (
   }
 }
 
+// Pill shape
+.button--pill {
+  border-radius: 50px;
+}
+
 // Iconos
 .button--icon-only {
   padding: 0.5rem;

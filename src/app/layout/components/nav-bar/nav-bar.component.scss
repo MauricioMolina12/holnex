@@ -594,6 +594,7 @@
       width: 20%;
       gap: 5px;
       justify-content: start;
+      padding-left: 0;
 
       // .nav-bar__address-user {
       //   display: flex;
@@ -629,6 +630,7 @@
 
     .nav-bar__right {
       display: none;
+      padding-right: 4px;
     }
 
     .nav-bar__sidebar {

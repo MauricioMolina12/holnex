@@ -16,6 +16,8 @@ import { CategoryDetailsComponent } from './features/categories/components/categ
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { userReducer } from './store/user/user.reducer';
+import { UserEffects } from './store/user/user.effects';
 import { CoreModule } from './core/core.module';
 import { StatusUiMessageComponent } from "./core/components/status-ui-message/status-ui-message.component";
 import { GlobalLoaderComponent } from './core/components/global-loader/global-loader.component';
@@ -38,8 +40,8 @@ import { TooltipDirective } from './shared/directives/tooltip.directive';
     CategoryDetailsComponent,
     NgxSkeletonLoaderModule,
     CoreModule,
-    StoreModule.forRoot(),
-    EffectsModule.forRoot(),
+    StoreModule.forRoot({ user: userReducer }),
+    EffectsModule.forRoot([UserEffects]),
     StatusUiMessageComponent,
     NotificationsAlertComponent,
     TooltipDirective

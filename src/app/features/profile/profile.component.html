@@ -1,1 +1,15 @@
-<p>profile works!</p>
+<div class="profile-layout">
+
+  <div class="profile-header">
+    <app-profile-header
+      [user]="user()"
+      [loading]="loading()"
+      [activeRoute]="currentRoute()"
+    ></app-profile-header>
+  </div>
+
+  <main class="profile-main">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

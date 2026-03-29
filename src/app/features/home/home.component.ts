@@ -12,6 +12,7 @@ import {
 //Enum
 import { ShowcaseTypeEnum } from '../../shared/components/highlight-showcase-component/highlight-showcase-type.enum';
 import { sliderType } from '../../shared/components/products/products-slider/products-slider-type.enum';
+import { loadProducts } from '../products/store/actions/product.actions';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
@@ -22,7 +23,8 @@ import { sliderType } from '../../shared/components/products/products-slider/pro
 export class HomeComponent implements OnInit {
   constructor(public productsService: ProductsService, private store: Store) {}
 
-  async ngOnInit() {    
+  async ngOnInit() {   
+   this.store.dispatch(loadProducts());
   }
 
   // Enums for components
