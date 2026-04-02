@@ -1,55 +1,122 @@
-<main class="summary-card">
+<aside class="summary">
 
-    <header class="summary-card__header">
-        <h1>Resumen de compra</h1>
+    <header class="summary__header">
+        <h2 class="summary__title">Resumen de compra</h2>
+        @if (summary.numberOfProducts > 0) {
+            <span class="summary__count">{{ summary.numberOfProducts }}
+                {{ summary.numberOfProducts === 1 ? 'producto' : 'productos' }}</span>
+        }
     </header>
 
     @if (summary.numberOfProducts > 0) {
 
-    @for (item of cartSummaryItems; track $index) {
-    <section class="summary-card__quantity section-card">
-        <h3 class="section-card--title">
-            <i class="icon" [ngClass]="item.icon"></i>
-            {{ item.label }}
-        </h3>
-        <span class="section-card--value" [class.green]="item.label == 'Envío' && item.value == 'Gratis'">{{ item.value
-            }}</span>
-    </section>
-    @if ($index == 3) {
-    <hr class="divider" [ngStyle]="{'height' : '.5px'}">
-    }
-    }
-
-    <app-button icon="icon-shop-cart" iconPosition="right" [text]="'Continuar con compra'"
-        aria-label="Ejecutar compra carrito de compras" variant="solid" [classCustom]="{
-            base: 'button',
-            bgColor: 'primary',
-            textColor: 'white',
-            more: ['rounded-lg','p-4','w-full']}">
-    </app-button>
-    }@else {
-    <span class="text-sm">Aquí verás los importes de tu compra una vez que agregues productos.</span>
-    }
-
-
-
-
-    <!-- 
-    <section class="summary-card__payments section-card">
-        <h3 class="section-card--title">Conoce nuestros métodos de pago</h3>
-        @for (payment of paymentMethods; track $index) {
-        <article class="summary-card__payments-item">
-            <h4 class="summary-card__payments-item__label">{{payment.label}}</h4>
-            <div class="flex">
-                @for (type of payment.values; track $index) {
-                    <div class="summary-card__payments-item__content">
-                        <img [src]="type.image" [alt]="type.name" class="payment-image" />
-                        <span class="payment-name">{{ type.name }}</span>
-                    </div>
+        <!-- Rows -->
+        <div class="summary__rows">
+            @for (item of cartSummaryItems; track $index) {
+                @if ($index === 4) {
+                    <hr class="summary__divider" />
                 }
-            </div>
-        </article>
-        }
-    </section> -->
+                <div class="summary__row" [class.summary__row--total]="$index === 4">
+                    <span class="summary__row--label">{{ item.label }}</span>
+                    @if (item.label === 'Envío' && item.value === 'Gratis') {
+                        <span class="summary__free-badge">
+                            <i class="icon icon-truck"></i> Gratis
+                        </span>
+                    } @else if (item.label === 'Descuento' && couponApplied()) {
+                        <span class="summary__discount-value">
+                            - ${{ (summary.totalPrice * 0.1).toFixed(2) }}
+                        </span>
+                    } @else if (item.label === 'Total' && couponApplied()) {
+                        <span class="summary__row--value">
+                            ${{ (summary.totalPrice * 0.9).toFixed(2) }}
+                        </span>
+                    } @else {
+                        <span class="summary__row--value">{{ item.value }}</span>
+                    }
+                </div>
+            }
+        </div>
 
-</main>
+        <!-- Coupon -->
+        <div class="summary__coupon">
+            @if (!couponApplied()) {
+                <p class="summary__coupon--label">¿Tienes un cupón?</p>
+                <div class="summary__coupon--input-row">
+                    <input
+                        class="summary__coupon--input"
+                        [class.has-error]="couponError()"
+                        type="text"
+                        placeholder="Ej: HOLNEX10"
+                        [value]="couponCode()"
+                        (input)="onCouponInput($event)"
+                        (keydown.enter)="applyCoupon()" />
+                    <button class="summary__coupon--btn" (click)="applyCoupon()">Aplicar</button>
+                </div>
+                @if (couponError()) {
+                    <p class="summary__coupon--error">Cupón no válido. Intenta con otro.</p>
+                }
+            } @else {
+                <div class="summary__coupon--applied">
+                    <div class="summary__coupon--applied-info">
+                        <i class="icon icon-percent_discount"></i>
+                        <span>Cupón <strong>{{ couponCode().toUpperCase() }}</strong> · 10% OFF</span>
+                    </div>
+                    <button class="summary__coupon--remove" (click)="removeCoupon()" aria-label="Quitar cupón">
+                        ✕
+                    </button>
+                </div>
+            }
+        </div>
+
+        <!-- CTA -->
+        <app-button
+            icon="icon-arrow-right"
+            iconPosition="right"
+            [text]="'Continuar con la compra'"
+            aria-label="Ejecutar compra carrito de compras"
+            variant="solid"
+            [classCustom]="{
+                base: 'button',
+                bgColor: 'primary',
+                textColor: 'white',
+                more: ['rounded-lg', 'p-4', 'w-full']}">
+        </app-button>
+
+        <p class="summary__secure">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Pago 100% seguro y encriptado
+        </p>
+
+        <!-- Payment methods -->
+        @if (paymentMethods.length > 0) {
+            <div class="summary__payments">
+                <p class="summary__payments--label">Medios de pago aceptados</p>
+                <div class="summary__payments--logos">
+                    @for (method of paymentMethods; track $index) {
+                        @for (type of method.values; track $index) {
+                            <div class="summary__payments--logo" [title]="type.name">
+                                <img [src]="type.image" [alt]="type.name" />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+
+    } @else {
+        <div class="summary__empty">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <p>Agrega productos para ver el resumen de tu compra.</p>
+        </div>
+    }
+
+</aside>

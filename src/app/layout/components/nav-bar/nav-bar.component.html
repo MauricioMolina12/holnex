@@ -6,7 +6,7 @@
     <!-- Logo-->
     <div class=" nav-bar__left">
       <i class="icon-holnex nav-bar__logo" [routerLink]="['']"></i>
-      <div class="nav-bar__left--title">Hola, <span>{{user.name}}</span></div>
+      <div class="nav-bar__left--title">Hola, <span>{{userName()}}</span></div>
     </div>
 
 
@@ -41,22 +41,22 @@
 
             @if (item.profile) {
               <div class="nav-bar__sidebar-list-item-user"
-                [ngClass]="{'not-logged' : !isLoggued(), 'logged' : isLoggued()}">
+                [ngClass]="{'not-logged' : !isAuthenticated(), 'logged' : isAuthenticated()}">
                 <div class="nav-bar__sidebar-list-item-user-content">
-                  <figure class="user-avatar" (click)="isLoggued() && toggleElement($event, 'nav-bar__modal-profile')">
-                    <img [src]="item?.profile?.avatar" [alt]="item?.profile?.name || ''" />
+                  <figure class="user-avatar" (click)="isAuthenticated() && toggleElement($event, 'nav-bar__modal-profile')">
+                    <img [src]="userAvatar()" [alt]="userName()" />
                   </figure>
                   <div class="user-info">
-                    <h5 class="user-name">{{ item?.profile?.name }}</h5>
-                    <span class="user-email">{{ item?.profile?.email}}</span>
+                    <h5 class="user-name">{{ isAuthenticated() ? userName() : 'Ingresar cuenta' }}</h5>
+                    <span class="user-email">{{ isAuthenticated() ? userEmail() : 'Podrás interactuar con tu cuenta' }}</span>
                   </div>
                 </div>
                 <div class="nav-bar__sidebar-list-item-user-actions">
-                  @if (!isLoggued()) {
+                  @if (!isAuthenticated()) {
                     <button class="button-login" [routerLink]="'/user/login'">Iniciar sesión</button>
                   }
-                  @if (isLoggued()) {
-                    <button class="button-edit">Editar perfil</button>
+                  @if (isAuthenticated()) {
+                    <button class="button-edit" [routerLink]="'/profile'">Editar perfil</button>
                   }
                 </div>
               </div>
@@ -122,18 +122,18 @@
   <div class="nav-bar__modal-profile">
     <div class="nav-bar__modal-profile-user" [routerLink]="['/profile']">
       <div class="nav-bar__modal-profile-avatar">
-        <img [src]="user.image" [alt]="'Imagen de: ' + user.name" />
+        <img [src]="userAvatar()" [alt]="'Imagen de: ' + userName()" />
       </div>
       <div class="nav-bar__modal-profile-info">
-        <h1 class="nav-bar__modal-profile-name">{{ user.name }}</h1>
-        <span class="nav-bar__modal-profile-email">{{ user.email }}</span>
+        <h1 class="nav-bar__modal-profile-name">{{ userName() }}</h1>
+        <span class="nav-bar__modal-profile-email">{{ userEmail() }}</span>
       </div>
     </div>
     <div class="nav-bar__modal-profile-item">
       <i class="nav-bar__modal-profile-item-icon icon-location"></i>
       <div class="nav-bar__modal-profile-item-value">
         <h5 class="nav-bar__modal-profile-item-title">Dirección</h5>
-        <h5 class="nav-bar__modal-profile-item-subtitle">{{ user.address }}</h5>
+        <h5 class="nav-bar__modal-profile-item-subtitle">{{ userAddress() }}</h5>
       </div>
     </div>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Signal, computed } from '@angular/core';
-import { AuthService } from '../features/auth/auth.service';
 import { NetworkService } from '../core/services/network.service';
+import { AuthFacade } from '../core/auth/auth.facade';
 import { UiStatus } from '../core/components/status-ui-message/status-ui.model';
 
 @Component({
@@ -10,21 +10,19 @@ import { UiStatus } from '../core/components/status-ui-message/status-ui.model';
     standalone: false
 })
 export class LayoutComponent implements OnInit {
-  
+
   // === Estado de red ===
   isOnline!: Signal<boolean>;
   showConnectionMessage!: Signal<boolean>;
   statusNetwork!: Signal<UiStatus>;
 
-  
   // === Estado del layout (UI) ===
   isClose: boolean = true;
 
   constructor(
     private networkService: NetworkService,
-    private authService: AuthService
+    private authFacade: AuthFacade
   ) {}
-
 
   ngOnInit(): void {
     // Señales de red
@@ -48,13 +46,11 @@ export class LayoutComponent implements OnInit {
     this.networkService.refreshAfterOffline();
   }
 
-  
-  // === Métodos ===
   closeAlertNewPromotions(): void {
     this.isClose = false;
   }
 
   isLoggued(): boolean {
-    return this.authService.isLoggued;
+    return this.authFacade.isAuthenticated();
   }
 }

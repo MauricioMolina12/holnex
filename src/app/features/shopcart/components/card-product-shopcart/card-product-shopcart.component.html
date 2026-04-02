@@ -1,42 +1,54 @@
-<div class="product">
-    <button class="product__btn-delete">
-        <i class="icon icon-delete"></i>
-    </button>
-    <div class="product__info">
-        <figure class="image">
-            <img [src]="product?.images[0]" [alt]="product?.title">
-        </figure>
+<article class="cart-item" [class.is-selected]="selected">
 
-        <div class="information">
-            <h2 class="name">{{product?.title | uppercase}}</h2>
-            <span class="description">{{product?.description | uppercase}}</span>
-            <div class="price-quantity">
-                <div class="price flex flex-col">
-                    <span class="price__previous">${{product?.price + 100}}</span>
-                    <span class="price__amount">
-                        ${{product?.price}}
-                        <small class="price__amount--discount">10%</small>
-                    </span>
-                </div>
-                <app-quantity-selector [value]="2"></app-quantity-selector>
+    <label class="cart-item__select">
+        <input type="checkbox" [checked]="selected" (change)="toggleSelect()" />
+        <span class="cart-item__select--box"></span>
+    </label>
+
+    <figure class="cart-item__image">
+        <img [src]="product?.images[0]" [alt]="product?.title" loading="lazy" />
+        @if (lowStock !== null && lowStock <= 5) {
+            <span class="cart-item__stock-badge">¡Solo {{ lowStock }}!</span>
+        }
+    </figure>
+
+    <div class="cart-item__content">
+
+        <div class="cart-item__header">
+            <h2 class="cart-item__name">{{ product?.title }}</h2>
+            <div class="cart-item__actions">
+                <button class="cart-item__save" (click)="onSaveForLater()" aria-label="Guardar para después"
+                    title="Guardar para después">
+                    <i class="icon icon-heart"></i>
+                </button>
+                <button class="cart-item__remove" (click)="onRemove()" aria-label="Eliminar producto"
+                    title="Eliminar">
+                    <i class="icon icon-delete"></i>
+                </button>
             </div>
-            <!-- <div class="shipment">
-                <span class="shipment__free">
-                    <i class="icon icon-truck"></i>
-                    Envío gratis
-                </span>
-                <span class="shipment__discount">
-                    Descuento 5%
-                </span>
-            </div> -->
         </div>
+
+        <div class="cart-item__price-row">
+            <span class="cart-item__price">$ {{ product?.price }}</span>
+            <span class="cart-item__price--old">$ {{ product?.price + 100 }}</span>
+            <span class="cart-item__badge">10% OFF</span>
+        </div>
+
+        <div class="cart-item__footer">
+            <app-quantity-selector
+                [value]="quantity()"
+                (valueChange)="onQuantityChange($event)">
+            </app-quantity-selector>
+            <div class="cart-item__subtotal">
+                <span class="cart-item__subtotal--label">Subtotal</span>
+                <span class="cart-item__subtotal--value">$ {{ subtotal() }}</span>
+            </div>
+        </div>
+
+        <div class="cart-item__delivery">
+            <i class="icon icon-truck"></i>
+            <span>Llega el <strong>{{ deliveryDate }}</strong></span>
+        </div>
+
     </div>
-
-
-    <!-- <footer class="product__actions">
-            <button *ngFor="let button of buttons_options_product" [ngClass]="button.cssClass">
-                <span *ngIf="button.title">{{button.title}}</span>
-                <i *ngIf="button.icon" [ngClass]="button.icon" alt="icon"></i>
-            </button>
-        </footer> -->
-</div>
+</article>

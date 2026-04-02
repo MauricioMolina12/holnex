@@ -12,11 +12,13 @@
     </div>
 
     <div class="header-info">
-      <h1 class="header-name">{{ user?.name || '—' }}</h1>
-      <span class="header-role">{{ user?.role || '' }}</span>
+      <h1 class="header-name">{{ user?.name ?? '—' }}</h1>
+      <span class="header-role">{{ user?.role ?? '' }}</span>
+      
       @if (memberSince) {
         <p class="header-since">Miembro desde {{ memberSince }}</p>
       }
+      
       <div class="header-meta">
         @if (user?.email) {
           <div class="header-meta-item">

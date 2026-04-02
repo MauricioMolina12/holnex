@@ -7,7 +7,6 @@ export interface AuthUser {
   phone: string;
   avatar: string | null;
   role: UserRole;
-  /** ISO alpha-2 country code — reference to Country.id */
   countryId: string;
   address: string;
   createdAt: string;
@@ -15,6 +14,7 @@ export interface AuthUser {
 
 export interface UserState {
   user: AuthUser | null;
+  isAuthenticated: boolean;
   loading: boolean;
   loaded: boolean;
   error: string | null;

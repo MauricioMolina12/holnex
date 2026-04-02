@@ -2,13 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { ProductDetailsComponent } from '../features/products/pages/product-details/product-details.component';
-import { AuthService } from '../features/auth/auth.service';
+import { authGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    // canActivate: [false],
     children: [
       {
         path: '',
@@ -53,6 +52,7 @@ const routes: Routes = [
       },
       {
         path: 'profile',
+        canActivate: [authGuard],
         loadChildren: () =>
           import('../features/profile/profile.module').then(
             (m) => m.ProfileModule
@@ -60,6 +60,7 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
+        canActivate: [authGuard],
         loadChildren: () =>
           import('../features/dashboard/dashboard.module').then(
             (m) => m.DashboardModule

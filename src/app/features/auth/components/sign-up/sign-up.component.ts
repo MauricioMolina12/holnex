@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { AuthService } from '../../auth.service';
+import { AuthValidationService } from '../../auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationTypeError } from '../../../../core/enum/validations.enum';
 
@@ -39,7 +39,7 @@ export class SignUpComponent {
   ValidationType = ValidationTypeError;
   viewPassword: boolean = false;
 
-  constructor(public authService: AuthService, private fb: FormBuilder, private el: ElementRef, private renderer: Renderer2) {
+  constructor(public authService: AuthValidationService, private fb: FormBuilder, private el: ElementRef, private renderer: Renderer2) {
     this.initializeForms();
   }
 

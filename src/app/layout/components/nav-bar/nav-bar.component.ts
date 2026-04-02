@@ -1,22 +1,19 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
+  computed,
   HostListener,
-  inject,
   Inject,
-  Input,
   OnInit,
   PLATFORM_ID,
   Signal,
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { User } from '../../../shared/models/user';
-import { SearchInputComponent } from '../../../shared/components/search-input/search-input.component';
+import { Router, RouterModule } from '@angular/router';
 import { Renderer2, ElementRef } from '@angular/core';
-import { AuthService } from '../../../features/auth/auth.service';
 import { ThemeService } from '../../../core/services/theme.service';
-import { filter } from 'rxjs';
+import { AuthFacade } from '../../../core/auth/auth.facade';
+import { AuthUser } from '../../../shared/models/auth-user.model';
 
 interface UserNav {
   name: string;
@@ -40,7 +37,6 @@ interface NavBarItem {
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
   standalone: false,
-  // imports: [CommonModule, RouterModule, SearchInputComponent],
 })
 export class NavBarComponent implements OnInit {
   viewSideBar = false;
@@ -48,48 +44,53 @@ export class NavBarComponent implements OnInit {
   viewSearchInput = false;
 
   navbar_items: NavBarItem[] = [];
-
   userItems: NavBarItem[] = [];
   configItems: NavBarItem[] = [];
   profileItems: NavBarItem[] = [];
-  viewNotifications: boolean = false;
+  viewNotifications = false;
+
+  /** Auth signals from the centralized facade */
+  user: Signal<AuthUser | null>;
+  isAuthenticated: Signal<boolean>;
+
+  /** Computed helpers for the template */
+  userName: Signal<string>;
+  userAvatar: Signal<string>;
+  userEmail: Signal<string>;
+  userAddress: Signal<string>;
+
+  nameItemHover = '';
 
   constructor(
     private router: Router,
     private renderer: Renderer2,
     private elRef: ElementRef,
-    public authService: AuthService,
+    public authFacade: AuthFacade,
     public themeService: ThemeService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) {
+    this.user = this.authFacade.currentUser;
+    this.isAuthenticated = this.authFacade.isAuthenticated;
+
+    this.userName = computed(() => this.user()?.name ?? 'Invitado');
+    this.userAvatar = computed(() => this.user()?.avatar ?? 'assets/img/user-default.jpg');
+    this.userEmail = computed(() => this.user()?.email ?? '');
+    this.userAddress = computed(() => this.user()?.address ?? 'No tienes una dirección registrada');
+  }
 
   ngOnInit(): void {
     this.isDark = this.themeService.darkModeSignal;
+    this.buildNavItems();
+  }
 
-    this.user = {
-      id: '12345678900987654321',
-      cellphone: '3008236761',
-      country_id: '48',
-      created_at: '2025-01-15',
-      email: 'alfredocomas8@gmail.com',
-      image: 'https://d3puay5pkxu9s4.cloudfront.net/Users/6336778/imagen-azMqusmjFE.jpg',
-      language_id: '1',
-      name: 'Alfredo Comas',
-      password: '***********',
-      role: 'premium',
-      source: '',
-      address: this.authService.isLoggued
-        ? 'Calle 25 #28 A18. San Sebastián, Magdalena.'
-        : '',
-    };
-
+  private buildNavItems(): void {
     this.navbar_items = [
       {
         profile: {
-          avatar: this.isLoggued() ? this.user.image : 'assets/img/user-default.jpg',
-          name: this.isLoggued() ? this.user.name : 'Ingresar cuenta',
-          email: this.isLoggued() ? this.user.email : 'Podrás interactuar con tu cuenta',
+          avatar: this.userAvatar(),
+          name: this.isAuthenticated() ? this.userName() : 'Ingresar cuenta',
+          email: this.isAuthenticated() ? this.userEmail() : 'Podrás interactuar con tu cuenta',
         },
         group: 'user',
         path: '/profile',
@@ -99,12 +100,12 @@ export class NavBarComponent implements OnInit {
         title: 'Inicio',
         group: 'user',
         path: '/',
-        action: (event?: Event) => this.navigateRoute('/'),
+        action: () => this.navigateRoute('/'),
       },
       {
         icon: 'icon-location',
         title: 'Dirección',
-        subtitle: this.user.address ? this.user.address : 'No tienes una dirección registrada',
+        subtitle: this.userAddress(),
         group: 'user',
       },
       {
@@ -118,7 +119,7 @@ export class NavBarComponent implements OnInit {
         title: 'Carrito',
         path: '/shopcart',
         group: 'user',
-        action: (event?: Event) => this.navigateRoute('/shopcart'),
+        action: () => this.navigateRoute('/shopcart'),
       },
       {
         icon: 'icon-bag',
@@ -130,7 +131,7 @@ export class NavBarComponent implements OnInit {
         title: 'Notificaciones',
         unread: true,
         group: 'user',
-        action: (event?: Event) => this.viewNotifications = !this.viewNotifications,
+        action: () => (this.viewNotifications = !this.viewNotifications),
       },
       {
         icon: 'icon-heart',
@@ -142,11 +143,6 @@ export class NavBarComponent implements OnInit {
         title: 'Mi historial',
         group: 'user',
       },
-
-      // {
-      //   icon: 'icon-store',
-      //   title: 'Convertirme en vendedor',
-      // },
       {
         icon: 'icon-settings',
         title: 'Configuraciones',
@@ -160,9 +156,8 @@ export class NavBarComponent implements OnInit {
       {
         icon: 'icon-door',
         title: 'Cerrar sesión',
-        path: '/user/login',
         group: 'config',
-        action: (event?: Event) => this.navigateRoute('/user/login'),
+        action: () => this.logOut(),
       },
     ];
 
@@ -171,13 +166,9 @@ export class NavBarComponent implements OnInit {
     this.profileItems = this.navbar_items.filter((item) => item.group === 'profile');
   }
 
-  @Input() user!: User;
-
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+    if (!isPlatformBrowser(this.platformId)) return;
 
     const scrollTop = (event.target as Document).documentElement.scrollTop;
     const navBar = document.querySelector('nav') as HTMLElement;
@@ -204,15 +195,13 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  toggleElement(e: Event | undefined,classElement: string,type: string = 'close') {
+  toggleElement(e: Event | undefined, classElement: string, type: string = 'close') {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
 
-    const elementHTML = this.elRef.nativeElement.querySelector(
-      `.${classElement}`
-    );
+    const elementHTML = this.elRef.nativeElement.querySelector(`.${classElement}`);
     const sidebar = this.elRef.nativeElement.querySelector('.nav-bar__sidebar');
 
     if (!elementHTML) {
@@ -228,20 +217,13 @@ export class NavBarComponent implements OnInit {
 
       case 'nav-bar__modal-profile':
         this.toggleClass(elementHTML, 'active');
-        this.toggleOutsideClickListener(
-          classElement,
-          elementHTML.classList.contains('active')
-        );
+        this.toggleOutsideClickListener(classElement, elementHTML.classList.contains('active'));
         break;
 
       case 'nav-bar__center':
         this.viewSearchInput = !this.viewSearchInput;
         this.toggleClass(elementHTML, 'active');
-        this.toggleOutsideClickListener(
-          classElement,
-          elementHTML.classList.contains('active')
-        );
-
+        this.toggleOutsideClickListener(classElement, elementHTML.classList.contains('active'));
         if (sidebar?.classList.contains('visibility')) {
           this.renderer.removeClass(sidebar, 'visibility');
           this.viewSideBar = false;
@@ -259,8 +241,7 @@ export class NavBarComponent implements OnInit {
   }
 
   private toggleOutsideClickListener(classElement: string, isActive: boolean) {
-    const handler = (event: Event) =>
-      this.closeModalOnOutsideClick(event, classElement);
+    const handler = (event: Event) => this.closeModalOnOutsideClick(event, classElement);
 
     if (isActive) {
       document.addEventListener('click', handler);
@@ -269,11 +250,8 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  //Function to know when a click is made outside the element
   private closeModalOnOutsideClick = (event: Event, elementClass: string) => {
-    const modalElement = this.elRef.nativeElement.querySelector(
-      `.${elementClass}`
-    );
+    const modalElement = this.elRef.nativeElement.querySelector(`.${elementClass}`);
     if (modalElement && !modalElement.contains(event.target as Node)) {
       this.renderer.removeClass(modalElement, 'active');
       this.document.removeEventListener('click', (e) =>
@@ -282,7 +260,6 @@ export class NavBarComponent implements OnInit {
     }
   };
 
-  nameItemHover: string = '';
   seeTooltipItem(name: string) {
     this.nameItemHover = name;
   }
@@ -290,17 +267,12 @@ export class NavBarComponent implements OnInit {
     this.nameItemHover = '';
   }
 
-  isLoggued() {
-    return this.authService.isLoggued;
-  }
-
-  //
   toggleMoodDark(e: Event) {
     this.themeService.toggleTheme();
     e.stopPropagation();
   }
 
   logOut() {
-    this.router.navigate(['/login']);
+    this.authFacade.logout();
   }
 }

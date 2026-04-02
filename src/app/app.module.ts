@@ -23,11 +23,14 @@ import { StatusUiMessageComponent } from "./core/components/status-ui-message/st
 import { GlobalLoaderComponent } from './core/components/global-loader/global-loader.component';
 import { NotificationsAlertComponent } from "./shared/components/notifications-alert/notifications-alert.component";
 import { NotificationsModalComponent } from './shared/components/notifications-modal/notifications-modal.component';
-import { CloseOutsideDirective } from './shared/directives/close-outside.directive';
 import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { ShareComponent } from './shared/components/share/share.component';
 import { TooltipDirective } from './shared/directives/tooltip.directive';
+
+// Auth provider
+import { AUTH_PROVIDER } from './core/auth/auth-provider';
+import { DefaultAuthProvider } from './core/auth/default-auth.provider';
 
 @NgModule({
   declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent, GlobalLoaderComponent, NotificationsModalComponent, SearchBarComponent, ModalComponent, ShareComponent],
@@ -47,7 +50,11 @@ import { TooltipDirective } from './shared/directives/tooltip.directive';
     TooltipDirective
   ],
   exports: [TooltipDirective],
-  providers: [provideClientHydration(), provideHttpClient(withFetch())],
+  providers: [
+    provideClientHydration(),
+    provideHttpClient(withFetch()),
+    { provide: AUTH_PROVIDER, useClass: DefaultAuthProvider },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

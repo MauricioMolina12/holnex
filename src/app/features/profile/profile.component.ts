@@ -7,7 +7,7 @@ import { take } from 'rxjs';
 import { loadProfile } from './store/profile.actions';
 import { selectProfileLoading } from './store/profile.selectors';
 import { selectAuthLoaded, selectAuthUser } from '../../store/user/user.selectors';
-import { ProfileService } from './services/profile.service';
+import { AuthFacade } from '../../core/auth/auth.facade';
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private store: Store,
     private router: Router,
-    private profileService: ProfileService
+    private authFacade: AuthFacade
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.profileService.clearCache();
-    this.router.navigate(['/user/login']);
+    this.authFacade.logout();
   }
 }
