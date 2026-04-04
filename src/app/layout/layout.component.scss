@@ -11,12 +11,14 @@
   .layout-container {
     height: 100%;
     margin: 0;
+
     .layout-content {
       height: auto;
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
       position: relative;
+      padding-bottom: 25px;
 
       .notifications {
         width: 400px;

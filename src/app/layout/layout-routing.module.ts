@@ -66,6 +66,13 @@ const routes: Routes = [
             (m) => m.DashboardModule
           ),
       },
+      {
+        path: 'favorites',
+        loadChildren: () =>
+          import('../features/favorites/favorites.module').then(
+            (m) => m.FavoritesModule
+          ),
+      },
     ],
   },
   {

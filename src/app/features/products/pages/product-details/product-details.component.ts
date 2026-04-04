@@ -30,11 +30,23 @@ import { skeletonType } from '../../../../core/components/skeleton/skeleton.type
 import { Product } from '../../models/products.model';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 import { ShareComponent } from '../../../../shared/components/share/share.component';
+import { FavoritesFacade } from '../../../favorites/facades/favorites.facade';
 
-interface shipping{
+interface shipping {
   label: string;
   value: string;
   icon: string;
+}
+
+interface ProductFeature {
+  label: string;
+  value: string;
+}
+
+interface ProductFeatureGroup {
+  title: string;
+  icon: string;
+  features: ProductFeature[];
 }
 
 
@@ -108,9 +120,42 @@ export class ProductDetailsComponent
     { label: 'Tiempo de entrega', value: '3-4 días hábiles', icon: 'icon-calendar' },
     { label: 'Tiempo estimado', value: '10 - 12 Octubre 2026', icon: 'icon-truck' },
   ];
+
+  featureGroups: ProductFeatureGroup[] = [
+    {
+      title: 'Detalles generales',
+      icon: 'icon-info',
+      features: [
+        { label: 'Marca', value: 'Holnex' },
+        { label: 'Modelo', value: 'HX-2026 Pro' },
+        { label: 'SKU', value: 'HNX-00452' },
+        { label: 'Condición', value: 'Nuevo' },
+        { label: 'Garantía', value: '12 meses' },
+      ],
+    },
+    {
+      title: 'Dimensiones y peso',
+      icon: 'icon-weight',
+      features: [
+        { label: 'Peso', value: '350 g' },
+        { label: 'Alto', value: '25 cm' },
+        { label: 'Ancho', value: '18 cm' },
+        { label: 'Profundidad', value: '8 cm' },
+      ],
+    },
+    {
+      title: 'Material y composición',
+      icon: 'icon-layers',
+      features: [
+        { label: 'Material principal', value: 'Algodón orgánico 100%' },
+        { label: 'Forro', value: 'Poliéster reciclado' },
+        { label: 'Color', value: 'Negro / Gris oscuro' },
+        { label: 'Origen', value: 'Colombia' },
+      ],
+    },
+  ];
   
   showFixedHeader = signal(false);
-  isFavorite = signal(false);
 
   /*** STORE & SIGNALS ***/
   productsRelated = toSignal(this.store.select(selectAllProducts), {
@@ -128,6 +173,13 @@ export class ProductDetailsComponent
   });
 
   private route = inject(ActivatedRoute);
+  private favoritesFacade = inject(FavoritesFacade);
+
+  isFavorite = computed(() => {
+    const id = this.product?.id?.toString();
+    return id ? this.favoritesFacade.isFavorite(id) : false;
+  });
+
   constructor(
     public productService: ProductsService,
     private seoService: SeoService,
@@ -262,8 +314,9 @@ export class ProductDetailsComponent
     });
   }
 
-  favoriteProduct(){
-    this.isFavorite.set(!this.isFavorite());
-    console.log('Producto agregado a favoritos');
+  favoriteProduct(): void {
+    const productId = this.product?.id?.toString();
+    if (!productId) return;
+    this.favoritesFacade.toggle(productId, this.product);
   }
 }

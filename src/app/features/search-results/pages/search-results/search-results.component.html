@@ -1,7 +1,175 @@
 <section class="search">
-    <div class="search__filters">
+
+  <!-- ══ SIDEBAR FILTERS ══ -->
+  <aside class="search__sidebar" [class.open]="showMobileFilters()">
+    <header class="search__sidebar-header">
+      <h3 class="search__sidebar-title">
+        <i class="icon-funnel"></i>
+        Filtros
+      </h3>
+      @if (searchFacade.hasActiveFilters()) {
+        <button class="search__sidebar-clear" (click)="searchFacade.clearAllFilters()">
+          Limpiar
+        </button>
+      }
+      <button class="search__sidebar-close" (click)="toggleMobileFilters()">
+        &times;
+      </button>
+    </header>
+
+    <div class="search__sidebar-content">
+      <app-checkbox-filter
+        [title]="'Categoría'"
+        [options]="categoryOptions()"
+        [selected]="searchFacade.filters().categories"
+        [searchable]="true"
+        (selectionChange)="searchFacade.toggleCategory($event)">
+      </app-checkbox-filter>
+
+      <hr class="search__divider" />
+
+      <app-price-range
+        [min]="searchFacade.filters().priceMin"
+        [max]="searchFacade.filters().priceMax"
+        (rangeChange)="searchFacade.setPriceRange($event.min, $event.max)">
+      </app-price-range>
+
+      <hr class="search__divider" />
+
+      <app-checkbox-filter
+        [title]="'Condición'"
+        [options]="conditionOptions"
+        [selected]="searchFacade.filters().condition"
+        (selectionChange)="searchFacade.toggleCondition($event)">
+      </app-checkbox-filter>
+
+      <hr class="search__divider" />
+
+      <label class="search__toggle-filter">
+        <input
+          type="checkbox"
+          [checked]="searchFacade.filters().freeShipping"
+          (change)="searchFacade.toggleFreeShipping()"
+        />
+        <span>
+          <i class="icon-truck"></i>
+          Envío gratis
+        </span>
+      </label>
     </div>
-    <div class="search__results">
-        <app-products-grid [title]="query" [subtitle]="'42 resultados'" [products]="products()" [loading]="loading()"></app-products-grid>
-    </div>
+  </aside>
+
+  <!-- ══ OVERLAY MOBILE ══ -->
+  @if (showMobileFilters()) {
+    <div class="search__overlay" (click)="toggleMobileFilters()"></div>
+  }
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <main class="search__main">
+
+    <!-- ── TOP BAR ── -->
+    <header class="search__topbar">
+      <div class="search__topbar-info">
+        <h1 class="search__topbar-query">
+          @if (searchFacade.query()) {
+            Resultados para <strong>"{{ searchFacade.query() }}"</strong>
+          } @else {
+            Todos los productos
+          }
+        </h1>
+        <span class="search__topbar-count">
+          {{ searchFacade.totalResults() }} {{ searchFacade.totalResults() === 1 ? 'resultado' : 'resultados' }}
+        </span>
+      </div>
+
+      <div class="search__topbar-actions">
+        <button class="search__filter-btn" (click)="toggleMobileFilters()">
+          <i class="icon-funnel"></i>
+          Filtros
+          @if (searchFacade.activeFilterCount() > 0) {
+            <span class="search__filter-badge">{{ searchFacade.activeFilterCount() }}</span>
+          }
+        </button>
+
+        <div class="search__sort">
+          <label class="search__sort-label" for="sort">Ordenar por:</label>
+          <select
+            id="sort"
+            class="search__sort-select"
+            [value]="searchFacade.sort()"
+            (change)="onSortChange($event)">
+            @for (option of sortOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── ACTIVE FILTER TAGS ── -->
+    <app-filter-tags
+      [tags]="activeTags()"
+      (remove)="onRemoveTag($event)"
+      (clearAll)="searchFacade.clearAllFilters()">
+    </app-filter-tags>
+
+    <!-- ── LOADING ── -->
+    @if (searchFacade.loading()) {
+      <article class="search__grid">
+        @for (item of [1,2,3,4,5,6,7,8]; track item) {
+          <div class="search__grid-item">
+            <app-skeleton [typeskeleton]="skeletonType.productCard"></app-skeleton>
+          </div>
+        }
+      </article>
+    }
+
+    <!-- ── ERROR ── -->
+    @if (!searchFacade.loading() && searchFacade.error()) {
+      <div class="search__status">
+        <app-status-ui-message
+          [status]="{ type: 'error', title: 'Error en la búsqueda', description: searchFacade.error() }">
+        </app-status-ui-message>
+      </div>
+    }
+
+    <!-- ── EMPTY ── -->
+    @if (!searchFacade.loading() && !searchFacade.error() && searchFacade.totalResults() === 0) {
+      <div class="search__empty">
+        <i class="icon-search1 search__empty-icon"></i>
+        <h2 class="search__empty-title">No encontramos resultados</h2>
+        <p class="search__empty-text">
+          Intenta con otros términos de búsqueda o ajusta los filtros.
+        </p>
+        @if (searchFacade.hasActiveFilters()) {
+          <button class="search__empty-clear" (click)="searchFacade.clearAllFilters()">
+            Limpiar filtros
+          </button>
+        }
+      </div>
+    }
+
+    <!-- ── RESULTS GRID ── -->
+    @if (!searchFacade.loading() && !searchFacade.error() && searchFacade.totalResults() > 0) {
+      <article class="search__grid">
+        @for (product of searchFacade.products(); track product.id) {
+          <div class="search__grid-item">
+            <app-product-card
+              [product]="product"
+              (productClick)="goToProduct(product)">
+            </app-product-card>
+          </div>
+        }
+      </article>
+
+      @if (searchFacade.totalPages() > 1) {
+        <app-pagination
+          [totalPages]="searchFacade.totalPages()"
+          [currentPage]="searchFacade.page()"
+          (pageChange)="onPageChange($event)">
+        </app-pagination>
+      }
+    }
+
+  </main>
 </section>

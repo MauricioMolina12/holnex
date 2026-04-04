@@ -5,7 +5,7 @@
 
     <!-- Logo-->
     <div class=" nav-bar__left">
-      <i class="icon-holnex nav-bar__logo" [routerLink]="['']"></i>
+      <i class="icon icon-holnex nav-bar__logo" [routerLink]="['']"></i>
       <div class="nav-bar__left--title">Hola, <span>{{userName()}}</span></div>
     </div>
 
@@ -36,49 +36,56 @@
 
       <ul class="nav-bar__sidebar-list user-list">
         @for (item of userItems; track $index) {
-          <li class="nav-bar__sidebar-list-item" (click)="item?.action($event)"
-            (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
+        <li class="nav-bar__sidebar-list-item" #itemRef (click)="item?.action($event, itemRef)"
+          (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
 
-            @if (item.profile) {
-              <div class="nav-bar__sidebar-list-item-user"
-                [ngClass]="{'not-logged' : !isAuthenticated(), 'logged' : isAuthenticated()}">
-                <div class="nav-bar__sidebar-list-item-user-content">
-                  <figure class="user-avatar" (click)="isAuthenticated() && toggleElement($event, 'nav-bar__modal-profile')">
-                    <img [src]="userAvatar()" [alt]="userName()" />
-                  </figure>
-                  <div class="user-info">
-                    <h5 class="user-name">{{ isAuthenticated() ? userName() : 'Ingresar cuenta' }}</h5>
-                    <span class="user-email">{{ isAuthenticated() ? userEmail() : 'Podrás interactuar con tu cuenta' }}</span>
-                  </div>
-                </div>
-                <div class="nav-bar__sidebar-list-item-user-actions">
-                  @if (!isAuthenticated()) {
-                    <button class="button-login" [routerLink]="'/user/login'">Iniciar sesión</button>
-                  }
-                  @if (isAuthenticated()) {
-                    <button class="button-edit" [routerLink]="'/profile'">Editar perfil</button>
-                  }
-                </div>
+          @if (item.profile) {
+          <div class="nav-bar__sidebar-list-item-user"
+            [ngClass]="{'not-logged' : !isAuthenticated(), 'logged' : isAuthenticated()}">
+
+            <div class="nav-bar__sidebar-list-item-user-content">
+
+              <figure class="user-avatar"
+                (click)="isAuthenticated() && toggleElement($event, 'nav-bar__modal-profile')">
+                <img [src]="userAvatar()" [alt]="userName()" />
+              </figure>
+
+              <div class="user-info">
+                <h5 class="user-name">{{ isAuthenticated() ? userName() : 'Ingresar cuenta' }}</h5>
+                <span class="user-email">{{ isAuthenticated() ? userEmail() : 'Podrás interactuar con tu cuenta'
+                  }}</span>
               </div>
-            }
 
+            </div>
 
-            <!-- Only items -->
-            @if (!item.profile) {
-              <ng-container>
-                <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
-                @if (item.unread) {
-                  <span class="nav-bar__sidebar-list-item-unread">{{5}}</span>
-                }
-                <div class="nav-bar__sidebar-list-item-value">
-                  <h5 class="item-title">{{ item.title }}</h5>
-                  @if (item.subtitle) {
-                    <span class="item-subtitle">{{ item.subtitle }}</span>
-                  }
-                </div>
-              </ng-container>
+            <div class="nav-bar__sidebar-list-item-user-actions">
+              @if (!isAuthenticated()) {
+              <button class="button-login" [routerLink]="'/user/login'">Iniciar sesión</button>
+              }
+              @if (isAuthenticated()) {
+              <button class="button-edit" [routerLink]="'/profile'">Editar perfil</button>
+              }
+            </div>
+
+          </div>
+          }
+
+          <!-- Only items -->
+          @if (!item.profile) {
+          <ng-container>
+            <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
+            @if (item.unread && unreadCount() > 0) {
+            <span class="nav-bar__sidebar-list-item-unread">{{ unreadCount() }}</span>
             }
-          </li>
+            <div class="nav-bar__sidebar-list-item-value">
+              <h5 class="item-title">{{ item.title }}</h5>
+              @if (item.subtitle) {
+              <span class="item-subtitle">{{ item.subtitle }}</span>
+              }
+            </div>
+          </ng-container>
+          }
+        </li>
         }
       </ul>
 
@@ -88,75 +95,87 @@
         <span class="slider"></span>
       </label>
     </div> -->
-    <ul class="nav-bar__sidebar-list settings-list">
-      <div class="nav-bar__sidebar-list-item">
-        <i class="nav-bar__sidebar-list-item-icon theme" [ngClass]="isDark() ? 'icon-sun' : 'icon-moon'"></i>
-        <div class="nav-bar__sidebar-list-item-value">
-          <h5 class="item-title">{{isDark() ? 'Modo claro' : 'Modo oscuro' }}</h5>
+      <ul class="nav-bar__sidebar-list settings-list">
+        <div class="nav-bar__sidebar-list-item">
+          <i class="nav-bar__sidebar-list-item-icon theme" [ngClass]="isDark() ? 'icon-sun' : 'icon-moon'"></i>
+          <div class="nav-bar__sidebar-list-item-value">
+            <h5 class="item-title">{{isDark() ? 'Modo claro' : 'Modo oscuro' }}</h5>
+          </div>
+          <div class="toggle-container">
+            <label class="switch">
+              <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="isDark()" />
+              <span class="slider"></span>
+            </label>
+          </div>
         </div>
-        <div class="toggle-container">
-          <label class="switch">
-            <input type="checkbox" (change)="toggleMoodDark($event)" [checked]="isDark()" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
-      @for (item of configItems; track $index) {
+        @for (item of configItems; track $index) {
         <li class="nav-bar__sidebar-list-item">
           <i class="nav-bar__sidebar-list-item-icon" [ngClass]="item.icon"></i>
           <div class="nav-bar__sidebar-list-item-value">
             <h5 class="item-title">{{ item.title }}</h5>
             @if (item.subtitle) {
-              <span class="item-subtitle">{{ item.subtitle }}</span>
+            <span class="item-subtitle">{{ item.subtitle }}</span>
             }
           </div>
         </li>
+        }
+      </ul>
+
+    </div>
+
+    <div class="nav-bar__panels">
+
+      @switch (activePanel) {
+      @case ('notifications') {
+      <div class="nav-bar__panel" [ngStyle]="panelStyle" appClickOutside (appClickOutside)="activePanel = null">
+        <app-notifications-panel></app-notifications-panel>
+      </div>
       }
-    </ul>
+      }
 
-  </div>
-
-
-  <!-- Side bar -->
-  <!-- Modal only in desktop screen -->
-  <div class="nav-bar__modal-profile">
-    <div class="nav-bar__modal-profile-user" [routerLink]="['/profile']">
-      <div class="nav-bar__modal-profile-avatar">
-        <img [src]="userAvatar()" [alt]="'Imagen de: ' + userName()" />
-      </div>
-      <div class="nav-bar__modal-profile-info">
-        <h1 class="nav-bar__modal-profile-name">{{ userName() }}</h1>
-        <span class="nav-bar__modal-profile-email">{{ userEmail() }}</span>
-      </div>
-    </div>
-    <div class="nav-bar__modal-profile-item">
-      <i class="nav-bar__modal-profile-item-icon icon-location"></i>
-      <div class="nav-bar__modal-profile-item-value">
-        <h5 class="nav-bar__modal-profile-item-title">Dirección</h5>
-        <h5 class="nav-bar__modal-profile-item-subtitle">{{ userAddress() }}</h5>
-      </div>
     </div>
 
-    @for (item of configItems; track $index) {
+
+    <!-- Side bar -->
+    <!-- Modal only in desktop screen -->
+    <div class="nav-bar__modal-profile">
+      <div class="nav-bar__modal-profile-user" [routerLink]="['/profile']">
+        <div class="nav-bar__modal-profile-avatar">
+          <img [src]="userAvatar()" [alt]="'Imagen de: ' + userName()" />
+        </div>
+        <div class="nav-bar__modal-profile-info">
+          <h1 class="nav-bar__modal-profile-name">{{ userName() }}</h1>
+          <span class="nav-bar__modal-profile-email">{{ userEmail() }}</span>
+        </div>
+      </div>
+      <div class="nav-bar__modal-profile-item">
+        <i class="nav-bar__modal-profile-item-icon icon-location"></i>
+        <div class="nav-bar__modal-profile-item-value">
+          <h5 class="nav-bar__modal-profile-item-title">Dirección</h5>
+          <h5 class="nav-bar__modal-profile-item-subtitle">{{ userAddress() }}</h5>
+        </div>
+      </div>
+
+      @for (item of configItems; track $index) {
       <div class="nav-bar__modal-profile-item" [routerLink]="[item.path]">
         <i class="nav-bar__modal-profile-item-icon" [ngClass]="item.icon"></i>
         <div class="nav-bar__modal-profile-item-value">
           <h5 class="nav-bar__modal-profile-item-title">{{ item.title }}</h5>
           @if (item.subtitle) {
-            <span class="nav-bar__modal-profile-item-subtitle">
-              {{ item.subtitle }}
-            </span>
+          <span class="nav-bar__modal-profile-item-subtitle">
+            {{ item.subtitle }}
+          </span>
           }
-          @if (item.unread == true) {
-            <span class="nav-bar__modal-profile-item-pending-number">5</span>
+          @if (item.unread == true && unreadCount() > 0) {
+          <span class="nav-bar__modal-profile-item-pending-number">{{ unreadCount() }}</span>
           }
         </div>
-        @if (item.unread == true) {
-          <div class="nav-bar__modal-profile-item-pending-dot"></div>
+        @if (item.unread == true && unreadCount() > 0) {
+        <div class="nav-bar__modal-profile-item-pending-dot"></div>
         }
       </div>
-    }
-    <!-- <div class="nav-bar__item">
+      }
+      <!-- <div class="nav-bar__item">
     <i class="nav-bar__item-icon" [ngClass]="isMoodDark ? 'icon-sun' : 'icon-moon'"></i>
     <div class="nav-bar__item-value">
       <h5 class="nav-bar__item-title">{{isMoodDark ? 'Modo claro' : 'Modo oscuro' }}</h5>
@@ -170,9 +189,9 @@
   </div> -->
 
 
-</div>
+    </div>
 
-</div>
+  </div>
 
 
 </nav>

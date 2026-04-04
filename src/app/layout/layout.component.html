@@ -1,7 +1,7 @@
 <div class="layout-wrapper">
   <div class="layout-container">
+    <app-nav-bar></app-nav-bar>
     <div class="layout-content">
-      <app-nav-bar></app-nav-bar>
 
       @if (showConnectionMessage()) {
         <app-status-ui-message [status]="statusNetwork()">

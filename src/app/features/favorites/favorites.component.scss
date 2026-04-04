@@ -1,0 +1,113 @@
+@import "breakpoints";
+
+.favorites {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 3rem;
+
+  &__header {
+    margin-bottom: 1.5rem;
+
+    &-info {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  &__count {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    @include respond-to("tablet") {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond-to("laptop") {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  &__grid-item {
+    width: 100%;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    i {
+      font-size: 0.9rem;
+    }
+
+    &:hover {
+      background-color: var(--color-error-bg, #fef2f2);
+      color: var(--color-error, #dc2626);
+      border-color: var(--color-error, #dc2626);
+    }
+  }
+
+  &__empty {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 1rem;
+  }
+
+  &__empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 380px;
+  }
+
+  &__empty-icon {
+    font-size: 3.5rem;
+    color: var(--color-text-tertiary, #ccc);
+    margin-bottom: 1rem;
+  }
+
+  &__empty-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  &__empty-text {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+}

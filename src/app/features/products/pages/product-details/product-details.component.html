@@ -10,8 +10,8 @@
           <app-button [text]="'Comprar ahora'" aria-label="Este botón comprará el producto actual" [type]="'submit'"
           [classCustom]="{
           base: 'button', 
-          bgColor: 'primary', 
-          textColor: 'white',
+          bgColor: 'white', 
+          textColor: 'primary',
           more: [
                 'rounded-lg',
                 'mt-1',
@@ -26,7 +26,7 @@
 
       <main class="product__content">
 
-        <app-breadcrumbs></app-breadcrumbs>
+        <!-- <app-breadcrumbs></app-breadcrumbs> -->
 
         <div class="inner">
 
@@ -135,7 +135,27 @@
                     </article>
                   </div>
                 }
-                @case (3) {
+                @case (2) {
+                  <div class="product__information--features">
+                    @for (group of featureGroups; track group.title) {
+                      <article class="product__information--features-group">
+                        <header class="group-header">
+                          <i [ngClass]="group.icon"></i>
+                          <h4 class="title">{{ group.title }}</h4>
+                        </header>
+                        <div class="group-table">
+                          @for (feature of group.features; track feature.label) {
+                            <div class="group-row">
+                              <span class="group-row__label">{{ feature.label }}</span>
+                              <span class="group-row__value">{{ feature.value }}</span>
+                            </div>
+                          }
+                        </div>
+                      </article>
+                    }
+                  </div>
+                }
+              @case (3) {
                   <div class="product__information--review">
                     <div class="product__information--review-rating">
                       <div class="rating-number">
@@ -151,10 +171,6 @@
                       </div>
                     </div>
                     <div class="product__information--review-comments">
-                      <header class="header">
-                        <h2 class="title">Opiniones</h2>
-                        <span class="number_opinions">153</span>
-                      </header>
                       @for (comment of comments; track comment) {
                         <app-card-user-comment [user]="comment"></app-card-user-comment>
                       }

@@ -1,0 +1,72 @@
+<section class="favorites">
+
+  <header class="favorites__header">
+    <div class="favorites__header-info">
+      <h1 class="favorites__title">Mis favoritos</h1>
+      @if (count() > 0) {
+        <span class="favorites__count">{{ count() }} {{ count() === 1 ? 'producto' : 'productos' }}</span>
+      }
+    </div>
+  </header>
+
+  @if (loading()) {
+    <article class="favorites__grid">
+      @for (item of [1, 2, 3, 4]; track item) {
+        <div class="favorites__grid-item">
+          <app-skeleton [typeskeleton]="skeletonType.productCard"></app-skeleton>
+        </div>
+      }
+    </article>
+  }
+
+  @if (!loading() && error()) {
+    <article class="favorites__empty">
+      <app-status-ui-message
+        [status]="{ type: 'error', title: 'Error al cargar favoritos', description: error() }"
+        (action)="favoritesFacade.load()">
+      </app-status-ui-message>
+    </article>
+  }
+
+  @if (!loading() && !error() && count() === 0) {
+    <article class="favorites__empty">
+      <div class="favorites__empty-content">
+        <i class="icon-heart favorites__empty-icon"></i>
+        <h2 class="favorites__empty-title">Aún no tienes favoritos</h2>
+        <p class="favorites__empty-text">
+          Explora nuestros productos y agrega los que más te gusten a tu lista de favoritos.
+        </p>
+        <app-button
+          [text]="'Explorar productos'"
+          (clicked)="goToHome()"
+          [classCustom]="{
+            base: 'button',
+            bgColor: 'primary',
+            textColor: 'white',
+            more: ['rounded-lg', 'p-4', 'mt-4']
+          }">
+        </app-button>
+      </div>
+    </article>
+  }
+
+  @if (!loading() && !error() && count() > 0) {
+    <article class="favorites__grid">
+      @for (product of products(); track product.id) {
+        <div class="favorites__grid-item">
+          <div class="favorites__card">
+            <app-product-card
+              [product]="product"
+              (productClick)="goToProduct(product)">
+            </app-product-card>
+            <button class="favorites__remove" (click)="removeFavorite(product)" aria-label="Eliminar de favoritos">
+              <i class="icon-trash"></i>
+              <span>Eliminar</span>
+            </button>
+          </div>
+        </div>
+      }
+    </article>
+  }
+
+</section>
