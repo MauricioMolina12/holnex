@@ -1,0 +1,118 @@
+<div class="store-products">
+  <div class="store-products__header">
+    <h1 class="store-products__title">Productos</h1>
+    <button class="store-products__add-btn" (click)="addProduct()">
+      Agregar producto
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="store-products__tabs">
+    <button
+      class="store-products__tab"
+      *ngFor="let tab of tabs"
+      [class.store-products__tab--active]="activeTab() === tab.value"
+      (click)="setTab(tab.value)"
+    >
+      {{ tab.label }}
+    </button>
+  </div>
+
+  <!-- Search and filters bar -->
+  <div class="store-products__toolbar">
+    <div class="store-products__search">
+      <span class="icon-search store-products__search-icon"></span>
+      <input
+        type="text"
+        placeholder="Buscar productos..."
+        class="store-products__search-input"
+        (input)="onSearch($any($event.target).value)"
+      />
+    </div>
+    <div class="store-products__actions">
+      <button class="store-products__icon-btn" title="Filtrar">
+        <span class="icon-filter"></span>
+      </button>
+      <button class="store-products__icon-btn" title="Ordenar">
+        <span class="icon-arrow-down"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Products table -->
+  <div class="store-products__table-wrapper" *ngIf="(loading$ | async) === false; else skeleton">
+    <table class="store-products__table">
+      <thead>
+        <tr>
+          <th class="store-products__th store-products__th--check">
+            <input type="checkbox" />
+          </th>
+          <th class="store-products__th">Producto</th>
+          <th class="store-products__th">Estado</th>
+          <th class="store-products__th">Inventario</th>
+          <th class="store-products__th">Precio</th>
+          <th class="store-products__th">Categoría</th>
+          <th class="store-products__th"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="store-products__row"
+          *ngFor="let product of products$ | async"
+          (click)="editProduct(product)"
+        >
+          <td class="store-products__td store-products__td--check" (click)="$event.stopPropagation()">
+            <input type="checkbox" />
+          </td>
+          <td class="store-products__td">
+            <div class="store-products__product-cell">
+              <div class="store-products__thumbnail">
+                <img *ngIf="product.thumbnail" [src]="product.thumbnail" [alt]="product.name" />
+              </div>
+              <div class="store-products__product-info">
+                <span class="store-products__product-name">{{ product.name }}</span>
+                <span class="store-products__product-sku">{{ product.sku }}</span>
+              </div>
+            </div>
+          </td>
+          <td class="store-products__td">
+            <span
+              class="store-products__status"
+              [class.store-products__status--active]="product.status === 'active'"
+              [class.store-products__status--draft]="product.status === 'draft'"
+              [class.store-products__status--archived]="product.status === 'archived'"
+            >
+              {{ getStatusLabel(product.status) }}
+            </span>
+          </td>
+          <td class="store-products__td">
+            {{ product.stock }} en stock
+          </td>
+          <td class="store-products__td">
+            {{ product.currency }} {{ product.price | number:'1.2-2' }}
+          </td>
+          <td class="store-products__td">
+            {{ product.categories[0] || '—' }}
+          </td>
+          <td class="store-products__td store-products__td--actions" (click)="$event.stopPropagation()">
+            <button class="store-products__icon-btn" title="Más opciones">
+              <span class="icon-more-horizontal"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="store-products__empty" *ngIf="(products$ | async)?.length === 0">
+      <span class="icon-box store-products__empty-icon"></span>
+      <p>No tienes productos aún</p>
+      <button class="store-products__add-btn" (click)="addProduct()">Agregar tu primer producto</button>
+    </div>
+  </div>
+
+  <ng-template #skeleton>
+    <div class="store-products__skeleton">
+      <ngx-skeleton-loader *ngFor="let i of [1,2,3,4,5]" [theme]="{ width: '100%', height: '56px', marginBottom: '8px' }"></ngx-skeleton-loader>
+    </div>
+  </ng-template>
+</div>

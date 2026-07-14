@@ -1,0 +1,37 @@
+<div class="store-home">
+  <h1 class="store-home__title">{{ store$()?.name }}</h1>
+  <p class="store-home__welcome">
+    Bienvenido al panel de administración de tu tienda.
+  </p>
+
+  <div class="store-home__stats">
+    <app-store-card-stats
+      title="Pedidos hoy"
+      [value]="0"
+      [change]="0"
+      period="vs ayer"
+    ></app-store-card-stats>
+
+    <app-store-card-stats
+      title="Productos"
+      [value]="0"
+      [change]="0"
+      period="este mes"
+    ></app-store-card-stats>
+
+    <app-store-card-stats
+      title="Clientes"
+      [value]="0"
+      [change]="0"
+      period="este mes"
+    ></app-store-card-stats>
+
+    <app-store-card-stats
+      title="Ventas del mes"
+      [value]="0"
+      suffix="$"
+      [change]="0"
+      period="vs mes pasado"
+    ></app-store-card-stats>
+  </div>
+</div>

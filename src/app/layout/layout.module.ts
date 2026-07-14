@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { PromoBannerComponent } from './components/promo-banner/promo-banner.component';
 import { CoreModule } from '../core/core.module';
-import { NotificationsAlertComponent } from '../shared/components/notifications-alert/notifications-alert.component';
 import { TooltipDirective } from '../shared/directives/tooltip.directive';
 
 
@@ -16,7 +15,6 @@ import { TooltipDirective } from '../shared/directives/tooltip.directive';
     LayoutRoutingModule,
     CoreModule,
     PromoBannerComponent,
-    NotificationsAlertComponent,
     TooltipDirective,
   ],
   exports: [TooltipDirective]

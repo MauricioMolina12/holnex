@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
 import { CartSummaryItem, SummaryShopping } from '../../models/summary-shopping';
 import { paymentsMethod } from '../../../../shared/models/paymentsMethods';
 import { PaymentsService } from '../../../payments/services/payments.service';
@@ -11,6 +11,7 @@ import { PaymentsService } from '../../../payments/services/payments.service';
 })
 export class CardSummaryShoppingComponent implements OnInit {
   @Input() summary!: SummaryShopping;
+  @Output() checkout = new EventEmitter<void>();
 
   paymentMethods: paymentsMethod[] = [];
   cartSummaryItems: CartSummaryItem[] = [];

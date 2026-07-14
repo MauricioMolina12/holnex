@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -13,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-product-card',
-    imports: [NgClass],
+    imports: [CommonModule],
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss']
 })

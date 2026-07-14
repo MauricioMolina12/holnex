@@ -22,18 +22,21 @@ import { CoreModule } from './core/core.module';
 import { StatusUiMessageComponent } from "./core/components/status-ui-message/status-ui-message.component";
 import { GlobalLoaderComponent } from './core/components/global-loader/global-loader.component';
 import { NotificationsAlertComponent } from "./shared/components/notifications-alert/notifications-alert.component";
-import { NotificationsModalComponent } from './shared/components/notifications-modal/notifications-modal.component';
 import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { ShareComponent } from './shared/components/share/share.component';
 import { TooltipDirective } from './shared/directives/tooltip.directive';
+import { NotificationsModule } from './features/notifications/notifications.module';
+import { favoritesReducer } from './features/favorites/store/favorites.reducer';
+import { FavoritesEffects } from './features/favorites/store/favorites.effects';
 
 // Auth provider
 import { AUTH_PROVIDER } from './core/auth/auth-provider';
 import { DefaultAuthProvider } from './core/auth/default-auth.provider';
+import { ClickOutsideDirective } from './shared/directives/click-outside.directive';
 
 @NgModule({
-  declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent, GlobalLoaderComponent, NotificationsModalComponent, SearchBarComponent, ModalComponent, ShareComponent],
+  declarations: [AppComponent, DropdownCountriesComponent, LayoutComponent, GlobalLoaderComponent, SearchBarComponent, ModalComponent, ShareComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,6 +50,9 @@ import { DefaultAuthProvider } from './core/auth/default-auth.provider';
     EffectsModule.forRoot([UserEffects]),
     StatusUiMessageComponent,
     NotificationsAlertComponent,
+    NotificationsModule,
+    StoreModule.forFeature('favorites', favoritesReducer),
+    EffectsModule.forFeature([FavoritesEffects]),
     TooltipDirective
   ],
   exports: [TooltipDirective],

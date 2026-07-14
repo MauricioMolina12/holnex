@@ -1,56 +1,155 @@
+<div align="center">
+
 # Holnex
 
-Este proyecto se generó con [Angular CLI] versión 18.0.7.
+**Plataforma de comercio electrónico moderna, escalable y con experiencia de usuario de primer nivel.**
 
-Bienvenido a Horizon, una aplicación moderna de comercio electrónico desarrollada con Angular. Esta solución está diseñada para ser escalable, rápida y visualmente atractiva, ideal para tiendas online que buscan ofrecer una experiencia superior.
+![Status](https://img.shields.io/badge/estado-en%20desarrollo-yellow)
+![Angular](https://img.shields.io/badge/Angular-21-dd0031)
+![NgRx](https://img.shields.io/badge/NgRx-21-purple)
+![SSR](https://img.shields.io/badge/SSR-Express-green)
+![License](https://img.shields.io/badge/licencia-privada-lightgrey)
 
-Horizon no es solo una tienda en línea. Somos una marca que combina la venta de productos con la prestación de servicios personalizados, adaptados a las compras y necesidades de cada usuario. Nuestro objetivo es crear una experiencia de usuario excepcional, accesible para todo tipo de público. Queremos que cada cliente se sienta cómodo, bien atendido y como en casa.
+</div>
 
-![Uploading HORIZON.png…]()
+---
 
+> **Nota:** Este proyecto se encuentra en desarrollo activo. Algunas funcionalidades pueden estar incompletas o sujetas a cambios.
 
-🚀 Características
+---
 
-    🧭 Navegación rápida con Angular Router
+## Acerca del proyecto
 
-    🛒 Gestión de carrito de compras
+Holnex es una aplicación web de e-commerce construida con Angular y Server-Side Rendering (SSR). Combina la venta de productos con servicios personalizados adaptados a las necesidades de cada usuario. El objetivo es ofrecer una experiencia de compra fluida, accesible y visualmente atractiva.
 
-    📦 Integración de productos con NgRx
+La arquitectura está diseñada para escalar: módulos lazy-loaded, estado global con NgRx, autenticación con AWS Amplify y un sistema de diseño propio basado en SCSS con soporte para tema claro y oscuro.
 
-    🧠 Estado global con NgRx Signals Store
+---
 
-    🔐 Autenticación JWT
+## Demo
 
-    💳 Checkout simulado (mock)
+<div align="center">
 
-    📱 Responsive y Mobile-first
+### Página principal
+![Banner - Página principal](public/demo/banner.png)
 
-    🎨 UI limpia con SASS 
+### Detalle de producto
+![Detalle de producto](public/demo/product-detail.png)
 
-🧑‍💻 Tecnologías utilizadas
+![Detalle de producto - Vista alternativa](public/demo/product-detail-2.png)
 
-    Framework principal: Angular 18
-    Gestión de estado reactiva: NgRx
-	  Programación reactiva: RxJS
-    Estilos: SASS
-    Typescript	
+### Carrito de compras
+![Carrito de compras](public/demo/shopcart.png)
 
-⚙️ Instalación
+</div>
 
-    # Clonar repositorio
-    git clone https://github.com/MauricioMolina12/Horizon-INC
+---
 
-    # Ir al directorio
-    cd horizon-inc
+## Funcionalidades
 
-    # Instalar dependencias
-    npm install
+- **Catálogo de productos** con vista de detalle, galería de imágenes e información del vendedor
+- **Carrito de compras** con selector de cantidad, cupones de descuento y resumen de orden
+- **Búsqueda** de productos con resultados en tiempo real
+- **Autenticación** de usuarios con AWS Amplify (login, registro, recuperación de contraseña)
+- **Perfil de usuario** con configuración de cuenta, historial de pedidos y seguridad
+- **Navegación por categorías** con breadcrumbs y paginación
+- **Tema claro/oscuro** con toggle dinámico
+- **Server-Side Rendering (SSR)** para mejor SEO y rendimiento
+- **Diseño responsive** optimizado para móvil, tablet y escritorio
 
-    # Levantar servidor de desarrollo
-    ng serve -o
+---
 
+## Tech Stack
 
+| Capa | Tecnología |
+|---|---|
+| Framework | Angular 21 |
+| Estado global | NgRx (Store, Effects, Entity) |
+| Estilos | SCSS + CSS custom properties |
+| SSR | Angular SSR + Express |
+| Autenticación | AWS Amplify v6 |
+| Iconos | Icomoon (fuente personalizada) |
+| Programación reactiva | RxJS + Angular Signals |
 
+---
 
+## Instalación
 
+**Requisitos previos:** Node.js 18+ y npm
 
+```bash
+# Clonar el repositorio
+git clone https://github.com/MauricioMolina12/holnex.git
+
+# Entrar al directorio
+cd holnex
+
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
+npm start
+```
+
+La aplicación estará disponible en `http://localhost:4200`.
+
+### Otros comandos
+
+```bash
+npm run start\ network     # Servidor accesible en la red local
+ng serve -o                # Abrir navegador automáticamente
+npm run build              # Build de producción
+node dist/holnex/server/server.mjs   # Servir build SSR
+```
+
+---
+
+## Arquitectura
+
+```
+src/app/
+├── core/           # Servicios singleton, guards, interceptores
+├── features/       # Módulos de funcionalidad (lazy-loaded)
+│   ├── home/
+│   ├── products/
+│   ├── shopcart/
+│   ├── payments/
+│   ├── profile/
+│   ├── search/
+│   └── ...
+├── shared/         # Componentes, directivas y pipes reutilizables
+├── store/          # Estado global NgRx
+├── layout/         # Shell de la aplicación (NavBar, Footer)
+└── app.module.ts   # Módulo raíz
+```
+
+---
+
+## Estado del proyecto
+
+| Módulo | Estado |
+|---|---|
+| Home | Activo |
+| Productos | Activo |
+| Categorías | Activo |
+| Carrito de compras | Activo |
+| Pagos | En desarrollo |
+| Autenticación | Activo |
+| Perfil | Activo |
+| Búsqueda | Activo |
+| Dashboard | En desarrollo |
+| Tiendas (sellers) | En desarrollo |
+
+---
+
+## Autor
+
+Desarrollado por **Alfredo Mauricio Molina**.
+
+---
+
+<div align="center">
+
+*Holnex se encuentra en desarrollo activo. Se aceptan sugerencias y feedback.*
+
+</div>

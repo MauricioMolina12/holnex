@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { SearchInputComponent } from '../shared/components/search-input/search-input.component';
 import { NavBarComponent } from '../layout/components/nav-bar/nav-bar.component';
 import { FooterComponent } from '../layout/components/footer/footer.component';
+import { NotificationsModule } from '../features/notifications/notifications.module';
+import { ClickOutsideDirective } from '../shared/directives/click-outside.directive';
 
 
 
@@ -15,7 +17,9 @@ import { FooterComponent } from '../layout/components/footer/footer.component';
   imports: [
     CommonModule,
     RouterModule,
-    SearchInputComponent
+    SearchInputComponent,
+    NotificationsModule,
+    ClickOutsideDirective
   ],
   exports: [
     NavBarComponent,

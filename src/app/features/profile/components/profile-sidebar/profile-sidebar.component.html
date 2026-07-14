@@ -19,9 +19,9 @@
   </div>
 
   <nav class="sidebar-nav">
-    @for (link of links; track link.route) {
+    @for (link of links(); track link.route) {
       <a
-        [routerLink]="['/profile', link.route]"
+        [routerLink]="link.route.startsWith('/') ? [link.route] : ['/profile', link.route]"
         class="sidebar-link"
         [class.sidebar-link--active]="isActive(link.route)"
       >

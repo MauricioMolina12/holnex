@@ -1,0 +1,98 @@
+@import "variables";
+@import "typography";
+
+:host {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.store {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--color-border-gray);
+  background: #fff;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f3f4f6;
+
+    span {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #fff;
+      font-weight: 600;
+      font-size: var(--text-size-24);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__badge--status {
+    padding: 5px;
+    border-radius: 999px;
+    font-size: var(--text-size-10);
+    font-weight: 500;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    background: #f1f5f9;
+    color: #64748b;
+
+    &--active {
+      background: rgba(34, 197, 94, 0.12);
+      color: #16a34a;
+    }
+  }
+}

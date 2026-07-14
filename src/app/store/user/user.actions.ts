@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthUser } from '../../shared/models/auth-user.model';
+import { AuthUser, UserRole } from '../../shared/models/auth-user.model';
 import { AuthCredentials } from '../../core/auth/auth-provider';
 
 // ── Session check (app init) ──────────────────────────────────
@@ -12,6 +12,9 @@ export const checkSessionFailure = createAction('[Auth] Check Session Failure', 
 export const login = createAction('[Auth] Login', props<{ credentials: AuthCredentials }>());
 export const loginSuccess = createAction('[Auth] Login Success', props<{ user: AuthUser; token: string }>());
 export const loginFailure = createAction('[Auth] Login Failure', props<{ error: string }>());
+
+// ── Mock login (dev only) ────────────────────────────────────
+export const mockLoginAs = createAction('[Auth] Mock Login As', props<{ role: UserRole }>());
 
 // ── Logout ────────────────────────────────────────────────────
 export const logout = createAction('[Auth] Logout');

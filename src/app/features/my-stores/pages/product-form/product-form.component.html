@@ -1,0 +1,215 @@
+<div class="product-form">
+
+  <form class="product-form__grid" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- ═══ LEFT COLUMN ═══ -->
+    <div class="product-form__col product-form__col--left">
+
+      <!-- General Information -->
+      <section class="product-form__card">
+        <h2 class="product-form__card-title">General Information</h2>
+
+        <div class="product-form__field">
+          <label class="product-form__label" for="name">Product Name</label>
+          <input
+            id="name"
+            class="product-form__input"
+            formControlName="name"
+            placeholder="Ej: Macbook Air"
+            [class.product-form__input--error]="hasError('name')"
+          />
+          <span class="product-form__error" *ngIf="hasError('name')">{{ getError('name') }}</span>
+        </div>
+
+        <div class="product-form__field">
+          <label class="product-form__label" for="description">Description</label>
+          <textarea
+            id="description"
+            class="product-form__textarea"
+            formControlName="description"
+            rows="4"
+            placeholder="Describe tu producto..."
+            [class.product-form__textarea--error]="hasError('description')"
+          ></textarea>
+          <span class="product-form__error" *ngIf="hasError('description')">{{ getError('description') }}</span>
+        </div>
+      </section>
+
+      <!-- Product Media -->
+      <section class="product-form__card">
+        <h2 class="product-form__card-title">Product Media</h2>
+        <label class="product-form__label">Product Image</label>
+
+        <div class="product-form__media">
+          <!-- Upload area -->
+          <div
+            class="product-form__upload"
+            [class.product-form__upload--dragover]="isDragOver()"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onDrop($event)"
+            (click)="fileInput.click()"
+          >
+            <i class="icon-image product-form__upload-icon"></i>
+            <span class="product-form__upload-text">
+              <span class="product-form__upload-link">Click to upload</span> or drag and drop
+            </span>
+            <input
+              #fileInput
+              type="file"
+              accept="image/*"
+              multiple
+              hidden
+              (change)="onFilesSelected($event)"
+            />
+          </div>
+
+          <!-- Image previews -->
+          <div
+            class="product-form__image-thumb"
+            *ngFor="let img of imagePreviews(); let i = index"
+          >
+            <img [src]="img" alt="Product image {{ i + 1 }}" />
+            <div class="product-form__image-overlay">
+              <button type="button" class="product-form__image-action product-form__image-action--replace" (click)="replaceImage(i); $event.stopPropagation()">
+                Replace
+              </button>
+              <button type="button" class="product-form__image-action product-form__image-action--remove" (click)="removeImage(i); $event.stopPropagation()">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ═══ RIGHT COLUMN ═══ -->
+    <div class="product-form__col product-form__col--right">
+
+      <!-- Pricing -->
+      <section class="product-form__card">
+        <h2 class="product-form__card-title">Pricing</h2>
+
+        <div class="product-form__field">
+          <label class="product-form__label" for="price">Base Pricing</label>
+          <div class="product-form__input-prefix">
+            <span class="product-form__prefix">$</span>
+            <input
+              id="price"
+              type="number"
+              class="product-form__input product-form__input--with-prefix"
+              formControlName="price"
+              placeholder="0.00"
+              [class.product-form__input--error]="hasError('price')"
+            />
+          </div>
+          <span class="product-form__error" *ngIf="hasError('price')">{{ getError('price') }}</span>
+        </div>
+
+        <div class="product-form__field">
+          <label class="product-form__label" for="discountPercentage">Discount Percentage (%)</label>
+          <div class="product-form__row">
+            <div class="product-form__field product-form__field--half">
+              <input
+                id="discountPercentage"
+                type="number"
+                class="product-form__input"
+                formControlName="discountPercentage"
+                placeholder="25%"
+              />
+            </div>
+            <div class="product-form__field product-form__field--half">
+              <select class="product-form__select" formControlName="discountType">
+                <option value="">Select a discount type</option>
+                <option *ngFor="let opt of discountTypeOptions" [value]="opt.value">{{ opt.label }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category -->
+      <section class="product-form__card">
+        <h2 class="product-form__card-title">Category</h2>
+
+        <div class="product-form__field">
+          <label class="product-form__label" for="category">Product Category</label>
+          <select id="category" class="product-form__select" formControlName="category">
+            <option value="">Select a category</option>
+            <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
+
+        <div class="product-form__field">
+          <label class="product-form__label" for="tags">Product Tags</label>
+          <select id="tags" class="product-form__select" formControlName="tags">
+            <option value="">Select a tag</option>
+            <option *ngFor="let tag of tagOptions" [value]="tag">{{ tag }}</option>
+          </select>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ═══ FULL WIDTH: ACTIONS ═══ -->
+    <div class="product-form__actions">
+      <button
+        type="submit"
+        class="product-form__btn product-form__btn--primary"
+        [disabled]="saving()"
+      >
+        <i class="icon-plus-circle"></i>
+        {{ saving() ? 'Saving...' : 'Add product' }}
+      </button>
+      <button type="button" class="product-form__btn product-form__btn--secondary" (click)="goBack()">
+        <i class="icon-download"></i>
+        Import
+      </button>
+    </div>
+
+    <!-- ═══ FULL WIDTH: INVENTORY ═══ -->
+    <section class="product-form__card product-form__card--full">
+      <h2 class="product-form__card-title">Inventory</h2>
+
+      <div class="product-form__row product-form__row--thirds">
+        <div class="product-form__field">
+          <label class="product-form__label" for="sku">SKU</label>
+          <input
+            id="sku"
+            class="product-form__input"
+            formControlName="sku"
+            placeholder="1225422"
+            [class.product-form__input--error]="hasError('sku')"
+          />
+          <span class="product-form__error" *ngIf="hasError('sku')">{{ getError('sku') }}</span>
+        </div>
+
+        <div class="product-form__field">
+          <label class="product-form__label" for="barcode">Barcode</label>
+          <input
+            id="barcode"
+            class="product-form__input"
+            formControlName="barcode"
+            placeholder="0121215551"
+          />
+        </div>
+
+        <div class="product-form__field">
+          <label class="product-form__label" for="stock">Quantity</label>
+          <input
+            id="stock"
+            type="number"
+            class="product-form__input"
+            formControlName="stock"
+            placeholder="1"
+            [class.product-form__input--error]="hasError('stock')"
+          />
+          <span class="product-form__error" *ngIf="hasError('stock')">{{ getError('stock') }}</span>
+        </div>
+      </div>
+    </section>
+
+  </form>
+
+</div>

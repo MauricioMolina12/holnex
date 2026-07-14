@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class HttpService {
-  public horizon: string = environment.domain;
+  public holnex: string = environment.domain;
   public baseUrl: string = environment.serverUrl;
   public baseLambdaUrl = environment.serverLambdaUrl;
   public baseRetry: number = 4;

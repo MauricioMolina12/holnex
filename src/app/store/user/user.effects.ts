@@ -18,6 +18,7 @@ import {
   loginSuccess,
   logout,
   logoutSuccess,
+  mockLoginAs,
   updateAuthUser,
   updateAuthUserFailure,
   updateAuthUserSuccess,
@@ -64,6 +65,22 @@ export class UserEffects {
           map(({ user, token }) => loginSuccess({ user, token })),
           catchError((error) =>
             of(loginFailure({ error: error.message || 'Login failed' }))
+          )
+        )
+      )
+    )
+  );
+
+  // ── Mock login as role (dev only) ──
+  mockLoginAs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(mockLoginAs),
+      switchMap(({ role }) =>
+        this.authProvider.mockLoginAs(role).pipe(
+          tap(({ token }) => { HttpService.idtoken = token; }),
+          map(({ user, token }) => loginSuccess({ user, token })),
+          catchError((error) =>
+            of(loginFailure({ error: error.message || 'Mock login failed' }))
           )
         )
       )

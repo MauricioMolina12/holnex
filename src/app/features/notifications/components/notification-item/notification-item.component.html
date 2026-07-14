@@ -1,0 +1,28 @@
+<div class="notification-item" [class.unread]="!notification.read" (click)="onMarkAsRead()" appClickOutside
+  (appClickOutside)="onCloseOptions()">
+  <div class="notification-item__icon">
+    <i [ngClass]="iconClass"></i>
+  </div>
+  <div class="notification-item__content">
+    <h5 class="notification-item__title">{{ notification.title }}</h5>
+    <p class="notification-item__message">{{ notification.message }}</p>
+    <span class="notification-item__time">{{ timeAgo }}</span>
+  </div>
+  @if (!notification.read) {
+  <span class="notification-item__dot"></span>
+  }
+
+  <button class="notification-item__action" (click)="onToggleOptions($event)">
+    <i class="icon icon-ellipsis_h"></i>
+  </button>
+
+  <div class="notification-item__options" [class.show]="isOpen">
+    <button class="notification-item__option" (click)="onMarkAsRead()">
+      Marcar como leída
+    </button>
+    <button class="notification-item__option">
+      Eliminar
+    </button>
+  </div>
+
+</div>

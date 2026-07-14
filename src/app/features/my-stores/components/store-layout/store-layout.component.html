@@ -1,0 +1,73 @@
+<div class="store-layout" [class.store-layout--collapsed]="sidebarCollapsed()">
+  <!-- Sidebar -->
+  <aside class="store-sidebar" (mouseover)="onSidebarMouseEnter()">
+    <!-- Store header -->
+
+    @if (selectedStore$()) {
+    <div class="store-sidebar__header" *ngIf="selectedStore$() as currentStore">
+      <div class="store-sidebar__logo">
+        @if (currentStore?.logo == null) {
+        <span class="store-sidebar__initial">{{ getInitials(currentStore.name) }}</span>
+        }@else {
+        <img [src]="currentStore.logo" [alt]="currentStore.name" />
+        }
+      </div>
+      @if (!sidebarCollapsed()) {
+      <div class="store-sidebar__store-info">
+        <span class="store-sidebar__store-name">{{ currentStore.name }}</span>
+      </div>
+      }
+      <button class="store-sidebar__toggle" [class.open]="!sidebarCollapsed()" (click)="toggleSidebar()">
+        <span class="icon-arrow-chevron-right"></span>
+      </button>
+    </div>
+    }
+
+
+    @if (sidebarCollapsed()) {
+    <button class="store-sidebar__expand" (click)="toggleSidebar()">
+      <span class="icon icon-chevron-right"></span>
+    </button>
+    }
+
+    <!-- Navigation -->
+    <nav class="store-sidebar__nav">
+      <ul class="store-sidebar__list">
+        <li class="store-sidebar__item" *ngFor="let item of sidebarItems"
+          [class.store-sidebar__item--active]="isActive(item.route)"
+          [class.store-sidebar__item--expanded]="item.expanded">
+          <a class="store-sidebar__link" (click)="navigateTo(item)">
+            <span class="store-sidebar__icon" [ngClass]="item.icon"></span>
+            <span class="store-sidebar__label" *ngIf="!sidebarCollapsed()">{{ item.label }}</span>
+            <span class="store-sidebar__chevron icon-arrow-chevron-right"
+              *ngIf="item.children?.length && !sidebarCollapsed()"
+              [class.store-sidebar__chevron--open]="item.expanded"></span>
+          </a>
+
+          <!-- Sub-menu -->
+          <ul class="store-sidebar__sublist" *ngIf="item.children?.length && item.expanded && !sidebarCollapsed()">
+            <li *ngFor="let child of item.children">
+              <a class="store-sidebar__sublink" (click)="navigateToChild(item, child)">
+                {{ child.label }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Bottom -->
+    <div class="store-sidebar__bottom">
+      <a class="store-sidebar__link" [class.store-sidebar__link--active]="isActive('settings')"
+        (click)="navigateTo(settingsItem)">
+        <span class="store-sidebar__icon icon-settings"></span>
+        <span class="store-sidebar__label" *ngIf="!sidebarCollapsed()">Configuración</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="store-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -86,7 +86,7 @@
     <div class="shopcart__inner-summary">
       <div class="layer">
         @if (summaryShopping) {
-          <app-card-summary-shopping [summary]="summaryShopping"></app-card-summary-shopping>
+          <app-card-summary-shopping [summary]="summaryShopping" (checkout)="goToCheckout()"></app-card-summary-shopping>
         }
       </div>
     </div>

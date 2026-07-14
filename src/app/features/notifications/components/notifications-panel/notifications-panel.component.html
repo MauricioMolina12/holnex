@@ -1,0 +1,60 @@
+<aside class="notifications-panel">
+  <header class="notifications-panel__header">
+    <h4 class="notifications-panel__title">Notificaciones</h4>
+    <div class="notifications-panel__actions">
+      @if (unreadCount() > 0) {
+        <button class="notifications-panel__mark-all" (click)="onMarkAllAsRead()">
+          Marcar todas como leídas
+        </button>
+      }
+    </div>
+  </header>
+
+  <nav class="notifications-panel__tabs">
+    <button
+      class="notifications-panel__tab"
+      [class.active]="filter() === 'all'"
+      (click)="onFilterChange('all')">
+      Todas
+    </button>
+    <button
+      class="notifications-panel__tab"
+      [class.active]="filter() === 'unread'"
+      (click)="onFilterChange('unread')">
+      No leídas
+      @if (unreadCount() > 0) {
+        <span class="notifications-panel__tab-badge">{{ unreadCount() }}</span>
+      }
+    </button>
+  </nav>
+
+  <div class="notifications-panel__body">
+    @if (loading()) {
+      <div class="notifications-panel__loading">
+        <span class="notifications-panel__spinner"></span>
+        Cargando notificaciones...
+      </div>
+    } @else if (filteredNotifications().length === 0) {
+      <div class="notifications-panel__empty">
+        <i class="icon-notifications notifications-panel__empty-icon"></i>
+        <p class="notifications-panel__empty-text">
+          {{ filter() === 'unread' ? 'No tienes notificaciones sin leer' : 'No tienes notificaciones' }}
+        </p>
+      </div>
+    } @else {
+      <ul class="notifications-panel__list">
+        @for (notification of filteredNotifications(); track notification.id) {
+          <li>
+            <app-notification-item
+              [notification]="notification"
+              (read)="onMarkAsRead($event)"
+              [isOpen]="openNotificationId === notification.id",
+              (toggle)="onToggleNotification($event ?? '')"
+              >
+            </app-notification-item>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</aside>

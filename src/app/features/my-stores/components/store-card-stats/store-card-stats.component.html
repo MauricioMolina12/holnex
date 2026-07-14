@@ -1,0 +1,24 @@
+<div class="store-card-stats">
+    <div class="store-card-stats__header">
+        <span class="store-card-stats__title">{{ title }}</span>
+    </div>
+
+    <div class="store-card-stats__body">
+        <div class="store-card-stats__value">
+            {{ value }} 
+            @if(suffix){
+              <span>{{ suffix }}</span>
+            }
+        </div>
+
+        <div class="store-card-stats__change" [class.store-card-stats__change--positive]="change >= 0"
+            [class.store-card-stats__change--negative]="change < 0">
+            <span class="icon" [ngClass]="change >= 0 ? 'icon-arrow-up' : 'icon-arrow-down'"></span>
+            {{ change | number:'1.2-2' }}% {{ period }}
+        </div>
+    </div>
+
+    <div class="store-card-stats__chart">
+        <div class="store-card-stats__sparkline"></div>
+    </div>
+</div>

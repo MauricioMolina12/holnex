@@ -1,7 +1,7 @@
 @import "variables";
 @import "positions";
 
-$btn-padding-y: 0.5rem;
+$btn-padding-y: 1rem;
 $btn-padding-x: 1rem;
 $btn-gap: 0.5rem;
 $btn-border-radius: var(--border-radius);
@@ -85,6 +85,7 @@ $btn-states: (
   background-color: transparent;
   user-select: none;
   z-index: 100;
+  border-radius: 6px;
 
   &:disabled,
   &.disabled {
