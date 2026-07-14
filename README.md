@@ -144,7 +144,7 @@ src/app/
 
 ## Autor
 
-Desarrollado por **Alfredo Mauricio Molina**.
+Desarrollado por **Mauricio Molina**.
 
 ---
 
