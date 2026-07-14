@@ -1,0 +1,29 @@
+<section class="store-selector">
+  <div class="store-selector__header">
+    <h1 class="store-selector__title">Mis tiendas</h1>
+    <p class="store-selector__subtitle">Selecciona una tienda para administrarla</p>
+  </div>
+
+
+  @if (loading$() === false) {
+    <div class="store-selector__grid">
+      @for (store of stores$(); track store.id) {
+        <div class="store-card">
+          <app-store-card [store]="store" (click)="enterStore(store)"></app-store-card>
+        </div>
+      } 
+    </div>
+  }@else { 
+    <ng-template #skeleton>
+      <div class="store-selector__grid">
+        <div class="store-card store-card--skeleton" *ngFor="let i of [1, 2, 3]">
+          <ngx-skeleton-loader [theme]="{ width: '56px', height: '56px', borderRadius: '12px' }"></ngx-skeleton-loader>
+          <div class="store-card__info">
+            <ngx-skeleton-loader [theme]="{ width: '140px', height: '18px' }"></ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{ width: '80px', height: '14px' }"></ngx-skeleton-loader>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  }
+</section>

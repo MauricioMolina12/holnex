@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthUser } from '../../shared/models/auth-user.model';
+import { AuthUser, UserRole } from '../../shared/models/auth-user.model';
 
 /**
  * Auth credentials for login — extend as needed.
@@ -40,6 +40,11 @@ export abstract class AuthProvider {
 
   /** Return the current access / id token, or `null`. */
   abstract getToken(): string | null;
+
+  /** Mock-only: login as a specific role. Override in dev providers. */
+  mockLoginAs(role: UserRole): Observable<AuthResult> {
+    throw new Error('mockLoginAs is not supported by this provider');
+  }
 }
 
 /**

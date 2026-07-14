@@ -1,0 +1,24 @@
+<div class="store">
+  <div class="store__header">
+    <figure class="store__logo">
+      @if (store?.logo != null) {
+        <img [src]="store?.logo" alt="logo">
+      } @else {
+        <span [style.background-color]="stringToColor(store?.name || '')">
+          {{ getInitials(store?.name || '') }}
+        </span>
+      }
+    </figure>
+
+    <h2 class="store__name">{{ store?.name }}</h2>
+  </div>
+
+  <div class="store__footer">
+    <div
+      class="store__badge--status"
+      [class.store__badge--status--active]="store?.status === 'active'"
+    >
+      {{ store?.status === 'active' ? 'Activa' : 'Inactiva' }}
+    </div>
+  </div>
+</div>

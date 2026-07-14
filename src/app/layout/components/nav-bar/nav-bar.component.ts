@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   computed,
+  effect,
   HostListener,
   Inject,
   OnInit,
@@ -69,6 +70,12 @@ export class NavBarComponent implements OnInit {
   userEmail: Signal<string>;
   userAddress: Signal<string>;
 
+  /** Whether current user is a seller */
+  isSeller: Signal<boolean>;
+
+  /** Whether the initial session check has completed */
+  isLoaded: Signal<boolean>;
+
   nameItemHover = '';
   activePanel: string | null = null;
 
@@ -94,9 +101,17 @@ export class NavBarComponent implements OnInit {
       () => this.user()?.avatar ?? 'assets/img/user-default.jpg',
     );
     this.userEmail = computed(() => this.user()?.email ?? '');
-    this.userAddress = computed(
-      () => this.user()?.address ?? 'No tienes una dirección registrada',
-    );
+    this.userAddress = computed(() => this.user()?.address ?? 'No tienes una dirección registrada');
+    this.isSeller = this.authFacade.isSeller;
+    this.isLoaded = this.authFacade.isLoaded;
+
+    // Rebuild nav items when user/auth state changes
+    effect(() => {
+      this.user();
+      this.isAuthenticated();
+      this.isSeller();
+      this.buildNavItems();
+    });
   }
 
   ngOnInit(): void {
@@ -156,6 +171,14 @@ export class NavBarComponent implements OnInit {
         group: 'user',
         code: 'purchases',
       },
+      ...(this.isSeller() ? [{
+        icon: 'icon-store',
+        title: 'Mis tiendas',
+        path: '/my-stores',
+        group: 'user' as const,
+        action: () => this.navigateRoute('/my-stores'),
+        code: 'my-stores',
+      }] : []),
       {
         icon: 'icon-notifications',
         title: 'Notificaciones',

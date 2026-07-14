@@ -1,4 +1,5 @@
 import { Component, computed, effect, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   selectAllProducts,
@@ -9,6 +10,8 @@ import { ProductsService } from '../products/services/products.service';
 import { Store } from '@ngrx/store';
 import { loadProducts } from '../products/store/actions/product.actions';
 import { SummaryShopping } from './models/summary-shopping';
+import { setOrder } from '../payments/store/payment.actions';
+import { CheckoutOrder } from '../payments/models/payment.model';
 
 @Component({
   selector: 'app-shopcart',
@@ -47,7 +50,11 @@ export class ShopcartComponent implements OnInit {
   steps: number = 3;
   step: number = 1;
 
-  constructor(public productsService: ProductsService, private store: Store) {}
+  constructor(
+    public productsService: ProductsService,
+    private store: Store,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(loadProducts());
@@ -104,6 +111,24 @@ export class ShopcartComponent implements OnInit {
 
   onToggleStep(stepIndex: number): void {
     this.step = this.step === stepIndex ? -1 : stepIndex;
+  }
+
+  goToCheckout(): void {
+    const products = this.cartProducts();
+    if (!products.length) return;
+
+    const order: CheckoutOrder = {
+      items: products.map((p) => ({
+        productId: p.id,
+        title: p.title,
+        image: p.images?.[0] || '',
+        price: p.price,
+        quantity: 1,
+      })),
+    };
+
+    this.store.dispatch(setOrder({ order }));
+    this.router.navigate(['/checkout']);
   }
 
   readonly updateSummaryEffect = effect(() => {

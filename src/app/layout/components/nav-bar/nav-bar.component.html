@@ -6,7 +6,9 @@
     <!-- Logo-->
     <div class=" nav-bar__left">
       <i class="icon icon-holnex nav-bar__logo" [routerLink]="['']"></i>
-      <div class="nav-bar__left--title">Hola, <span>{{userName()}}</span></div>
+      @if (isLoaded()) {
+        <div class="nav-bar__left--title">Hola, <span>{{userName()}}</span></div>
+      }
     </div>
 
 
@@ -39,7 +41,7 @@
         <li class="nav-bar__sidebar-list-item" #itemRef (click)="item?.action($event, itemRef)"
           (mouseenter)="seeTooltipItem(item.title || '')" (mouseleave)="seeTooltipItemLeave()">
 
-          @if (item.profile) {
+          @if (item.profile && isLoaded()) {
           <div class="nav-bar__sidebar-list-item-user"
             [ngClass]="{'not-logged' : !isAuthenticated(), 'logged' : isAuthenticated()}">
 
@@ -155,6 +157,16 @@
           <h5 class="nav-bar__modal-profile-item-subtitle">{{ userAddress() }}</h5>
         </div>
       </div>
+
+      @if (isSeller()) {
+      <div class="nav-bar__modal-profile-item" [routerLink]="['/my-stores']">
+        <i class="nav-bar__modal-profile-item-icon icon-store"></i>
+        <div class="nav-bar__modal-profile-item-value">
+          <h5 class="nav-bar__modal-profile-item-title">Mis tiendas</h5>
+          <span class="nav-bar__modal-profile-item-subtitle">Administra tus tiendas y productos</span>
+        </div>
+      </div>
+      }
 
       @for (item of configItems; track $index) {
       <div class="nav-bar__modal-profile-item" [routerLink]="[item.path]">

@@ -405,20 +405,21 @@
               align-items: center;
               gap: 0.6rem;
               padding: 0.85rem 1rem;
-              background-color: #e8f4ff;
+              background-color: var(--color-primary);
+              color: white;
 
               i {
                 font-size: 1.1rem;
 
                 &::before {
-                  color: var(--color-primary);
+                  color: white;
                 }
               }
 
               .title {
                 font-size: var(--text-size-10);
                 font-weight: 600;
-                color: var(--color-primary);
+                color: white;
                 margin: 0;
               }
             }
@@ -863,6 +864,34 @@
       width: 90%;
       margin: 0 auto;
     }
+  }
+}
+
+// Add to cart animation
+.add-to-cart-wrapper {
+  width: 100%;
+
+  app-button {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &.added app-button {
+    animation: addToCartBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@keyframes addToCartBounce {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(0.92);
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

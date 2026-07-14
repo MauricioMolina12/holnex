@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output } from '@angular/core';
 import { ProfileUser, SidebarLink } from '../../models/profile.model';
+import { AuthFacade } from '../../../../core/auth/auth.facade';
 
 @Component({
   selector: 'app-profile-sidebar',
@@ -13,11 +14,23 @@ export class ProfileSidebarComponent {
   @Input() activeRoute: string = '';
   @Output() logout = new EventEmitter<void>();
 
-  readonly links: SidebarLink[] = [
+  isSeller = this.authFacade.isSeller;
+
+  readonly baseLinks: SidebarLink[] = [
     { label: 'Resumen', route: 'overview', icon: 'icon-home' },
     { label: 'Mis pedidos', route: 'orders', icon: 'icon-order' },
     { label: 'Configuración', route: 'settings', icon: 'icon-settings' },
   ];
+
+  links = computed<SidebarLink[]>(() => {
+    const base = [...this.baseLinks];
+    if (this.isSeller()) {
+      base.push({ label: 'Mis tiendas', route: '/my-stores', icon: 'icon-store' });
+    }
+    return base;
+  });
+
+  constructor(private authFacade: AuthFacade) {}
 
   isActive(route: string): boolean {
     return this.activeRoute.includes(route);

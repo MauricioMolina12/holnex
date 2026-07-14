@@ -31,6 +31,8 @@ import { Product } from '../../models/products.model';
 import { ModalService } from '../../../../shared/components/modal/modal.service';
 import { ShareComponent } from '../../../../shared/components/share/share.component';
 import { FavoritesFacade } from '../../../favorites/facades/favorites.facade';
+import { setOrder } from '../../../payments/store/payment.actions';
+import { CheckoutOrder } from '../../../payments/models/payment.model';
 
 interface shipping {
   label: string;
@@ -156,6 +158,7 @@ export class ProductDetailsComponent
   ];
   
   showFixedHeader = signal(false);
+  addedToCart = signal(false);
 
   /*** STORE & SIGNALS ***/
   productsRelated = toSignal(this.store.select(selectAllProducts), {
@@ -252,7 +255,6 @@ export class ProductDetailsComponent
     );
     this.loading = false;
   }
-  loadProduct = (slug: string) => {};
 
   /*** HELPERS ***/
 
@@ -312,6 +314,29 @@ export class ProductDetailsComponent
         productTitle: this.product?.title || '',
       },
     });
+  }
+
+  addToCart(): void {
+    if (this.addedToCart()) return;
+    this.addedToCart.set(true);
+    setTimeout(() => this.addedToCart.set(false), 2000);
+  }
+
+  buyNow(): void {
+    if (!this.product?.id) return;
+
+    const order: CheckoutOrder = {
+      items: [{
+        productId: this.product.id,
+        title: this.product.title,
+        image: this.product.images?.[0] || '',
+        price: this.product.price,
+        quantity: this.quantityProduct,
+      }],
+    };
+
+    this.store.dispatch(setOrder({ order }));
+    this.router.navigate(['/checkout']);
   }
 
   favoriteProduct(): void {

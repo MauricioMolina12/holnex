@@ -1,12 +1,14 @@
-import { Injectable, Signal } from '@angular/core';
+import { Injectable, Signal, computed } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { AuthCredentials } from './auth-provider';
 import {
   checkSession,
+  checkSessionNoSession,
   login,
   logout,
+  mockLoginAs,
 } from '../../store/user/user.actions';
 import {
   selectAuthError,
@@ -15,7 +17,7 @@ import {
   selectAuthUser,
   selectIsAuthenticated,
 } from '../../store/user/user.selectors';
-import { AuthUser } from '../../shared/models/auth-user.model';
+import { AuthUser, UserRole } from '../../shared/models/auth-user.model';
 
 /**
  * Facade that every component uses to interact with auth.
@@ -67,5 +69,24 @@ export class AuthFacade {
   logout(): void {
     this.store.dispatch(logout());
     this.router.navigate(['/user/login']);
+  }
+
+  /** Mark auth state as loaded without authenticating (used during SSR). */
+  markAsLoaded(): void {
+    this.store.dispatch(checkSessionNoSession());
+  }
+
+  /** Whether the current user has the seller role. */
+  readonly isSeller: Signal<boolean> = computed(() => this.currentUser()?.role === 'seller');
+
+  /** Whether the current user has the admin role. */
+  readonly isAdmin: Signal<boolean> = computed(() => this.currentUser()?.role === 'admin');
+
+  /**
+   * Dev-only: instantly log in as a specific role.
+   * Use `authFacade.mockLoginAs('seller')` to simulate a seller session.
+   */
+  mockLoginAs(role: UserRole): void {
+    this.store.dispatch(mockLoginAs({ role }));
   }
 }

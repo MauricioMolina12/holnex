@@ -205,19 +205,26 @@
                 </div>
               </div>
               <div class="actions">
-              <app-button [text]="'Comprar ahora'" [classCustom]="{
-                base: 'button', 
-                bgColor: 'secondary', 
-                textColor: 'white', 
+              <app-button (clicked)="buyNow()" [text]="'Comprar ahora'" [classCustom]="{
+                base: 'button',
+                bgColor: 'secondary',
+                textColor: 'white',
                 more: ['w-full','p-4', 'rounded-lg', 'text-sm']}">
                 </app-button>
 
-              <app-button [text]="'Agregar al carrito'" [iconPosition]="'left'" [icon]="'icon-shop-cart'" [classCustom]="{
-              base: 'button', 
-              bgColor: 'light-blue', 
-              textColor: 'secondary',
-              more: ['w-full','p-4','rounded-lg','flex','items-center','justify-center', 'text-sm']}">
+              <div class="add-to-cart-wrapper" [class.added]="addedToCart()">
+                <app-button
+                  (clicked)="addToCart()"
+                  [text]="addedToCart() ? 'Agregado' : 'Agregar al carrito'"
+                  [iconPosition]="'left'"
+                  [icon]="addedToCart() ? 'icon-shopping_bag_speed' : 'icon-shop-cart'"
+                  [classCustom]="{
+                    base: 'button',
+                    bgColor: addedToCart() ? 'success' : 'light-blue',
+                    textColor: addedToCart() ? 'white' : 'secondary',
+                    more: ['w-full','p-4','rounded-lg','flex','items-center','justify-center', 'text-sm']}">
                 </app-button>
+              </div>
 
                 <app-button (clicked)="openModal()" [text]="'Compartir'" [iconPosition]="'left'" [icon]="'icon-share'"
                 [variant]="'ghost'" [classCustom]="{

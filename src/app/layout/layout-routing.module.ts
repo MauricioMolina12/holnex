@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { ProductDetailsComponent } from '../features/products/pages/product-details/product-details.component';
 import { authGuard } from '../core/guards/auth.guard';
+import { sellerGuard } from '../core/guards/seller.guard';
 
 const routes: Routes = [
   {
@@ -24,54 +25,42 @@ const routes: Routes = [
       {
         path: 'product',
         data: { breadcrumb: 'Productos' },
-        loadChildren: () =>
-          import('../features/products/products.module').then(
-            (m) => m.ProductsModule
-          ),
+        loadChildren: () => import('../features/products/products.module').then((m) => m.ProductsModule),
       },
       {
         path: 'category/:slug',
-        loadComponent: () =>
-          import(
-            '../features/categories/components/category-details/category-details.component'
-          ).then((m) => m.CategoryDetailsComponent),
+        loadComponent: () => import('../features/categories/components/category-details/category-details.component').then((m) => m.CategoryDetailsComponent),
       },
       {
         path: 'search',
-        loadChildren: () =>
-          import('../features/search-results/search-results.module').then(
-            (m) => m.SearchResultsModule
-          ),
+        loadChildren: () => import('../features/search-results/search-results.module').then((m) => m.SearchResultsModule),
       },
       {
         path: 'shopcart',
-        loadChildren: () =>
-          import('../features/shopcart/shopcart.module').then(
-            (m) => m.ShopcartModule
-          ),
+        loadChildren: () => import('../features/shopcart/shopcart.module').then((m) => m.ShopcartModule),
       },
       {
         path: 'profile',
         canActivate: [authGuard],
-        loadChildren: () =>
-          import('../features/profile/profile.module').then(
-            (m) => m.ProfileModule
-          ),
+        loadChildren: () => import('../features/profile/profile.module').then((m) => m.ProfileModule),
       },
       {
         path: 'dashboard',
         canActivate: [authGuard],
-        loadChildren: () =>
-          import('../features/dashboard/dashboard.module').then(
-            (m) => m.DashboardModule
-          ),
+        loadChildren: () => import('../features/dashboard/dashboard.module').then( (m) => m.DashboardModule ),
       },
       {
         path: 'favorites',
-        loadChildren: () =>
-          import('../features/favorites/favorites.module').then(
-            (m) => m.FavoritesModule
-          ),
+        loadChildren: () => import('../features/favorites/favorites.module').then( (m) => m.FavoritesModule ),
+      },
+      {
+        path: 'checkout',
+        loadChildren: () => import('../features/payments/payments.module').then((m) => m.PaymentsModule),
+      },
+      {
+        path: 'my-stores',
+        canActivate: [sellerGuard],
+        loadChildren: () => import('../features/my-stores/my-stores.module').then((m) => m.MyStoresModule),
       },
     ],
   },

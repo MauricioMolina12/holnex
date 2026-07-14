@@ -26,6 +26,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.icon-discount:before {
+  content: "\e90c";
+}
+.icon-campaign:before {
+  content: "\e90d";
+}
+.icon-shopping_bag_speed:before {
+  content: "\e909";
+}
+.icon-finance_mode:before {
+  content: "\e90a";
+}
+.icon-request_quote:before {
+  content: "\e90b";
+}
+.icon-person:before {
+  content: "\e908";
+}
+
 .icon-ellipsis_v:before {
   content: "\e906";
 }
@@ -183,7 +203,7 @@
   content: "\ea94";
 }
 .icon-home:before {
-  content: "\eaa7";
+  content: "\e90e";
 }
 .icon-instagram:before {
   content: "\eaa9";

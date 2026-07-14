@@ -1,0 +1,333 @@
+<section class="checkout">
+
+  <!-- Topbar: header (left) + steps (right) -->
+  <div class="checkout__topbar">
+    <div class="checkout__header">
+      @if (step() === 1) {
+      <h2 class="checkout__title">Datos de pago</h2>
+      } @else if (step() === 2) {
+      <button type="button" class="checkout__back" (click)="goToStep(1)" aria-label="Volver">
+        <i class="icon-arrow-chevron-left"></i>
+      </button>
+      <h2 class="checkout__title">Confirma tu compra</h2>
+      } @else if (step() === 3) {
+      <h2 class="checkout__title">Resultado</h2>
+      }
+    </div>
+
+    <div class="checkout__steps">
+      <div class="step" [class.active]="step() >= 1" [class.completed]="step() > 1" (click)="goToStep(1)">
+        <span class="step__number">1</span>
+        <span class="step__label">Datos de pago</span>
+      </div>
+      <div class="step__line" [class.active]="step() > 1"></div>
+      <div class="step" [class.active]="step() >= 2" [class.completed]="step() > 2"
+        (click)="canContinue() ? goToStep(2) : null">
+        <span class="step__number">2</span>
+        <span class="step__label">Confirmar</span>
+      </div>
+      <div class="step__line" [class.active]="step() > 2"></div>
+      <div class="step" [class.active]="step() >= 3">
+        <span class="step__number">3</span>
+        <span class="step__label">Resultado</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout__content">
+
+    <!-- Left: Main content per step -->
+    <div class="checkout__main">
+
+      <!-- ─── STEP 1: Address + Payment method (horizontal) ─── -->
+      @if (step() === 1) {
+      <div class="checkout__section">
+        <div class="checkout__cards">
+
+
+          <!-- Card 1: Payment method -->
+          <div class="card-block">
+            <div class="card-block__header">
+              <div class="card-block__title">
+                <span>Método de pago</span>
+              </div>
+              <button type="button" class="card-block__action">
+                <i class="icon-add"></i> Nueva tarjeta
+              </button>
+            </div>
+
+            @if (savedCards().length) {
+            <div class="card-list">
+              @for (card of savedCards(); track card.id) {
+              <div class="card-item" [class.selected]="selectedCardId() === card.id" (click)="selectCard(card.id)">
+                <span class="radio" [class.checked]="selectedCardId() === card.id"></span>
+
+                <div class="card-item__brand">
+                  @if (brandLogo(card.brand); as logo) {
+                  <img [src]="logo" [alt]="card.brand" />
+                  } @else {
+                  <i class="icon-price"></i>
+                  }
+                </div>
+
+                <div class="card-item__info">
+                  <span class="card-item__number">{{ card.brand }} •••• {{ card.last4 }}</span>
+                  <span class="card-item__exp">Vence {{ card.expMonth | number:'2.0-0' }}/{{ card.expYear }}</span>
+                </div>
+
+                @if (card.isDefault) {
+                <span class="card-item__badge">Principal</span>
+                }
+              </div>
+              }
+            </div>
+            } @else if (loading()) {
+            <p class="empty-text">Cargando tarjetas...</p>
+            } @else {
+            <div class="empty-block">
+              <i class="icon-price empty-block__icon"></i>
+              <p class="empty-block__text">No tienes tarjetas guardadas</p>
+              <button type="button" class="empty-block__action">Agregar tarjeta</button>
+            </div>
+            }
+          </div>
+
+          <!-- Card 2: Address -->
+          <div class="card-block">
+            <div class="card-block__header">
+              <div class="card-block__title">
+                <i class="icon-position card-block__icon"></i>
+                <span>Dirección de entrega</span>
+              </div>
+              <button type="button" class="card-block__action">
+                <i class="icon-add"></i> Agregar
+              </button>
+            </div>
+
+            @if (savedAddresses().length) {
+            <div class="address-list">
+              @for (addr of savedAddresses(); track addr.id) {
+              <div class="address-item" [class.selected]="selectedShippingId() === addr.id"
+                (click)="selectShipping(addr.id)">
+                <span class="radio" [class.checked]="selectedShippingId() === addr.id"></span>
+                <div class="address-item__info">
+                  <div class="address-item__row">
+                    <span class="address-item__alias">{{ addr.alias }}</span>
+                    @if (addr.isDefault) {
+                    <span class="address-item__badge">Principal</span>
+                    }
+                  </div>
+                  <span class="address-item__name">{{ addr.recipientName }}</span>
+                  <span class="address-item__line">
+                    {{ addr.line1 }}@if (addr.line2) {, {{ addr.line2 }}}
+                  </span>
+                  <span class="address-item__line">
+                    {{ addr.city }}, {{ addr.state }} · {{ addr.postalCode }}
+                  </span>
+                  @if (addr.phone) {
+                  <span class="address-item__phone">{{ addr.phone }}</span>
+                  }
+                </div>
+              </div>
+              }
+            </div>
+
+            <div class="card-block__option">
+              <label class="check">
+                <input type="checkbox" [checked]="billingSameAsShipping()" (change)="toggleBillingSameAsShipping()" />
+                <span>Usar la misma dirección para facturación</span>
+              </label>
+            </div>
+
+            @if (!billingSameAsShipping()) {
+            <div class="card-block__sub">
+              <span class="card-block__sub-title">Dirección de facturación</span>
+              <div class="address-list address-list--compact">
+                @for (addr of savedAddresses(); track addr.id) {
+                <div class="address-item address-item--compact" [class.selected]="selectedBillingId() === addr.id"
+                  (click)="selectBilling(addr.id)">
+                  <span class="radio" [class.checked]="selectedBillingId() === addr.id"></span>
+                  <div class="address-item__info">
+                    <span class="address-item__alias">{{ addr.alias }}</span>
+                    <span class="address-item__line">{{ addr.line1 }} · {{ addr.city }}</span>
+                  </div>
+                </div>
+                }
+              </div>
+            </div>
+            }
+            } @else if (loading()) {
+            <p class="empty-text">Cargando direcciones...</p>
+            } @else {
+            <div class="empty-block">
+              <i class="icon-position empty-block__icon"></i>
+              <p class="empty-block__text">No tienes direcciones guardadas</p>
+              <button type="button" class="empty-block__action">Agregar dirección</button>
+            </div>
+            }
+          </div>
+
+        </div>
+      </div>
+      }
+
+      <!-- ─── STEP 2: Confirm ─── -->
+      @if (step() === 2) {
+      <div class="checkout__section">
+        <div class="checkout__cards">
+
+          <!-- Confirm address -->
+          <div class="card-block">
+            <div class="card-block__header">
+              <div class="card-block__title">
+                <i class="icon-position card-block__icon"></i>
+                <span>Entrega</span>
+              </div>
+              <button type="button" class="card-block__action" (click)="goToStep(1)">Cambiar</button>
+            </div>
+            @if (selectedShipping(); as a) {
+            <div class="confirm-block">
+              <span class="confirm-block__title">{{ a.alias }} — {{ a.recipientName }}</span>
+              <span class="confirm-block__line">{{ a.line1 }}@if (a.line2) {, {{ a.line2 }}}</span>
+              <span class="confirm-block__line">{{ a.city }}, {{ a.state }} · {{ a.postalCode }}</span>
+            </div>
+            }
+          </div>
+
+          <!-- Confirm card -->
+          <div class="card-block">
+            <div class="card-block__header">
+              <div class="card-block__title">
+                <i class="icon-price card-block__icon"></i>
+                <span>Pago</span>
+              </div>
+              <button type="button" class="card-block__action" (click)="goToStep(1)">Cambiar</button>
+            </div>
+            @if (selectedCard(); as c) {
+            <div class="confirm-block confirm-block--row">
+              <div class="card-item__brand">
+                @if (brandLogo(c.brand); as logo) {
+                <img [src]="logo" [alt]="c.brand" />
+                } @else {
+                <i class="icon-price"></i>
+                }
+              </div>
+              <div class="confirm-block__info">
+                <span class="confirm-block__title">{{ c.brand }} •••• {{ c.last4 }}</span>
+                <span class="confirm-block__line">{{ c.holderName }}</span>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- ─── STEP 3: Result ─── -->
+      @if (step() === 3) {
+      <div class="checkout__section checkout__result">
+        @if (processing()) {
+        <div class="result-loading">
+          <div class="spinner"></div>
+          <p>Procesando tu pago...</p>
+        </div>
+        } @else if (result(); as r) {
+        <div class="result-card" [class.success]="r.success" [class.failure]="!r.success">
+          <i [class]="r.success ? 'icon-shopping_bag_speed' : 'icon-info'" class="result-card__icon"></i>
+          <h2 class="result-card__title">{{ r.success ? 'Pago exitoso' : 'Pago fallido' }}</h2>
+          <p class="result-card__message">{{ r.message }}</p>
+          @if (r.success) {
+          <p class="result-card__txn">Transacción: {{ r.transactionId }}</p>
+          }
+          <app-button (clicked)="r.success ? goHome() : goToStep(1)"
+            [text]="r.success ? 'Volver al inicio' : 'Intentar de nuevo'"
+            [classCustom]="{base: 'button', bgColor: 'primary', textColor: 'white', more: ['p-4','rounded-lg','mt-4']}">
+          </app-button>
+        </div>
+        } @else if (error(); as err) {
+        <div class="result-card failure">
+          <i class="icon-info result-card__icon"></i>
+          <h2 class="result-card__title">Error</h2>
+          <p class="result-card__message">{{ err }}</p>
+          <app-button (clicked)="goToStep(2)" [text]="'Volver'"
+            [classCustom]="{base: 'button', bgColor: 'primary', textColor: 'white', more: ['p-4','rounded-lg','mt-4']}">
+          </app-button>
+        </div>
+        }
+      </div>
+      }
+    </div>
+
+    <!-- ─── Right: Order summary sidebar ─── -->
+    <aside class="checkout__sidebar">
+      @if (totals(); as t) {
+      <div class="order-summary">
+        <h3 class="order-summary__title">Resumen de orden</h3>
+
+        <div class="order-summary__items">
+          @for (item of order()!.items; track item.productId) {
+          <div class="order-summary__item">
+            <img [src]="item.image" [alt]="item.title" />
+            <div class="order-summary__item-info">
+              <span class="item-title">{{ item.title }}</span>
+              <span class="item-qty">x{{ item.quantity }}</span>
+            </div>
+            <span class="item-price">{{ item.price * item.quantity | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+          </div>
+          }
+        </div>
+
+        @if (order()?.couponCode) {
+        <div class="order-summary__coupon">
+          <i class="icon-discount"></i>
+          <div class="order-summary__coupon-info">
+            <span class="order-summary__coupon-code">{{ order()!.couponCode }}</span>
+            <span class="order-summary__coupon-text">Cupón aplicado</span>
+          </div>
+          <span class="order-summary__coupon-pct">-{{ order()!.couponDiscount }}%</span>
+        </div>
+        }
+
+        <div class="order-summary__rows">
+          <div class="row">
+            <span>Subtotal ({{ t.itemCount }} {{ t.itemCount === 1 ? 'producto' : 'productos' }})</span>
+            <span>{{ t.subtotal | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+          </div>
+          @if (order()?.couponDiscount) {
+          <div class="row discount">
+            <span>Descuento</span>
+            <span>-{{ t.discountAmount | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+          </div>
+          }
+          <div class="row">
+            <span>Envío</span>
+            <span class="free">Gratis</span>
+          </div>
+        </div>
+
+        <div class="order-summary__total">
+          <span>Total</span>
+          <span>{{ t.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+        </div>
+
+        @if (step() === 1) {
+        <app-button (clicked)="goToStep(2)" [text]="'Continuar'" [disabled]="!canContinue()"
+          [classCustom]="{base: 'button', bgColor: 'primary', textColor: 'white', more: ['w-full','p-4','rounded-lg','mt-4']}">
+        </app-button>
+        } @else if (step() === 2) {
+        <app-button (clicked)="confirmPayment()" [text]="'Pagar'" [loading]="processing()"
+          [classCustom]="{base: 'button', bgColor: 'primary', textColor: 'white', more: ['w-full','p-4','rounded-lg','mt-4']}">
+        </app-button>
+        }
+      </div>
+      } @else {
+      <div class="summary-skeleton">
+        <div class="skeleton-line w-60"></div>
+        <div class="skeleton-line w-full"></div>
+        <div class="skeleton-line w-80"></div>
+        <div class="skeleton-line w-40"></div>
+      </div>
+      }
+    </aside>
+  </div>
+</section>
